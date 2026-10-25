@@ -20,7 +20,7 @@ Restart prompt:
 
 ## Next, in order
 
-1. Ask Joshua the one podcasts question (band 5 to 9). Until he answers, work band 50 to 99 items that need no gate: VoiceOver on Feeds, Settings and the story screen next (Home rows done in 5.0.1), then Reduce Motion in the apps (Dynamic Type done in 5.1.0).
+1. Ask Joshua the one podcasts question (band 5 to 9). Until he answers, work band 50 to 99 items that need no gate: the accessibility pass is done (VoiceOver 5.0.1, Dynamic Type 5.1.0; Reduce Motion needed nothing: no custom animations in the apps, and the web already honours it). Next ungated: speed (first paint of Home, feed fetch time), then every language (String Catalog on the apps, a strings table on the web).
 2. Once 2.0.0 clears review, archive main as the next store version and submit iOS and Mac.
 3. One Liquid Glass pass on one screen every tick.
 
