@@ -1,6 +1,6 @@
 // ponytail: network-first for pages, cache-first for the hashed assets they name.
 // Bump CACHE to evict everything a previous version stored.
-const CACHE = "bugle-v21";
+const CACHE = "bugle-v22";
 const FILES = ["/", "/index.html","/privacy.html","/read.html","/support.html", "/manifest.webmanifest"];
 
 self.addEventListener("install", e => {
