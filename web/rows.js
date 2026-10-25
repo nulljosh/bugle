@@ -141,8 +141,9 @@ function fitTitles() {
     var w = b.clientWidth, v = b._v || [b.title];
     if (!w) return;   // hidden screen: fit when it shows
     // The canvas estimate jumps close; the live row has the final say (fonts may still be loading).
-    var i = Math.max(0, v.findIndex(function (x) { return measure.measureText(x).width <= w; }));
-    for (b.textContent = v[i]; b.scrollWidth > b.clientWidth && i < v.length - 1;) b.textContent = v[++i];
+    // Two lines (wrapping wastes some of the second, hence 1.8).
+    var i = Math.max(0, v.findIndex(function (x) { return measure.measureText(x).width <= w * 1.8; }));
+    for (b.textContent = v[i]; b.scrollHeight > b.clientHeight + 1 && i < v.length - 1;) b.textContent = v[++i];
   });
 }
 var fitTimer;

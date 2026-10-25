@@ -18,7 +18,8 @@
       var last = words[words.length - 1].replace(/^[^\w]+|[^\w]+$/g, '').toLowerCase();
       if (FILLER.has(last) || !last) words.pop(); else break;
     }
-    return words.join(' ').replace(/[\s,;:|\-–—]+$/, '');
+    // a cut inside a quote keeps the quote, not its comma: 'loophole,' -> 'loophole'
+    return words.join(' ').replace(/[\s,;:|\-–—]+$/, '').replace(/[,;:]+(['"’”]+)$/, '$1');
   }
 
   function clean(title, source) {

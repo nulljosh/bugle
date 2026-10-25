@@ -151,7 +151,7 @@ struct Kicker: View {
 }
 
 /// The top story, big: full-width picture, the outlet, and the whole headline (the one place a title gets more
-/// than a line). Every news app on Mobbin opens this way.
+/// than two lines). Every news app on Mobbin opens this way.
 struct HeroRow: View {
     let entry: JournalEntry
     @ObservedObject var library: Library
@@ -235,16 +235,22 @@ enum Pasteboard {
     }
 }
 
-/// The longest headline variant that fits on one line, so titles end on a word, not "…". The last child is the
-/// shortest variant allowed to truncate, for a window too narrow even for that.
+/// The longest headline variant that fits in two lines, so titles end on a word, not "…" (one line cut them to
+/// three words on a phone; Apple News allows two). The last child is the shortest variant, allowed to truncate.
 private struct FittedTitle: View {
     let variants: [String]
+    #if os(macOS)
+    private let twoLines: CGFloat = 34
+    #else
+    @ScaledMetric(relativeTo: .headline) private var twoLines: CGFloat = 44
+    #endif
 
     var body: some View {
-        ViewThatFits(in: .horizontal) {
-            ForEach(variants, id: \.self) { Text($0).font(.headline).lineLimit(1).fixedSize(horizontal: true, vertical: false) }
-            Text(variants.last ?? "").font(.headline).lineLimit(1)
+        ViewThatFits(in: .vertical) {
+            ForEach(variants, id: \.self) { Text($0).font(.headline).fixedSize(horizontal: false, vertical: true) }
+            Text(variants.last ?? "").font(.headline).lineLimit(2)
         }
+        .frame(maxWidth: .infinity, minHeight: twoLines, maxHeight: twoLines, alignment: .topLeading)
     }
 }
 

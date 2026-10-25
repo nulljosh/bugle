@@ -64,7 +64,8 @@ enum Headline {
         }
         var t = words.joined(separator: " ")
         while let c = t.last, ",;:|-–—".contains(c) { t.removeLast(); t = t.trimmingCharacters(in: .whitespaces) }
-        return t
+        // a cut inside a quote keeps the quote, not its comma: ‘loophole,’ -> ‘loophole’
+        return t.replacingOccurrences(of: #"[,;:]+(['"’”]+)$"#, with: "$1", options: .regularExpression)
     }
 }
 

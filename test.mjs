@@ -51,6 +51,7 @@ test("headline variants cut at a clause first, never on a filler word", () => {
   assert.equal(v[1], "Jaylen Brown ratchets up Jayson Tatum drama");
   assert.ok(variants("Show HN: I put employees inside S&P 500 bubbles").some((x) => x.startsWith("Show HN:")));
   for (const x of v) assert.ok(!["to", "the", "of", "at"].includes(x.split(" ").pop()), x);
+  assert.ok(variants("Elon Musk says SpaceX closed Ukraine Starlink ‘loophole,’ which helped Russia target cities").every((v) => !/,’$/.test(v)));
 });
 
 // /og: the article preview image, the last thumbnail catch.
