@@ -129,4 +129,5 @@ test("BBC thumbnails ask for the 976 px copy, other hosts untouched", () => {
   assert.equal(sharpen("https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/a.jpg"), "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/a.jpg");
   assert.equal(sharpen("https://ichef.bbci.co.uk/news/240/cpsprodpb/a.jpg"), "https://ichef.bbci.co.uk/news/976/cpsprodpb/a.jpg");
   assert.equal(sharpen("https://i.guim.co.uk/img/x.jpg?width=700"), "https://i.guim.co.uk/img/x.jpg?width=700");
+  assert.equal(sharpen("https://nypost.com/wp-content%2Fuploads%2Fa.jpg?w%3D1024"), "https://nypost.com/wp-content/uploads/a.jpg?w=1024");
 });

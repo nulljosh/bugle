@@ -73,12 +73,15 @@ function heroRow(e, onOpen) {
   var btn = el('button', 'hero' + (window.Library && Library.isRead(e) ? ' read' : ''));
   var img = el('img');
   img.src = e.image; img.alt = ''; img.referrerPolicy = 'no-referrer';
-  img.onerror = function () { img.remove(); };
+  img.onerror = function () { img.remove(); btn.classList.add('noimg'); };
   btn.appendChild(img);
-  btn.appendChild(kicker(e));
+  // the outlet and headline sit on glass rising out of the photo, like an App Store Today card (same as the app)
+  var glass = el('span', 'glass');
+  glass.appendChild(kicker(e));
   // the longest clean cut up to 90 characters, so even the hero ends on a whole phrase (same as the app)
   var v = Headline.variants(e.title, e.source);
-  btn.appendChild(el('h3', '', v.find(function (x) { return x.length <= 90; }) || v[v.length - 1]));
+  glass.appendChild(el('h3', '', v.find(function (x) { return x.length <= 90; }) || v[v.length - 1]));
+  btn.appendChild(glass);
   btn.onclick = function () { onOpen(e); };
   var li = el('li', 'hero-item'); li.appendChild(btn);
   return li;

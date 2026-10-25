@@ -175,8 +175,8 @@ struct Kicker: View {
     }
 }
 
-/// The top story, big: full-width picture, the outlet, and the whole headline (the one place a title gets more
-/// than two lines). Every news app on Mobbin opens this way.
+/// The top story, big, like an App Store Today card: the picture fills a 28 point card and the outlet and headline
+/// sit on glass that rises out of the bottom of the photo, so the words belong to the picture instead of under it.
 struct HeroRow: View {
     let entry: JournalEntry
     @ObservedObject var library: Library
@@ -190,24 +190,34 @@ struct HeroRow: View {
 
     var body: some View {
         RowLink(entry: entry) {
-            VStack(alignment: .leading, spacing: 8) {
-                // 16:9 on a phone; a wide Mac window caps it at 360 points so the picture never fills the screen.
-                Color.clear
-                    .aspectRatio(16 / 9, contentMode: .fit)
-                    .frame(maxWidth: .infinity, maxHeight: 360)
-                    .overlay {
-                        CachedImage(url: entry.imageURL) { phase in
-                            if case .success(let image) = phase { image.resizable().aspectRatio(contentMode: .fill) } else { Outlet.color(entry.sourceTitle).opacity(0.12) }
-                        }
+            // 4:3 on a phone; a wide Mac window caps it at 480 points so the picture never fills the screen.
+            Color.clear
+                .aspectRatio(4 / 3, contentMode: .fit)
+                .frame(maxWidth: .infinity, maxHeight: 480)
+                .overlay {
+                    CachedImage(url: entry.imageURL) { phase in
+                        if case .success(let image) = phase { image.resizable().aspectRatio(contentMode: .fill) } else { Color(white: 0.11) }   // dark while it loads, so white type reads
                     }
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                Kicker(entry: entry, saved: library.isSaved(entry), sources: story?.publishers ?? 1)
-                Text(Self.headline(entry))
-                    .font(.title2.weight(.bold))
-                    .fixedSize(horizontal: false, vertical: true)
-                    .foregroundStyle(library.isRead(entry) ? .secondary : .primary)
-            }
-            .padding(.vertical, 8)
+                }
+                .overlay(alignment: .bottom) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Kicker(entry: entry, saved: library.isSaved(entry), sources: story?.publishers ?? 1)
+                        Text(Self.headline(entry))
+                            .font(.title2.weight(.bold))
+                            .fixedSize(horizontal: false, vertical: true)
+                            .foregroundStyle(.white.opacity(library.isRead(entry) ? 0.7 : 1))
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 20).padding(.top, 48).padding(.bottom, 16)
+                    .background {
+                        // the glass: blur and a dark tint, faded in from the top so there is no edge on the photo
+                        ZStack { Rectangle().fill(.ultraThinMaterial); Color.black.opacity(0.34) }
+                            .mask(LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: UnitPoint(x: 0.5, y: 0.45)))
+                    }
+                    .environment(\.colorScheme, .dark)   // white type and each outlet's light-on-dark color, on any photo
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+                .padding(.vertical, 8)
         }
         .contextMenu {
             Button { library.toggleSave(entry) } label: { Label(library.isSaved(entry) ? "Remove from Saved" : "Save", systemImage: "bookmark") }
@@ -251,80 +261,6 @@ struct SearchField: View {
         .padding(.horizontal, 14)
         .frame(height: 44)
         .background(Color.secondary.opacity(0.12), in: Capsule())
-    }
-}
-
-/// Followed topics as chips under the search: tap one to read only it, tap again for everything. Mirrors
-/// renderTopics in web/reader.js.
-struct TopicBar: View {
-    @Binding var query: String
-    @Binding var topics: String
-    @Binding var muted: String
-    let followable: Bool
-
-    var body: some View {
-        let q = query.trimmingCharacters(in: .whitespaces)
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
-                if followable {
-                    Button(Topics.has(q, in: topics) ? "Unfollow" : "+ Follow \u{201C}\(q)\u{201D}") { topics = Topics.toggled(q, in: topics) }
-                        .buttonStyle(Chip(on: true))
-                }
-                if !q.isEmpty {   // mute anything you can search: an outlet or a word
-                    let isMuted = Topics.has(q, in: muted)
-                    Button(isMuted ? "Unmute" : "Mute") {
-                        muted = Topics.toggled(q, in: muted)
-                        if !isMuted { query = "" }
-                    }.buttonStyle(Chip())
-                }
-                ForEach(Topics.list(topics), id: \.self) { t in
-                    let on = t.caseInsensitiveCompare(q) == .orderedSame
-                    Button(t) { query = on ? "" : t }.buttonStyle(Chip(on: on))
-                        .accessibilityAddTraits(on ? .isSelected : [])
-                }
-            }
-        }
-        .listRowInsets(EdgeInsets(top: 0, leading: 20, bottom: 8, trailing: 20))
-    }
-}
-
-/// A capsule like the web's `.chip`: gray, or tinted text on a pale tint when on.
-struct Chip: ButtonStyle {
-    var on = false
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.subheadline.weight(.semibold))
-            .lineLimit(1)
-            .padding(.horizontal, 14)
-            .frame(height: 36)
-            .foregroundStyle(on ? AnyShapeStyle(.tint) : AnyShapeStyle(.primary))
-            .background(on ? AnyShapeStyle(.tint.opacity(0.14)) : AnyShapeStyle(Color.secondary.opacity(0.12)), in: Capsule())
-            .opacity(configuration.isPressed ? 0.6 : 1)
-    }
-}
-
-/// AsyncImage that reads the disk cache first and never revalidates, so a picture seen once (or a saved story's,
-/// fetched on save) still shows with no connection. Same phases as AsyncImage.
-struct CachedImage<Content: View>: View {
-    let url: URL?
-    @ViewBuilder let content: (AsyncImagePhase) -> Content
-    @State private var phase: AsyncImagePhase = .empty
-
-    var body: some View {
-        content(phase).task(id: url) { phase = await Self.load(url) }
-    }
-
-    static func load(_ url: URL?) async -> AsyncImagePhase {
-        guard let url else { return .empty }
-        let req = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 20)
-        guard let (data, _) = try? await URLSession.shared.data(for: req) else { return .failure(URLError(.notConnectedToInternet)) }
-        #if os(macOS)
-        guard let img = NSImage(data: data) else { return .failure(URLError(.cannotDecodeContentData)) }
-        return .success(Image(nsImage: img))
-        #else
-        guard let img = UIImage(data: data) else { return .failure(URLError(.cannotDecodeContentData)) }
-        return .success(Image(uiImage: img))
-        #endif
     }
 }
 

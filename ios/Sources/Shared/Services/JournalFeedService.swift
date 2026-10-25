@@ -223,9 +223,15 @@ final class FeedParser: NSObject, XMLParserDelegate {
 
     /// media:* wins over <enclosure>, which wins over the first <img> in the body.
     /// No match means no thumbnail — never a placeholder URL.
-    /// BBC feeds point at a 240 px copy; the same path serves 976 px. Mirrors sharpen in web/parse.js.
+    /// BBC feeds point at a 240 px copy; the same path serves 976 px. NY Post escapes its whole path and query
+    /// ("wp-content%2F...?w%3D1024"), so the resize never applies and a 5000 px original loads; unescape it.
+    /// Mirrors sharpen in web/parse.js.
     static func sharpen(_ url: URL) -> URL? {
-        let s = url.absoluteString.replacingOccurrences(of: #"(ichef\.bbci\.co\.uk/(?:ace/\w+|news))/\d+/"#, with: "$1/976/", options: .regularExpression)
+        var s = url.absoluteString.replacingOccurrences(of: #"(ichef\.bbci\.co\.uk/(?:ace/\w+|news))/\d+/"#, with: "$1/976/", options: .regularExpression)
+        if let r = s.range(of: #"^https?://[^/]+/"#, options: .regularExpression), s[r.upperBound...].contains("%2F"),
+           let rest = s[r.upperBound...].removingPercentEncoding {
+            s = String(s[..<r.upperBound]) + rest
+        }
         return URL(string: s) ?? url
     }
 

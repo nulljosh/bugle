@@ -32,8 +32,15 @@ function resolveImage(src, base) {
 
 // media:* beats <enclosure> beats the first <img> in the body. Mirrors FeedParser.pickImage
 // in the Swift app - the two parsers must agree or the same feed looks different per platform.
-// BBC feeds point at a 240 px copy; the same path serves 976 px. Mirrors FeedParser.sharpen.
-function sharpen(url) { return url.replace(/(ichef\.bbci\.co\.uk\/(?:ace\/\w+|news))\/\d+\//, '$1/976/'); }
+// BBC feeds point at a 240 px copy; the same path serves 976 px. NY Post escapes its whole path and query
+// ("wp-content%2F...?w%3D1024"), so the resize never applies and a 5000 px original loads; unescape it.
+// Mirrors FeedParser.sharpen.
+function sharpen(url) {
+  url = url.replace(/(ichef\.bbci\.co\.uk\/(?:ace\/\w+|news))\/\d+\//, '$1/976/');
+  var m = /^(https?:\/\/[^\/]+\/)([^?]*%2F.*)$/i.exec(url);
+  if (m) try { url = m[1] + decodeURIComponent(m[2]); } catch (e) {}
+  return url;
+}
 
 function imageFor(node, html, link) {
   // The widest media:* wins (the Guardian lists 140, 460 and 700 px copies), then the first image <enclosure>.

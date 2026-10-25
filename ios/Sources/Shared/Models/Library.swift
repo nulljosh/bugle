@@ -95,5 +95,6 @@ func relativeTimeDemo() {
     let e = JournalEntry(title: "Canucks lose again", url: "u", date: now, htmlContent: "", sourceTitle: "The Province")
     assert(Coverage.isMuted(e, ["the province"]) && Coverage.isMuted(e, ["CANUCKS"]) && !Coverage.isMuted(e, ["BBC"]))
     assert(FeedParser.sharpen(URL(string: "https://ichef.bbci.co.uk/ace/standard/240/a.jpg")!)?.absoluteString == "https://ichef.bbci.co.uk/ace/standard/976/a.jpg")
+    assert(FeedParser.sharpen(URL(string: "https://nypost.com/wp-content%2Fuploads%2Fa.jpg?w%3D1024")!)?.absoluteString == "https://nypost.com/wp-content/uploads/a.jpg?w=1024")
 }
 #endif
