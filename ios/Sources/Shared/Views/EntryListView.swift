@@ -12,6 +12,7 @@ struct EntryListView: View {
     @StateObject private var library = Library()
     @State private var path: [JournalEntry] = []
     @State private var query = UserDefaults.standard.string(forKey: "search") ?? ""   // `-search BBC` for screenshots
+    @AppStorage("topics") private var topics = ""
 
     /// Both default to the real thing; the parameters exist so the macOS screenshot capture can
     /// hand in a pre-loaded service and a trimmed feed list without writing to the user's saved
@@ -78,6 +79,11 @@ struct EntryListView: View {
         let hero = q.isEmpty ? shown.prefix(5).first { $0.lead.imageURL != nil } : nil
         return List {
             SearchField(text: $query).listRowSeparator(.hidden)
+            // Searching for a word that is not an outlet offers to follow it.
+            let followable = !q.isEmpty && Outlet.of(q) == nil && !store.feeds.contains { $0.title.caseInsensitiveCompare(q) == .orderedSame }
+            if !topics.isEmpty || followable {
+                TopicBar(query: $query, topics: $topics, followable: followable).listRowSeparator(.hidden)
+            }
             if let hero { HeroRow(entry: hero.lead, library: library, story: hero).listRowSeparator(.hidden) }
             ForEach(shown.filter { $0.id != hero?.id }) { EntryRow(entry: $0.lead, library: library, story: $0) }
             if !q.isEmpty && shown.isEmpty {
@@ -240,6 +246,47 @@ struct SearchField: View {
         .padding(.horizontal, 14)
         .frame(height: 44)
         .background(Color.secondary.opacity(0.12), in: Capsule())
+    }
+}
+
+/// Followed topics as chips under the search: tap one to read only it, tap again for everything. Mirrors
+/// renderTopics in web/reader.js.
+struct TopicBar: View {
+    @Binding var query: String
+    @Binding var topics: String
+    let followable: Bool
+
+    var body: some View {
+        let q = query.trimmingCharacters(in: .whitespaces)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                if followable {
+                    Button(Topics.has(q, in: topics) ? "Unfollow" : "+ Follow \u{201C}\(q)\u{201D}") { topics = Topics.toggled(q, in: topics) }
+                        .buttonStyle(Chip(on: true))
+                }
+                ForEach(Topics.list(topics), id: \.self) { t in
+                    let on = t.caseInsensitiveCompare(q) == .orderedSame
+                    Button(t) { query = on ? "" : t }.buttonStyle(Chip(on: on))
+                        .accessibilityAddTraits(on ? .isSelected : [])
+                }
+            }
+        }
+        .listRowInsets(EdgeInsets(top: 0, leading: 20, bottom: 8, trailing: 20))
+    }
+}
+
+/// A capsule like the web's `.chip`: gray, or tinted text on a pale tint when on.
+struct Chip: ButtonStyle {
+    var on = false
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.subheadline.weight(.semibold))
+            .lineLimit(1)
+            .padding(.horizontal, 14)
+            .frame(height: 36)
+            .foregroundStyle(on ? AnyShapeStyle(.tint) : AnyShapeStyle(.primary))
+            .background(on ? AnyShapeStyle(.tint.opacity(0.14)) : AnyShapeStyle(Color.secondary.opacity(0.12)), in: Capsule())
+            .opacity(configuration.isPressed ? 0.6 : 1)
     }
 }
 

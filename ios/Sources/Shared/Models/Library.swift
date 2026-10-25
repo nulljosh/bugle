@@ -43,6 +43,18 @@ final class Library: ObservableObject {
     }
 }
 
+/// Topics you follow: words that become chips on Home, one tap to read only them (Apple News, Ground News).
+/// Kept as one newline-joined string in UserDefaults ("topics"). Mirrors Topics in web/library.js.
+enum Topics {
+    static func list(_ raw: String) -> [String] { raw.split(separator: "\n").map(String.init) }
+    static func has(_ t: String, in raw: String) -> Bool { list(raw).contains { $0.caseInsensitiveCompare(t) == .orderedSame } }
+    /// Follows `t`, or unfollows it in any case ("ai" unfollows "AI").
+    static func toggled(_ t: String, in raw: String) -> String {
+        let l = list(raw), kept = l.filter { $0.caseInsensitiveCompare(t) != .orderedSame }
+        return (kept.count < l.count ? kept : l + [t]).joined(separator: "\n")
+    }
+}
+
 /// "Now", "12m ago", "3h ago", "Yesterday", then a date. Undated entries (sorted to the bottom) show nothing.
 /// Mirrors `ago()` in web/reader.js.
 enum RelativeTime {
@@ -64,5 +76,8 @@ func relativeTimeDemo() {
     assert(RelativeTime.short(now.addingTimeInterval(-600), now: now) == "10m ago")
     assert(RelativeTime.short(now.addingTimeInterval(-7200), now: now) == "2h ago")
     assert(RelativeTime.short(.distantPast, now: now) == "")
+    assert(Topics.toggled("AI", in: "") == "AI")
+    assert(Topics.toggled("ai", in: "Canada\nAI") == "Canada")
+    assert(Topics.toggled("Apple", in: "Canada") == "Canada\nApple")
 }
 #endif

@@ -116,6 +116,12 @@ a.row:hover { text-decoration: none; background: color-mix(in srgb, var(--text) 
 .search input { flex: 1; min-width: 0; border: 0; background: none; font: inherit; font-size: 17px; color: var(--text); height: 44px; }
 .search input:focus-visible { outline: none; }
 .search:focus-within { box-shadow: 0 0 0 4px var(--ring); }
+/* followed topics: one scrolling row of capsules under the search */
+.topics { display: flex; gap: var(--sp-2); overflow-x: auto; scrollbar-width: none; margin: 0 0 var(--sp-2); padding: 0 20px; }
+.topics::-webkit-scrollbar { display: none; }
+.chip { flex: none; height: 36px; padding: 0 14px; border: 0; border-radius: var(--r-pill); background: var(--surface); color: var(--text); font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.chip[aria-pressed="true"], .chip.follow { color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.chip:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); }
 
 /* coverage: lean bar and every outlet's headline by side (Ground News style) */
 .leanbar { width: 100%; }

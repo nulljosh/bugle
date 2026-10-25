@@ -67,6 +67,29 @@ function renderEntries() {
   else { delete root.dataset.outlet; root.style.removeProperty('--c'); root.style.removeProperty('--cd'); }   // or unknown outlets inherit it
   renderStories(document.getElementById('entries'), shown, open, !q,
     q ? 'No stories match \u201C' + q + '\u201D.' : 'No entries yet. Add a feed or pull to refresh.');
+  renderTopics();
+}
+
+// Followed topics as chips under the search (tap to read only it, tap again for everything). Searching for a
+// word that is not an outlet offers to follow it; searching a followed topic offers to unfollow. Same as the app.
+function renderTopics() {
+  var box = document.getElementById('topics'), input = document.getElementById('q');
+  if (!box || !window.Topics) return;
+  var raw = input.value.trim(), q = raw.toLowerCase();
+  box.innerHTML = '';
+  var outlet = Coverage.OUTLETS[raw] || feeds.some(function (f) { return f.title.toLowerCase() === q; });
+  if (raw && !outlet) {
+    var follow = el('button', 'chip follow', Topics.has(raw) ? 'Unfollow' : '+ Follow \u201C' + raw + '\u201D');
+    follow.onclick = function () { Topics.toggle(raw); renderTopics(); };
+    box.appendChild(follow);
+  }
+  Topics.list().forEach(function (t) {
+    var on = t.toLowerCase() === q, chip = el('button', 'chip', t);
+    chip.setAttribute('aria-pressed', String(on));
+    chip.onclick = function () { input.value = on ? '' : t; renderEntries(); };
+    box.appendChild(chip);
+  });
+  box.hidden = !box.children.length;
 }
 document.getElementById('q').addEventListener('input', function () { clearTimeout(this._t); this._t = setTimeout(renderEntries, 120); });
 

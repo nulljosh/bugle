@@ -25,6 +25,23 @@ var Library = (function () {
   };
 })();
 
+// Topics you follow: words that become chips on Home, one tap to read only them (Apple News, Ground News).
+// Mirrors Topics in Library.swift.
+var Topics = (function () {
+  var KEY = 'bugle.topics', list = [];
+  try { list = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) {}
+  var find = function (t) { t = t.toLowerCase(); return list.findIndex(function (x) { return x.toLowerCase() === t; }); };
+  return {
+    list: function () { return list; },
+    has: function (t) { return find(t) >= 0; },
+    toggle: function (t) {
+      var i = find(t);
+      if (i >= 0) list.splice(i, 1); else list.push(t);
+      try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {}
+    }
+  };
+})();
+
 function renderLibrary() {
   document.getElementById('saved-count').textContent = Library.saved().length || '';
   renderStories(document.getElementById('saved-list'), Library.saved(), open, false,
@@ -45,3 +62,4 @@ document.getElementById('save').onclick = function () {
 };
 document.getElementById('history-clear').onclick = function () { Library.clearHistory(); renderLibrary(); renderEntries(); };
 renderLibrary();
+renderTopics();   // reader.js drew Home before Topics existed
