@@ -189,10 +189,10 @@ struct Kicker: View {
         let ago = RelativeTime.short(entry.date)
         HStack(spacing: 4) {
             if !entry.sourceTitle.isEmpty { Text(entry.sourceTitle).fontWeight(.semibold).foregroundStyle(Outlet.color(entry.sourceTitle)) }
-            if !entry.sourceTitle.isEmpty && !ago.isEmpty { Text("·").foregroundStyle(.secondary) }
+            if !entry.sourceTitle.isEmpty && !ago.isEmpty { Text("·").foregroundStyle(.secondary).accessibilityHidden(true) }
             Text(ago).foregroundStyle(.secondary)
-            if sources > 1 { Text("· \(sources) sources").foregroundStyle(.secondary) }
-            if saved { Image(systemName: "bookmark.fill").foregroundStyle(Color.bugleAccent).imageScale(.small) }
+            if sources > 1 { Text("· \(sources) sources").foregroundStyle(.secondary).accessibilityLabel("\(sources) sources") }
+            if saved { Image(systemName: "bookmark.fill").foregroundStyle(Color.bugleAccent).imageScale(.small).accessibilityLabel("Saved") }
         }
         .font(.caption)
         .lineLimit(1)
@@ -260,6 +260,7 @@ struct RowLink<Content: View>: View {
             NavigationLink(value: entry) { EmptyView() }.opacity(0)
             content
         }
+        .accessibilityElement(children: .combine)   // VoiceOver reads one row as one story: outlet, time, headline
     }
 }
 
@@ -269,7 +270,7 @@ struct SearchField: View {
 
     var body: some View {
         HStack(spacing: 8) {
-            Image(systemName: "magnifyingglass").foregroundStyle(.secondary)
+            Image(systemName: "magnifyingglass").foregroundStyle(.secondary).accessibilityHidden(true)
             TextField("Search stories and outlets", text: $text)
                 .textFieldStyle(.plain)
                 .autocorrectionDisabled()
@@ -278,6 +279,7 @@ struct SearchField: View {
                 #endif
             if !text.isEmpty {
                 Button { text = "" } label: { Image(systemName: "xmark.circle.fill").foregroundStyle(.secondary) }
+                    .accessibilityLabel("Clear search")
                     .buttonStyle(.plain)
                     .accessibilityLabel("Clear search")
             }
@@ -366,6 +368,7 @@ private struct EntryThumbnail: View {
 
     private var monogram: some View {
         Text(Self.initials(source)).font(.system(size: 17, weight: .bold)).foregroundStyle(Outlet.color(source))
+            .accessibilityHidden(true)   // a stand-in picture; the outlet is already read out
     }
 
     /// "BBC" stays BBC; "Hacker News" is HN; "The Province" is P. Mirrors `initials` in web/read.html.
