@@ -32,7 +32,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 22 | Notifications for chosen sources | yes | yes | swipe right on a feed (iPhone): new stories from it arrive as notifications after background refresh; web has no push server | done | 2.3.0 |
 | 23 | Home Screen widgets | yes | yes | Top Stories, small and medium: the lead photo with its headline, then the next two in outlet colours, every 30 minutes | done | 2.4.0 |
 | 24 | Sync of feeds, saved and history | yes | account | feeds, saved, history, topics and mutes sync on app and web (jaybulb-api columns live 2026-10-25) | done | 1.23.0 |
-| 25 | Siri and Shortcuts | yes | | none | todo | |
+| 25 | Siri and Shortcuts | yes | | "Top stories in Bugle" reads the three biggest from your feeds; Shortcuts gets them as text, on iPhone, iPad and Mac | done | 2.5.0 |
 | 26 | Listen to a story | News+ | | none; on-device speech | todo | |
 | 27 | Watch app at parity | yes | | runs on the phone's own feed list, parser and grouping: Today first, outlet colors, sources, Save | done | 1.22.0 |
 | 33 | Paste a site address, find its feed (autodiscovery) | | | RSS readers (NetNewsWire, Reeder) all do it; Bugle needs the feed URL | todo | |
