@@ -35,11 +35,11 @@ enum Headline {
         var out = [full] + clauses.sorted { $0.count > $1.count }
         // Word cuts come from the shortest clause, so a squeeze never drags the tail of the sentence back in.
         let words = (out.last ?? full).split(separator: " ").map(String.init)
-        if words.count > 3 {
+        if words.count > 2 {
             // Cut only where the next word starts a new phrase ("cars | that put", "drivers | at greatest"), so a cut
             // ends on a whole idea; with no such break, any word will do.
             let breaks = (3..<words.count).filter { phraseStarts.contains(words[$0].lowercased().trimmingCharacters(in: .punctuationCharacters)) }
-            let cuts = Array(stride(from: words.count - 1, through: 3, by: -1))
+            let cuts = Array(stride(from: words.count - 1, through: 2, by: -1))
             // phrase breaks first; plain word cuts after them, as the last resort for a narrow row
             for n in cuts.filter({ breaks.contains($0) }) + cuts.filter({ !breaks.contains($0) }) {
                 out.append(trimTail(words.prefix(n).joined(separator: " ")))

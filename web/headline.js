@@ -47,7 +47,7 @@
     for (var k = 3; k < words.length; k++) if (PHRASE.has(bare(words[k]))) breaks.push(k);
     // phrase breaks first; plain word cuts after them, as the last resort for a narrow row
     var rest = [];
-    for (var n = words.length - 1; n >= 3; n--) (breaks.indexOf(n) >= 0 ? out : rest).push(trimTail(words.slice(0, n).join(' ')));
+    for (var n = words.length - 1; n >= 2; n--) (breaks.indexOf(n) >= 0 ? out : rest).push(trimTail(words.slice(0, n).join(' ')));
     out = out.concat(rest);
     var seen = new Set();
     return out.filter(function (v) { return v && !seen.has(v) && seen.add(v); });
