@@ -3,6 +3,8 @@ import SwiftUI
 struct ManageFeedsView: View {
     @ObservedObject var store: FeedStore
     @ObservedObject var library: Library
+    /// Tap an outlet to read just it: Home searches for it and takes its color.
+    var open: (Feed) -> Void = { _ in }
     @State private var newFeed = ""
     @State private var showError = false
 
@@ -36,9 +38,11 @@ struct ManageFeedsView: View {
 
                 Section("Following") {
                     ForEach(store.feeds) { feed in
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(feed.title).font(.body)
-                            Text(Self.about(feed)).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+                        Button { open(feed) } label: {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(feed.title).font(.body).foregroundStyle(Outlet.color(feed.title))
+                                Text(Self.about(feed)).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+                            }
                         }
                     }
                     .onDelete(perform: store.remove)

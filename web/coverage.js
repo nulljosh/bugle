@@ -13,6 +13,18 @@ var Coverage = (function () {
     'The Province': O(0, 'Postmedia', 'Postmedia BC'), 'Hacker News': O(null, 'Y Combinator', 'Hacker News'),
     'Daring Fireball': O(null, 'John Gruber (independent)', 'Daring Fireball'), 'Journal': O(null, "Joshua's blog", 'Journal')
   };
+  // Each outlet's own color, [light, dark], each at least 4.5:1 on white and on black (test.mjs checks). Black brands
+  // (WSJ, Daily Wire) turn white in dark mode; HN orange is darkened in light mode so a 13 pt name stays readable.
+  var BRAND = {
+    'Hacker News': ['#C24E00', '#FF7A1A'], 'BBC': ['#BB1919', '#FF6B6B'], 'CBC': ['#CC0000', '#FF6B6B'],
+    'The Guardian': ['#052962', '#7FA8F0'], 'NPR': ['#1D6AA5', '#5AAEF0'], 'Global News': ['#1565C0', '#64A8FF'],
+    'NBC News': ['#0A66B0', '#4CB6F5'], 'Wall Street Journal': ['#111111', '#F5F5F7'], 'National Post': ['#005A9C', '#63A4E0'],
+    'Fox News': ['#003366', '#6FA3E0'], 'NY Post': ['#CC0000', '#FF6B6B'], 'NY Post Opinion': ['#CC0000', '#FF6B6B'],
+    'Daily Wire': ['#111111', '#F5F5F7'], 'Vancouver Sun': ['#12599E', '#6AA6E6'], 'The Province': ['#C8102E', '#FF6B78'],
+    'Daring Fireball': ['#4A525A', '#A3ABB3'], 'Journal': ['#0059B3', '#5AA9FF']
+  };
+  // Paint an element in an outlet's color: --c and --cd, which reader.css picks between for light and dark.
+  function paint(node, source) { var b = BRAND[source]; if (b) { node.style.setProperty('--c', b[0]); node.style.setProperty('--cd', b[1]); } return node; }
   var SIDES = ['left', 'center', 'right'], TITLES = { left: 'Left', center: 'Center', right: 'Right' };
   var STOP = new Set(('the a an of to in on for and or as at by is are was with after over from amid says say new this that it its his her ' +
     'their they we you but not has have had will would could should about into more than what when who how why been being were where which').split(' '));
@@ -88,5 +100,5 @@ var Coverage = (function () {
     return box;
   }
   function about(feed) { var o = outlet(feed.title); return o ? (o.lean == null ? 'Not rated' : leanLabel(o.lean)) + ' · ' + o.owner : feed.url; }
-  return { cluster: cluster, today: today, readingLean: readingLean, bar: bar, section: section, about: about };
+  return { cluster: cluster, today: today, BRAND: BRAND, OUTLETS: OUTLETS, paint: paint, readingLean: readingLean, bar: bar, section: section, about: about };
 })();

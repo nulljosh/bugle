@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 
 /// Ground News-style coverage, ported from Sidewise (`sidewise/src/stories.js`): the same story grouped across
 /// outlets, each outlet's lean and owner, a left / center / right count per story, and blindspots (a story only
@@ -32,6 +32,19 @@ struct Outlet {
     ]
 
     static func of(_ source: String) -> Outlet? { known[source] }
+
+    /// Each outlet's own color (light, dark), the same table as web/coverage.js, where test.mjs checks every pair is
+    /// 4.5:1 on white and on black. Anything else gets Bugle blue.
+    static let brand: [String: (light: UInt32, dark: UInt32)] = [
+        "Hacker News": (0xC24E00, 0xFF7A1A), "BBC": (0xBB1919, 0xFF6B6B), "CBC": (0xCC0000, 0xFF6B6B),
+        "The Guardian": (0x052962, 0x7FA8F0), "NPR": (0x1D6AA5, 0x5AAEF0), "Global News": (0x1565C0, 0x64A8FF),
+        "NBC News": (0x0A66B0, 0x4CB6F5), "Wall Street Journal": (0x111111, 0xF5F5F7), "National Post": (0x005A9C, 0x63A4E0),
+        "Fox News": (0x003366, 0x6FA3E0), "NY Post": (0xCC0000, 0xFF6B6B), "NY Post Opinion": (0xCC0000, 0xFF6B6B),
+        "Daily Wire": (0x111111, 0xF5F5F7), "Vancouver Sun": (0x12599E, 0x6AA6E6), "The Province": (0xC8102E, 0xFF6B78),
+        "Daring Fireball": (0x4A525A, 0xA3ABB3), "Journal": (0x0059B3, 0x5AA9FF),
+    ]
+
+    static func color(_ source: String) -> Color { brand[source].map { Color(light: $0.light, dark: $0.dark) } ?? .bugleAccent }
 
     static func leanLabel(_ lean: Int) -> String {
         ["Left", "Leans left", "Center", "Leans right", "Right"][max(0, min(4, lean + 2))]

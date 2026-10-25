@@ -26,8 +26,10 @@ button.row:hover { background: color-mix(in srgb, var(--text) 4%, transparent); 
 .row b.title { white-space: normal; max-height: 48px; }   /* two lines, like Apple News; fitTitles picks a cut that fits */
 .row small { display: block; color: var(--sub); font-size: 13px; line-height: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .row .thumb { flex: 0 0 56px; width: 56px; height: 56px; object-fit: cover; border-radius: 12px; background: var(--line); }
-.row .mono { display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 700; color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.row .mono { --o: var(--c, var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 700; color: var(--o);
+  background: color-mix(in srgb, var(--o) 12%, transparent); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .row .mono { --o: var(--cd, var(--accent)); } }
+:root[data-theme="dark"] .row .mono { --o: var(--cd, var(--accent)); }
 .row .chev { color: var(--sub); flex: none; font-size: 20px; }
 a.row { text-decoration: none; }
 a.row:hover { text-decoration: none; background: color-mix(in srgb, var(--text) 4%, transparent); }
@@ -75,7 +77,13 @@ a.row:hover { text-decoration: none; background: color-mix(in srgb, var(--text) 
 .plain .row { padding: var(--sp-3) 20px; }
 .plain ul.rows li + li { background: linear-gradient(var(--line), var(--line)) 20px 0 / calc(100% - 40px) 1px no-repeat; }
 .kick { display: block; font-size: 13px; line-height: 18px; color: var(--sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
-.kick .src { color: var(--accent); font-weight: 600; }
+.kick .src { color: var(--c, var(--accent)); font-weight: 600; }   /* the outlet's own color (Coverage.paint) */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .kick .src { color: var(--cd, var(--accent)); } }
+:root[data-theme="dark"] .kick .src { color: var(--cd, var(--accent)); }
+/* Every story on Home from one outlet (one feed followed, or a search for it): the whole reader takes its color. */
+:root[data-outlet] { --accent: var(--c); }
+@media (prefers-color-scheme: dark) { :root[data-outlet]:not([data-theme="light"]) { --accent: var(--cd); } }
+:root[data-outlet][data-theme="dark"] { --accent: var(--cd); }
 .kick .saved { color: var(--accent); }
 .row.read .title, .hero.read h3 { color: var(--sub); }
 .row.read .thumb { opacity: .6; }

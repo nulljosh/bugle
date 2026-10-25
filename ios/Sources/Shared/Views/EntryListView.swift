@@ -32,7 +32,7 @@ struct EntryListView: View {
             Group {
                 NavigationStack(path: $path) { home }
                     .tabItem { Label("Home", systemImage: "newspaper") }.tag(0)
-                ManageFeedsView(store: store, library: library)
+                ManageFeedsView(store: store, library: library) { query = $0.title; tab = 0 }
                     .tabItem { Label("Feeds", systemImage: "list.bullet.rectangle") }.tag(1)
                 SettingsView(store: store, account: account, library: library)
                     .tabItem { Label("Settings", systemImage: "gearshape") }.tag(2)
@@ -45,6 +45,7 @@ struct EntryListView: View {
         // iPad puts tabs at the top in regular width; compact keeps the bar at the bottom.
         .environment(\.horizontalSizeClass, .compact)
         #endif
+        .tint(accent)
         .task(id: store.feeds) {
             if account.signedIn { try? await account.push(store.feeds) }   // keep the account's copy current
             await feed.refresh(feeds: store.feeds)
@@ -55,11 +56,24 @@ struct EntryListView: View {
         }
     }
 
-    private var home: some View {
-        // Search matches headlines and outlet names ("BBC" shows only BBC). While searching there is no hero.
+    /// Search matches headlines and outlet names ("BBC" shows only BBC). One row per story (the same story from
+    /// several outlets is grouped, Ground News style); Today's biggest lead.
+    private var shown: [Story] {
         let q = query.trimmingCharacters(in: .whitespaces)
-        // One row per story (the same story from several outlets is grouped, Ground News style); Today's biggest lead.
-        let shown = q.isEmpty ? Coverage.today(feed.stories) : feed.stories.filter { $0.entries.contains { $0.title.localizedStandardContains(q) || $0.sourceTitle.localizedStandardContains(q) } }
+        return q.isEmpty ? Coverage.today(feed.stories) : feed.stories.filter { $0.entries.contains { $0.title.localizedStandardContains(q) || $0.sourceTitle.localizedStandardContains(q) } }
+    }
+
+    /// Every story on Home from one outlet (one feed followed, or a search for it): the app wears its color, HN
+    /// orange, BBC red. Several outlets: Bugle blue.
+    private var accent: Color {
+        let sources = Set(shown.map(\.lead.sourceTitle))
+        return sources.count == 1 ? Outlet.color(sources.first!) : .bugleAccent
+    }
+
+    private var home: some View {
+        // While searching there is no hero.
+        let q = query.trimmingCharacters(in: .whitespaces)
+        let shown = self.shown
         // The hero is the newest story with a picture among the first few; everything else is a row.
         let hero = q.isEmpty ? shown.prefix(5).first { $0.lead.imageURL != nil } : nil
         return List {
@@ -130,7 +144,7 @@ struct EntryRow: View {
     }
 }
 
-/// "BBC · 2h ago" above a headline; the outlet in the accent, a bookmark when saved.
+/// "BBC · 2h ago" above a headline; the outlet in its own color, a bookmark when saved.
 struct Kicker: View {
     let entry: JournalEntry
     let saved: Bool
@@ -139,7 +153,7 @@ struct Kicker: View {
     var body: some View {
         let ago = RelativeTime.short(entry.date)
         HStack(spacing: 4) {
-            if !entry.sourceTitle.isEmpty { Text(entry.sourceTitle).fontWeight(.semibold).foregroundStyle(Color.bugleAccent) }
+            if !entry.sourceTitle.isEmpty { Text(entry.sourceTitle).fontWeight(.semibold).foregroundStyle(Outlet.color(entry.sourceTitle)) }
             if !entry.sourceTitle.isEmpty && !ago.isEmpty { Text("·").foregroundStyle(.secondary) }
             Text(ago).foregroundStyle(.secondary)
             if sources > 1 { Text("· \(sources) sources").foregroundStyle(.secondary) }
@@ -166,12 +180,16 @@ struct HeroRow: View {
     var body: some View {
         RowLink(entry: entry) {
             VStack(alignment: .leading, spacing: 8) {
-                AsyncImage(url: entry.imageURL) { phase in
-                    if case .success(let image) = phase { image.resizable().aspectRatio(contentMode: .fill) } else { Color.bugleAccent.opacity(0.12) }
-                }
-                .frame(maxWidth: .infinity)
-                .aspectRatio(16 / 9, contentMode: .fit)
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                // 16:9 on a phone; a wide Mac window caps it at 360 points so the picture never fills the screen.
+                Color.clear
+                    .aspectRatio(16 / 9, contentMode: .fit)
+                    .frame(maxWidth: .infinity, maxHeight: 360)
+                    .overlay {
+                        AsyncImage(url: entry.imageURL) { phase in
+                            if case .success(let image) = phase { image.resizable().aspectRatio(contentMode: .fill) } else { Outlet.color(entry.sourceTitle).opacity(0.12) }
+                        }
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 Kicker(entry: entry, saved: library.isSaved(entry), sources: story?.publishers ?? 1)
                 Text(Self.headline(entry))
                     .font(.title2.weight(.bold))
@@ -283,7 +301,7 @@ private struct EntryThumbnail: View {
     private var outlet: some View {
         let host = URL(string: page)?.host
         return ZStack {
-            Color.bugleAccent.opacity(0.12)
+            Outlet.color(source).opacity(0.12)
             if let host, let touch = URL(string: "https://\(host)/apple-touch-icon.png"), let fav = URL(string: "https://\(host)/favicon.ico") {
                 AsyncImage(url: touch) { phase in
                     switch phase {
@@ -302,7 +320,7 @@ private struct EntryThumbnail: View {
     }
 
     private var monogram: some View {
-        Text(Self.initials(source)).font(.system(size: 17, weight: .bold)).foregroundStyle(Color.bugleAccent)
+        Text(Self.initials(source)).font(.system(size: 17, weight: .bold)).foregroundStyle(Outlet.color(source))
     }
 
     /// "BBC" stays BBC; "Hacker News" is HN; "The Province" is P. Mirrors `initials` in web/read.html.

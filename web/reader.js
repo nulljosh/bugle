@@ -61,6 +61,10 @@ function renderEntries() {
   var q = document.getElementById('q').value.trim().toLowerCase();
   var shown = (q ? stories.filter(function (st) { return st.entries.some(function (e) { return (e.title + ' ' + e.source).toLowerCase().indexOf(q) >= 0; }); }) : Coverage.today(stories))
     .map(function (st) { return st.lead; });
+  // One outlet on screen: the reader wears its color (HN orange, BBC red); several: Bugle blue.
+  var root = document.documentElement, only = shown.length && shown.every(function (e) { return e.source === shown[0].source; }) ? shown[0].source : null;
+  if (only && Coverage.BRAND[only]) { Coverage.paint(root, only); root.dataset.outlet = only; }
+  else { delete root.dataset.outlet; root.style.removeProperty('--c'); root.style.removeProperty('--cd'); }   // or unknown outlets inherit it
   renderStories(document.getElementById('entries'), shown, open, !q,
     q ? 'No stories match \u201C' + q + '\u201D.' : 'No entries yet. Add a feed or pull to refresh.');
 }
@@ -73,6 +77,9 @@ function renderFeeds() {
     var row = el('div', 'row');
     var txt = el('span', 'txt');
     txt.appendChild(el('b', '', f.title)); txt.appendChild(el('small', '', Coverage.about(f)));
+    // Tap an outlet to read just it: Home searches for it and takes its color.
+    txt.style.cursor = 'pointer';
+    txt.onclick = function () { document.getElementById('q').value = f.title; location.hash = '#home'; renderEntries(); };
     var rm = el('button', 'act', 'Remove');
     rm.setAttribute('aria-label', 'Remove ' + f.title);
     rm.onclick = function () { feeds.splice(i, 1); save(); renderFeeds(); refresh(); };
