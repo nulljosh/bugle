@@ -2,6 +2,9 @@
 // twitter:image). Reads only the top of the page and answers JSON, cached for a day. Same guards as feed.js.
 // Mirrors ios/Sources/Shared/Services/PreviewImage.swift.
 const ORIGIN = "https://bugle.jaybulb.com";
+// A full browser user agent with Bugle named at the end: some publishers (CBC) drop anything that does not look
+// like a browser, and naming Bugle keeps it honest.
+const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15 Bugle/1.0 (+https://bugle.jaybulb.com)";
 const HEAD_BYTES = 256 * 1024;
 const PRIVATE = /^(0|10|127|169\.254|172\.(1[6-9]|2\d|3[01])|192\.168)\./;
 const NAMES = ["og:image:secure_url", "og:image", "twitter:image", "twitter:image:src"];
@@ -34,7 +37,7 @@ export async function onRequestGet({ request }) {
   let image = null;
   try {
     const r = await fetch(u.toString(), {
-      headers: { "user-agent": "Mozilla/5.0 (compatible; Bugle/1.0; +https://bugle.jaybulb.com)" },
+      headers: { "user-agent": UA },
       cf: { cacheTtl: 86400, cacheEverything: true },
       signal: AbortSignal.timeout(8000),
     });

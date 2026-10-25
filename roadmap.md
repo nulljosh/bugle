@@ -90,6 +90,8 @@ Bugle stays a reader and also becomes a Ghost-style writing client.
 - Phase 4, pages, tags, search.
 
 ## Ship notes
+- The jaybulb.com zone has Cloudflare Web Analytics on, so Cloudflare injects its beacon into every page. The site CSP blocks it on purpose (the privacy policy says no analytics); the console shows that block, nothing is collected. Turning it off for this host is a dashboard setting, not reachable with the CLI tokens.
+- Publishers like CBC drop requests without a browser user agent; feed.js, og.js and PreviewImage send a Safari string ending in Bugle/1.0.
 - Before submitting any build with accounts (1.9.0 on): update the App Privacy answers in App Store Connect. Data collected: Email Address (linked to the user, App Functionality) and Other User Content (the feed list, linked, App Functionality). No tracking.
 - Account emails need `bugle` in authmail's THEMES; the app sends `Origin: https://bugle.jaybulb.com` and `redirect_to` so mails say Bugle.
 

@@ -27,7 +27,7 @@ enum PreviewImage {
     private static func fetch(_ page: String) async -> URL? {
         guard let url = URL(string: page), url.scheme == "https" || url.scheme == "http" else { return nil }
         var req = URLRequest(url: url, timeoutInterval: 10)
-        req.setValue("Mozilla/5.0 (compatible; Bugle/1.0; +https://bugle.jaybulb.com)", forHTTPHeaderField: "User-Agent")
+        req.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15 Bugle/1.0 (+https://bugle.jaybulb.com)", forHTTPHeaderField: "User-Agent")
         guard let (bytes, _) = try? await URLSession.shared.bytes(for: req) else { return nil }
         var data = Data()
         do {
