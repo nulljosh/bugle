@@ -41,6 +41,7 @@ A refresh fetches every followed feed at once, parses each into entries tagged w
 | `read.html`, `reader.css` | The reader PWA |
 | `reader.js` | Feeds, refresh, routing, the story screen, Listen |
 | `feedio.js` | Site-address discovery, OPML, Mark All Read |
+| `keys.js` | Keyboard shortcuts |
 | `timeline.js` | A week of headlines for each story's Earlier list |
 | `fulltext.js` | The article page's paragraphs when a feed sends only a summary |
 | `parse.js` | RSS and Atom parsing, picture sharpening, reading time |

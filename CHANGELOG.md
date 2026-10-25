@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 4.1.0
+- Keyboard shortcuts on the web, Mac and iPad.
+
 ## 4.0.1
 - Tighter grouping: a headline joins a story by its lead's words only, and words in a large share of the day's headlines ("apple", "iphone") no longer count, so a busy topic stops swallowing its neighbours.
 

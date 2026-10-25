@@ -48,6 +48,16 @@ struct EntryListView: View {
         .environment(\.horizontalSizeClass, .compact)
         #endif
         .tint(accent)
+        // Keyboard (Mac, iPad): ⌘R refreshes, ⌘1 to ⌘3 pick a tab. Invisible buttons carry the shortcuts.
+        .background {
+            Group {
+                Button("Refresh") { Task { await feed.refresh(feeds: store.feeds) } }.keyboardShortcut("r")
+                Button("Home") { tab = 0 }.keyboardShortcut("1")
+                Button("Feeds") { tab = 1 }.keyboardShortcut("2")
+                Button("Settings") { tab = 2 }.keyboardShortcut("3")
+            }
+            .opacity(0).accessibilityHidden(true)
+        }
         .onChange(of: muted, initial: true) { feed.muted = Topics.list(muted) }
         // signed in: saves, topics and mutes reach the account as they change, like the feed list does
         .onChange(of: "\(library.saved.count)|\(topics)|\(muted)") { if account.signedIn { Task { try? await account.push(store.feeds) } } }

@@ -37,11 +37,14 @@ struct EntryDetailView: View {
                         Button { library.toggleSave(entry) } label: {
                             Label(library.isSaved(entry) ? "Remove from Saved" : "Save", systemImage: library.isSaved(entry) ? "bookmark.fill" : "bookmark")
                         }
+                        .keyboardShortcut("s")
                         Button { listener.toggle(full ?? entry) } label: {
                             Label(listener.speaking ? "Stop" : "Listen", systemImage: listener.speaking ? "stop.fill" : "speaker.wave.2")
                         }
+                        .keyboardShortcut("l")
                         ShareLink(item: url)
                         Link(destination: url) { Label("Open in Browser", systemImage: "safari") }
+                            .keyboardShortcut("o", modifiers: [.command, .shift])
                     }
                 }
             }

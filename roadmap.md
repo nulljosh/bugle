@@ -40,7 +40,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 35 | Full article text for summary-only feeds | yes | yes | a summary-only story fetches its page and shows the main article's paragraphs as plain text; menus, sidebars and repeated lines dropped | done | 3.6.0 |
 | 36 | Unread counts and mark all read | yes | | each followed feed shows its unread count; Mark All Read clears them without filling History | done | 3.5.0 |
 | 37 | Blindspot filter on Home | | yes | a Blindspots chip leads Home and shows only stories one side of the spectrum covered | done | 3.7.0 |
-| 38 | Keyboard shortcuts (Mac, iPad, web) | yes | | none | todo | |
+| 38 | Keyboard shortcuts (Mac, iPad, web) | yes | | web: j k, Enter, Esc, /, r, s, l, o, 1 to 3; apps: ⌘R, ⌘1 to ⌘3, ⌘S, ⌘L, ⌘⇧O | done | 4.1.0 |
 | 39 | Three columns on iPad and Mac (feeds, list, story) | yes | yes | tabs everywhere | todo | |
 | 40 | Share extension: add a feed or save a story from Safari | yes | yes | none | todo | |
 | 41 | Spotlight and Handoff | yes | | none | todo | |
