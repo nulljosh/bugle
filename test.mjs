@@ -96,7 +96,7 @@ test("outlet colors are readable in light and dark, and name real outlets", () =
   for (const [i, [light, dark]] of Coverage.PALETTE.entries()) {
     assert.ok(ratio(light, "#ffffff") >= 4.5 && ratio(dark, "#000000") >= 4.5, "palette " + i);
   }
-  assert.equal(Coverage.colors("Ars Technica"), Coverage.PALETTE[7]);   // pins the hash; Swift checks the same index
+  assert.equal(Coverage.colors("The Verge"), Coverage.PALETTE[4]);   // pins the hash; Swift checks the same index
   for (const [name, [light, dark]] of Object.entries(Coverage.BRAND)) {
     assert.ok(name in Coverage.OUTLETS, name + " is not an outlet");
     assert.ok(ratio(light, "#ffffff") >= 4.5, name + " light " + light);

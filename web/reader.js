@@ -17,7 +17,16 @@ var SEEDS = [
   ['Vancouver Sun', 'https://vancouversun.com/feed'],
   ['The Province', 'https://theprovince.com/feed'],
   ['Hacker News', 'https://hnrss.org/frontpage'],
-  ['Daring Fireball', 'https://daringfireball.net/feeds/main']
+  ['Daring Fireball', 'https://daringfireball.net/feeds/main'],
+  ['Wired', 'https://www.wired.com/feed/rss'],
+  ['The Verge', 'https://www.theverge.com/rss/index.xml'],
+  ['Ars Technica', 'https://feeds.arstechnica.com/arstechnica/index'],
+  ['TechCrunch', 'https://techcrunch.com/feed/'],
+  ['MacRumors', 'https://feeds.macrumors.com/MacRumors-All'],
+  ['9to5Mac', 'https://9to5mac.com/feed/'],
+  ['AppleInsider', 'https://appleinsider.com/rss/news/'],
+  ['Macworld', 'https://www.macworld.com/feed'],
+  ['Six Colors', 'https://sixcolors.com/feed/']
 ].map(function (f) { return { title: f[0], url: f[1] }; });
 
 // Local newsrooms by city (Apple News and Ground News both have a Local feed). Mirrors FeedStore.local.

@@ -28,6 +28,12 @@ struct Outlet {
         "The Province": .init(lean: 0, owner: "Postmedia", publisher: "Postmedia BC"),
         "Hacker News": .init(lean: nil, owner: "Y Combinator", publisher: "Hacker News"),
         "Daring Fireball": .init(lean: nil, owner: "John Gruber (independent)", publisher: "Daring Fireball"),
+        "Wired": .init(lean: nil, owner: "Condé Nast", publisher: "Wired"),
+        "The Verge": .init(lean: nil, owner: "Vox Media", publisher: "The Verge"),
+        "Ars Technica": .init(lean: nil, owner: "Condé Nast", publisher: "Ars Technica"),
+        "TechCrunch": .init(lean: nil, owner: "Yahoo", publisher: "TechCrunch"),
+        "Macworld": .init(lean: nil, owner: "Foundry", publisher: "Macworld"),
+        "Six Colors": .init(lean: nil, owner: "Jason Snell (independent)", publisher: "Six Colors"),
         "Journal": .init(lean: nil, owner: "Joshua's blog", publisher: "Journal"),
     ]
 
@@ -42,6 +48,7 @@ struct Outlet {
         "Fox News": (0x003366, 0x6FA3E0), "NY Post": (0xCC0000, 0xFF6B6B), "NY Post Opinion": (0xCC0000, 0xFF6B6B),
         "Daily Wire": (0x111111, 0xF5F5F7), "Vancouver Sun": (0x12599E, 0x6AA6E6), "The Province": (0xC8102E, 0xFF6B78),
         "Daring Fireball": (0x4A525A, 0xA3ABB3), "Journal": (0x0059B3, 0x5AA9FF),
+        "Wired": (0x333333, 0xBDBDBD), "Ars Technica": (0xC2410C, 0xFF7A3D), "TechCrunch": (0x0A7A00, 0x3DDC2F), "Macworld": (0xC8102E, 0xFF6B6B),
     ]
 
     /// A feed Bugle doesn't know gets a steady color from its name (same set and hash as web/coverage.js).
@@ -167,7 +174,7 @@ func coverageDemo() {
     assert(border.publishers == 2)              // NY Post and its opinion feed are one newsroom
     assert(border.blindspot == .right)          // two newsrooms, all on the right
     assert(stories.first { $0.entries.count == 1 }!.counts.isEmpty)   // tech outlets are not rated
-    assert(Outlet.colors("Ars Technica") == Outlet.palette[7])
+    assert(Outlet.colors("The Verge") == Outlet.palette[4])
     assert(Outlet.colors("CBC Toronto") == Outlet.colors("CBC") && Outlet.colors("Global BC") == Outlet.colors("Global News"))   // the same index web/coverage.js picks (test.mjs)
     let ranked = Coverage.today(stories, now: Date(timeIntervalSince1970: 10))
     assert(ranked.first?.entries.count == 3)    // the story two newsrooms carry leads Today

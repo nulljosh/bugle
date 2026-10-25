@@ -47,6 +47,15 @@ final class FeedStore: ObservableObject {
         Feed(title: "The Province", url: "https://theprovince.com/feed"),
         Feed(title: "Hacker News", url: "https://hnrss.org/frontpage"),
         Feed(title: "Daring Fireball", url: "https://daringfireball.net/feeds/main"),
+        Feed(title: "Wired", url: "https://www.wired.com/feed/rss"),
+        Feed(title: "The Verge", url: "https://www.theverge.com/rss/index.xml"),
+        Feed(title: "Ars Technica", url: "https://feeds.arstechnica.com/arstechnica/index"),
+        Feed(title: "TechCrunch", url: "https://techcrunch.com/feed/"),
+        Feed(title: "MacRumors", url: "https://feeds.macrumors.com/MacRumors-All"),
+        Feed(title: "9to5Mac", url: "https://9to5mac.com/feed/"),
+        Feed(title: "AppleInsider", url: "https://appleinsider.com/rss/news/"),
+        Feed(title: "Macworld", url: "https://www.macworld.com/feed"),
+        Feed(title: "Six Colors", url: "https://sixcolors.com/feed/"),
     ]
 
     private let storeURL: URL = {

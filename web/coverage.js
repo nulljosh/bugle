@@ -11,7 +11,8 @@ var Coverage = (function () {
     'Fox News': O(2, 'Fox Corporation', 'Fox News'), 'NY Post': O(2, 'News Corp', 'NY Post'), 'NY Post Opinion': O(2, 'News Corp', 'NY Post'),
     'Daily Wire': O(2, 'The Daily Wire (independent)', 'Daily Wire'), 'Vancouver Sun': O(0, 'Postmedia', 'Postmedia BC'),
     'The Province': O(0, 'Postmedia', 'Postmedia BC'), 'Hacker News': O(null, 'Y Combinator', 'Hacker News'),
-    'Daring Fireball': O(null, 'John Gruber (independent)', 'Daring Fireball'), 'Journal': O(null, "Joshua's blog", 'Journal')
+    'Daring Fireball': O(null, 'John Gruber (independent)', 'Daring Fireball'), 'Journal': O(null, "Joshua's blog", 'Journal'),
+    'Wired': O(null, 'Condé Nast', 'Wired'), 'The Verge': O(null, 'Vox Media', 'The Verge'), 'Ars Technica': O(null, 'Condé Nast', 'Ars Technica'), 'TechCrunch': O(null, 'Yahoo', 'TechCrunch'), 'Macworld': O(null, 'Foundry', 'Macworld'), 'Six Colors': O(null, 'Jason Snell (independent)', 'Six Colors')
   };
   // Each outlet's own color, [light, dark], each at least 4.5:1 on white and on black (test.mjs checks). Black brands
   // (WSJ, Daily Wire) turn white in dark mode; HN orange is darkened in light mode so a 13 pt name stays readable.
@@ -21,7 +22,8 @@ var Coverage = (function () {
     'NBC News': ['#0A66B0', '#4CB6F5'], 'Wall Street Journal': ['#111111', '#F5F5F7'], 'National Post': ['#005A9C', '#63A4E0'],
     'Fox News': ['#003366', '#6FA3E0'], 'NY Post': ['#CC0000', '#FF6B6B'], 'NY Post Opinion': ['#CC0000', '#FF6B6B'],
     'Daily Wire': ['#111111', '#F5F5F7'], 'Vancouver Sun': ['#12599E', '#6AA6E6'], 'The Province': ['#C8102E', '#FF6B78'],
-    'Daring Fireball': ['#4A525A', '#A3ABB3'], 'Journal': ['#0059B3', '#5AA9FF']
+    'Daring Fireball': ['#4A525A', '#A3ABB3'], 'Journal': ['#0059B3', '#5AA9FF'],
+    'Wired': ['#333333', '#BDBDBD'], 'Ars Technica': ['#C2410C', '#FF7A3D'], 'TechCrunch': ['#0A7A00', '#3DDC2F'], 'Macworld': ['#C8102E', '#FF6B6B']
   };
   // A feed Bugle doesn't know gets a steady color from its name, from this set (same contrast rule, no purple or teal).
   // ponytail: a name hash, not the site's own color; read its theme-color if someone wants the real brand.
