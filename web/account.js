@@ -64,7 +64,7 @@
   }
   window.BugleAccount = { push: function () { push().catch(function () {}); } };
 
-  function say(text) { $('acct-note').textContent = text || 'Optional. Your followed feeds follow you to every device and the app. Reading never needs an account.'; }
+  function say(text) { $('acct-note').textContent = text || 'Optional. Your feeds, saved stories, topics and mutes follow you to every device and the app. Reading never needs an account.'; }
   function render() {
     $('acct-out').hidden = !!session; $('acct-in').hidden = !session;
     if (session) $('acct-email').textContent = session.email;

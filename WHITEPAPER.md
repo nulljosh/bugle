@@ -1,47 +1,38 @@
 # Bugle Technical Whitepaper
 
-**v1.0.5** | August 2026
+**v2.0** | October 2026
 
-All your feeds, one timeline. An RSS and Atom reader for iOS, built because
-following a dozen sites means a dozen tabs or a dozen apps, when the actual
-thing wanted is one place newest-first with nothing else in the way.
+Every feed, one timeline. Bugle reads RSS and Atom feeds straight from the sites that publish them and puts every story in one stream on iPhone, iPad, Mac, Apple Watch and the web. When several newsrooms cover the same story it shows one row with all of them, how each side of the spectrum covered it, and the day's biggest stories first. Reading never needs an account.
 
-Add any feed and read everything in one stream, newest first. Split from the
-`journal` repo on 2026-07-21, since the two only ever shared a folder by
-accident of naming, not because a blog and a feed reader are the same product.
+## The core mechanic: one story, many newsrooms
 
-## Content Model
+Every entry from every followed feed goes through `Coverage.cluster`. Headlines are cut to their keywords (stop words out, case folded), and an entry joins a story when at least half of the shorter keyword set overlaps. The newest headline leads the story. Publishers count once: NY Post and NY Post Opinion are one newsroom. Each outlet Bugle rates carries a lean and an owner, so a story knows how many left, center and right newsrooms carried it, and flags a blindspot when only one side did.
 
-Feeds are a simple persisted list (`FeedStore`, `Application Support/feeds.json`
-on-device, no server sync), because a feed list is personal state with no
-reason to leave the device it lives on. Seeded with one feed on first launch
-(`journal.heyitsmejosh.com/feed.xml`, the author's own blog) purely so the
-app isn't empty on first open, it's a regular subscription, fully
-removable, with no special handling versus any other feed the user adds,
-since an empty first screen would be the app's worst first impression.
+`Coverage.today` then ranks: the five stories carried by the most newsrooms in the last 24 hours lead Home, newest first among ties, and everything else follows by time. A muted outlet or word drops out before grouping, so a muted outlet never leads a story or counts toward it.
 
-## Parsing
+## Feeds and parsing
 
-`JournalFeedService` fetches and parses both RSS and Atom formats, because
-the two formats are both still common in the wild and a reader that only
-handled one would silently fail on half the feeds people actually add.
-Entry HTML content is wrapped in a forced `<style>` block before rendering,
-since `NSAttributedString`'s HTML importer has no default CSS and would
-otherwise render unstyled serif text with no spacing.
+`FeedStore` keeps the followed list on the device, seeded with sixteen newsrooms so the first screen is never empty, plus local desks for ten cities. `FeedParser` reads RSS `item` and Atom `entry`, prefers `content:encoded` over `description`, and picks a picture in order: the widest `media:thumbnail` or `media:content`, then an image `enclosure`, then the first `img` in the body, then the article page's own `og:image`. BBC thumbnails are asked for at 976 pixels instead of 240.
 
-## Scope
+## One reader, two languages
 
-v1.0.3 is live on the App Store; v1.0.5 (seeded newsline feeds) is in review.
+The apps share one Swift core (feeds, parser, grouping, headline cleaning, library, outlet colors), including the Watch. The web reader mirrors each rule in plain JavaScript (`parse.js`, `coverage.js`, `headline.js`, `library.js`), and `test.mjs` pins the shared cases so the two cannot drift: the same headline cleans the same way, the same unknown outlet gets the same color.
 
-No accounts, no user-authored content, no writing/logging feature, Bugle
-only reads feeds, on purpose: a reader that also wants to be a writing tool
-stops being simple to use. Cross-device sync of subscriptions would need
-accounts; not started, no current need.
+## Your things
 
-## Security / Privacy
+Saved stories are kept whole, body included, so they open offline. The app reads pictures from a disk cache first; the web reader's service worker keeps a saved story's pictures and the reader page itself. History dims stories you have opened and feeds Your Reading, the lean of what you actually read. Topics are followed searches shown as chips on Home.
 
-No backend, no user accounts, no data collection. Feed subscriptions are
-stored locally on-device only.
+## Accounts and sync
+
+Optional. A Bugle account lives on jaybulb-api, the fleet's shared auth on Cloudflare D1. One row per account carries the feed list, saved stories (headline, link, outlet, picture), recent history, topics and mutes. Sync is a union by URL or word, so a sync never drops anything. Deleting the account deletes the row.
+
+## Web
+
+`web/read.html` is a static PWA on Cloudflare Pages. Publishers do not send CORS headers, so `/feed` proxies a feed (https only, private hosts refused, size capped) and `/og` reads an article's preview image. The landing page runs the real reader.
+
+## Privacy
+
+No tracking, no analytics, no ads. Feeds are fetched from their own sites. Without an account nothing leaves the device.
 
 ## License
 

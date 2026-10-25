@@ -24,7 +24,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Account")
                 } footer: {
-                    Text(account.message ?? "Optional. Your followed feeds follow you to every device and the web reader. Reading never needs an account.")
+                    Text(account.message ?? "Optional. Your feeds, saved stories, topics and mutes follow you to every device and the web reader. Reading never needs an account.")
                 }
                 Section {
                     LeanBar(counts: Coverage.readingLean(library.history))

@@ -68,7 +68,7 @@ Apple News's "similar screens" on Mobbin lined up about 18 news apps (informed, 
 
 Rewritten 2026-10-25 at 1.19.5 (Joshua: "identify gaps, build roadmap, loop until v5, then 10"). Minor version per row, major version per band. Each major gets the full QA below, fresh README, WHITEPAPER and architecture.svg, and a store submit if no review is open.
 
-- **1.x Reader core, finish** (rows 19, 9, 24, 27: local news, offline images, sync of saved and history, Watch). **2.0** QA.
+- **1.x Reader core, finish** (rows 19, 9, 24, 27). **2.0** shipped 2026-10-25; row 24 waits on the jaybulb-api columns.
 - **2.x Around the system** (rows 21, 22, 23, 25, 26: background refresh, notifications, widgets, Shortcuts, listen). **3.0** = 0 gaps against Apple News and Ground News: side-by-side QA.
 - **3.x RSS power** (rows 33 to 37, 42, 43: autodiscovery, OPML, full text, unread counts, Blindspot filter, reading time, timelines). **4.0** = 0 gaps against NetNewsWire and Reeder too.
 - **4.x iPad and Mac** (rows 38 to 41: shortcuts, three columns, share extension, Spotlight and Handoff). **5.0** QA.
