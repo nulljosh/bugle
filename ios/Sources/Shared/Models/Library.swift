@@ -16,6 +16,8 @@ final class Library: ObservableObject {
     }()
 
     init() {
+        // Room on disk for pictures (CachedImage reads it first); the default cache is a few megabytes.
+        URLCache.shared = URLCache(memoryCapacity: 32 << 20, diskCapacity: 256 << 20)
         if let data = try? Data(contentsOf: file), let s = try? JSONDecoder().decode(Stored.self, from: data) {
             saved = s.saved; history = s.history
         }
@@ -25,7 +27,11 @@ final class Library: ObservableObject {
     func isRead(_ e: JournalEntry) -> Bool { history.contains { $0.id == e.id } }
 
     func toggleSave(_ e: JournalEntry) {
-        if isSaved(e) { saved.removeAll { $0.id == e.id } } else { saved.insert(e, at: 0) }
+        if isSaved(e) { saved.removeAll { $0.id == e.id } } else {
+            saved.insert(e, at: 0)
+            // into the disk cache, where CachedImage looks first, so the picture shows offline
+            if let u = e.imageURL { Task { _ = try? await URLSession.shared.data(for: URLRequest(url: u, cachePolicy: .returnCacheDataElseLoad)) } }
+        }
         write()
     }
 

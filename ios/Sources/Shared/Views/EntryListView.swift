@@ -193,7 +193,7 @@ struct HeroRow: View {
                     .aspectRatio(16 / 9, contentMode: .fit)
                     .frame(maxWidth: .infinity, maxHeight: 360)
                     .overlay {
-                        AsyncImage(url: entry.imageURL) { phase in
+                        CachedImage(url: entry.imageURL) { phase in
                             if case .success(let image) = phase { image.resizable().aspectRatio(contentMode: .fill) } else { Outlet.color(entry.sourceTitle).opacity(0.12) }
                         }
                     }
@@ -300,6 +300,31 @@ struct Chip: ButtonStyle {
     }
 }
 
+/// AsyncImage that reads the disk cache first and never revalidates, so a picture seen once (or a saved story's,
+/// fetched on save) still shows with no connection. Same phases as AsyncImage.
+struct CachedImage<Content: View>: View {
+    let url: URL?
+    @ViewBuilder let content: (AsyncImagePhase) -> Content
+    @State private var phase: AsyncImagePhase = .empty
+
+    var body: some View {
+        content(phase).task(id: url) { phase = await Self.load(url) }
+    }
+
+    static func load(_ url: URL?) async -> AsyncImagePhase {
+        guard let url else { return .empty }
+        let req = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 20)
+        guard let (data, _) = try? await URLSession.shared.data(for: req) else { return .failure(URLError(.notConnectedToInternet)) }
+        #if os(macOS)
+        guard let img = NSImage(data: data) else { return .failure(URLError(.cannotDecodeContentData)) }
+        return .success(Image(nsImage: img))
+        #else
+        guard let img = UIImage(data: data) else { return .failure(URLError(.cannotDecodeContentData)) }
+        return .success(Image(uiImage: img))
+        #endif
+    }
+}
+
 enum Pasteboard {
     static func copy(_ s: String) {
         #if os(iOS)
@@ -341,7 +366,7 @@ private struct EntryThumbnail: View {
     var body: some View {
         Group {
             if let url = url ?? preview {
-                AsyncImage(url: url) { phase in
+                CachedImage(url: url) { phase in
                     if case .success(let image) = phase { image.resizable().aspectRatio(contentMode: .fill) } else { outlet }
                 }
             } else {

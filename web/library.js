@@ -1,5 +1,13 @@
 // Saved stories and reading history, kept whole (body included) in this browser, so a saved story opens offline.
 // Saved and History sit at the top of Feeds, like the app. Mirrors Library.swift. Loads after rows.js.
+// A saved story keeps its pictures (its thumbnail and the ones in its body) in the service worker's image cache,
+// so it opens with them offline; unsaving drops them. The worker does the fetching (sw.js).
+function keepImages(e, on) {
+  var sw = navigator.serviceWorker && navigator.serviceWorker.controller;
+  var urls = [e.image].concat(imageSrcs(e.html || '')).filter(function (u) { return /^https?:/.test(u || ''); });
+  if (sw && urls.length) sw.postMessage({ images: urls, keep: on });
+}
+
 var Library = (function () {
   var KEY = 'coranto.library', CAP = 200, data = { saved: [], history: [] };
   try { data = JSON.parse(localStorage.getItem(KEY)) || data; } catch (e) {}
@@ -13,9 +21,10 @@ var Library = (function () {
     isSaved: function (e) { return has(data.saved, e); },
     isRead: function (e) { return has(data.history, e); },
     toggle: function (e) {
-      if (has(data.saved, e)) data.saved = data.saved.filter(function (x) { return x.url !== e.url; });
-      else data.saved.unshift(e);
+      var on = !has(data.saved, e);
+      if (on) data.saved.unshift(e); else data.saved = data.saved.filter(function (x) { return x.url !== e.url; });
       write();
+      keepImages(e, on);
     },
     markRead: function (e) {
       data.history = [e].concat(data.history.filter(function (x) { return x.url !== e.url; })).slice(0, CAP);

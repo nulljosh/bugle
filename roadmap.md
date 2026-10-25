@@ -16,7 +16,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 6 | Saved stories | yes | yes | swipe or press and hold to save (app), Save in the reader (app and web); Saved at the top of Feeds; stored whole so they open offline | done | 1.11.0 |
 | 7 | History of read stories, read rows dimmed | yes | yes | History in Feeds, read rows dim, app and web | done | 1.11.0 |
 | 8 | Search stories and sources | yes | yes | search field on Home matches headlines and outlet names, app and web | done | 1.12.0 |
-| 9 | Offline reading with images | yes | | text cached, images not | partial | |
+| 9 | Offline reading with images | yes | | pictures seen or saved stay on disk (app); saved stories keep every picture and the reader opens offline (web) | done | 1.21.0 |
 | 10 | Same story grouped across outlets (full coverage) | yes | yes | ported from Sidewise: one row per story, "N sources" (app and web) | done | 1.14.0 |
 | 11 | Lean bar per story (left, center, right) | | yes | Coverage sheet from the reader (app and web) | done | 1.14.0 |
 | 12 | Lean and owner label on each outlet | | yes | in Feeds and the Coverage sheet (app and web) | done | 1.14.0 |
