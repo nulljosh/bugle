@@ -20,10 +20,11 @@ Restart prompt:
 
 ## Next, in order
 
-1. Band 4.x, iPad and Mac, toward 5.0: 38 keyboard shortcuts (next up), 39 three columns on iPad and Mac, 40 share extension, 41 Spotlight and Handoff.
-2. Once 2.0.0 clears review, archive main as the next store version and submit iOS and Mac.
-3. One Liquid Glass pass on one screen every tick.
-4. Podcasts at 5.0 need one question to Joshua first.
+1. Tighten grouping (A+): the cluster's keyword set grows with every headline it takes, so a busy topic swallows loosely related stories (an Apple TV Siri story joined an iPhone Duo Safari story). Match each new headline against the lead's keywords, in Coverage.swift and coverage.js together, with a test.
+2. Band 4.x, iPad and Mac, toward 5.0: 38 keyboard shortcuts, 39 three columns on iPad and Mac, 40 share extension, 41 Spotlight and Handoff.
+3. Once 2.0.0 clears review, archive main as the next store version and submit iOS and Mac.
+4. One Liquid Glass pass on one screen every tick.
+5. Podcasts at 5.0 need one question to Joshua first.
 
 ## Rules that bite
 
