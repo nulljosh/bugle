@@ -3,6 +3,8 @@ import Foundation
 @MainActor
 final class JournalFeedService: ObservableObject {
     @Published var entries: [JournalEntry] = [] { didSet { regroup() } }
+    /// Muted outlets and words (Settings, or Mute on Home) drop out before grouping.
+    var muted: [String] = [] { didSet { if muted != oldValue { regroup() } } }
     /// The same story across outlets, grouped (Coverage.cluster); Home shows one row per story.
     @Published private(set) var stories: [Story] = []
     private var storyOf: [String: Story] = [:]
@@ -22,7 +24,7 @@ final class JournalFeedService: ObservableObject {
     func story(for entry: JournalEntry) -> Story? { storyOf[entry.id] }
 
     private func regroup() {
-        stories = Coverage.cluster(entries)
+        stories = Coverage.cluster(entries.filter { !Coverage.isMuted($0, muted) })
         storyOf = Dictionary(stories.flatMap { s in s.entries.map { ($0.id, s) } }, uniquingKeysWith: { a, _ in a })
     }
 

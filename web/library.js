@@ -25,10 +25,10 @@ var Library = (function () {
   };
 })();
 
-// Topics you follow: words that become chips on Home, one tap to read only them (Apple News, Ground News).
-// Mirrors Topics in Library.swift.
-var Topics = (function () {
-  var KEY = 'bugle.topics', list = [];
+// Topics you follow (chips on Home, one tap to read only them) and words or outlets you muted (gone from
+// Home), Apple News and Ground News style. Mirrors Topics in Library.swift.
+function wordList(KEY) {
+  var list = [];
   try { list = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) {}
   var find = function (t) { t = t.toLowerCase(); return list.findIndex(function (x) { return x.toLowerCase() === t; }); };
   return {
@@ -40,7 +40,21 @@ var Topics = (function () {
       try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {}
     }
   };
-})();
+}
+var Topics = wordList('bugle.topics'), Muted = wordList('bugle.muted');
+
+function renderMuted() {   // Settings: what you muted, each with Unmute
+  var ul = document.getElementById('muted');
+  ul.innerHTML = '';
+  Muted.list().forEach(function (m) {
+    var row = el('div', 'row'), btn = el('button', 'act', 'Unmute');
+    btn.setAttribute('aria-label', 'Unmute ' + m);
+    btn.onclick = function () { Muted.toggle(m); renderMuted(); restory(); };
+    row.appendChild(el('span', 'txt', m)); row.appendChild(btn);
+    var li = el('li'); li.appendChild(row); ul.appendChild(li);
+  });
+  if (!Muted.list().length) ul.appendChild(el('li', 'muted', 'Nothing muted.'));
+}
 
 function renderLibrary() {
   document.getElementById('saved-count').textContent = Library.saved().length || '';
@@ -62,4 +76,5 @@ document.getElementById('save').onclick = function () {
 };
 document.getElementById('history-clear').onclick = function () { Library.clearHistory(); renderLibrary(); renderEntries(); };
 renderLibrary();
-renderTopics();   // reader.js drew Home before Topics existed
+renderMuted();
+restory();   // reader.js drew Home before Topics and Muted existed

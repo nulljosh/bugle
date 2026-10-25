@@ -46,8 +46,14 @@ async function refresh() {
   var seen = {};
   entries = [].concat.apply([], results).sort(function (a, b) { return b.date - a.date; })
     .filter(function (e) { return !seen[e.url] && (seen[e.url] = true); });
-  // One row per story: the same story from several outlets groups (Coverage.cluster), Ground News style.
-  stories = Coverage.cluster(entries); storyOf = {};
+  restory();
+}
+
+// One row per story: the same story from several outlets groups (Coverage.cluster), Ground News style.
+// Muted outlets and words drop out first, so a muted outlet's copy never leads or counts.
+function restory() {
+  var m = window.Muted ? Muted.list() : [];
+  stories = Coverage.cluster(entries.filter(function (e) { return !Coverage.muted(e, m); })); storyOf = {};
   stories.forEach(function (st) { st.entries.forEach(function (e) { storyOf[e.url] = st; }); });
   renderEntries();
 }
@@ -71,7 +77,7 @@ function renderEntries() {
 }
 
 // Followed topics as chips under the search (tap to read only it, tap again for everything). Searching for a
-// word that is not an outlet offers to follow it; searching a followed topic offers to unfollow. Same as the app.
+// word that is not an outlet offers to follow it; searching anything offers to mute it. Same as the app.
 function renderTopics() {
   var box = document.getElementById('topics'), input = document.getElementById('q');
   if (!box || !window.Topics) return;
@@ -82,6 +88,11 @@ function renderTopics() {
     var follow = el('button', 'chip follow', Topics.has(raw) ? 'Unfollow' : '+ Follow \u201C' + raw + '\u201D');
     follow.onclick = function () { Topics.toggle(raw); renderTopics(); };
     box.appendChild(follow);
+  }
+  if (raw) {   // mute anything you can search: an outlet or a word
+    var mute = el('button', 'chip', Muted.has(raw) ? 'Unmute' : 'Mute');
+    mute.onclick = function () { Muted.toggle(raw); if (Muted.has(raw)) input.value = ''; renderMuted(); restory(); };
+    box.appendChild(mute);
   }
   Topics.list().forEach(function (t) {
     var on = t.toLowerCase() === q, chip = el('button', 'chip', t);

@@ -67,6 +67,11 @@ var Coverage = (function () {
     });
   }
   // Today: the five biggest stories of the last day (most newsrooms, at least two) lead Home, then the rest, newest first.
+  // Muted: an outlet by name, or any headline containing the word. Mirrors Coverage.isMuted.
+  function muted(e, list) {
+    var s = e.source.toLowerCase(), t = e.title.toLowerCase();
+    return list.some(function (m) { m = m.toLowerCase(); return s === m || t.indexOf(m) >= 0; });
+  }
   function today(stories, now) {
     now = now || Date.now();
     var top = stories.filter(function (s) { return s.publishers > 1 && now - s.lead.date < 864e5; })
@@ -109,5 +114,5 @@ var Coverage = (function () {
     return box;
   }
   function about(feed) { var o = outlet(feed.title); return o ? (o.lean == null ? 'Not rated' : leanLabel(o.lean)) + ' · ' + o.owner : feed.url; }
-  return { cluster: cluster, today: today, BRAND: BRAND, PALETTE: PALETTE, OUTLETS: OUTLETS, colors: colors, paint: paint, readingLean: readingLean, bar: bar, section: section, about: about };
+  return { cluster: cluster, today: today, muted: muted, BRAND: BRAND, PALETTE: PALETTE, OUTLETS: OUTLETS, colors: colors, paint: paint, readingLean: readingLean, bar: bar, section: section, about: about };
 })();

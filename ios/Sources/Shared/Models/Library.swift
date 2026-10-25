@@ -43,8 +43,8 @@ final class Library: ObservableObject {
     }
 }
 
-/// Topics you follow: words that become chips on Home, one tap to read only them (Apple News, Ground News).
-/// Kept as one newline-joined string in UserDefaults ("topics"). Mirrors Topics in web/library.js.
+/// A list of words kept as one newline-joined string in UserDefaults: topics you follow ("topics", chips on Home)
+/// and outlets or words you muted ("muted"). Mirrors wordList in web/library.js.
 enum Topics {
     static func list(_ raw: String) -> [String] { raw.split(separator: "\n").map(String.init) }
     static func has(_ t: String, in raw: String) -> Bool { list(raw).contains { $0.caseInsensitiveCompare(t) == .orderedSame } }
@@ -79,6 +79,8 @@ func relativeTimeDemo() {
     assert(Topics.toggled("AI", in: "") == "AI")
     assert(Topics.toggled("ai", in: "Canada\nAI") == "Canada")
     assert(Topics.toggled("Apple", in: "Canada") == "Canada\nApple")
+    let e = JournalEntry(title: "Canucks lose again", url: "u", date: now, htmlContent: "", sourceTitle: "The Province")
+    assert(Coverage.isMuted(e, ["the province"]) && Coverage.isMuted(e, ["CANUCKS"]) && !Coverage.isMuted(e, ["BBC"]))
     assert(FeedParser.sharpen(URL(string: "https://ichef.bbci.co.uk/ace/standard/240/a.jpg")!)?.absoluteString == "https://ichef.bbci.co.uk/ace/standard/976/a.jpg")
 }
 #endif

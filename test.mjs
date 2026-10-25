@@ -107,6 +107,13 @@ test("outlet colors are readable in light and dark, and name real outlets", () =
 // Image sharpening, shared with FeedParser.sharpen (web/parse.js is a classic script).
 (await import("node:vm")).runInThisContext(readFileSync(new URL("./web/parse.js", import.meta.url), "utf8"));
 
+test("mute hides an outlet by name or a word in the headline", () => {
+  const e = { title: "Canucks lose again", source: "The Province" };
+  assert.ok(Coverage.muted(e, ["the province"]));
+  assert.ok(Coverage.muted(e, ["CANUCKS"]));
+  assert.ok(!Coverage.muted(e, ["BBC", "Raptors"]));
+});
+
 test("BBC thumbnails ask for the 976 px copy, other hosts untouched", () => {
   assert.equal(sharpen("https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/a.jpg"), "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/a.jpg");
   assert.equal(sharpen("https://ichef.bbci.co.uk/news/240/cpsprodpb/a.jpg"), "https://ichef.bbci.co.uk/news/976/cpsprodpb/a.jpg");

@@ -126,6 +126,11 @@ enum Coverage {
     }
 
     /// Today: the five biggest stories of the last day (most newsrooms, at least two) lead Home, then the rest, newest first.
+    /// Muted: an outlet by name, or any headline containing the word. Mirrors muted in web/coverage.js.
+    static func isMuted(_ e: JournalEntry, _ list: [String]) -> Bool {
+        list.contains { e.sourceTitle.caseInsensitiveCompare($0) == .orderedSame || e.title.localizedCaseInsensitiveContains($0) }
+    }
+
     static func today(_ stories: [Story], now: Date = .now) -> [Story] {
         let top = stories.filter { $0.publishers > 1 && now.timeIntervalSince($0.lead.date) < 86_400 }
             .sorted { ($0.publishers, $0.lead.date) > ($1.publishers, $1.lead.date) }.prefix(5)

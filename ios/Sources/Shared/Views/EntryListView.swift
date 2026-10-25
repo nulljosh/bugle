@@ -13,6 +13,7 @@ struct EntryListView: View {
     @State private var path: [JournalEntry] = []
     @State private var query = UserDefaults.standard.string(forKey: "search") ?? ""   // `-search BBC` for screenshots
     @AppStorage("topics") private var topics = ""
+    @AppStorage("muted") private var muted = ""
 
     /// Both default to the real thing; the parameters exist so the macOS screenshot capture can
     /// hand in a pre-loaded service and a trimmed feed list without writing to the user's saved
@@ -47,6 +48,7 @@ struct EntryListView: View {
         .environment(\.horizontalSizeClass, .compact)
         #endif
         .tint(accent)
+        .onChange(of: muted, initial: true) { feed.muted = Topics.list(muted) }
         .task(id: store.feeds) {
             if account.signedIn { try? await account.push(store.feeds) }   // keep the account's copy current
             await feed.refresh(feeds: store.feeds)
@@ -81,8 +83,8 @@ struct EntryListView: View {
             SearchField(text: $query).listRowSeparator(.hidden)
             // Searching for a word that is not an outlet offers to follow it.
             let followable = !q.isEmpty && Outlet.of(q) == nil && !store.feeds.contains { $0.title.caseInsensitiveCompare(q) == .orderedSame }
-            if !topics.isEmpty || followable {
-                TopicBar(query: $query, topics: $topics, followable: followable).listRowSeparator(.hidden)
+            if !topics.isEmpty || !q.isEmpty {
+                TopicBar(query: $query, topics: $topics, muted: $muted, followable: followable).listRowSeparator(.hidden)
             }
             if let hero { HeroRow(entry: hero.lead, library: library, story: hero).listRowSeparator(.hidden) }
             ForEach(shown.filter { $0.id != hero?.id }) { EntryRow(entry: $0.lead, library: library, story: $0) }
@@ -254,6 +256,7 @@ struct SearchField: View {
 struct TopicBar: View {
     @Binding var query: String
     @Binding var topics: String
+    @Binding var muted: String
     let followable: Bool
 
     var body: some View {
@@ -263,6 +266,13 @@ struct TopicBar: View {
                 if followable {
                     Button(Topics.has(q, in: topics) ? "Unfollow" : "+ Follow \u{201C}\(q)\u{201D}") { topics = Topics.toggled(q, in: topics) }
                         .buttonStyle(Chip(on: true))
+                }
+                if !q.isEmpty {   // mute anything you can search: an outlet or a word
+                    let isMuted = Topics.has(q, in: muted)
+                    Button(isMuted ? "Unmute" : "Mute") {
+                        muted = Topics.toggled(q, in: muted)
+                        if !isMuted { query = "" }
+                    }.buttonStyle(Chip())
                 }
                 ForEach(Topics.list(topics), id: \.self) { t in
                     let on = t.caseInsensitiveCompare(q) == .orderedSame

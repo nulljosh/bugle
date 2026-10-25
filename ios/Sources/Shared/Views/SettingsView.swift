@@ -5,6 +5,7 @@ struct SettingsView: View {
     @ObservedObject var account: Account
     @ObservedObject var library: Library
     @AppStorage("readerTextSize") private var textSize = 17.0
+    @AppStorage("muted") private var muted = ""
     @State private var showSignIn = false
     @State private var confirmDelete = false
     private let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
@@ -31,6 +32,16 @@ struct SettingsView: View {
                     Text("Your Reading")
                 } footer: {
                     Text(library.history.isEmpty ? "Open a few stories to see how what you read leans." : "From the last \(library.history.count == 1 ? "story" : "\(library.history.count) stories") you opened, rated outlets only.")
+                }
+                Section {
+                    ForEach(Topics.list(muted), id: \.self) { m in
+                        LabeledContent(m) { Button("Unmute") { muted = Topics.toggled(m, in: muted) } }
+                    }
+                    if muted.isEmpty { Text("Nothing muted.").foregroundStyle(.secondary) }
+                } header: {
+                    Text("Muted")
+                } footer: {
+                    Text("Search an outlet or a word on Home, then tap Mute to hide its stories.")
                 }
                 Section("Reading") {
                     Stepper(value: $textSize, in: 13...28) {
