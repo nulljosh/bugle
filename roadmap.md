@@ -1,0 +1,107 @@
+# Bugle Roadmap
+
+Joshua 2026-10-25: "build out roadmap to v100 then loop to it", then "compare gaps to other news apps like native Apple News and Ground News, loop until 0 remaining gaps, QA and test everything, until A+". The loop prompt lives at `~/.claude/loops/bugle.md`.
+
+## Gap matrix (vs Apple News and Ground News)
+
+Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works top to bottom. "0 remaining gaps" means no `todo` or `partial` rows. Each `n/a` has a reason Joshua can overrule.
+
+| # | Feature | Apple News | Ground News | Bugle | Status | Version |
+|---|---------|-----------|-------------|---------|--------|---------|
+| 1 | Resizable window everywhere | yes | yes | Mac floor was 720 pt wide; iPad already resizes | done | 1.1.0 |
+| 2 | One-line list titles, full title on open (Joshua 2026-09-12) | | | one line on iPhone, iPad, Mac and web; Watch keeps two (one line is about 15 characters there) | done | 1.2.0 |
+| 3 | Web reader matches the app (bottom bar Home, Feeds, Settings) | | yes | same three screens, bottom bar, same seed list | done | 1.3.0 |
+| 4 | Share, copy link, open in browser from a story | yes | yes | share sheet and Open in Browser in the reader; web shares or copies the link | done | 1.4.0 |
+| 5 | Text size in the reader | yes | yes | Settings, 13 to 28 pt, app and web | done | 1.5.0 |
+| 6 | Saved stories | yes | yes | swipe or press and hold to save (app), Save in the reader (app and web); Saved at the top of Feeds; stored whole so they open offline | done | 1.11.0 |
+| 7 | History of read stories, read rows dimmed | yes | yes | History in Feeds, read rows dim, app and web | done | 1.11.0 |
+| 8 | Search stories and sources | yes | yes | search field on Home matches headlines and outlet names, app and web | done | 1.12.0 |
+| 9 | Offline reading with images | yes | | text cached, images not | partial | |
+| 10 | Same story grouped across outlets (full coverage) | yes | yes | ported from Sidewise: one row per story, "N sources" (app and web) | done | 1.14.0 |
+| 11 | Lean bar per story (left, center, right) | | yes | Coverage sheet from the reader (app and web) | done | 1.14.0 |
+| 12 | Lean and owner label on each outlet | | yes | in Feeds and the Coverage sheet (app and web) | done | 1.14.0 |
+| 13 | Compare headlines side by side | | yes | Coverage sheet groups headlines Left, Center, Right (app and web) | done | 1.14.0 |
+| 14 | Blindspot: stories one side barely covers | | yes | noted in Coverage (app and web); a Blindspot filter comes with row 16 | done | 1.14.0 |
+| 15 | My news bias (lean of what you read) | | yes | Your Reading in Settings (app and web) | done | 1.14.0 |
+| 16 | Today: top stories ranked by coverage | yes | yes | newest first | todo | |
+| 17 | Follow topics | yes | yes | sources only | todo | |
+| 18 | Mute a source or topic | yes | yes | unsubscribe only | partial | |
+| 19 | Local news for your region | yes | yes | two Vancouver outlets seeded | partial | |
+| 20 | Follow sources, suggested sources | yes | yes | Feeds tab | done | 1.0.8 |
+| 21 | Background refresh | yes | yes | refresh on open only | todo | |
+| 22 | Notifications for chosen sources | yes | yes | none | todo | |
+| 23 | Home Screen widgets | yes | yes | none | todo | |
+| 24 | Sync of feeds, saved and history | yes | account | optional Bugle account (jaybulb-api) syncs the feed list on app and web; saved and history follow when they exist | partial | 1.9.0 |
+| 25 | Siri and Shortcuts | yes | | none | todo | |
+| 26 | Listen to a story | News+ | | none; on-device speech | todo | |
+| 27 | Watch app at parity | yes | | list and story, old styling | partial | |
+| 28 | Light and dark mode | yes | yes | yes | done | 1.0.6 |
+| 29 | No account, no tracking | Apple ID | account | yes | done | 1.0.0 |
+| 30 | Factuality score per source | | yes | | n/a | no free source we can cite; we won't invent scores |
+| 31 | Puzzles, magazines, News+ narration | News+ | | | n/a | paid publisher content and licensing |
+| 32 | Weather, stocks and sports scores in Today | yes | | | n/a | needs licensed live data; not reading |
+
+## Mobbin study (2026-10-25)
+
+Apple News's "similar screens" on Mobbin lined up about 18 news apps (informed, Guardian, Yahoo News, Ground News, USA Today, BuzzFeed News, SCMP, Artifact, The Athletic, Yahoo Finance, NYT, Citizen, WSJ, The Bulletin). What they share, and where Bugle stands:
+- Text left, picture right, the outlet as a small label above the headline, time beside it: done 1.10.0.
+- A big hero for the top story: done 1.10.0.
+- Relative times ("4h ago"): done 1.10.0.
+- No disclosure arrows on rows: done 1.10.0.
+- Story clusters ("44 articles", "6 sources", "More on this story"): gap row 10.
+- Filter chips at the top (For You, Local, Top Stories): with rows 16 and 19.
+- Saved in reach (Guardian and USA Today put it in the tab bar; Bugle keeps it in Feeds): row 6.
+- LIVE badges: not in RSS, skip.
+
+## Road to v100
+
+Minor version per row, major version per band. Each major gets the full QA below and a store submit if no review is open.
+
+- **1.x Reader core** (rows 2 to 9). **2.0** QA.
+- **2.x Ground News** (rows 10 to 15), by porting Sidewise's clustering and lean data to Swift and the web reader. **3.0** QA. Then one line to Joshua: Sidewise is now inside Bugle, so keep both, or retire Sidewise?
+- **3.x Today and topics** (rows 16 to 19). **4.0** QA.
+- **4.x Around the system** (rows 21 to 27). **5.0** = 0 gaps: side-by-side QA against Apple News and Ground News, then call it.
+- **5 to 9 Podcasts** (Joshua 2026-08-24, confirmed): enclosure audio, a player with background audio and lock-screen controls, resume position, downloads. Apple Podcasts is the design reference. Positioning check with Joshua before 5.0, since it turns a reader into a listener.
+- **10 to 19 Writing** (CMS phases 1 and 2 below). Gate: re-decide the backend first (the plan says Supabase, but the free tier is maxed and the fleet moved to Cloudflare D1), and confirm with Joshua that Bugle may drop "no account".
+- **20 to 29 Subscribers** (CRM phase 3). Same gate.
+- **30 to 49 Android** from `kmp/`. Gate: a Play developer account.
+- **50 to 99** speed, accessibility (VoiceOver, Dynamic Type, Reduce Motion), every language, design polish. Money is free or $1 only; ads (Joshua's 2026-09-12 note) go to him as one question, since "no tracking" is the pitch.
+- **100** one reader on iPhone, iPad, Mac, Watch, web and Android, in sync.
+- Past 100 the number just counts; take the most useful thing the last versions surfaced, bugs first.
+
+## QA every major version
+
+- Tests: `node test.mjs` (web), the DEBUG parser self-checks on launch, `cd kmp && ./gradlew :shared:allTests` (when a JDK is present).
+- Build iOS, Mac and Watch with no warnings added.
+- Screenshots: iPhone and iPad simulators with `-tab 0|1|2` and `-selectFirst`, light and dark; Mac with `scripts/capture-mac-shots.sh` and `CAPTURE_FRAME=1` for the toolbar tabs; web reader at 390 px and desktop; the landing (it iframes `read.html?embed`).
+- Live check after every web deploy: curl the pages and `/feed`.
+
+## Other open asks from Joshua
+
+- Expand the curated seed sources beyond the current set (2026-09-12). Check recency with Sidewise's `check-feeds.mjs` first: zombie feeds still return 200.
+- Audit the journal repo for personal data (2026-08-22). That's the Jekyll blog repo, not this one.
+
+## CMS/CRM plan (scoped 2026-08-02, gated, see band 10)
+
+Bugle stays a reader and also becomes a Ghost-style writing client.
+- Phase 1, single-user write access. Tables `inkpress_posts` and `inkpress_contacts` exist on the shared `spark` Supabase project, RLS on, no policies, no rows, and no `user_id` column. Before any policy: add `user_id uuid not null references auth.users(id) default auth.uid()`, then one `using (user_id = auth.uid()) with check (user_id = auth.uid())` policy per table. Auth config on `spark` is shared by other apps, so diff before any PATCH. `status` has no CHECK and there is no `scheduled_at`.
+- Phase 2, compose, edit and publish with draft, scheduled and published states.
+- Phase 3, subscribers as contacts (name, email, notes, source).
+- Phase 4, pages, tags, search.
+
+## Ship notes
+- Before submitting any build with accounts (1.9.0 on): update the App Privacy answers in App Store Connect. Data collected: Email Address (linked to the user, App Functionality) and Other User Content (the feed list, linked, App Functionality). No tracking.
+- Account emails need `bugle` in authmail's THEMES; the app sends `Origin: https://bugle.jaybulb.com` and `redirect_to` so mails say Bugle.
+
+- `asc validate` dies on "multiple app infos found" while a review is open; check readiness by hand and use `asc review submit --dry-run`.
+- `whatsNew` can't be set on a platform's first release, and a failed field fails the whole localization PATCH.
+- Article bodies render in a `WKWebView` on purpose; the `NSAttributedString` importer rendered blank bodies.
+- Thumbnails come from `media:thumbnail`/`media:content`, then `enclosure`, then the first `<img>`; the Swift and JS extractors mirror each other, so change both.
+- The feed parsers prefer `content:encoded` over `description` (2026-10-25); before that, both were glued together and stories showed their text twice.
+
+## Shipped
+
+- 2026-10-25 1.0.8 (iOS and Mac, in review): renamed Inkpress to Coranto, blue brand and icon, bottom tab bar replaces the sidebar, Settings tab, doubled-text fix, dead upvote button removed, purple links fixed, old heyitsmejosh feeds migrated, bugle.jaybulb.com live.
+- 2026-08-30 macOS 1.0.7, first Mac release.
+- 2026-08-25 1.0.5, 16 curated news feeds seeded, named-zone date fix.
+- 2026-08-10 1.0.3, new icon, loading indicator.

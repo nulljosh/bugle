@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — Bugle</title>
+<meta name="description" content="Support for Bugle, the multi-feed RSS and Atom reader for iOS. Common questions, troubleshooting, and how to report a bug.">
+<meta name="theme-color" content="#0059B3">
+<meta property="og:title" content="Support — Bugle">
+<meta property="og:description" content="Common questions, troubleshooting, and how to report a bug in Bugle.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bugle.jaybulb.com/support.html">
+<link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+<section class="page-head">
+  <div class="container">
+    <h1>Support</h1>
+    <p class="meta">Help with Bugle for iPhone and iPad</p>
+  </div>
+</section>
+
+<section class="prose">
+  <div class="container">
+    <a class="back" href="./">&larr; Back to Bugle</a>
+
+    <p class="lede">Bugle is a multi-feed RSS and Atom reader. If something is not working, the fastest route to a fix is an issue on GitHub with the feed URL that is giving you trouble.</p>
+
+    <h2>Report a bug or request a feature</h2>
+    <p>Open an issue on the <a href="https://github.com/nulljosh/labs/issues">Bugle issue tracker</a>. Including your iOS version, your device, and the exact feed URL involved makes a problem far quicker to reproduce and fix.</p>
+
+    <h2>Adding a feed</h2>
+    <p>Open the feed list, choose to manage feeds, and paste the address of the feed you want. Bugle accepts both RSS and Atom feeds. Most sites publish theirs at an address ending in /feed, /rss, or /feed.xml — if a site advertises its feed, that address is what Bugle needs.</p>
+
+    <h2>A feed will not load</h2>
+    <ul>
+      <li>Check that the address points at the feed itself rather than the site's normal homepage. A homepage is HTML, not a feed, and cannot be parsed.</li>
+      <li>Open the same address in Safari. If it fails there too, the feed's own server is down or the address is wrong.</li>
+      <li>Some sites put their feed behind a login or a bot filter. Those feeds cannot be read by any standalone reader, Bugle included.</li>
+    </ul>
+
+    <h2>An article looks empty or incomplete</h2>
+    <p>Bugle renders what the feed publishes. Many sites deliberately publish only a short summary rather than the full article, in which case opening the entry's original link is the only way to read the whole piece. If an article that does contain a full body renders blank, that is a bug worth reporting.</p>
+
+    <h2>Reading offline</h2>
+    <p>Entries are cached on your device as they are downloaded, so anything already pulled down stays readable without a connection. New entries still need a connection to fetch.</p>
+
+    <h2>Removing the default feed</h2>
+    <p>Bugle subscribes to one feed on first launch so that the app is not empty. Remove it from the manage-feeds screen the same way you would remove any other subscription.</p>
+
+    <h2>Accounts and data</h2>
+    <p>You never need an account to read. An optional one in Settings keeps your feed list the same on every device and the web reader, and you can delete it there at any time. See the <a href="privacy.html">privacy policy</a> for exactly what it stores.</p>
+
+    <h2>Still stuck</h2>
+    <p>Open an issue on <a href="https://github.com/nulljosh/labs/issues">GitHub</a> and describe what you expected to happen and what happened instead.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>Bugle &mdash; by <a href="https://jaybulb.com">Joshua Trommel</a></p>
+    <p><a href="./">Home</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="https://github.com/nulljosh/labs/tree/main/bugle">Source on GitHub</a></p>
+  </div>
+</footer>
+
+  <script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js'));</script>
+</body>
+</html>

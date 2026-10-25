@@ -1,0 +1,70 @@
+/* Bugle design tokens. One source for the landing, the web reader and the apps (Theme.swift mirrors the accent).
+   Shared system: 8 point grid, one radius set, 48 point capsule controls. clrs.cc blue is the only colour Bugle owns. */
+@font-face { font-family: "Bugle Sans"; src: url("fonts/BugleSans-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Bugle Sans"; src: url("fonts/BugleSans-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Bugle Sans"; src: url("fonts/BugleSans-Semibold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Bugle Sans"; src: url("fonts/BugleSans-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+/* Bugle Sans is Inter, Bugle Display is Inter Tight Bold (SIL OFL 1.1, fonts/OFL.txt); headlines in normal case */
+@font-face { font-family: "Bugle Display"; src: url("fonts/BugleDisplay-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+:root {
+  /* colour */
+  --accent: #0059B3;          /* actions and links; deep clrs.cc blue, AA on paper */
+  --btn: #0063BF;             /* solid buttons, white label */
+  --frame: #0074D9;           /* the thin rule down the window edges */
+  --band: #0063BF;            /* full-bleed blue sections, white text AA */
+  --band-sub: #dce9fb;        /* secondary text on the band, AA */
+  --band-art: #7fb6f0;        /* engraving on the band */
+  --band-line: rgba(255, 255, 255, .24);
+  --accent-light: #0074D9;    /* icon gradient top */
+  --accent-deep: #0059B3;     /* icon gradient bottom */
+  --ring: color-mix(in srgb, var(--accent) 30%, transparent);
+  --bg: #ffffff;
+  --surface: #f5f5f7;
+  --line: #e5e5ea;
+  --text: #1d1d1f;
+  --sub: #6e6e73;
+
+  /* type */
+  --display: "Bugle Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font: "Bugle Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --size-title: 34px;         /* section heads: 40 line */
+  --size-headline: 20px;      /* card heads: 28 line */
+  --size-body: 17px;          /* 24 line */
+  --size-footnote: 13px;      /* 16 line */
+
+  /* space: the 8 point grid */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
+  --measure: 680px;
+  --wrap: 1120px;
+
+  /* shape */
+  --control: 48px;
+  --r-card: 28px;
+  --r-group: 20px;
+  --r-row: 8px;
+  --r-pill: 999px;
+  --r-sq: 2px;                /* landing buttons and panels */
+  --r-icon: 22.5%;
+  --motion: .2s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --accent: #5aa9ff;
+    --btn: #0a6fd6;
+    --frame: #0a6fd6;
+    --band: #0a4f9a;
+    --band-sub: #cfe2fb;
+    --band-art: #4f8fd6;
+    --bg: #000000;
+    --surface: #1c1c1e;
+    --line: #38383a;
+    --text: #f5f5f7;
+    --sub: #98989d;
+  }
+}
+:root[data-theme="dark"] {
+  --accent: #5aa9ff; --btn: #0a6fd6; --frame: #0a6fd6; --band: #0a4f9a; --band-sub: #cfe2fb; --band-art: #4f8fd6;
+  --bg: #000000; --surface: #1c1c1e; --line: #38383a; --text: #f5f5f7; --sub: #98989d;
+}

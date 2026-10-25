@@ -1,0 +1,85 @@
+// Ground News-style coverage, ported from Sidewise: the same story grouped across outlets, each outlet's lean and
+// owner, a left / center / right count, blindspots. Mirrors Coverage.swift; change both or neither. Leans are
+// Bugle's own rating, -2 (left) to +2 (right); tech outlets and blogs are unrated, not center.
+var Coverage = (function () {
+  var O = function (lean, owner, publisher) { return { lean: lean, owner: owner, publisher: publisher }; };
+  var OUTLETS = {
+    'CBC': O(-1, 'Canadian public broadcaster', 'CBC'), 'The Guardian': O(-1, 'Guardian Media Group (Scott Trust)', 'The Guardian'),
+    'NPR': O(-1, 'US nonprofit public radio', 'NPR'), 'BBC': O(0, 'UK public broadcaster', 'BBC'),
+    'Global News': O(0, 'Corus Entertainment', 'Global News'), 'NBC News': O(-1, 'NBCUniversal (Comcast)', 'NBC News'),
+    'Wall Street Journal': O(1, 'Dow Jones (News Corp)', 'Wall Street Journal'), 'National Post': O(1, 'Postmedia', 'National Post'),
+    'Fox News': O(2, 'Fox Corporation', 'Fox News'), 'NY Post': O(2, 'News Corp', 'NY Post'), 'NY Post Opinion': O(2, 'News Corp', 'NY Post'),
+    'Daily Wire': O(2, 'The Daily Wire (independent)', 'Daily Wire'), 'Vancouver Sun': O(0, 'Postmedia', 'Postmedia BC'),
+    'The Province': O(0, 'Postmedia', 'Postmedia BC'), 'Hacker News': O(null, 'Y Combinator', 'Hacker News'),
+    'Daring Fireball': O(null, 'John Gruber (independent)', 'Daring Fireball'), 'Journal': O(null, "Joshua's blog", 'Journal')
+  };
+  var SIDES = ['left', 'center', 'right'], TITLES = { left: 'Left', center: 'Center', right: 'Right' };
+  var STOP = new Set(('the a an of to in on for and or as at by is are was with after over from amid says say new this that it its his her ' +
+    'their they we you but not has have had will would could should about into more than what when who how why been being were where which').split(' '));
+  var side = function (lean) { return lean < 0 ? 'left' : lean > 0 ? 'right' : 'center'; };
+  var leanLabel = function (lean) { return ['Left', 'Leans left', 'Center', 'Leans right', 'Right'][Math.max(0, Math.min(4, lean + 2))]; };
+  var outlet = function (source) { return OUTLETS[source] || null; };
+  function keywords(t) {
+    return new Set(String(t).toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(function (w) { return w.length > 2 && !STOP.has(w); }));
+  }
+  function counts(entries) {
+    var seen = { left: new Set(), center: new Set(), right: new Set() };
+    entries.forEach(function (e) { var o = outlet(e.source); if (o && o.lean != null) seen[side(o.lean)].add(o.publisher); });
+    return { left: seen.left.size, center: seen.center.size, right: seen.right.size };
+  }
+  // Group stories sharing at least half their headline keywords; the newest seeds each group. O(n²), like Sidewise.
+  function cluster(entries) {
+    var groups = [];
+    entries.slice().sort(function (a, b) { return b.date - a.date; }).forEach(function (e) {
+      var kw = keywords(e.title), hit = null;
+      if (kw.size) hit = groups.find(function (g) {
+        if (!g.kw.size) return false;
+        var n = 0; kw.forEach(function (w) { if (g.kw.has(w)) n++; });
+        return n / Math.min(g.kw.size, kw.size) >= 0.5;
+      });
+      if (hit) { hit.entries.push(e); kw.forEach(function (w) { hit.kw.add(w); }); } else groups.push({ kw: kw, entries: [e] });
+    });
+    return groups.map(function (g) {
+      var c = counts(g.entries), pubs = new Set(g.entries.map(function (e) { var o = outlet(e.source); return o ? o.publisher : e.source; })).size;
+      var lit = SIDES.filter(function (k) { return c[k] > 0; });
+      return { lead: g.entries[0], entries: g.entries, counts: c, publishers: pubs, blindspot: lit.length === 1 && pubs > 1 ? lit[0] : null };
+    });
+  }
+  function readingLean(history) { var c = { left: 0, center: 0, right: 0 }; history.forEach(function (e) { var o = outlet(e.source); if (o && o.lean != null) c[side(o.lean)]++; }); return c; }
+  function bar(c) {
+    var total = c.left + c.center + c.right || 1, wrap = el('div', 'leanbar'), track = el('div', 'track'), legend = el('div', 'legend');
+    SIDES.forEach(function (k) {
+      if (c[k]) { var seg = el('span', k); seg.style.flexGrow = c[k] / total; track.appendChild(seg); }
+      legend.appendChild(el('span', '', TITLES[k] + ' ' + c[k]));
+    });
+    if (!c.left && !c.center && !c.right) track.classList.add('empty');
+    wrap.appendChild(track); wrap.appendChild(legend);
+    return wrap;
+  }
+  // Every outlet's take, side by side by lean, under a story's body.
+  function section(story, onOpen) {
+    var box = el('section', 'coverage');
+    box.appendChild(el('h3', '', 'Coverage'));
+    box.appendChild(bar(story.counts));
+    if (story.blindspot) box.appendChild(el('p', 'note-line', 'Blindspot: only ' + (story.blindspot === 'center' ? 'center' : story.blindspot + '-leaning') + ' outlets covered this.'));
+    box.appendChild(el('p', 'note-line', 'Covered by ' + story.publishers + ' newsrooms. Leans are Bugle’s own rating of each outlet.'));
+    SIDES.concat(['unrated']).forEach(function (k) {
+      var rows = story.entries.filter(function (e) { var o = outlet(e.source); return k === 'unrated' ? !o || o.lean == null : o && o.lean != null && side(o.lean) === k; });
+      if (!rows.length) return;
+      box.appendChild(el('p', 'label', k === 'unrated' ? 'Not rated' : TITLES[k]));
+      var ul = el('ul', 'rows group');
+      rows.forEach(function (e) {
+        var b = el('button', 'row'), t = el('span', 'txt'), o = outlet(e.source);
+        var k2 = el('small', 'kick'); k2.appendChild(el('span', 'src', e.source));
+        k2.appendChild(document.createTextNode((o && o.lean != null ? ' · ' + leanLabel(o.lean) : '') + ' · ' + ago(e.date)));
+        t.appendChild(k2); t.appendChild(el('span', 'cov-title', Headline.clean(e.title, e.source)));
+        b.appendChild(t); b.onclick = function () { onOpen(e); };
+        var li = el('li'); li.appendChild(b); ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    });
+    return box;
+  }
+  function about(feed) { var o = outlet(feed.title); return o ? (o.lean == null ? 'Not rated' : leanLabel(o.lean)) + ' · ' + o.owner : feed.url; }
+  return { cluster: cluster, readingLean: readingLean, bar: bar, section: section, about: about };
+})();

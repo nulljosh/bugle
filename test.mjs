@@ -1,0 +1,87 @@
+// The proxy used to return any https URL with `access-control-allow-origin: *`, which
+// made it usable as an anonymizing proxy by any site. These pin the guards.
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { onRequestGet } from "./functions/feed.js";
+
+const call = (url) =>
+  onRequestGet({ request: new Request(`https://bugle.jaybulb.com/feed?url=${encodeURIComponent(url)}`) });
+
+test("rejects non-https", async () => {
+  assert.equal((await call("http://example.com/rss")).status, 400);
+});
+
+test("rejects loopback and private hosts", async () => {
+  for (const h of ["http://localhost/x", "https://127.0.0.1/x", "https://169.254.169.254/x", "https://10.1.2.3/x"]) {
+    assert.equal((await call(h)).status, 400, h);
+  }
+});
+
+test("rejects a malformed url", async () => {
+  assert.equal((await call("not a url")).status, 400);
+});
+
+test("never returns a wildcard CORS origin", async () => {
+  const bad = await call("http://example.com/rss");
+  assert.equal(bad.headers.get("access-control-allow-origin"), "https://bugle.jaybulb.com");
+
+  globalThis.fetch = async () => new Response("<rss/>", { headers: { "content-type": "application/xml" } });
+  const ok = await call("https://example.com/rss");
+  assert.equal(ok.headers.get("access-control-allow-origin"), "https://bugle.jaybulb.com");
+});
+
+test("refuses a feed larger than the cap", async () => {
+  globalThis.fetch = async () =>
+    new Response("x", { headers: { "content-length": String(50 * 1024 * 1024) } });
+  assert.equal((await call("https://example.com/big")).status, 413);
+});
+
+// Headline cleaning, shared rules with the Swift app (web/headline.js sets globalThis.Headline).
+await import("./web/headline.js");
+const { clean, variants } = globalThis.Headline;
+
+test("headline drops section tags, outlet names and asides", () => {
+  assert.equal(clean("Opinion | Congress’s Russia Problems"), "Congress’s Russia Problems");
+  assert.equal(clean("Storm hits coast - BBC News", "BBC"), "Storm hits coast");
+  assert.equal(clean("Rates fall (again) [Video]"), "Rates fall");
+});
+
+test("headline variants cut at a clause first, never on a filler word", () => {
+  const v = variants("Jaylen Brown ratchets up Jayson Tatum drama: ‘He should stay ready at all times’");
+  assert.equal(v[1], "Jaylen Brown ratchets up Jayson Tatum drama");
+  assert.ok(variants("Show HN: I put employees inside S&P 500 bubbles").some((x) => x.startsWith("Show HN:")));
+  for (const x of v) assert.ok(!["to", "the", "of", "at"].includes(x.split(" ").pop()), x);
+});
+
+// /og: the article preview image, the last thumbnail catch.
+const { ogImage, onRequestGet: og } = await import("./functions/og.js");
+
+test("og image reads either attribute order and resolves relative URLs", () => {
+  assert.equal(ogImage('<meta property="og:image" content="https://x.com/i.jpg?a=1&amp;b=2">', "https://e.com/s"), "https://x.com/i.jpg?a=1&b=2");
+  assert.equal(ogImage('<meta content="/p.png" name="twitter:image">', "https://e.com/a/s"), "https://e.com/p.png");
+  assert.equal(ogImage("<title>none</title>", "https://e.com/"), null);
+});
+
+test("og refuses private hosts like the feed proxy", async () => {
+  const r = await og({ request: new Request("https://bugle.jaybulb.com/og?url=" + encodeURIComponent("https://127.0.0.1/x")) });
+  assert.equal(r.status, 400);
+});
+
+// Coverage grouping, shared rules with Coverage.swift (web/coverage.js is a classic script).
+const { readFileSync } = await import("node:fs");
+(await import("node:vm")).runInThisContext(readFileSync(new URL("./web/coverage.js", import.meta.url), "utf8"));
+
+test("coverage groups one story across outlets, counts newsrooms once, flags blindspots", () => {
+  const e = (title, source, t) => ({ title, source, url: source + t, date: new Date(t) });
+  const stories = Coverage.cluster([
+    e("Senate passes border funding bill after long debate", "Fox News", 3),
+    e("Border funding bill passes Senate", "NY Post", 2),
+    e("Senate approves border funding package", "NY Post Opinion", 1),
+    e("Apple ships new MacBook", "Daring Fireball", 0),
+  ]);
+  assert.equal(stories.length, 2);
+  const border = stories.find((s) => s.entries.length === 3);
+  assert.equal(border.publishers, 2);
+  assert.equal(border.blindspot, "right");
+  assert.deepEqual(stories.find((s) => s.entries.length === 1).counts, { left: 0, center: 0, right: 0 });
+});

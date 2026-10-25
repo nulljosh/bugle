@@ -1,0 +1,10 @@
+# Cloudflare Pages project for the Bugle landing page.
+# The site is plain static HTML in web/ — there is no build step.
+#
+#   npx wrangler pages deploy        # reads pages_build_output_dir below
+#
+# Custom domain (bugle.jaybulb.com) is attached once, in the
+# Cloudflare dashboard under Workers & Pages > bugle > Custom domains.
+name = "inkpress"
+pages_build_output_dir = "web"
+compatibility_date = "2026-08-23"

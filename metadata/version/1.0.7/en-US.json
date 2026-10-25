@@ -1,0 +1,7 @@
+{
+  "keywords": "rss,atom,feed,reader,blog,news,offline,subscribe",
+  "marketingUrl": "https://inkpress.jaybulb.com",
+  "supportUrl": "https://inkpress.jaybulb.com/support.html",
+  "description": "Inkpress is a fast, clean reader for RSS and Atom feeds. Add any blog or news feed and read every entry in one place, with no accounts, no algorithm and no tracking.\n\nEntries arrive straight from each feed and cache on your Mac, so anything you have already pulled down stays readable offline. Click an entry to open it in a native reading view built for long text rather than a wrapped web page.\n\nFeatures:\n- Subscribe to any RSS or Atom feed by pasting its address\n- Thumbnails in the entry list, pulled from each feed's own images\n- Offline cache so entries you have already loaded stay readable\n- Native reading view sized for a desktop window\n- Save entries you want to come back to, kept across launches\n- Follows your system light or dark appearance\n- No accounts, no sign-in, no tracking, no ads\n\nYour subscriptions stay on your Mac. Inkpress has no server of its own and collects nothing about what you read.",
+  "promotionalText": "Every blog and news feed you follow, in one clean list. No algorithm deciding the order, no account, no tracking."
+}

@@ -1,0 +1,15 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://jaybulb.com https://heyitsmejosh.com; font-src 'self' data:; img-src 'self' data: blob: https:; connect-src 'self' https://api.jaybulb.com; frame-ancestors 'self' https://jaybulb.com https://heyitsmejosh.com; object-src 'none'; base-uri 'self'
+
+/*.css
+  Cache-Control: public, max-age=3600
+
+/*.png
+  Cache-Control: public, max-age=86400
+
+/*.svg
+  Cache-Control: public, max-age=86400

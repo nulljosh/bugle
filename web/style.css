@@ -1,0 +1,44 @@
+/* The inner pages: the web reader, privacy and support. Every colour, both faces and the radii come from tokens.css;
+   the landing has its own landing.css on the same tokens. */
+@import url("tokens.css");
+
+/* the reader's older names, mapped onto the tokens */
+:root { --bg2: var(--surface); --text2: var(--sub); --border: var(--line); }
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: var(--size-body); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--accent); color: #fff; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; }
+h1, h2 { font-family: var(--display); font-weight: 700; letter-spacing: -.02em; line-height: 1.05; }
+
+.container { max-width: 760px; margin: 0 auto; padding: 0 var(--sp-5); }
+
+.btn { height: 40px; padding: 0 var(--sp-4); border-radius: var(--r-sq); display: inline-flex; align-items: center; font: 700 15px/1 var(--display); border: 1px solid transparent; cursor: pointer; transition: background var(--motion), border-color var(--motion); }
+.btn:hover { text-decoration: none; }
+.btn-primary { background: var(--btn); color: #fff; }
+.btn-primary:hover { background: color-mix(in srgb, var(--btn) 82%, #fff); }
+.btn-outline { background: var(--surface); color: var(--text); border-color: var(--line); }
+.btn-outline:hover { border-color: var(--text); }
+.btn:focus-visible, a:focus-visible, input:focus-visible { outline: 4px solid var(--ring); outline-offset: 2px; }
+
+footer { padding: var(--sp-6) 0 var(--sp-7); text-align: center; font-size: 15px; color: var(--sub); border-top: 1px solid var(--line); }
+footer p + p { margin-top: var(--sp-1); }
+
+/* Prose pages (privacy, support): a blue head, then the text */
+.page-head { background: var(--band); color: #fff; padding: var(--sp-8) 0 var(--sp-7); text-align: center; }
+.page-head a { color: var(--band-sub); }
+.page-head h1 { font-size: clamp(48px, 9vw, 88px); margin-bottom: var(--sp-3); }
+.page-head .meta { color: var(--band-sub); font-size: 15px; }
+.back { display: inline-block; margin-bottom: var(--sp-5); font-size: 15px; }
+
+.prose { padding: var(--sp-8) 0 var(--sp-4); }
+.prose h2 { font-size: 32px; margin: var(--sp-7) 0 var(--sp-3); }
+.prose h2:first-of-type { margin-top: 0; }
+.prose p { margin-bottom: var(--sp-4); }
+.prose ul { margin: 0 0 var(--sp-4) var(--sp-5); }
+.prose li { margin-bottom: var(--sp-2); }
+.prose .lede { font-size: 19px; color: var(--sub); margin-bottom: var(--sp-6); }
+.prose .note { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-sq); padding: var(--sp-4) var(--sp-5); margin: var(--sp-6) 0; font-size: 15px; color: var(--sub); }
+.prose .note p:last-child { margin-bottom: 0; }

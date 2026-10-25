@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>document.documentElement.classList.add('js')</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Bugle. Every feed, one timeline.</title>
+<meta name="description" content="An RSS and Atom reader for iPhone, iPad, Mac and the web. Add any blog, paper or Hacker News, and read everything in one timeline, newest first. No account needed.">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e0d0d" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://bugle.jaybulb.com/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-itunes-app" content="app-id=6787759999">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bugle">
+<meta property="og:title" content="Bugle. Every feed, one timeline.">
+<meta property="og:description" content="Add any blog, paper or Hacker News, and read everything in one timeline, newest first.">
+<meta property="og:url" content="https://bugle.jaybulb.com/">
+<meta property="og:image" content="https://bugle.jaybulb.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bugle.jaybulb.com/og.png">
+<link rel="preload" href="fonts/BugleDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="landing.css">
+</head>
+<body>
+
+<header class="nav" aria-label="Site">
+  <nav class="nav-links" aria-label="Main">
+    <a href="#features">Features</a>
+    <a href="#get">Get it</a>
+  </nav>
+  <a class="nav-brand" href="#top" aria-label="Bugle home"><img src="icon.svg" alt="" width="28" height="28"><span>Bugle</span></a>
+  <div class="nav-end">
+    <a class="nav-get" href="read.html">Web reader</a>
+    <a class="btn btn-solid" href="https://apps.apple.com/app/id6787759999">App Store</a>
+  </div>
+</header>
+
+<!-- Art, dithered to halftone: Jost Amman, Der Buchdrucker (1568), Jan van der Straet and Philips Galle, Impressio Librorum
+     and Sculptura in aes from Nova Reperta (c. 1590), all public domain, and the Encyclopedie plate Imprimerie en Lettres,
+     L'Operation de la casse (CC0, Getty), all via Wikimedia Commons. Crops of one print are reused, never the same crop. -->
+<main id="top">
+<section class="hero">
+  <div class="wrap center">
+    <p class="label">Every feed, one timeline</p>
+    <h1>Bugle</h1>
+    <p class="lead">Blogs, papers, Hacker News. Everything you follow runs into one list, newest first.</p>
+    <div class="cta">
+      <a class="btn btn-solid" href="https://apps.apple.com/app/id6787759999">Get it on the App Store</a>
+      <a class="btn btn-ghost" href="read.html">Read in the browser</a>
+    </div>
+    <p class="fine">iPhone, iPad and Mac. Free. No account needed.</p>
+  </div>
+
+  <div class="demo-wrap reveal">
+    <div class="stage">
+      <div class="art stage-art" style="--img: url(art/sculptura.png)" aria-hidden="true"></div>
+      <iframe class="reader" src="read.html?embed" title="Bugle, live. Add a feed or pick an entry." loading="lazy"></iframe>
+    </div>
+    <p class="demo-hint">The real reader, live. Pick an entry, or paste a feed.</p>
+  </div>
+</section>
+
+<section class="band" id="features">
+  <div class="band-head">
+    <div class="art band-art" style="--img: url(art/impressio.png)" aria-hidden="true"></div>
+    <div class="band-copy reveal">
+      <p class="label">One call, everyone hears it</p>
+      <h2>One press, every feed</h2>
+      <p>A bugle calls everyone in at once. Bugle does that for the feeds you follow: every story, from every outlet, in one list.</p>
+    </div>
+  </div>
+  <div class="frows">
+    <article class="frow reveal"><div class="art" style="--img: url(art/amman.png)" aria-hidden="true"></div><div><p class="label">Subscribe</p><h3>Any RSS or Atom feed</h3><p>Paste an address and it is in. Hacker News and a handful of papers are there from the start, so it is never empty.</p></div></article>
+    <article class="frow reveal"><div class="art" style="--img: url(art/casse.png)" aria-hidden="true"></div><div><p class="label">Timeline</p><h3>One list, newest first</h3><p>Every subscription in a single stream instead of a tab for every site.</p></div></article>
+    <article class="frow reveal"><div class="art" style="--img: url(art/compositor.png)" aria-hidden="true"></div><div><p class="label">Reading</p><h3>A clean page</h3><p>Articles open full width in a clean reading view, without the site around them.</p></div></article>
+  </div>
+  <div class="cells">
+    <article class="cell reveal"><p class="label">Offline</p><h3>Keeps what it fetched</h3><p>Entries you have pulled down stay readable on the train.</p></article>
+    <article class="cell reveal"><p class="label">Private</p><h3>No account needed</h3><p>Read without signing up. An optional account only keeps your feed list in sync.</p></article>
+    <article class="cell reveal"><p class="label">Native</p><h3>Light and dark</h3><p>SwiftUI on iPhone, iPad and Mac. Follows your system.</p></article>
+  </div>
+</section>
+
+<section class="sec" id="get">
+  <div class="wrap center">
+    <i class="mark reveal" aria-hidden="true"></i>
+    <p class="label reveal">Get it</p>
+    <h2 class="reveal">Read it anywhere</h2>
+    <p class="body reveal">One app on your phone and your Mac, and the same reader in any browser.</p>
+    <div class="prods">
+      <article class="prod reveal">
+        <div class="art prod-art" style="--img: url(art/card-type.png)" aria-hidden="true"></div>
+        <p class="label">iPhone and iPad</p><h3>Bugle for iOS</h3><p>A native app, not a wrapped web page.</p><a href="https://apps.apple.com/app/id6787759999">App Store &rarr;</a>
+      </article>
+      <article class="prod reveal">
+        <div class="art prod-art" style="--img: url(art/card-press.png)" aria-hidden="true"></div>
+        <p class="label">Mac</p><h3>Bugle for Mac</h3><p>The same timeline in a Mac window. One purchase covers both.</p><a href="https://apps.apple.com/app/id6787759999">App Store &rarr;</a>
+      </article>
+      <article class="prod reveal">
+        <div class="art prod-art" style="--img: url(art/card-plate.png)" aria-hidden="true"></div>
+        <p class="label">Web</p><h3>Bugle in the browser</h3><p>Nothing to install. On Windows, Linux or Android, add it to your home screen.</p><a href="read.html">Open the reader &rarr;</a>
+      </article>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="foot-top">
+    <div class="foot-brand"><img src="icon.svg" alt="" width="40" height="40"><b>Bugle</b><p>Every feed, one timeline.</p></div>
+    <nav class="foot-cols" aria-label="Footer">
+      <div><p class="label">Bugle</p><a href="https://apps.apple.com/app/id6787759999">App Store</a><a href="read.html">Web reader</a><a href="#features">Features</a><a href="support.html">Support</a></div>
+      <div><p class="label">Source</p><a href="https://github.com/nulljosh/labs/tree/main/bugle">GitHub</a><a href="https://github.com/nulljosh/labs/blob/main/bugle/WHITEPAPER.md">Whitepaper</a><a href="https://github.com/nulljosh/labs/blob/main/bugle/brand/BRAND.md">Brand kit</a><a href="privacy.html">Privacy</a></div>
+      <div><p class="label">More</p><a href="mailto:trommatic@icloud.com?subject=Bugle">Feedback</a><a href="https://jaybulb.com">More apps</a><a href="#top">Back to top</a></div>
+    </nav>
+  </div>
+  <p class="masthead" aria-hidden="true">Bugle</p>
+  <p class="legal">&copy; 2026 Joshua Trommel &middot; MIT License &middot; formerly Inkpress &middot; <a href="privacy.html">Privacy</a></p>
+</footer>
+
+<script>
+// fade sections in as they scroll into view
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -10% 0px' });
+  els.forEach(function (e) { io.observe(e); });
+})();
+</script>
+</body>
+</html>

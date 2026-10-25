@@ -1,0 +1,7 @@
+/* Bugle brand tokens. The accent is the only colour this app owns; spacing, radii and type come from the shared system. */
+:root {
+  --accent: #0059B3;
+  --accent-light: #0074D9;
+  --accent-deep: #0059B3;
+  --accent-ring: color-mix(in srgb, #0059B3 30%, transparent);
+}

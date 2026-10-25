@@ -1,0 +1,7 @@
+{
+  "description": "Inkpress is a fast, clean multi-feed RSS and Atom reader. Add any blog or news feed and read every entry in one place — no accounts, no tracking, no clutter.\n\nEntries load straight from each feed, cache for offline reading, and render clean and fast.\n\nFeatures:\n- Subscribe to any RSS or Atom feed\n- Offline cache so past entries are always readable\n- Fast native reading view\n- Light and dark mode\n- No accounts, no tracking",
+  "keywords": "rss,atom,feed,reader,blog,news,offline,subscribe",
+  "marketingUrl": "https://jaybulb.com",
+  "supportUrl": "https://journal.jaybulb.com",
+  "whatsNew": "Articles no longer run off the right edge of the screen. Feeds that use fixed-width cards, wide tables or long unbroken links now wrap to fit your phone, and the genuinely wide blocks scroll on their own instead of pushing the whole article sideways."
+}

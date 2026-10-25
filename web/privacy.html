@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Bugle</title>
+<meta name="description" content="Bugle privacy policy. No analytics, no ads. An optional account stores only your email and feed list, and you can delete it in Settings.">
+<meta name="theme-color" content="#0059B3">
+<meta property="og:title" content="Privacy Policy — Bugle">
+<meta property="og:description" content="No analytics, no ads. An optional account stores only your email and feed list.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bugle.jaybulb.com/privacy.html">
+<link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+<section class="page-head">
+  <div class="container">
+    <h1>Privacy Policy</h1>
+    <p class="meta">Last updated 25 October 2026</p>
+  </div>
+</section>
+
+<section class="prose">
+  <div class="container">
+    <a class="back" href="./">&larr; Back to Bugle</a>
+
+    <p class="lede">Bugle collects as little as it can. There are no analytics and no advertising. You can read without an account; an account is optional and only keeps your feed list in sync.</p>
+
+    <h2>Without an account</h2>
+    <p>Nothing about you reaches the developer. There is no analytics, telemetry, crash-reporting, advertising, or tracking SDK in the app or on the site.</p>
+
+    <h2>With an account (optional)</h2>
+    <p>If you create an account in Settings, Bugle stores your email address, a salted hash of your password, and the list of feeds you follow (each feed's name and address), so the same list appears on your other devices and in the web reader. Nothing else is synced: not what you read, saved, or searched. Accounts live on the developer's own server (api.jaybulb.com, on Cloudflare), and account emails such as the confirmation link are sent through Resend.</p>
+    <p>You can delete the account at any time in Settings. That deletes your email, password hash and synced feed list from the server straight away. Feeds on your device stay.</p>
+
+    <h2>What is stored on your device</h2>
+    <ul>
+      <li>The list of feeds you follow.</li>
+      <li>Entries downloaded from those feeds, cached so they stay readable offline, and preview images found for them.</li>
+      <li>Preferences such as text size, and, if you sign in, your session (in the Keychain in the app).</li>
+    </ul>
+    <p>Deleting Bugle removes all of it.</p>
+
+    <h2>Network connections</h2>
+    <p>The app downloads each feed straight from its publisher. When a story's feed has no image, the app also reads the top of that story's own page to find its preview image. The web reader cannot fetch other sites directly, so it goes through Bugle's own relay on bugle.jaybulb.com, which passes the request on and keeps no record of it. As with any reader or browser, each publisher's server sees the requests it receives, including your IP address, and is governed by its own privacy policy.</p>
+    <p>On first launch, Bugle follows a set of suggested news feeds so the app is not empty. Remove any of them from Feeds, like any feed you add yourself.</p>
+
+    <h2>Data sharing and sale</h2>
+    <p>Bugle does not share, sell, rent, or transfer personal data to anyone.</p>
+
+    <h2>Children</h2>
+    <p>Bugle is suitable for general audiences and does not knowingly collect information from children under 13.</p>
+
+    <h2>Your rights</h2>
+    <p>Without an account, nothing about you is held by the developer. With one, Settings shows the email it holds and deletes it, with everything it stores, at any time.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If this policy changes, the revised version will be posted on this page with a new "last updated" date.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about privacy in Bugle can be raised on the <a href="https://github.com/nulljosh/labs/issues">GitHub issue tracker</a>, or through the <a href="support.html">support page</a>.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>Bugle &mdash; by <a href="https://jaybulb.com">Joshua Trommel</a></p>
+    <p><a href="./">Home</a> &middot; <a href="support.html">Support</a> &middot; <a href="https://github.com/nulljosh/labs/tree/main/bugle">Source on GitHub</a></p>
+  </div>
+</footer>
+
+  <script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js'));</script>
+</body>
+</html>
