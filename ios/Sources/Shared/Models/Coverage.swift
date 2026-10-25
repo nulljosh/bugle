@@ -119,7 +119,8 @@ enum Coverage {
         for e in entries.sorted(by: { $0.date > $1.date }) {
             let kw = keywords(e.title)
             guard !kw.isEmpty else { groups.append((kw, [e])); continue }
-            if let i = groups.firstIndex(where: { !$0.kw.isEmpty && Double($0.kw.intersection(kw).count) / Double(min($0.kw.count, kw.count)) >= 0.5 }) {
+            // two shared keywords at least: one word in common ("Netflix") is not one story
+            if let i = groups.firstIndex(where: { let n = $0.kw.intersection(kw).count; return n >= 2 && Double(n) / Double(min($0.kw.count, kw.count)) >= 0.5 }) {
                 groups[i].items.append(e)
                 groups[i].kw.formUnion(kw)
             } else {

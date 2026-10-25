@@ -113,6 +113,11 @@ test("local desks take their newsroom's color", () => {
   assert.deepEqual(Coverage.colors("NY Post Opinion"), Coverage.BRAND["NY Post Opinion"]);
 });
 
+test("one shared word does not make one story", () => {
+  const e = (title, source, t) => ({ title, source, url: source + t, date: new Date(t) });
+  assert.equal(Coverage.cluster([e("Mayor of Kingstown Season 5 release date on Netflix", "NY Post", 2), e("Netflix and panic?", "Daily Wire", 1)]).length, 2);
+});
+
 test("mute hides an outlet by name or a word in the headline", () => {
   const e = { title: "Canucks lose again", source: "The Province" };
   assert.ok(Coverage.muted(e, ["the province"]));

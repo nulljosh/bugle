@@ -59,7 +59,7 @@ var Coverage = (function () {
       if (kw.size) hit = groups.find(function (g) {
         if (!g.kw.size) return false;
         var n = 0; kw.forEach(function (w) { if (g.kw.has(w)) n++; });
-        return n / Math.min(g.kw.size, kw.size) >= 0.5;
+        return n >= 2 && n / Math.min(g.kw.size, kw.size) >= 0.5;   // one word in common ("Netflix") is not one story
       });
       if (hit) { hit.entries.push(e); kw.forEach(function (w) { hit.kw.add(w); }); } else groups.push({ kw: kw, entries: [e] });
     });
@@ -106,8 +106,8 @@ var Coverage = (function () {
       var ul = el('ul', 'rows group');
       rows.forEach(function (e) {
         var b = el('button', 'row'), t = el('span', 'txt'), o = outlet(e.source);
-        var k2 = el('small', 'kick'); k2.appendChild(el('span', 'src', e.source));
-        k2.appendChild(document.createTextNode((o && o.lean != null ? ' · ' + leanLabel(o.lean) : '') + ' · ' + ago(e.date)));
+        var k2 = el('small', 'kick'); k2.appendChild(paint(el('span', 'src', e.source), e.source));
+        k2.appendChild(document.createTextNode((o && o.lean != null ? ' · ' + leanLabel(o.lean) : '') + (ago(e.date) ? ' · ' + ago(e.date) : '')));
         t.appendChild(k2); t.appendChild(el('span', 'cov-title', Headline.clean(e.title, e.source)));
         b.appendChild(t); b.onclick = function () { onOpen(e); };
         var li = el('li'); li.appendChild(b); ul.appendChild(li);

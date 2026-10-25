@@ -48,9 +48,10 @@ private struct CoverageRow: View {
         NavigationLink(value: entry) {
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 4) {
-                    Text(entry.sourceTitle).fontWeight(.semibold).foregroundStyle(Color.bugleAccent)
+                    Text(entry.sourceTitle).fontWeight(.semibold).foregroundStyle(Outlet.color(entry.sourceTitle))
                     if let lean = Outlet.of(entry.sourceTitle)?.lean { Text("· " + Outlet.leanLabel(lean)).foregroundStyle(.secondary) }
-                    Text("· " + RelativeTime.short(entry.date)).foregroundStyle(.secondary)
+                    let ago = RelativeTime.short(entry.date)
+                    if !ago.isEmpty { Text("· " + ago).foregroundStyle(.secondary) }   // undated entries show no time
                 }
                 .font(.caption)
                 Text(Headline.clean(entry.title, source: entry.sourceTitle)).font(.body)
