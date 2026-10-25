@@ -19,6 +19,7 @@
 		22019299B142F9C6C8192940 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E099194237BF0D71FD3C6424 /* Feed.swift */; };
 		2287390DD9C5E9D1AB257DE2 /* Spotlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB55D0EFF8FB6DD63865FD7C /* Spotlight.swift */; };
 		23634C0992526E92E0D52A43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D602399DFBE78D9E325E2FD /* Assets.xcassets */; };
+		3482B670423715B20E4FDDE9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = ED81D7AE5D751A74D22D7746 /* Localizable.xcstrings */; };
 		38F0F1C5FA78839917F6389D /* Intents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EFD18A9189F3E8143A9750 /* Intents.swift */; };
 		3DCF3324851E31C233E63F0A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37B11800C471845C1E93545 /* Theme.swift */; };
 		3EB18549165360E7D7589A0F /* BugleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431EFE06344FFBFD1BA57D4 /* BugleWidget.swift */; };
@@ -32,6 +33,7 @@
 		4D6C7C1F980CAD12F3D05350 /* HomeSplit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1201F98DD3067432FE4EA2 /* HomeSplit.swift */; };
 		4F165CED438C3D62665BA2B1 /* Coverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE1E0BC7D447CF605C09BEC /* Coverage.swift */; };
 		51D4C3E4E539D34DB088DBD1 /* Spotlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB55D0EFF8FB6DD63865FD7C /* Spotlight.swift */; };
+		56895692B154DB5816DA86BD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = ED81D7AE5D751A74D22D7746 /* Localizable.xcstrings */; };
 		5D7EBE7D411C4B9B8E890D29 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38ACDB28857F0E41D3C492E /* JournalEntry.swift */; };
 		5F453D67275FA1842F7EC347 /* AtomFeedParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D618F75CD0D4C5B4BBCC223 /* AtomFeedParserTests.swift */; };
 		65959DE874A252B4341CB060 /* ManageFeedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EA21421125A16812D6815E /* ManageFeedsView.swift */; };
@@ -42,6 +44,7 @@
 		7013F9F2F3975890B4EB03A7 /* Coverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE1E0BC7D447CF605C09BEC /* Coverage.swift */; };
 		726E2BDEC0363FC1A23D0AAD /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409A12C7017D00F584C499DF /* EntryDetailView.swift */; };
 		73BE4014EAC63815897A2F19 /* Coverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE1E0BC7D447CF605C09BEC /* Coverage.swift */; };
+		73EF7A7F4542B330B5EADDD1 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = ED81D7AE5D751A74D22D7746 /* Localizable.xcstrings */; };
 		7924EFBC4A675A0704F3AC88 /* Listen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBFB39021A73479B6BD739B /* Listen.swift */; };
 		844DF1D2B31BE048837E9B2A /* EntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8286BB5BF361BF084AB417E5 /* EntryListView.swift */; };
 		84E72AA7516E11B4EB10D15B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7752BAEFA1F38659693A2814 /* SettingsView.swift */; };
@@ -73,6 +76,7 @@
 		EBEA260D9FA6F4EAD27152C9 /* CoverageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4104A2D941F019E4AF96736A /* CoverageView.swift */; };
 		F111AA90E55B52E307B5CF83 /* BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB5BD621A0E17BB795698B /* BackgroundRefresh.swift */; };
 		F23E64C0B8D7BBDD37C153EE /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1005C95DA55CC984C69AA6 /* Alerts.swift */; };
+		F4C1A9CCE8B2FE0A2624D647 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = ED81D7AE5D751A74D22D7746 /* Localizable.xcstrings */; };
 		F4D994B541C7B0C8E5974E3E /* FullText.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE1F890E370D3866420F8A7 /* FullText.swift */; };
 		F666DD9F09A0ADA05D0830C4 /* Listen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBFB39021A73479B6BD739B /* Listen.swift */; };
 		FA898A083B60A9DCCF1AC416 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37B11800C471845C1E93545 /* Theme.swift */; };
@@ -151,6 +155,7 @@
 		E6AB5BD621A0E17BB795698B /* BackgroundRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefresh.swift; sourceTree = "<group>"; };
 		E99CBF9D670CA7BD66BA9C81 /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
 		EC5CBADBDFC8F276FBD980DD /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		ED81D7AE5D751A74D22D7746 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		EEC44D06947275059DED3B30 /* JournalFeedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalFeedService.swift; sourceTree = "<group>"; };
 		F37B11800C471845C1E93545 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		F6EA21421125A16812D6815E /* ManageFeedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFeedsView.swift; sourceTree = "<group>"; };
@@ -197,6 +202,7 @@
 		859C45B7E8F5BB4F9820F463 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				ED81D7AE5D751A74D22D7746 /* Localizable.xcstrings */,
 				E9F97BCFD3B705C4E9DB7415 /* Models */,
 				D8526EDA74411E04E3C7FB57 /* Services */,
 				0BBCC13DA1639972FA036B2E /* Views */,
@@ -289,6 +295,7 @@
 			buildConfigurationList = 42C3FAB155314957BBE08BA6 /* Build configuration list for PBXNativeTarget "BugleWidget" */;
 			buildPhases = (
 				49A572C125957452B6214ACE /* Sources */,
+				9D921663E95342F5E16487D3 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -306,6 +313,7 @@
 			buildConfigurationList = 68B15C2C6ACEACE92F711AF9 /* Build configuration list for PBXNativeTarget "BugleShare" */;
 			buildPhases = (
 				6108D5202CBE16A5E0A5B3D6 /* Sources */,
+				F44C809C30015A208AC51B75 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -385,7 +393,13 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
+				de,
 				en,
+				es,
+				fr,
+				ja,
+				"pt-BR",
+				"zh-Hans",
 			);
 			mainGroup = D55EEFB422500F701DF3EA45;
 			minimizedProjectReferenceProxies = 1;
@@ -403,11 +417,20 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9D921663E95342F5E16487D3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73EF7A7F4542B330B5EADDD1 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B8481BD59E829BBD4A33AF31 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				DB8D13B635949509602FFCC4 /* Assets.xcassets in Resources */,
+				F4C1A9CCE8B2FE0A2624D647 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +439,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				23634C0992526E92E0D52A43 /* Assets.xcassets in Resources */,
+				56895692B154DB5816DA86BD /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F44C809C30015A208AC51B75 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3482B670423715B20E4FDDE9 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,7 +614,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 5.0.1;
+				MARKETING_VERSION = 5.1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -647,7 +679,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 5.0.1;
+				MARKETING_VERSION = 5.1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
