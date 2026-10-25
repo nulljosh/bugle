@@ -68,6 +68,22 @@ final class FeedStore: ObservableObject {
         }
     }
 
+    /// A site address works as well as a feed address: if the page is not a feed, the feed it links to
+    /// (`<link rel="alternate" type="application/rss+xml">`). Anything that fails comes back as typed.
+    static func discover(_ typed: String) async -> String {
+        var s = typed.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !s.lowercased().hasPrefix("http") { s = "https://" + s }
+        guard let url = URL(string: s), let (data, _) = try? await URLSession.shared.data(from: url),
+              FeedParser.parse(data: data).isEmpty, let page = String(data: data, encoding: .utf8) ?? String(data: data, encoding: .isoLatin1)
+        else { return typed }
+        let tags = page.matches(of: /<link\b[^>]*>/.ignoresCase()).map { String($0.output) }
+        guard let tag = tags.first(where: { $0.range(of: #"rel=["']?[^"'>]*alternate"#, options: [.regularExpression, .caseInsensitive]) != nil
+                                         && $0.range(of: #"(rss|atom)\+xml"#, options: [.regularExpression, .caseInsensitive]) != nil }),
+              let href = tag.firstMatch(of: /href=["']([^"']+)["']/.ignoresCase())?.1,
+              let feed = FeedParser.resolve(String(href), against: s) else { return typed }
+        return feed.absoluteString
+    }
+
     func add(urlString: String) -> Bool {
         let trimmed = urlString.trimmingCharacters(in: .whitespacesAndNewlines)
         var normalized = trimmed

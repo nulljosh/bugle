@@ -1,5 +1,5 @@
 # Bugle
-iOS 1.0.6 and macOS 1.0.7 live; nothing in App Review since the rename. Repo at 2.0.0 (0 gaps on the reader core; next band is around the system). Web reader live at bugle.jaybulb.com/read.
+iOS and Mac 2.0.0 in App Review. Repo at 3.0.0: 0 gaps vs Apple News and Ground News; band 3.x (RSS power) is next. Web reader live at bugle.jaybulb.com/read.
 
 ## Open
 - Looping to 0 gaps vs Apple News and Ground News, then v100: gap matrix in `roadmap.md`, loop prompt `~/.claude/loops/bugle.md`. Tags are `bugle-vX.Y.Z` (the monorepo shares tags).

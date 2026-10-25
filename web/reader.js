@@ -262,15 +262,28 @@ document.getElementById('add-form').addEventListener('submit', function (ev) {
   if (!/^https?:/i.test(v)) v = 'https://' + v;
   var host;
   try { host = new URL(v).hostname; } catch (e) { host = ''; }
-  if (!host || feeds.some(function (f) { return f.url === v; })) {
-    note.textContent = 'That is not a new feed URL.';
-    return;
-  }
-  feeds.push({ title: host, url: v });
-  input.value = '';
-  note.textContent = 'Paste any RSS or Atom feed URL to follow it.';
-  save(); renderFeeds(); refresh();
+  if (!host) { note.textContent = 'That is not a web address.'; return; }
+  note.textContent = 'Looking for the feed…';
+  discover(v).then(function (url) {
+    if (feeds.some(function (f) { return f.url === url; })) { note.textContent = 'You already follow that feed.'; return; }
+    feeds.push({ title: host, url: url });
+    input.value = '';
+    note.textContent = 'Paste a site or feed address to follow it.';
+    save(); renderFeeds(); refresh();
+  });
 });
+// A site address works as well as a feed address: if the page is not a feed, follow the feed it links to.
+async function discover(url) {
+  try {
+    var r = await fetch('/feed?url=' + encodeURIComponent(url));
+    var text = await r.text();
+    if (/<(rss|feed|rdf:RDF)[\s>]/.test(text)) return url;
+    var link = new DOMParser().parseFromString(text, 'text/html')
+      .querySelector('link[rel~="alternate"][type*="rss"], link[rel~="alternate"][type*="atom"]');
+    if (link && link.getAttribute('href')) return new URL(link.getAttribute('href'), url).href;
+  } catch (e) {}
+  return url;
+}
 // Pull to refresh: drag down from the top of Home. Coming back to the tab after 15 minutes refreshes too, which
 // is how a desktop browser (no pull) stays current.
 var pullStart = null, pulled = 0, lastRefresh = Date.now(), pullEl = document.getElementById('pull');

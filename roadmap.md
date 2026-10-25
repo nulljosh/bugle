@@ -35,7 +35,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 25 | Siri and Shortcuts | yes | | "Top stories in Bugle" reads the three biggest from your feeds; Shortcuts gets them as text, on iPhone, iPad and Mac | done | 2.5.0 |
 | 26 | Listen to a story | News+ | | Listen in the story toolbar: the system voice reads the headline and story on device, on every platform and the web | done | 3.0.0 |
 | 27 | Watch app at parity | yes | | runs on the phone's own feed list, parser and grouping: Today first, outlet colors, sources, Save | done | 1.22.0 |
-| 33 | Paste a site address, find its feed (autodiscovery) | | | RSS readers (NetNewsWire, Reeder) all do it; Bugle needs the feed URL | todo | |
+| 33 | Paste a site address, find its feed (autodiscovery) | | | paste theverge.com and Bugle follows the feed the page links to, app and web | done | 3.1.0 |
 | 34 | OPML import and export | | | every RSS reader; none here | todo | |
 | 35 | Full article text for summary-only feeds | yes | yes | shows the feed's summary, then Open original | todo | |
 | 36 | Unread counts and mark all read | yes | | read rows dim; no counts | todo | |

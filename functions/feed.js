@@ -50,7 +50,11 @@ export async function onRequestGet({ request }) {
   return new Response(capped, {
     status: upstream.status,
     headers: {
-      "content-type": upstream.headers.get("content-type") || "application/xml",
+      // Plain text, never HTML: a pasted site address passes through here for feed discovery, and its page must
+      // not run as bugle.jaybulb.com. The charset carries over so r.text() still decodes it right.
+      "content-type": "text/plain; charset=" + (/charset=([^;]+)/i.exec(upstream.headers.get("content-type") || "")?.[1] || "utf-8"),
+      "x-content-type-options": "nosniff",
+      "content-security-policy": "sandbox",
       "access-control-allow-origin": ORIGIN,
       "cache-control": "public, max-age=300",
     },

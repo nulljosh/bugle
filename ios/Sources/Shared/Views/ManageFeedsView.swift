@@ -24,7 +24,7 @@ struct ManageFeedsView: View {
                 }
                 Section {
                     HStack {
-                        TextField("Add feed URL (RSS or Atom)", text: $newFeed)
+                        TextField("Site or feed address", text: $newFeed)
                             #if os(iOS)
                             .textInputAutocapitalization(.never)
                             .keyboardType(.URL)
@@ -129,8 +129,11 @@ struct ManageFeedsView: View {
     }
 
     private func add() {
-        guard store.add(urlString: newFeed) else { showError = true; return }
-        newFeed = ""
+        let typed = newFeed
+        Task {
+            guard store.add(urlString: await FeedStore.discover(typed)) else { showError = true; return }
+            newFeed = ""
+        }
     }
 }
 
