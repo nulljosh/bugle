@@ -14,6 +14,7 @@
 		23634C0992526E92E0D52A43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D602399DFBE78D9E325E2FD /* Assets.xcassets */; };
 		3DCF3324851E31C233E63F0A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37B11800C471845C1E93545 /* Theme.swift */; };
 		44B5993CFAE70D4F6DB01FEE /* PreviewImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77498857B3215CE9BF932E32 /* PreviewImage.swift */; };
+		4664DE1CE20F80D04EADB064 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1005C95DA55CC984C69AA6 /* Alerts.swift */; };
 		46B12B5E12CA0E641A0659AC /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C7997BFD552FE881F61BEB /* Account.swift */; };
 		4AD9F7618B6EC05F357127C7 /* HomeParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AE8705428F23AB464516DF /* HomeParts.swift */; };
 		4F165CED438C3D62665BA2B1 /* Coverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE1E0BC7D447CF605C09BEC /* Coverage.swift */; };
@@ -44,6 +45,7 @@
 		E84CA41D7192C38A6B4BBFFB /* AtomFeedParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D618F75CD0D4C5B4BBCC223 /* AtomFeedParserTests.swift */; };
 		EBEA260D9FA6F4EAD27152C9 /* CoverageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4104A2D941F019E4AF96736A /* CoverageView.swift */; };
 		F111AA90E55B52E307B5CF83 /* BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB5BD621A0E17BB795698B /* BackgroundRefresh.swift */; };
+		F23E64C0B8D7BBDD37C153EE /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1005C95DA55CC984C69AA6 /* Alerts.swift */; };
 		FFE534C3561E65CBBCE68F40 /* EntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8286BB5BF361BF084AB417E5 /* EntryListView.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +55,7 @@
 		31C7997BFD552FE881F61BEB /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		409A12C7017D00F584C499DF /* EntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
 		4104A2D941F019E4AF96736A /* CoverageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverageView.swift; sourceTree = "<group>"; };
+		4B1005C95DA55CC984C69AA6 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		4C4E6CAD8BBD51CEFA5F5AEB /* BugleMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugleMacApp.swift; sourceTree = "<group>"; };
 		4D618F75CD0D4C5B4BBCC223 /* AtomFeedParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomFeedParserTests.swift; sourceTree = "<group>"; };
 		5057187D84DB102600195FC9 /* Journal-iOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "Journal-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				31C7997BFD552FE881F61BEB /* Account.swift */,
+				4B1005C95DA55CC984C69AA6 /* Alerts.swift */,
 				4D618F75CD0D4C5B4BBCC223 /* AtomFeedParserTests.swift */,
 				EEC44D06947275059DED3B30 /* JournalFeedService.swift */,
 				77498857B3215CE9BF932E32 /* PreviewImage.swift */,
@@ -269,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46B12B5E12CA0E641A0659AC /* Account.swift in Sources */,
+				4664DE1CE20F80D04EADB064 /* Alerts.swift in Sources */,
 				E84CA41D7192C38A6B4BBFFB /* AtomFeedParserTests.swift in Sources */,
 				F111AA90E55B52E307B5CF83 /* BackgroundRefresh.swift in Sources */,
 				4F165CED438C3D62665BA2B1 /* Coverage.swift in Sources */,
@@ -294,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E0C8D33CDD9F63EBF02CC5D /* Account.swift in Sources */,
+				F23E64C0B8D7BBDD37C153EE /* Alerts.swift in Sources */,
 				5F453D67275FA1842F7EC347 /* AtomFeedParserTests.swift in Sources */,
 				0299308C80E5B7B81808EE64 /* BugleMacApp.swift in Sources */,
 				7013F9F2F3975890B4EB03A7 /* Coverage.swift in Sources */,
@@ -366,7 +372,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.3.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -431,7 +437,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.3.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;

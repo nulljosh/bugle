@@ -8,6 +8,7 @@ struct ManageFeedsView: View {
     @State private var newFeed = ""
     @State private var showError = false
     @AppStorage("region") private var region = ""
+    @AppStorage(Alerts.key) private var notify = ""
 
     var body: some View {
         NavigationStack {
@@ -63,17 +64,36 @@ struct ManageFeedsView: View {
                     Text("Pick your city to follow its newsrooms.")
                 }
 
-                Section("Following") {
+                Section {
                     ForEach(store.feeds) { feed in
+                        let alerts = Alerts.isOn(feed.title, in: notify)
                         Button { open(feed) } label: {
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(feed.title).font(.body).foregroundStyle(Outlet.color(feed.title))
-                                Text(Self.about(feed)).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+                            HStack {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(feed.title).font(.body).foregroundStyle(Outlet.color(feed.title))
+                                    Text(Self.about(feed)).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+                                }
+                                Spacer()
+                                if alerts { Image(systemName: "bell.fill").foregroundStyle(.secondary).imageScale(.small).accessibilityLabel("Notifications on") }
                             }
                         }
                         .tint(.primary)   // the caption stays gray, not the button's color
+                        #if os(iOS)
+                        .swipeActions(edge: .leading) {
+                            Button { Task { await Alerts.toggle(feed.title) } } label: {
+                                Label(alerts ? "Stop Notifications" : "Notify Me", systemImage: alerts ? "bell.slash" : "bell")
+                            }
+                            .tint(.bugleAccent)
+                        }
+                        #endif
                     }
                     .onDelete(perform: store.remove)
+                } header: {
+                    Text("Following")
+                } footer: {
+                    #if os(iOS)
+                    Text("Swipe right on a feed to get a notification when it posts. Swipe left to remove it.")
+                    #endif
                 }
 
                 if !store.unsubscribedSeeds.isEmpty {

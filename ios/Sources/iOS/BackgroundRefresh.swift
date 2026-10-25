@@ -18,6 +18,7 @@ enum BackgroundRefresh {
         schedule()   // the next one, before this one's time runs out
         let feed = JournalFeedService()
         await feed.refresh(feeds: FeedStore().feeds)   // saves the entry cache Home loads first
+        Alerts.post(feed.entries)                     // new stories from the outlets you asked to hear about
         for story in Coverage.today(feed.stories).prefix(12) {
             guard let u = story.lead.imageURL else { continue }
             _ = try? await URLSession.shared.data(for: URLRequest(url: u, cachePolicy: .returnCacheDataElseLoad))

@@ -13,6 +13,7 @@ struct JournalApp: App {
         previewImageDemo()
         relativeTimeDemo()
         coverageDemo()
+        alertsDemo()
         #endif
     }
 
