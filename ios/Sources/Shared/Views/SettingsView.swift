@@ -97,15 +97,30 @@ private struct SignInView: View {
                 } footer: {
                     if let m = account.message { Text(m) }
                 }
+                // Sign In filled, Create Account tinted, both full-width capsules; Forgot is a plain link.
                 Section {
-                    Button("Sign In") {
-                        Task { await account.signIn(email: email, password: password, store: store); if account.signedIn { dismiss() } }
+                    VStack(spacing: 8) {
+                        Button {
+                            Task { await account.signIn(email: email, password: password, store: store); if account.signedIn { dismiss() } }
+                        } label: { Text("Sign In").frame(maxWidth: .infinity) }
+                            .buttonStyle(.borderedProminent)
+                            .disabled(!ready || account.busy)
+                        Button { Task { await account.signUp(email: email, password: password) } } label: {
+                            Text("Create Account").frame(maxWidth: .infinity)
+                        }
+                            .buttonStyle(.bordered)
+                            .disabled(!ready || account.busy)
+                        Button("Forgot Password?") { Task { await account.resetPassword(email: email) } }
+                            .buttonStyle(.borderless)
+                            .font(.subheadline.weight(.regular))
+                            .disabled(!email.contains("@") || account.busy)
+                            .padding(.top, 4)
                     }
-                    .disabled(!ready || account.busy)
-                    Button("Create Account") { Task { await account.signUp(email: email, password: password) } }
-                        .disabled(!ready || account.busy)
-                    Button("Forgot Password?") { Task { await account.resetPassword(email: email) } }
-                        .disabled(!email.contains("@") || account.busy)
+                    .controlSize(.large)
+                    .buttonBorderShape(.capsule)
+                    .fontWeight(.semibold)
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets())
                 }
             }
             .navigationTitle("Account")

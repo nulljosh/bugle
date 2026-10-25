@@ -108,6 +108,13 @@ a.row:hover { text-decoration: none; background: color-mix(in srgb, var(--text) 
 .acct .row:focus-within { box-shadow: inset 0 0 0 4px var(--ring); }
 .act:disabled { opacity: .4; cursor: default; }
 .act.danger { color: #d70015; }
+/* sign in: a filled capsule, create account a tinted one, both full width and 48 points (house controls) */
+.acct-btns { display: flex; flex-direction: column; gap: var(--sp-2); padding: var(--sp-3) var(--sp-4) var(--sp-2); }
+.btn { height: 48px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: var(--r-pill); background: var(--accent); color: #fff; font: inherit; font-size: 17px; font-weight: 600; cursor: pointer; }
+.btn.quiet { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+.btn:disabled { opacity: .4; cursor: default; }
+.btn:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); }
+.acct-btns .act { align-self: center; font-weight: 400; font-size: 15px; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .act.danger { color: #ff6961; } }
 
 /* capsule search, 44 points, leading magnifier (house Apple rules) */
