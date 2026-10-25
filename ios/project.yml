@@ -9,7 +9,7 @@ options:
 settings:
   base:
     SWIFT_VERSION: "5.9"
-    MARKETING_VERSION: "2.3.0"
+    MARKETING_VERSION: "2.4.0"
     CURRENT_PROJECT_VERSION: "202610251232"
     DEVELOPMENT_TEAM: QMM486NPYC
 
@@ -18,6 +18,7 @@ schemes:
     build:
       targets:
         Journal-iOS: all
+        BugleWidget: all
   Bugle-macOS:
     build:
       targets:
@@ -43,6 +44,33 @@ targets:
         # that combination for TestFlight with ITMS-90886. Hand-committed rather
         # than generated via xcodegen `entitlements.properties` (drops keys).
         CODE_SIGN_ENTITLEMENTS: Journal.entitlements
+    dependencies:
+      - target: BugleWidget
+
+  BugleWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Sources/Widget
+      # The app's own feeds, parser, grouping, headline cleaning and colors.
+      - Sources/Shared/Models/Coverage.swift
+      - Sources/Shared/Models/Feed.swift
+      - Sources/Shared/Models/Headline.swift
+      - Sources/Shared/Models/JournalEntry.swift
+      - Sources/Shared/Models/Library.swift
+      - Sources/Shared/Models/Theme.swift
+      - Sources/Shared/Services/JournalFeedService.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.nulljosh.journal.widget
+        PRODUCT_NAME: BugleWidget
+        TARGETED_DEVICE_FAMILY: "1,2"
+    info:
+      path: Sources/Widget/Info.plist
+      properties:
+        CFBundleDisplayName: Bugle
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
 
   Bugle-macOS:
     type: application

@@ -7,15 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01C3394A0A1229465741F659 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5CBADBDFC8F276FBD980DD /* Library.swift */; };
 		0299308C80E5B7B81808EE64 /* BugleMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4E6CAD8BBD51CEFA5F5AEB /* BugleMacApp.swift */; };
+		06506F3A6141E77F07D917FD /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37B11800C471845C1E93545 /* Theme.swift */; };
 		115D58CB75FBB35F1D6A049B /* JournalFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC44D06947275059DED3B30 /* JournalFeedService.swift */; };
 		1868DB2E4BD79DF8528AE669 /* CoverageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4104A2D941F019E4AF96736A /* CoverageView.swift */; };
 		22019299B142F9C6C8192940 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E099194237BF0D71FD3C6424 /* Feed.swift */; };
 		23634C0992526E92E0D52A43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D602399DFBE78D9E325E2FD /* Assets.xcassets */; };
 		3DCF3324851E31C233E63F0A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37B11800C471845C1E93545 /* Theme.swift */; };
+		3EB18549165360E7D7589A0F /* BugleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431EFE06344FFBFD1BA57D4 /* BugleWidget.swift */; };
 		44B5993CFAE70D4F6DB01FEE /* PreviewImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77498857B3215CE9BF932E32 /* PreviewImage.swift */; };
 		4664DE1CE20F80D04EADB064 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1005C95DA55CC984C69AA6 /* Alerts.swift */; };
 		46B12B5E12CA0E641A0659AC /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C7997BFD552FE881F61BEB /* Account.swift */; };
+		478575512E1269F84367C5C5 /* JournalFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC44D06947275059DED3B30 /* JournalFeedService.swift */; };
 		4AD9F7618B6EC05F357127C7 /* HomeParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AE8705428F23AB464516DF /* HomeParts.swift */; };
 		4F165CED438C3D62665BA2B1 /* Coverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE1E0BC7D447CF605C09BEC /* Coverage.swift */; };
 		5D7EBE7D411C4B9B8E890D29 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38ACDB28857F0E41D3C492E /* JournalEntry.swift */; };
@@ -27,14 +31,18 @@
 		6F088A5AEE55494C7947395F /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37B11800C471845C1E93545 /* Theme.swift */; };
 		7013F9F2F3975890B4EB03A7 /* Coverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE1E0BC7D447CF605C09BEC /* Coverage.swift */; };
 		726E2BDEC0363FC1A23D0AAD /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409A12C7017D00F584C499DF /* EntryDetailView.swift */; };
+		73BE4014EAC63815897A2F19 /* Coverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE1E0BC7D447CF605C09BEC /* Coverage.swift */; };
 		844DF1D2B31BE048837E9B2A /* EntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8286BB5BF361BF084AB417E5 /* EntryListView.swift */; };
 		84E72AA7516E11B4EB10D15B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7752BAEFA1F38659693A2814 /* SettingsView.swift */; };
+		8B988350CD5A3A382149E64D /* BugleWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5A293F420B365A0A1736ADC3 /* BugleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8E0C8D33CDD9F63EBF02CC5D /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C7997BFD552FE881F61BEB /* Account.swift */; };
+		8E9C38FD0CBC689C4E028C9C /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E099194237BF0D71FD3C6424 /* Feed.swift */; };
 		96438221DF43E8FF93AC2D58 /* ManageFeedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EA21421125A16812D6815E /* ManageFeedsView.swift */; };
 		A38E084ADAA18B1D2FC59AFA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7752BAEFA1F38659693A2814 /* SettingsView.swift */; };
 		A99290777413A4AF24674771 /* PreviewImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77498857B3215CE9BF932E32 /* PreviewImage.swift */; };
 		BD71979F992F2F9CFF17813A /* JournalFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC44D06947275059DED3B30 /* JournalFeedService.swift */; };
 		BE1CA69DF5DC8D9673A9374F /* ScreenshotCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917AFC48B26A5664C3A03261 /* ScreenshotCapture.swift */; };
+		BE731A2551AF26FC219649DF /* Headline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EE6D47556801B134F2EC3A /* Headline.swift */; };
 		C8EAE57F73061750EBF41BBF /* Headline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EE6D47556801B134F2EC3A /* Headline.swift */; };
 		CE1E8C2899A0802992715A37 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5CBADBDFC8F276FBD980DD /* Library.swift */; };
 		D00111A11EE6FBEAB2BA089A /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5CBADBDFC8F276FBD980DD /* Library.swift */; };
@@ -46,12 +54,38 @@
 		EBEA260D9FA6F4EAD27152C9 /* CoverageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4104A2D941F019E4AF96736A /* CoverageView.swift */; };
 		F111AA90E55B52E307B5CF83 /* BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB5BD621A0E17BB795698B /* BackgroundRefresh.swift */; };
 		F23E64C0B8D7BBDD37C153EE /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1005C95DA55CC984C69AA6 /* Alerts.swift */; };
+		FDC6361ACDFB8701BDFAC9A9 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38ACDB28857F0E41D3C492E /* JournalEntry.swift */; };
 		FFE534C3561E65CBBCE68F40 /* EntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8286BB5BF361BF084AB417E5 /* EntryListView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		53E325D1FA4CE0D9E82776A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8FD265D236639300B2CBE2BE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F87CC171C4BDFAEC11B06FE;
+			remoteInfo = BugleWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AF5F8935E97C1C918C35CA8B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8B988350CD5A3A382149E64D /* BugleWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		045738E84342A72551CE6DD7 /* Bugle-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bugle-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D602399DFBE78D9E325E2FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		217553F774975A52BB12FB47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		31C7997BFD552FE881F61BEB /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		409A12C7017D00F584C499DF /* EntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
 		4104A2D941F019E4AF96736A /* CoverageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverageView.swift; sourceTree = "<group>"; };
@@ -60,11 +94,13 @@
 		4D618F75CD0D4C5B4BBCC223 /* AtomFeedParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomFeedParserTests.swift; sourceTree = "<group>"; };
 		5057187D84DB102600195FC9 /* Journal-iOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "Journal-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57C34DF0FD4E76F2A5E5A7E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5A293F420B365A0A1736ADC3 /* BugleWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = BugleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		77498857B3215CE9BF932E32 /* PreviewImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImage.swift; sourceTree = "<group>"; };
 		7752BAEFA1F38659693A2814 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7BE1E0BC7D447CF605C09BEC /* Coverage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coverage.swift; sourceTree = "<group>"; };
 		8286BB5BF361BF084AB417E5 /* EntryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryListView.swift; sourceTree = "<group>"; };
 		82AE8705428F23AB464516DF /* HomeParts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeParts.swift; sourceTree = "<group>"; };
+		8431EFE06344FFBFD1BA57D4 /* BugleWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugleWidget.swift; sourceTree = "<group>"; };
 		89EE6D47556801B134F2EC3A /* Headline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Headline.swift; sourceTree = "<group>"; };
 		8D47AA2800395326FC174076 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		917AFC48B26A5664C3A03261 /* ScreenshotCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCapture.swift; sourceTree = "<group>"; };
@@ -134,6 +170,7 @@
 				D09EC4D19A7A0EC3D26842CE /* iOS */,
 				44509E4405767FDB854D4963 /* macOS */,
 				859C45B7E8F5BB4F9820F463 /* Shared */,
+				FBFFAA414955CF4EA127B980 /* Widget */,
 				E131124A528BE7FE327F8D9E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -154,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				045738E84342A72551CE6DD7 /* Bugle-macOS.app */,
+				5A293F420B365A0A1736ADC3 /* BugleWidget.appex */,
 				5057187D84DB102600195FC9 /* Journal-iOS.app */,
 			);
 			name = Products;
@@ -172,19 +210,48 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		FBFFAA414955CF4EA127B980 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				8431EFE06344FFBFD1BA57D4 /* BugleWidget.swift */,
+				217553F774975A52BB12FB47 /* Info.plist */,
+			);
+			name = Widget;
+			path = Sources/Widget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1F87CC171C4BDFAEC11B06FE /* BugleWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42C3FAB155314957BBE08BA6 /* Build configuration list for PBXNativeTarget "BugleWidget" */;
+			buildPhases = (
+				49A572C125957452B6214ACE /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BugleWidget;
+			packageProductDependencies = (
+			);
+			productName = BugleWidget;
+			productReference = 5A293F420B365A0A1736ADC3 /* BugleWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		5E84B88C0206E9C9377640F6 /* Journal-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E91747A774E17311CC243F4C /* Build configuration list for PBXNativeTarget "Journal-iOS" */;
 			buildPhases = (
 				5A596A0D1E640D2E77575A7A /* Sources */,
 				B8481BD59E829BBD4A33AF31 /* Resources */,
+				AF5F8935E97C1C918C35CA8B /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3B3FAC37515BE3E2143188B8 /* PBXTargetDependency */,
 			);
 			name = "Journal-iOS";
 			packageProductDependencies = (
@@ -220,6 +287,9 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					1F87CC171C4BDFAEC11B06FE = {
+						DevelopmentTeam = QMM486NPYC;
+					};
 					5E84B88C0206E9C9377640F6 = {
 						DevelopmentTeam = QMM486NPYC;
 					};
@@ -243,6 +313,7 @@
 			projectRoot = "";
 			targets = (
 				5E84B88C0206E9C9377640F6 /* Journal-iOS */,
+				1F87CC171C4BDFAEC11B06FE /* BugleWidget */,
 				C8DA63722BF541AD4B138E69 /* Bugle-macOS */,
 			);
 		};
@@ -268,6 +339,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		49A572C125957452B6214ACE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EB18549165360E7D7589A0F /* BugleWidget.swift in Sources */,
+				73BE4014EAC63815897A2F19 /* Coverage.swift in Sources */,
+				8E9C38FD0CBC689C4E028C9C /* Feed.swift in Sources */,
+				BE731A2551AF26FC219649DF /* Headline.swift in Sources */,
+				FDC6361ACDFB8701BDFAC9A9 /* JournalEntry.swift in Sources */,
+				478575512E1269F84367C5C5 /* JournalFeedService.swift in Sources */,
+				01C3394A0A1229465741F659 /* Library.swift in Sources */,
+				06506F3A6141E77F07D917FD /* Theme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5A596A0D1E640D2E77575A7A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -322,6 +408,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		3B3FAC37515BE3E2143188B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1F87CC171C4BDFAEC11B06FE /* BugleWidget */;
+			targetProxy = 53E325D1FA4CE0D9E82776A1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		0CEE14CD266BC21DD72C4E09 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -372,7 +466,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.3.0;
+				MARKETING_VERSION = 2.4.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -437,7 +531,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.3.0;
+				MARKETING_VERSION = 2.4.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -484,6 +578,22 @@
 			};
 			name = Debug;
 		};
+		856787AFD0B93ED19F8D61E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Sources/Widget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nulljosh.journal.widget;
+				PRODUCT_NAME = BugleWidget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		9BCDEB48B9F8F9A11110CEF7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -520,9 +630,34 @@
 			};
 			name = Release;
 		};
+		FDBB38CC02966B5163E00C3A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Sources/Widget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nulljosh.journal.widget;
+				PRODUCT_NAME = BugleWidget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		42C3FAB155314957BBE08BA6 /* Build configuration list for PBXNativeTarget "BugleWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				856787AFD0B93ED19F8D61E1 /* Debug */,
+				FDBB38CC02966B5163E00C3A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		8B81B8442A5A2B878FDF2CBE /* Build configuration list for PBXProject "journal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
