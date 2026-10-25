@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0074D9"/><stop offset="1" stop-color="#0059B3"/></linearGradient></defs><rect width="1024" height="1024" rx="0" fill="url(#g)"/><g transform="translate(0,-36)"><rect x="196" y="474" width="44" height="76" rx="14" fill="#fff"/>
-<path d="M236 512 H600" stroke="#fff" stroke-width="64" stroke-linecap="round" fill="none"/>
-<ellipse cx="430" cy="606" rx="150" ry="94" stroke="#fff" stroke-width="52" fill="none"/>
-<path d="M572 478 C 690 470, 780 430, 832 368 L 832 656 C 780 594, 690 554, 572 546 Z" fill="#fff"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0074D9"/><stop offset="1" stop-color="#0059B3"/></linearGradient></defs><rect width="1024" height="1024" rx="0" fill="url(#g)"/><g transform="translate(0,-40)">
+<ellipse cx="400" cy="604" rx="148" ry="92" stroke="#fff" stroke-width="60" fill="none"/>
+<path d="M236 482 H560 C 690 474 780 434 832 370 V 654 C 780 590 690 550 560 542 H236 Z" fill="#fff"/>
+<rect x="192" y="466" width="56" height="92" rx="22" fill="#fff"/>
+</g></svg>

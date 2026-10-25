@@ -44,7 +44,7 @@
   --r-group: 20px;
   --r-row: 8px;
   --r-pill: 999px;
-  --r-sq: 2px;                /* landing buttons and panels */
+  --r-sq: 2px;                /* small marks only; controls are pills, panels are cards */
   --r-icon: 22.5%;
   --motion: .2s ease;
 }

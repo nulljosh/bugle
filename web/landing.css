@@ -24,7 +24,7 @@ h3 { font-size: 30px; line-height: 32px; }
 /* the mark, in the accent, over a section title */
 .mark { display: block; width: 56px; height: 56px; margin: 0 auto var(--sp-4); background: var(--accent); -webkit-mask: url(mark.svg) center / contain no-repeat; mask: url(mark.svg) center / contain no-repeat; }
 
-.btn { height: 40px; padding: 0 var(--sp-4); border-radius: var(--r-sq); display: inline-flex; align-items: center; font: 700 15px/1 var(--display); text-decoration: none; white-space: nowrap; border: 1px solid transparent; transition: background var(--motion), border-color var(--motion); }
+.btn { height: var(--control); padding: 0 var(--sp-5); border-radius: var(--r-pill); display: inline-flex; align-items: center; font: 600 16px/1 var(--font); text-decoration: none; white-space: nowrap; border: 1px solid transparent; transition: background var(--motion), border-color var(--motion); }
 .btn-solid { background: var(--btn); color: #fff; }
 .btn-solid:hover { background: color-mix(in srgb, var(--btn) 82%, #fff); }
 .btn-ghost { background: var(--surface); color: var(--text); border-color: var(--line); }
@@ -51,7 +51,7 @@ h3 { font-size: 30px; line-height: 32px; }
 .demo-wrap { margin: var(--sp-8) clamp(0px, 3vw, 44px) 0; }
 .stage { position: relative; overflow: hidden; background: var(--grain), var(--band); padding: clamp(24px, 6vw, 96px) clamp(12px, 7vw, 128px); }
 .stage-art { position: absolute; inset: 0; background: none; opacity: .5; }
-.reader { position: relative; display: block; width: 100%; max-width: 1040px; height: 620px; margin: 0 auto; border: 0; border-radius: var(--r-sq); background: var(--bg); }
+.reader { position: relative; display: block; width: 100%; max-width: 1040px; height: 620px; margin: 0 auto; border: 0; border-radius: var(--r-card); overflow: hidden; background: var(--bg); }
 .demo-hint { margin-top: var(--sp-3); font-size: var(--size-footnote); color: var(--sub); text-align: center; }
 
 /* The band: a print shop in halftone beside the section head, then the features as rows and ruled cells */

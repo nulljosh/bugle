@@ -1,4 +1,4 @@
-// Footer band: Bugle's things in a row (the mark, a bugle, a newspaper, a feed, a globe, a bookmark), cut like a line
+// Footer band: Bugle's things in a row (the bugle mark, three feeds running into one, a newspaper, a feed, a globe, a bookmark), cut like a line
 // engraving in plain 2D canvas. Faint rules run across the band; inside the glyphs they thicken, and thicken again on
 // the edge facing away from the light, so the glyphs look cut into the page. Drawn once per size and theme.
 // Same engraving as the Hermes landing (hermes/landing/footer-band.js); only the glyphs differ.
@@ -8,18 +8,20 @@
 
   // Each glyph is drawn white on a 100 unit square.
   var GLYPHS = [
-    function (c) { // the mark: three feeds merging into one line (mark.svg at 1/10 scale)
-      c.lineWidth = 9; c.lineCap = 'round'; c.beginPath();
-      c.moveTo(18, 28); c.bezierCurveTo(38, 28, 38, 50, 58, 50);
-      c.moveTo(18, 50); c.lineTo(58, 50);
-      c.moveTo(18, 72); c.bezierCurveTo(38, 72, 38, 50, 58, 50);
-      c.moveTo(58, 50); c.lineTo(84, 50); c.stroke();
+    function (c) { // the mark: the bugle on the icon (brand/mark.svg at 1/10 scale, a touch larger, as wide as its neighbours)
+      c.save(); c.translate(50, 50); c.scale(1.1, 1.1); c.translate(-51, -49.5);
+      c.lineWidth = 7.5; c.beginPath(); c.ellipse(40, 56.4, 14.8, 9.2, 0, 0, 7); c.stroke();
+      c.beginPath(); c.moveTo(23.6, 44.2); c.lineTo(56, 44.2); c.bezierCurveTo(69, 43.4, 78, 39.4, 83.2, 33);
+      c.lineTo(83.2, 61.4); c.bezierCurveTo(78, 55, 69, 51, 56, 50.2); c.lineTo(23.6, 50.2); c.closePath(); c.fill();
+      c.beginPath(); c.roundRect(19.2, 42.6, 5.6, 9.2, 2.2); c.fill();
+      c.restore();
     },
-    function (c) { // bugle: mouthpiece, a straight lead pipe, one coil above it, a wide flared bell
-      c.fillRect(6, 59, 7, 10);
-      c.lineWidth = 6; c.beginPath(); c.moveTo(12, 64); c.lineTo(60, 64); c.stroke();
-      c.beginPath(); c.ellipse(38, 46, 20, 15, 0, 0, 7); c.stroke();
-      c.beginPath(); c.moveTo(56, 60); c.quadraticCurveTo(80, 58, 94, 38); c.lineTo(94, 90); c.quadraticCurveTo(80, 70, 56, 68); c.closePath(); c.fill();
+    function (c) { // every feed, one timeline: three lines running into one (the mark before the bugle)
+      c.lineWidth = 9; c.lineCap = 'round'; c.beginPath();
+      c.moveTo(16, 28); c.bezierCurveTo(37, 28, 37, 50, 58, 50);
+      c.moveTo(16, 50); c.lineTo(58, 50);
+      c.moveTo(16, 72); c.bezierCurveTo(37, 72, 37, 50, 58, 50);
+      c.moveTo(58, 50); c.lineTo(86, 50); c.stroke();
     },
     function (c) { // newspaper: masthead bar and two columns cut out of the page
       c.beginPath(); c.roundRect(16, 20, 68, 60, 4); c.fill();
