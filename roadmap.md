@@ -105,7 +105,7 @@ Bugle stays a reader and also becomes a Ghost-style writing client.
 
 - 2026-10-25 1.15.0: renamed Coranto to Bugle everywhere (folder, site bugle.jaybulb.com, app, fonts, icon bundle); the App Store name is "BugleNews" because Apple refused "Bugle" and "Bugler". coranto.jaybulb.com and inkpress.jaybulb.com keep serving.
 
-- 2026-10-25 1.0.8 (iOS and Mac, in review): renamed Inkpress to Coranto, blue brand and icon, bottom tab bar replaces the sidebar, Settings tab, doubled-text fix, dead upvote button removed, purple links fixed, old heyitsmejosh feeds migrated, bugle.jaybulb.com live.
+- 2026-10-25 1.0.8 (iOS and Mac, both pulled for the rename on 2026-10-25): renamed Inkpress to Coranto, blue brand and icon, bottom tab bar replaces the sidebar, Settings tab, doubled-text fix, dead upvote button removed, purple links fixed, old heyitsmejosh feeds migrated, bugle.jaybulb.com live.
 - 2026-08-30 macOS 1.0.7, first Mac release.
 - 2026-08-25 1.0.5, 16 curated news feeds seeded, named-zone date fix.
 - 2026-08-10 1.0.3, new icon, loading indicator.

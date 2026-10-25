@@ -1,8 +1,11 @@
 # Bugle
-iOS 1.0.6 and macOS 1.0.7 live. 1.0.8 on iOS and Mac (build 202610250858: Bugle name, icon, bottom tab bar Home/Feeds/Settings, doubled-body fix) WAITING_FOR_REVIEW since 2026-10-25. Web reader live at bugle.jaybulb.com/read.
+iOS 1.0.6 and macOS 1.0.7 live. Both 1.0.8 submissions were pulled for the rename on 2026-10-25, so nothing is in App Review. Repo at 1.16.0. Web reader live at bugle.jaybulb.com/read.
 
 ## Open
 - Looping to 0 gaps vs Apple News and Ground News, then v100: gap matrix in `roadmap.md`, loop prompt `~/.claude/loops/bugle.md`. Tags are `bugle-vX.Y.Z` (the monorepo shares tags).
+
+## The loop
+Restart handoff, with the restart prompt, is `docs/LOOP-HANDOFF.md`. Gap matrix in `roadmap.md`.
 
 ## Ship gotchas (learned 2026-08-09)
 - The App Store icon must be a **fully opaque square**, `AppIcon.appiconset/icon-1024.png` shipped with transparent rounded corners once and the upload failed with **90717**. iOS applies the corner mask itself. Flatten with `magick icon.png -background '#161412' -alpha remove -alpha off -type TrueColor PNG24:icon.png`.
@@ -14,7 +17,7 @@ iOS 1.0.6 and macOS 1.0.7 live. 1.0.8 on iOS and Mac (build 202610250858: Bugle 
 
 ## Rules
 - Multi-feed RSS/Atom reader: iOS, macOS (`Bugle-macOS`, same bundle id, Universal Purchase) and a browser reader in `web/read.html`. Split from the `journal` repo 2026-07-21, that repo now holds only the Jekyll blog. No shared code between the two; `FeedStore.seedFeeds` in `ios/Sources/Shared/Models/Feed.swift` subscribes to the blog's `feed.xml` on first launch as one regular feed among the curated news seeds, same as anything a user adds themselves.
-- Renamed "Journal" to "Inkpress" 2026-07-06 (Apple's own Journal app), then "Inkpress" to "Coranto" 2026-10-25, then "Coranto" to "Bugle" the same day (Joshua: Coranto took explaining). On the App Store the name is "Bugle News": Apple refused "Bugle" and "Bugler" as taken by other accounts, so the store name carries "News" and everything else (home screen, site, folder) is Bugle. ASC app id 6787759999, lives in the labs monorepo at `bugle/`. Bugle is set on the iOS 1.0.8 app info (Apple accepted it); the live listing says Inkpress until 1.0.8 is approved.
+- Renamed "Journal" to "Inkpress" 2026-07-06 (Apple's own Journal app), then "Inkpress" to "Coranto" 2026-10-25, then "Coranto" to "Bugle" the same day (Joshua: Coranto took explaining). On the App Store the name is "Bugle News": Apple refused "Bugle" and "Bugler" as taken by other accounts, so the store name carries "News" and everything else (home screen, site, folder) is Bugle. ASC app id 6787759999, lives in the labs monorepo at `bugle/`. Bugle is set on the app info; the live listing says Inkpress until the next version ships.
 - Still on old names on purpose: bundle id `com.nulljosh.journal`, `journal.xcodeproj` and scheme `Journal-iOS`, Pages project `inkpress` (inkpress.jaybulb.com keeps serving, the live listing links there), localStorage keys `inkpress.feeds` and `coranto.session`, `coranto.textSize`, `coranto.library`, `coranto.previews`, the jaybulb-api table `coranto_sync`, the Keychain item `com.nulljosh.coranto.account`, git tags `coranto-v1.5.0` to `coranto-v1.14.0` (new tags are `bugle-vX.Y.Z`), coranto.jaybulb.com (still serves), Supabase tables `inkpress_posts`/`inkpress_contacts`, KMP package and applicationId `com.nulljosh.inkpress`.
 - Brand: clrs.cc blue, accent `#0059B3` (gradient top `#0074D9`), glyph is three feeds merging into one line, `Bugle.icon`. Web type is Bugle Sans and Bugle Display (renamed OFL Inter and Inter Tight, `scripts/gen_font.py`), lowercase, no forced caps; the apps use SF.
 - **Superseded 2026-08-02**: the "no accounts, no writing feature" rule below is being phased out, Bugle is pivoting to also be a CMS/CRM client (WordPress/Ghost-inspired), staying an RSS reader too. See CMS/CRM Pivot roadmap in `roadmap.md`. Old rule, now historical: no accounts, no journaling/writing feature, no user-authored content, it only reads feeds.
