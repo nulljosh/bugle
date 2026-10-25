@@ -11,6 +11,7 @@ struct JournalApp: App {
         readingTimeDemo()
         fullTextDemo()
         archiveDemo()
+        inboxDemo()
         seedFeedsDemo()
         headlineDemo()
         previewImageDemo()

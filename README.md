@@ -1,6 +1,6 @@
 <img src="icon.svg" width="80">
 
-![version](https://img.shields.io/badge/version-4.3.0-blue) ![license](https://img.shields.io/badge/license-MIT-green)
+![version](https://img.shields.io/badge/version-4.4.0-blue) ![license](https://img.shields.io/badge/license-MIT-green)
 
 Every feed, one timeline. Bugle reads RSS and Atom feeds and puts every story in one stream, with the same story from several newsrooms grouped into one row and the day's biggest stories first. iPhone, iPad, Mac, Apple Watch and the web. Formerly Coranto, and before that Inkpress. On the App Store it is Bugle News.
 
@@ -21,7 +21,7 @@ Live at [bugle.jaybulb.com](https://bugle.jaybulb.com), reader at [bugle.jaybulb
 - Save stories whole so they open offline, pictures included. History dims what you have read; each feed shows its unread count, and Mark All Read clears them. Stories open in full even when a feed only sends a summary, with their reading time.
 - Listen: the system voice reads a story aloud, on device.
 - Top Stories widget, "Top stories in Bugle" for Siri and Shortcuts, background refresh, and notifications for the feeds you pick.
-- Three columns on iPad and the Mac: outlets, stories and the story side by side. Saved stories show up in Spotlight, and an open story hands off to your other devices.
+- Three columns on iPad and the Mac: outlets, stories and the story side by side. Saved stories show up in Spotlight, an open story hands off to your other devices, and Share → Bugle saves a story or follows a site from Safari.
 - Keyboard: j and k through stories, / to search, Esc back, s, l and o on a story; ⌘R, ⌘1 to ⌘3, ⌘S, ⌘L in the apps.
 - Your Reading: the lean of what you actually open.
 - Optional account that syncs feeds, saved stories, history, topics and mutes across devices and the web.

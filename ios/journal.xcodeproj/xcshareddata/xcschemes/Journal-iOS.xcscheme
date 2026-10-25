@@ -16,6 +16,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4B48E1A47D85C535AF393268"
+               BuildableName = "BugleShare.appex"
+               BlueprintName = "BugleShare"
+               ReferencedContainer = "container:journal.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "1F87CC171C4BDFAEC11B06FE"
                BuildableName = "BugleWidget.appex"
                BlueprintName = "BugleWidget"
@@ -47,9 +61,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1F87CC171C4BDFAEC11B06FE"
-            BuildableName = "BugleWidget.appex"
-            BlueprintName = "BugleWidget"
+            BlueprintIdentifier = "4B48E1A47D85C535AF393268"
+            BuildableName = "BugleShare.appex"
+            BlueprintName = "BugleShare"
             ReferencedContainer = "container:journal.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -71,9 +85,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1F87CC171C4BDFAEC11B06FE"
-            BuildableName = "BugleWidget.appex"
-            BlueprintName = "BugleWidget"
+            BlueprintIdentifier = "4B48E1A47D85C535AF393268"
+            BuildableName = "BugleShare.appex"
+            BlueprintName = "BugleShare"
             ReferencedContainer = "container:journal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -88,9 +102,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1F87CC171C4BDFAEC11B06FE"
-            BuildableName = "BugleWidget.appex"
-            BlueprintName = "BugleWidget"
+            BlueprintIdentifier = "4B48E1A47D85C535AF393268"
+            BuildableName = "BugleShare.appex"
+            BlueprintName = "BugleShare"
             ReferencedContainer = "container:journal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

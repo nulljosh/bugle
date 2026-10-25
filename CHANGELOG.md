@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 4.4.0
+- Share extension: from Safari or any app, Share → Bugle saves the story or follows the site.
+
 ## 4.3.0
 - Spotlight finds saved stories and recent history; Handoff carries an open story to your other devices.
 

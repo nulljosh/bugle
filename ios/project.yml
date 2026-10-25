@@ -9,7 +9,7 @@ options:
 settings:
   base:
     SWIFT_VERSION: "5.9"
-    MARKETING_VERSION: "4.3.0"
+    MARKETING_VERSION: "4.4.0"
     CURRENT_PROJECT_VERSION: "202610251232"
     DEVELOPMENT_TEAM: QMM486NPYC
 
@@ -19,6 +19,7 @@ schemes:
       targets:
         Journal-iOS: all
         BugleWidget: all
+        BugleShare: all
   Bugle-macOS:
     build:
       targets:
@@ -46,6 +47,7 @@ targets:
         CODE_SIGN_ENTITLEMENTS: Journal.entitlements
     dependencies:
       - target: BugleWidget
+      - target: BugleShare
 
   BugleWidget:
     type: app-extension
@@ -73,6 +75,31 @@ targets:
         CFBundleDisplayName: Bugle
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
+
+  BugleShare:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Sources/Share
+      - Sources/Shared/Services/Inbox.swift
+      - Sources/Shared/Models/Theme.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.nulljosh.journal.share
+        PRODUCT_NAME: BugleShare
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CODE_SIGN_ENTITLEMENTS: BugleShare.entitlements
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: SHARE_EXTENSION
+    info:
+      path: Sources/Share/Info.plist
+      properties:
+        CFBundleDisplayName: Bugle
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.share-services
+          NSExtensionPrincipalClass: ShareViewController
+          NSExtensionAttributes:
+            NSExtensionActivationRule:
+              NSExtensionActivationSupportsWebURLWithMaxCount: 1
 
   Bugle-macOS:
     type: application

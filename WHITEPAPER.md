@@ -28,7 +28,7 @@ A story opens with its outlet, date and reading time (230 words a minute, left o
 
 ## Around the system
 
-The apps refresh in the background about every half hour (`BGAppRefreshTask`) and can notify you, at most three at a time, when a feed you picked posts. The Top Stories widget shows the lead with its photo and the next two in outlet colours; it reads the seed feeds until an App Group shares the user's list. Saved stories and the last fifty read go into Spotlight (`Spotlight`), and an open story is offered over Handoff with its web address, so a device without Bugle opens it in the browser. `TopStoriesIntent` answers "Top stories in Bugle" for Siri and hands Shortcuts the headlines as text.
+The apps refresh in the background about every half hour (`BGAppRefreshTask`) and can notify you, at most three at a time, when a feed you picked posts. The Top Stories widget shows the lead with its photo and the next two in outlet colours; it reads the seed feeds until an App Group shares the user's list. The share extension (Share → Bugle) saves a story or follows a site; with no App Group, it leaves the choice in a keychain item in a shared team group (`Inbox`), and the app takes it in when it next comes to the front. Saved stories and the last fifty read go into Spotlight (`Spotlight`), and an open story is offered over Handoff with its web address, so a device without Bugle opens it in the browser. `TopStoriesIntent` answers "Top stories in Bugle" for Siri and hands Shortcuts the headlines as text.
 
 ## Accounts and sync
 

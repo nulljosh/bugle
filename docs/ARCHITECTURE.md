@@ -32,6 +32,7 @@ A refresh fetches every followed feed at once, parses each into entries tagged w
 | `Sources/Shared/Views/ManageFeedsView.swift` | Feeds: add, local news, following, OPML, suggested, Saved and History |
 | `Sources/Shared/Views/SettingsView.swift` | Account, text size, muted, Your Reading |
 | `Sources/iOS/BackgroundRefresh.swift` | `BGAppRefreshTask` every half hour |
+| `Sources/Share/ShareViewController.swift`, `Sources/Shared/Services/Inbox.swift` | The share extension and the keychain inbox it hands items to the app through |
 | `Sources/Widget/BugleWidget.swift` | The Top Stories widget (small and medium) |
 | `watchos/ContentView.swift` | The Watch app; compiles the shared models and parser |
 

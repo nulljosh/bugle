@@ -12,7 +12,7 @@ Restart prompt:
 
 ## Where things stand
 
-- Git is at 4.3.0: Spotlight and Handoff (`Spotlight.swift`). 4.2.0: three columns on iPad and Mac (`HomeSplit`; the outlet list sets the same search Home uses, and the story column has its own path). 4.1.0: keyboard shortcuts (web `keys.js`; apps use invisible buttons with `.keyboardShortcut`). 4.0.1: grouping matches each headline against the story's lead only and ignores the day's common words (`Coverage.common`). 4.0.0 (tag `bugle-v4.0.0`): Band 3.x, RSS power, is done: site-address discovery, tech and Mac feeds, OPML, reading time, unread counts and Mark All Read, full article text for summary-only feeds, the Blindspots chip, and the story timeline (a week of headlines in `Archive`, shown under Earlier).
+- Git is at 4.4.0: the share extension (`Sources/Share`, bundle id `com.nulljosh.journal.share`, registered with Apple along with `.widget`), handing items over through a shared keychain group (`Inbox`). Band 4.x is done. 4.3.0: Spotlight and Handoff (`Spotlight.swift`). 4.2.0: three columns on iPad and Mac (`HomeSplit`; the outlet list sets the same search Home uses, and the story column has its own path). 4.1.0: keyboard shortcuts (web `keys.js`; apps use invisible buttons with `.keyboardShortcut`). 4.0.1: grouping matches each headline against the story's lead only and ignores the day's common words (`Coverage.common`). 4.0.0 (tag `bugle-v4.0.0`): Band 3.x, RSS power, is done: site-address discovery, tech and Mac feeds, OPML, reading time, unread counts and Mark All Read, full article text for summary-only feeds, the Blindspots chip, and the story timeline (a week of headlines in `Archive`, shown under Earlier).
 - 3.0.0 closed every gap against Apple News and Ground News from the original matrix (widget 2.4.0, Siri 2.5.0, Listen 3.0.0 and everything before).
 - The widget reads the seed feeds, not the user's list; an App Group would let it read `feeds.json`.
 - The web reader is live at 4.0.0. `web/reader.js` sits near the 5000 token hook; new web features go in their own file (`feedio.js`, `fulltext.js`, `timeline.js`).
@@ -20,10 +20,10 @@ Restart prompt:
 
 ## Next, in order
 
-1. Band 4.x, iPad and Mac, toward 5.0: 39 three columns (next up) on iPad and Mac, 40 share extension, 41 Spotlight and Handoff.
-2. Once 2.0.0 clears review, archive main as the next store version and submit iOS and Mac.
-3. One Liquid Glass pass on one screen every tick.
-4. Podcasts at 5.0 need one question to Joshua first.
+1. 5.0 QA (roadmap "QA every major version"): tests, builds, iPhone and iPad light and dark, Mac capture, web at 390 and desktop, the landing; fresh README, WHITEPAPER, architecture.svg; then tag 5.0.0.
+2. Ask Joshua the one podcasts question (band 5 to 9). Until he answers, work band 50 to 99 items that need no gate: VoiceOver labels, Dynamic Type, Reduce Motion.
+3. Once 2.0.0 clears review, archive main as the next store version and submit iOS and Mac.
+4. One Liquid Glass pass on one screen every tick.
 
 ## Rules that bite
 

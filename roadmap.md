@@ -42,7 +42,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 37 | Blindspot filter on Home | | yes | a Blindspots chip leads Home and shows only stories one side of the spectrum covered | done | 3.7.0 |
 | 38 | Keyboard shortcuts (Mac, iPad, web) | yes | | web: j k, Enter, Esc, /, r, s, l, o, 1 to 3; apps: ⌘R, ⌘1 to ⌘3, ⌘S, ⌘L, ⌘⇧O | done | 4.1.0 |
 | 39 | Three columns on iPad and Mac (feeds, list, story) | yes | yes | iPad in regular width and the Mac: outlets, stories, the story (HomeSplit); phones keep one stack | done | 4.2.0 |
-| 40 | Share extension: add a feed or save a story from Safari | yes | yes | none | todo | |
+| 40 | Share extension: add a feed or save a story from Safari | yes | yes | Share → Bugle: Save Story or Follow This Site; handed to the app through a shared keychain inbox | done | 4.4.0 |
 | 41 | Spotlight and Handoff | yes | | saved stories and recent history are in Spotlight; an open story hands off to your other devices, or to the browser | done | 4.3.0 |
 | 42 | Reading time on each story | yes | | "4 min read" beside the outlet and date on every story with a real body, app and web | done | 3.4.0 |
 | 43 | Story timeline: the same story over several days | | yes | a week of headlines is kept; each story lists its earlier coverage under Earlier | done | 4.0.0 |
