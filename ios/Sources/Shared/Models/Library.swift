@@ -79,5 +79,6 @@ func relativeTimeDemo() {
     assert(Topics.toggled("AI", in: "") == "AI")
     assert(Topics.toggled("ai", in: "Canada\nAI") == "Canada")
     assert(Topics.toggled("Apple", in: "Canada") == "Canada\nApple")
+    assert(FeedParser.sharpen(URL(string: "https://ichef.bbci.co.uk/ace/standard/240/a.jpg")!)?.absoluteString == "https://ichef.bbci.co.uk/ace/standard/976/a.jpg")
 }
 #endif

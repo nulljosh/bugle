@@ -103,3 +103,12 @@ test("outlet colors are readable in light and dark, and name real outlets", () =
     assert.ok(ratio(dark, "#000000") >= 4.5, name + " dark " + dark);
   }
 });
+
+// Image sharpening, shared with FeedParser.sharpen (web/parse.js is a classic script).
+(await import("node:vm")).runInThisContext(readFileSync(new URL("./web/parse.js", import.meta.url), "utf8"));
+
+test("BBC thumbnails ask for the 976 px copy, other hosts untouched", () => {
+  assert.equal(sharpen("https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/a.jpg"), "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/a.jpg");
+  assert.equal(sharpen("https://ichef.bbci.co.uk/news/240/cpsprodpb/a.jpg"), "https://ichef.bbci.co.uk/news/976/cpsprodpb/a.jpg");
+  assert.equal(sharpen("https://i.guim.co.uk/img/x.jpg?width=700"), "https://i.guim.co.uk/img/x.jpg?width=700");
+});

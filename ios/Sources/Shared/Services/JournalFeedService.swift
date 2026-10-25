@@ -83,6 +83,7 @@ final class FeedParser: NSObject, XMLParserDelegate {
     private var content = ""
     private var summary = ""   // RSS feeds often send both a summary and the full text
     private var mediaSrc = ""
+    private var mediaWidth = -1
     private var enclosureSrc = ""
     private var inItem = false
 
@@ -98,19 +99,22 @@ final class FeedParser: NSObject, XMLParserDelegate {
         element = elementName
         if elementName == "entry" || elementName == "item" {
             inItem = true; title = ""; link = ""; date = ""; content = ""; summary = ""
-            mediaSrc = ""; enclosureSrc = ""
+            mediaSrc = ""; mediaWidth = -1; enclosureSrc = ""
         } else if elementName == "link", inItem,
                   attributeDict["rel"] == nil || attributeDict["rel"] == "alternate",
                   let href = attributeDict["href"] {
             // Atom links carry the URL in the href attribute.
             link = href
         } else if inItem, elementName == "media:thumbnail" || elementName == "media:content" {
-            // <media:thumbnail> is an image by definition; <media:content> carries video too.
-            if mediaSrc.isEmpty, let u = attributeDict["url"],
+            // <media:thumbnail> is an image by definition; <media:content> carries video too. The widest wins
+            // (the Guardian lists 140, 460 and 700 px copies).
+            let w = Int(attributeDict["width"] ?? "") ?? 0
+            if w > mediaWidth, let u = attributeDict["url"],
                elementName == "media:thumbnail" || Self.isImage(attributeDict, url: u) {
-                mediaSrc = u
+                mediaSrc = u; mediaWidth = w
             }
         } else if inItem, elementName == "itunes:image", mediaSrc.isEmpty, let u = attributeDict["href"] {
+            mediaWidth = 0
             mediaSrc = u   // podcast and some blog feeds put the episode art here
         } else if inItem, elementName == "enclosure" {
             if enclosureSrc.isEmpty, let u = attributeDict["url"], Self.isImage(attributeDict, url: u) {
@@ -152,7 +156,7 @@ final class FeedParser: NSObject, XMLParserDelegate {
             date: Self.parseDate(date.trimmingCharacters(in: .whitespacesAndNewlines)),
             htmlContent: body,
             imageURL: Self.pickImage(media: mediaSrc, enclosure: enclosureSrc,
-                                     html: content + summary, entryURL: entryURL)
+                                     html: content + summary, entryURL: entryURL).flatMap(Self.sharpen)
         ))
     }
 
@@ -217,6 +221,12 @@ final class FeedParser: NSObject, XMLParserDelegate {
 
     /// media:* wins over <enclosure>, which wins over the first <img> in the body.
     /// No match means no thumbnail — never a placeholder URL.
+    /// BBC feeds point at a 240 px copy; the same path serves 976 px. Mirrors sharpen in web/parse.js.
+    static func sharpen(_ url: URL) -> URL? {
+        let s = url.absoluteString.replacingOccurrences(of: #"(ichef\.bbci\.co\.uk/(?:ace/\w+|news))/\d+/"#, with: "$1/976/", options: .regularExpression)
+        return URL(string: s) ?? url
+    }
+
     static func pickImage(media: String, enclosure: String, html: String, entryURL: String) -> URL? {
         for candidate in [media, enclosure] where !candidate.isEmpty {
             if let u = resolve(candidate, against: entryURL) { return u }

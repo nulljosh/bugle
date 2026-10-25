@@ -32,17 +32,26 @@ function resolveImage(src, base) {
 
 // media:* beats <enclosure> beats the first <img> in the body. Mirrors FeedParser.pickImage
 // in the Swift app - the two parsers must agree or the same feed looks different per platform.
+// BBC feeds point at a 240 px copy; the same path serves 976 px. Mirrors FeedParser.sharpen.
+function sharpen(url) { return url.replace(/(ichef\.bbci\.co\.uk\/(?:ace\/\w+|news))\/\d+\//, '$1/976/'); }
+
 function imageFor(node, html, link) {
-  var tags = ['media:thumbnail', 'media:content', 'enclosure'];
-  for (var i = 0; i < tags.length; i++) {
-    var els = node.getElementsByTagName(tags[i]);
+  // The widest media:* wins (the Guardian lists 140, 460 and 700 px copies), then the first image <enclosure>.
+  var best = '', bestW = -1;
+  ['media:thumbnail', 'media:content'].forEach(function (tag) {
+    var els = node.getElementsByTagName(tag);
     for (var j = 0; j < els.length; j++) {
-      var url = els[j].getAttribute('url');
-      if (!url) continue;
-      if (tags[i] !== 'media:thumbnail' && !isImageEl(els[j], url)) continue;
+      var url = els[j].getAttribute('url'), w = +els[j].getAttribute('width') || 0;
+      if (!url || w <= bestW || (tag !== 'media:thumbnail' && !isImageEl(els[j], url))) continue;
       var got = resolveImage(url, link);
-      if (got) return got;
+      if (got) { best = got; bestW = w; }
     }
+  });
+  if (best) return best;
+  var encs = node.getElementsByTagName('enclosure');
+  for (var i = 0; i < encs.length; i++) {
+    var u = encs[i].getAttribute('url');
+    if (u && isImageEl(encs[i], u) && resolveImage(u, link)) return resolveImage(u, link);
   }
   var art = node.getElementsByTagName('itunes:image')[0];   // podcast and some blog feeds put the art here
   if (art && resolveImage(art.getAttribute('href'), link)) return resolveImage(art.getAttribute('href'), link);
@@ -81,7 +90,7 @@ function parse(xml, source) {
       url: link,
       date: d ? new Date(d) : new Date(0),
       html: html,
-      image: imageFor(n, html, link),
+      image: sharpen(imageFor(n, html, link)),
       source: source
     };
   }).filter(function (e) { return e.url; });
