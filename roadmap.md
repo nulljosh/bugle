@@ -34,7 +34,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 24 | Sync of feeds, saved and history | yes | account | optional Bugle account (jaybulb-api) syncs the feed list on app and web; saved and history follow when they exist | partial | 1.9.0 |
 | 25 | Siri and Shortcuts | yes | | none | todo | |
 | 26 | Listen to a story | News+ | | none; on-device speech | todo | |
-| 27 | Watch app at parity | yes | | list and story, old styling | partial | |
+| 27 | Watch app at parity | yes | | runs on the phone's own feed list, parser and grouping: Today first, outlet colors, sources, Save | done | 1.22.0 |
 | 33 | Paste a site address, find its feed (autodiscovery) | | | RSS readers (NetNewsWire, Reeder) all do it; Bugle needs the feed URL | todo | |
 | 34 | OPML import and export | | | every RSS reader; none here | todo | |
 | 35 | Full article text for summary-only feeds | yes | yes | shows the feed's summary, then Open original | todo | |

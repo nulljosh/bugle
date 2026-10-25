@@ -10,7 +10,9 @@ extension Color {
     init(light: UInt32, dark: UInt32) {
         func rgb(_ v: UInt32) -> (CGFloat, CGFloat, CGFloat) { (CGFloat(v >> 16 & 0xFF) / 255, CGFloat(v >> 8 & 0xFF) / 255, CGFloat(v & 0xFF) / 255) }
         let (l, d) = (rgb(light), rgb(dark))
-        #if os(macOS)
+        #if os(watchOS)
+        self.init(red: d.0, green: d.1, blue: d.2)   // the watch is always dark
+        #elseif os(macOS)
         self.init(nsColor: NSColor(name: nil) { a in
             let c = a.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? d : l
             return NSColor(srgbRed: c.0, green: c.1, blue: c.2, alpha: 1)

@@ -5,8 +5,8 @@ options:
     watchOS: "10.0"
 settings:
   DEVELOPMENT_TEAM: QMM486NPYC
-  SWIFT_VERSION: "6.0"
-  MARKETING_VERSION: "1.0.0"
+  SWIFT_VERSION: "5.9"   # same as the phone app, whose model and parser files it shares
+  MARKETING_VERSION: "1.22.0"
   CURRENT_PROJECT_VERSION: "1"
   CODE_SIGN_STYLE: Automatic
 targets:
@@ -20,6 +20,14 @@ targets:
           - "*.yml"
           - "*.md"
           - "*.svg"
+      # One reader everywhere: the phone's feed list, parser, grouping, headline cleaning and colors.
+      - ../ios/Sources/Shared/Models/Coverage.swift
+      - ../ios/Sources/Shared/Models/Feed.swift
+      - ../ios/Sources/Shared/Models/Headline.swift
+      - ../ios/Sources/Shared/Models/JournalEntry.swift
+      - ../ios/Sources/Shared/Models/Library.swift
+      - ../ios/Sources/Shared/Models/Theme.swift
+      - ../ios/Sources/Shared/Services/JournalFeedService.swift
     settings:
       INFOPLIST_FILE: ""
       GENERATE_INFOPLIST_FILE: YES

@@ -7,26 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07E3DABF73FA839E4BC01E01 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82548688137F099285AEEAA0 /* Theme.swift */; };
 		15AA1967DA9702C23A21C572 /* BugleWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FA057D33B70AA9AE67FB44 /* BugleWatchApp.swift */; };
-		28FF9367B5AE0366A904FFC7 /* EntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59497EDBE6C1AF7CF42C04B /* EntriesView.swift */; };
-		5A165ED2C2585D4141B871A7 /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A492B9D37D4F44C639E7E36 /* EntryDetailView.swift */; };
-		780D4020FC6903F3F9935F96 /* WatchModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06995B5DFC897721613876DE /* WatchModels.swift */; };
-		D9BF007898494CF9772D80EF /* WatchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32E49D4BB669FE14267219D /* WatchAPI.swift */; };
+		5EAB005BA9E9AE3A35E0998F /* Coverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4C8027A60CDA95369A83A /* Coverage.swift */; };
+		6B7B1D7C494A9BADF5403C9D /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5475565E04C2F0740EFB99 /* JournalEntry.swift */; };
+		A0A3703641522A091F2F72FF /* Headline.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B439CA5F5680E4D0679728 /* Headline.swift */; };
+		B159F2D3478FA88982F464E3 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75560728B5C4EB74CAFAB99 /* Library.swift */; };
+		B3210ACCB33F9F89A7ABC2A9 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031590FCB27B54B38E6DD675 /* Feed.swift */; };
+		C395802D540E0F60B751C680 /* JournalFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C9F8B8FBEFBB7383EBD78C /* JournalFeedService.swift */; };
 		E2115D0D9223ABD891F89065 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5777E80062EB577F22F3E598 /* Assets.xcassets */; };
 		E658FA6540A51D4A9344BA43 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26E38040C7CAF6DE474A09 /* ContentView.swift */; };
-		E7DFFBA395B513D556E6483B /* PairingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06871E2CB32F65DD6FFB1FB0 /* PairingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		06871E2CB32F65DD6FFB1FB0 /* PairingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingView.swift; sourceTree = "<group>"; };
-		06995B5DFC897721613876DE /* WatchModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchModels.swift; sourceTree = "<group>"; };
-		0A492B9D37D4F44C639E7E36 /* EntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
+		031590FCB27B54B38E6DD675 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		5777E80062EB577F22F3E598 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74FA057D33B70AA9AE67FB44 /* BugleWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugleWatchApp.swift; sourceTree = "<group>"; };
-		B32E49D4BB669FE14267219D /* WatchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAPI.swift; sourceTree = "<group>"; };
+		79C9F8B8FBEFBB7383EBD78C /* JournalFeedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalFeedService.swift; sourceTree = "<group>"; };
+		82548688137F099285AEEAA0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		9F5475565E04C2F0740EFB99 /* JournalEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
+		A1B439CA5F5680E4D0679728 /* Headline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Headline.swift; sourceTree = "<group>"; };
+		AED4C8027A60CDA95369A83A /* Coverage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coverage.swift; sourceTree = "<group>"; };
+		B75560728B5C4EB74CAFAB99 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		BF15183C2F6F0417F2E89900 /* BugleWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BugleWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE26E38040C7CAF6DE474A09 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		D59497EDBE6C1AF7CF42C04B /* EntriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -34,20 +38,10 @@
 			isa = PBXGroup;
 			children = (
 				C99D4632E2E9F2EBFAB3085C /* Models */,
-				BCB689A288E5F0BEB6EC3C79 /* Views */,
+				DE9B2CF3FFBB3410AA92FFF2 /* Services */,
 				E447383581BCB4E07B2A530E /* watchos */,
 				C53D750324D098FE8C989A83 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		BCB689A288E5F0BEB6EC3C79 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				D59497EDBE6C1AF7CF42C04B /* EntriesView.swift */,
-				0A492B9D37D4F44C639E7E36 /* EntryDetailView.swift */,
-				06871E2CB32F65DD6FFB1FB0 /* PairingView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		C53D750324D098FE8C989A83 /* Products */ = {
@@ -61,10 +55,24 @@
 		C99D4632E2E9F2EBFAB3085C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B32E49D4BB669FE14267219D /* WatchAPI.swift */,
-				06995B5DFC897721613876DE /* WatchModels.swift */,
+				AED4C8027A60CDA95369A83A /* Coverage.swift */,
+				031590FCB27B54B38E6DD675 /* Feed.swift */,
+				A1B439CA5F5680E4D0679728 /* Headline.swift */,
+				9F5475565E04C2F0740EFB99 /* JournalEntry.swift */,
+				B75560728B5C4EB74CAFAB99 /* Library.swift */,
+				82548688137F099285AEEAA0 /* Theme.swift */,
 			);
-			path = Models;
+			name = Models;
+			path = ../ios/Sources/Shared/Models;
+			sourceTree = "<group>";
+		};
+		DE9B2CF3FFBB3410AA92FFF2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				79C9F8B8FBEFBB7383EBD78C /* JournalFeedService.swift */,
+			);
+			name = Services;
+			path = ../ios/Sources/Shared/Services;
 			sourceTree = "<group>";
 		};
 		E447383581BCB4E07B2A530E /* watchos */ = {
@@ -73,8 +81,6 @@
 				5777E80062EB577F22F3E598 /* Assets.xcassets */,
 				74FA057D33B70AA9AE67FB44 /* BugleWatchApp.swift */,
 				CE26E38040C7CAF6DE474A09 /* ContentView.swift */,
-				C99D4632E2E9F2EBFAB3085C /* Models */,
-				BCB689A288E5F0BEB6EC3C79 /* Views */,
 			);
 			name = watchos;
 			path = .;
@@ -153,11 +159,13 @@
 			files = (
 				15AA1967DA9702C23A21C572 /* BugleWatchApp.swift in Sources */,
 				E658FA6540A51D4A9344BA43 /* ContentView.swift in Sources */,
-				28FF9367B5AE0366A904FFC7 /* EntriesView.swift in Sources */,
-				5A165ED2C2585D4141B871A7 /* EntryDetailView.swift in Sources */,
-				E7DFFBA395B513D556E6483B /* PairingView.swift in Sources */,
-				D9BF007898494CF9772D80EF /* WatchAPI.swift in Sources */,
-				780D4020FC6903F3F9935F96 /* WatchModels.swift in Sources */,
+				5EAB005BA9E9AE3A35E0998F /* Coverage.swift in Sources */,
+				B3210ACCB33F9F89A7ABC2A9 /* Feed.swift in Sources */,
+				A0A3703641522A091F2F72FF /* Headline.swift in Sources */,
+				6B7B1D7C494A9BADF5403C9D /* JournalEntry.swift in Sources */,
+				C395802D540E0F60B751C680 /* JournalFeedService.swift in Sources */,
+				B159F2D3478FA88982F464E3 /* Library.swift in Sources */,
+				07E3DABF73FA839E4BC01E01 /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,7 +227,7 @@
 				SDKROOT = watchos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 6.0;
+				SWIFT_VERSION = 5.9;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
@@ -301,7 +309,7 @@
 				SDKROOT = watchos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 6.0;
+				SWIFT_VERSION = 5.9;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
