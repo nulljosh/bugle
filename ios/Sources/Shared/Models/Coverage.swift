@@ -44,7 +44,24 @@ struct Outlet {
         "Daring Fireball": (0x4A525A, 0xA3ABB3), "Journal": (0x0059B3, 0x5AA9FF),
     ]
 
-    static func color(_ source: String) -> Color { brand[source].map { Color(light: $0.light, dark: $0.dark) } ?? .bugleAccent }
+    /// A feed Bugle doesn't know gets a steady color from its name (same set and hash as web/coverage.js).
+    /// ponytail: a name hash, not the site's own color; read its theme-color if someone wants the real brand.
+    static let palette: [(light: UInt32, dark: UInt32)] = [
+        (0xC62828, 0xFF6B6B), (0xC24E00, 0xFF8A3D), (0x2E7D32, 0x5FD068), (0x1565C0, 0x64A8FF), (0x1A3A6B, 0x7FA8F0),
+        (0xC2185B, 0xFF6FA5), (0xB00020, 0xFF5C7A), (0x1B5E20, 0x66BB6A), (0x455A64, 0xA3B4BD), (0x0D47A1, 0x82B1FF),
+    ]
+
+    static func colors(_ source: String) -> (light: UInt32, dark: UInt32) {
+        if let b = brand[source] { return b }
+        let h = source.utf16.reduce(UInt32(0)) { $0 &* 31 &+ UInt32($1) }
+        return palette[Int(h % UInt32(palette.count))]
+    }
+
+    static func color(_ source: String) -> Color {
+        guard !source.isEmpty else { return .bugleAccent }
+        let c = colors(source)
+        return Color(light: c.light, dark: c.dark)
+    }
 
     static func leanLabel(_ lean: Int) -> String {
         ["Left", "Leans left", "Center", "Leans right", "Right"][max(0, min(4, lean + 2))]
@@ -140,6 +157,7 @@ func coverageDemo() {
     assert(border.publishers == 2)              // NY Post and its opinion feed are one newsroom
     assert(border.blindspot == .right)          // two newsrooms, all on the right
     assert(stories.first { $0.entries.count == 1 }!.counts.isEmpty)   // tech outlets are not rated
+    assert(Outlet.colors("Ars Technica") == Outlet.palette[7])   // the same index web/coverage.js picks (test.mjs)
     let ranked = Coverage.today(stories, now: Date(timeIntervalSince1970: 10))
     assert(ranked.first?.entries.count == 3)    // the story two newsrooms carry leads Today
 }

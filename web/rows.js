@@ -31,7 +31,7 @@ function ago(d, now) {
 
 function kicker(e) {
   var k = el('small', 'kick');
-  if (e.source) k.appendChild(window.Coverage ? Coverage.paint(el('span', 'src', e.source), e.source) : el('span', 'src', e.source));
+  if (e.source) k.appendChild(window.Coverage ? Coverage.paint(el('span', 'src oc', e.source), e.source) : el('span', 'src', e.source));
   var when = ago(e.date);
   if (e.source && when) k.appendChild(document.createTextNode(' · '));
   if (when) k.appendChild(document.createTextNode(when));

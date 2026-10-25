@@ -77,9 +77,11 @@ a.row:hover { text-decoration: none; background: color-mix(in srgb, var(--text) 
 .plain .row { padding: var(--sp-3) 20px; }
 .plain ul.rows li + li { background: linear-gradient(var(--line), var(--line)) 20px 0 / calc(100% - 40px) 1px no-repeat; }
 .kick { display: block; font-size: 13px; line-height: 18px; color: var(--sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
-.kick .src { color: var(--c, var(--accent)); font-weight: 600; }   /* the outlet's own color (Coverage.paint) */
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .kick .src { color: var(--cd, var(--accent)); } }
-:root[data-theme="dark"] .kick .src { color: var(--cd, var(--accent)); }
+.kick .src { font-weight: 600; }
+/* An outlet's name in its own color (Coverage.paint sets --c and --cd): above headlines and in Feeds. */
+.oc, .kick .src { color: var(--c, var(--accent)); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .oc, :root:not([data-theme="light"]) .kick .src { color: var(--cd, var(--accent)); } }
+:root[data-theme="dark"] .oc, :root[data-theme="dark"] .kick .src { color: var(--cd, var(--accent)); }
 /* Every story on Home from one outlet (one feed followed, or a search for it): the whole reader takes its color. */
 :root[data-outlet] { --accent: var(--c); }
 @media (prefers-color-scheme: dark) { :root[data-outlet]:not([data-theme="light"]) { --accent: var(--cd); } }

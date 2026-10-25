@@ -44,6 +44,7 @@ struct ManageFeedsView: View {
                                 Text(Self.about(feed)).font(.caption).foregroundStyle(.secondary).lineLimit(1)
                             }
                         }
+                        .tint(.primary)   // the caption stays gray, not the button's color
                     }
                     .onDelete(perform: store.remove)
                 }
@@ -54,7 +55,7 @@ struct ManageFeedsView: View {
                             Button { store.add(feed) } label: {
                                 HStack {
                                     VStack(alignment: .leading, spacing: 2) {
-                                        Text(feed.title).font(.body)
+                                        Text(feed.title).font(.body).foregroundStyle(Outlet.color(feed.title))
                                         Text(Self.about(feed)).font(.caption)
                                             .foregroundStyle(.secondary).lineLimit(1)
                                     }

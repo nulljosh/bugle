@@ -23,8 +23,17 @@ var Coverage = (function () {
     'Daily Wire': ['#111111', '#F5F5F7'], 'Vancouver Sun': ['#12599E', '#6AA6E6'], 'The Province': ['#C8102E', '#FF6B78'],
     'Daring Fireball': ['#4A525A', '#A3ABB3'], 'Journal': ['#0059B3', '#5AA9FF']
   };
+  // A feed Bugle doesn't know gets a steady color from its name, from this set (same contrast rule, no purple or teal).
+  // ponytail: a name hash, not the site's own color; read its theme-color if someone wants the real brand.
+  var PALETTE = [['#C62828', '#FF6B6B'], ['#C24E00', '#FF8A3D'], ['#2E7D32', '#5FD068'], ['#1565C0', '#64A8FF'],
+    ['#1A3A6B', '#7FA8F0'], ['#C2185B', '#FF6FA5'], ['#B00020', '#FF5C7A'], ['#1B5E20', '#66BB6A'], ['#455A64', '#A3B4BD'], ['#0D47A1', '#82B1FF']];
+  function colors(source) {
+    if (BRAND[source]) return BRAND[source];
+    for (var h = 0, i = 0; i < source.length; i++) h = (h * 31 + source.charCodeAt(i)) >>> 0;   // same hash as Outlet.colors in Swift
+    return PALETTE[h % PALETTE.length];
+  }
   // Paint an element in an outlet's color: --c and --cd, which reader.css picks between for light and dark.
-  function paint(node, source) { var b = BRAND[source]; if (b) { node.style.setProperty('--c', b[0]); node.style.setProperty('--cd', b[1]); } return node; }
+  function paint(node, source) { if (source) { var b = colors(source); node.style.setProperty('--c', b[0]); node.style.setProperty('--cd', b[1]); } return node; }
   var SIDES = ['left', 'center', 'right'], TITLES = { left: 'Left', center: 'Center', right: 'Right' };
   var STOP = new Set(('the a an of to in on for and or as at by is are was with after over from amid says say new this that it its his her ' +
     'their they we you but not has have had will would could should about into more than what when who how why been being were where which').split(' '));
@@ -100,5 +109,5 @@ var Coverage = (function () {
     return box;
   }
   function about(feed) { var o = outlet(feed.title); return o ? (o.lean == null ? 'Not rated' : leanLabel(o.lean)) + ' · ' + o.owner : feed.url; }
-  return { cluster: cluster, today: today, BRAND: BRAND, OUTLETS: OUTLETS, paint: paint, readingLean: readingLean, bar: bar, section: section, about: about };
+  return { cluster: cluster, today: today, BRAND: BRAND, PALETTE: PALETTE, OUTLETS: OUTLETS, colors: colors, paint: paint, readingLean: readingLean, bar: bar, section: section, about: about };
 })();
