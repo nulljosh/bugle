@@ -27,8 +27,11 @@ var Coverage = (function () {
   // ponytail: a name hash, not the site's own color; read its theme-color if someone wants the real brand.
   var PALETTE = [['#C62828', '#FF6B6B'], ['#C24E00', '#FF8A3D'], ['#2E7D32', '#5FD068'], ['#1565C0', '#64A8FF'],
     ['#1A3A6B', '#7FA8F0'], ['#C2185B', '#FF6FA5'], ['#B00020', '#FF5C7A'], ['#1B5E20', '#66BB6A'], ['#455A64', '#A3B4BD'], ['#0D47A1', '#82B1FF']];
+  var FAMILY = { 'CBC ': 'CBC', 'Global ': 'Global News', 'BBC ': 'BBC', 'NY Post ': 'NY Post' };
   function colors(source) {
     if (BRAND[source]) return BRAND[source];
+    // A newsroom's local desks wear its color: "CBC Toronto", "Global BC", "BBC London", "NY Post Metro".
+    for (var p in FAMILY) if (source.indexOf(p) === 0) return BRAND[FAMILY[p]];
     for (var h = 0, i = 0; i < source.length; i++) h = (h * 31 + source.charCodeAt(i)) >>> 0;   // same hash as Outlet.colors in Swift
     return PALETTE[h % PALETTE.length];
   }

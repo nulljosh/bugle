@@ -7,6 +7,7 @@ struct ManageFeedsView: View {
     var open: (Feed) -> Void = { _ in }
     @State private var newFeed = ""
     @State private var showError = false
+    @AppStorage("region") private var region = ""
 
     var body: some View {
         NavigationStack {
@@ -34,6 +35,32 @@ struct ManageFeedsView: View {
                     }
                 } footer: {
                     Text("Paste any RSS or Atom feed URL to follow it.")
+                }
+
+                // Pick a city, then follow its newsrooms; followed ones open like any outlet.
+                Section {
+                    Picker("City", selection: $region) {
+                        Text("Choose").tag("")
+                        ForEach(FeedStore.local, id: \.city) { Text($0.city).tag($0.city) }
+                    }
+                    ForEach(FeedStore.local.first { $0.city == region }?.feeds ?? []) { feed in
+                        let following = store.feeds.contains { $0.url == feed.url }
+                        Button { if following { open(feed) } else { store.add(feed) } } label: {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(feed.title).font(.body).foregroundStyle(Outlet.color(feed.title))
+                                    Text(region).font(.caption).foregroundStyle(.secondary)
+                                }
+                                Spacer()
+                                if following { Text("Following").foregroundStyle(.secondary) } else { Image(systemName: "plus") }
+                            }
+                        }
+                        .tint(.primary)
+                    }
+                } header: {
+                    Text("Local news")
+                } footer: {
+                    Text("Pick your city to follow its newsrooms.")
                 }
 
                 Section("Following") {

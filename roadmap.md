@@ -26,7 +26,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 16 | Today: top stories ranked by coverage | yes | yes | five biggest stories of the day (most newsrooms) lead Home | done | 1.16.0 |
 | 17 | Follow topics | yes | yes | follow a search as a topic; topics are chips on Home | done | 1.18.0 |
 | 18 | Mute a source or topic | yes | yes | Mute on Home hides an outlet or word; Settings lists mutes | done | 1.19.0 |
-| 19 | Local news for your region | yes | yes | two Vancouver outlets seeded | partial | |
+| 19 | Local news for your region | yes | yes | pick a city in Feeds (10 cities), follow its newsrooms | done | 1.20.0 |
 | 20 | Follow sources, suggested sources | yes | yes | Feeds tab | done | 1.0.8 |
 | 21 | Background refresh | yes | yes | refresh on open only | todo | |
 | 22 | Notifications for chosen sources | yes | yes | none | todo | |
@@ -35,6 +35,17 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 25 | Siri and Shortcuts | yes | | none | todo | |
 | 26 | Listen to a story | News+ | | none; on-device speech | todo | |
 | 27 | Watch app at parity | yes | | list and story, old styling | partial | |
+| 33 | Paste a site address, find its feed (autodiscovery) | | | RSS readers (NetNewsWire, Reeder) all do it; Bugle needs the feed URL | todo | |
+| 34 | OPML import and export | | | every RSS reader; none here | todo | |
+| 35 | Full article text for summary-only feeds | yes | yes | shows the feed's summary, then Open original | todo | |
+| 36 | Unread counts and mark all read | yes | | read rows dim; no counts | todo | |
+| 37 | Blindspot filter on Home | | yes | Blindspot noted per story only | todo | |
+| 38 | Keyboard shortcuts (Mac, iPad, web) | yes | | none | todo | |
+| 39 | Three columns on iPad and Mac (feeds, list, story) | yes | yes | tabs everywhere | todo | |
+| 40 | Share extension: add a feed or save a story from Safari | yes | yes | none | todo | |
+| 41 | Spotlight and Handoff | yes | | none | todo | |
+| 42 | Reading time on each story | yes | | none | todo | |
+| 43 | Story timeline: the same story over several days | | yes | clusters only look at what is loaded now | todo | |
 | 28 | Light and dark mode | yes | yes | yes | done | 1.0.6 |
 | 29 | No account, no tracking | Apple ID | account | yes | done | 1.0.0 |
 | 30 | Factuality score per source | | yes | | n/a | no free source we can cite; we won't invent scores |
@@ -55,19 +66,18 @@ Apple News's "similar screens" on Mobbin lined up about 18 news apps (informed, 
 
 ## Road to v100
 
-Minor version per row, major version per band. Each major gets the full QA below and a store submit if no review is open.
+Rewritten 2026-10-25 at 1.19.5 (Joshua: "identify gaps, build roadmap, loop until v5, then 10"). Minor version per row, major version per band. Each major gets the full QA below, fresh README, WHITEPAPER and architecture.svg, and a store submit if no review is open.
 
-- **1.x Reader core** (rows 2 to 9). **2.0** QA.
-- **2.x Ground News** (rows 10 to 15), by porting Sidewise's clustering and lean data to Swift and the web reader. **3.0** QA. Then one line to Joshua: Sidewise is now inside Bugle, so keep both, or retire Sidewise?
-- **3.x Today and topics** (rows 16 to 19). **4.0** QA.
-- **4.x Around the system** (rows 21 to 27). **5.0** = 0 gaps: side-by-side QA against Apple News and Ground News, then call it.
-- **5 to 9 Podcasts** (Joshua 2026-08-24, confirmed): enclosure audio, a player with background audio and lock-screen controls, resume position, downloads. Apple Podcasts is the design reference. Positioning check with Joshua before 5.0, since it turns a reader into a listener.
-- **10 to 19 Writing** (CMS phases 1 and 2 below). Gate: re-decide the backend first (the plan says Supabase, but the free tier is maxed and the fleet moved to Cloudflare D1), and confirm with Joshua that Bugle may drop "no account".
+- **1.x Reader core, finish** (rows 19, 9, 24, 27: local news, offline images, sync of saved and history, Watch). **2.0** QA.
+- **2.x Around the system** (rows 21, 22, 23, 25, 26: background refresh, notifications, widgets, Shortcuts, listen). **3.0** = 0 gaps against Apple News and Ground News: side-by-side QA.
+- **3.x RSS power** (rows 33 to 37, 42, 43: autodiscovery, OPML, full text, unread counts, Blindspot filter, reading time, timelines). **4.0** = 0 gaps against NetNewsWire and Reeder too.
+- **4.x iPad and Mac** (rows 38 to 41: shortcuts, three columns, share extension, Spotlight and Handoff). **5.0** QA.
+- **5 to 9 Podcasts** (Joshua 2026-08-24): enclosure audio, a player with background audio and lock-screen controls, resume, downloads, Apple Podcasts as the reference. One question to Joshua at 5.0 before starting, since it turns a reader into a listener.
+- **10 to 19 Writing** (CMS phases 1 and 2 below). Gate: the backend (D1 on jaybulb-api, not Supabase) and Joshua's yes on accounts for writers.
 - **20 to 29 Subscribers** (CRM phase 3). Same gate.
 - **30 to 49 Android** from `kmp/`. Gate: a Play developer account.
-- **50 to 99** speed, accessibility (VoiceOver, Dynamic Type, Reduce Motion), every language, design polish. Money is free or $1 only; ads (Joshua's 2026-09-12 note) go to him as one question, since "no tracking" is the pitch.
+- **50 to 99** speed, accessibility (VoiceOver, Dynamic Type, Reduce Motion), every language, design polish. Money is free or $1 only; ads go to Joshua as one question, since "no tracking" is the pitch.
 - **100** one reader on iPhone, iPad, Mac, Watch, web and Android, in sync.
-- Past 100 the number just counts; take the most useful thing the last versions surfaced, bugs first.
 
 ## QA every major version
 

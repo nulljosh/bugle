@@ -107,6 +107,12 @@ test("outlet colors are readable in light and dark, and name real outlets", () =
 // Image sharpening, shared with FeedParser.sharpen (web/parse.js is a classic script).
 (await import("node:vm")).runInThisContext(readFileSync(new URL("./web/parse.js", import.meta.url), "utf8"));
 
+test("local desks take their newsroom's color", () => {
+  assert.deepEqual(Coverage.colors("CBC Toronto"), Coverage.colors("CBC"));
+  assert.deepEqual(Coverage.colors("Global BC"), Coverage.colors("Global News"));
+  assert.deepEqual(Coverage.colors("NY Post Opinion"), Coverage.BRAND["NY Post Opinion"]);
+});
+
 test("mute hides an outlet by name or a word in the headline", () => {
   const e = { title: "Canucks lose again", source: "The Province" };
   assert.ok(Coverage.muted(e, ["the province"]));

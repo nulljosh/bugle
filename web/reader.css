@@ -111,6 +111,15 @@ a.row:hover { text-decoration: none; background: color-mix(in srgb, var(--text) 
 .acct .row:focus-within { box-shadow: inset 0 0 0 4px var(--ring); }
 .act:disabled { opacity: .4; cursor: default; }
 .act.danger { color: #d70015; }
+/* swipe to remove: the row slides over a red action, which only shows while it moves */
+li.swipe { position: relative; overflow: hidden; }
+li.swipe > .row { position: relative; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+li.swipe > .row:focus-visible { outline: none; box-shadow: inset 0 0 0 4px var(--ring); }
+li.swiping > .row { background: var(--surface); }
+.swipe-del { position: absolute; top: 0; right: 0; bottom: 0; width: 88px; border: 0; background: #d70015; color: #fff; font: inherit; font-weight: 600; cursor: pointer; visibility: hidden; }
+li.swiping > .swipe-del { visibility: visible; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .swipe-del { background: #ff453a; } }
+:root[data-theme="dark"] .swipe-del { background: #ff453a; }
 /* sign in: a filled capsule, create account a tinted one, both full width and 48 points (house controls) */
 .acct-btns { display: flex; flex-direction: column; gap: var(--sp-2); padding: var(--sp-3) var(--sp-4) var(--sp-2); }
 .btn { height: 48px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: var(--r-pill); background: var(--accent); color: #fff; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; }
@@ -125,6 +134,11 @@ a.row:hover { text-decoration: none; background: color-mix(in srgb, var(--text) 
 .search svg { width: 18px; height: 18px; flex: none; }
 .search input { flex: 1; min-width: 0; border: 0; background: none; font: inherit; font-size: 16px; color: var(--text); height: 44px; }
 .search input:focus-visible { outline: none; }
+/* the city picker: plain text with a drawn chevron, house rules */
+#region { appearance: none; -webkit-appearance: none; border: 0; background: none; font: inherit; color: var(--accent); padding-right: 18px; cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: right 6px center, right 1px center; background-size: 5px 5px; background-repeat: no-repeat; }
+#region:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); border-radius: 8px; }
 .search:focus-within { box-shadow: 0 0 0 4px var(--ring); }
 /* followed topics: one scrolling row of capsules under the search */
 .topics { display: flex; gap: var(--sp-2); overflow-x: auto; scrollbar-width: none; margin: 0 0 var(--sp-2); padding: 0 20px; }

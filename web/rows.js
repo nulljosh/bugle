@@ -153,3 +153,38 @@ addEventListener('resize', refit);
 // Refit once the web font lands (it is wider than the fallback) and whenever a list changes width.
 if (document.fonts) { document.fonts.ready.then(fitTitles); document.fonts.addEventListener('loadingdone', fitTitles); }
 if (window.ResizeObserver) { var ro = new ResizeObserver(refit); document.querySelectorAll('ul.rows').forEach(function (u) { ro.observe(u); }); }
+
+// Swipe a row left to show a red action behind it, like iOS lists; swipe far, or tap the action, to run it.
+// Works with a finger, a mouse drag or a trackpad; Delete or Backspace on the focused row does the same.
+function swipeRemove(li, row, label, run) {
+  var del = el('button', 'swipe-del', label), W = 88, x0 = null, y0 = 0, dx = 0, open = false;
+  del.tabIndex = -1; del.onclick = run;
+  li.classList.add('swipe'); li.insertBefore(del, row);
+  row.tabIndex = 0; row.setAttribute('aria-keyshortcuts', 'Delete');
+  function set(x, anim) {
+    row.style.transition = anim ? 'transform .2s ease' : 'none';
+    row.style.transform = x ? 'translateX(' + x + 'px)' : '';
+    li.classList.toggle('swiping', !!x || !anim);
+  }
+  row.addEventListener('pointerdown', function (e) { x0 = e.clientX; y0 = e.clientY; dx = 0; });
+  row.addEventListener('pointermove', function (e) {
+    if (x0 === null) return;
+    var mx = e.clientX - x0;
+    if (Math.abs(mx) < 6) return;
+    if (!dx && Math.abs(e.clientY - y0) > Math.abs(mx)) { x0 = null; return; }   // vertical: let the page scroll
+    dx = Math.min(0, mx - (open ? W : 0)) || -0.01;
+    row.setPointerCapture(e.pointerId); set(dx);
+  });
+  function end() {
+    if (x0 === null) return; x0 = null;
+    if (!dx) return;
+    if (dx < -row.offsetWidth * 0.6) return run();
+    open = dx < -W / 2; set(open ? -W : 0, true);
+  }
+  row.addEventListener('pointerup', end); row.addEventListener('pointercancel', end);
+  // a drag is not a tap, and a tap on an open row just closes it
+  row.addEventListener('click', function (e) {
+    if (dx || open) { e.stopPropagation(); e.preventDefault(); if (!dx) { open = false; set(0, true); } dx = 0; }
+  }, true);
+  row.addEventListener('keydown', function (e) { if (e.key === 'Delete' || e.key === 'Backspace') run(); });
+}

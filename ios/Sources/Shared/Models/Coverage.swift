@@ -51,8 +51,12 @@ struct Outlet {
         (0xC2185B, 0xFF6FA5), (0xB00020, 0xFF5C7A), (0x1B5E20, 0x66BB6A), (0x455A64, 0xA3B4BD), (0x0D47A1, 0x82B1FF),
     ]
 
+    static let family: [(prefix: String, outlet: String)] = [("CBC ", "CBC"), ("Global ", "Global News"), ("BBC ", "BBC"), ("NY Post ", "NY Post")]
+
     static func colors(_ source: String) -> (light: UInt32, dark: UInt32) {
         if let b = brand[source] { return b }
+        // A newsroom's local desks wear its color: "CBC Toronto", "Global BC", "BBC London", "NY Post Metro".
+        if let f = family.first(where: { source.hasPrefix($0.prefix) }) { return brand[f.outlet]! }
         let h = source.utf16.reduce(UInt32(0)) { $0 &* 31 &+ UInt32($1) }
         return palette[Int(h % UInt32(palette.count))]
     }
@@ -162,7 +166,8 @@ func coverageDemo() {
     assert(border.publishers == 2)              // NY Post and its opinion feed are one newsroom
     assert(border.blindspot == .right)          // two newsrooms, all on the right
     assert(stories.first { $0.entries.count == 1 }!.counts.isEmpty)   // tech outlets are not rated
-    assert(Outlet.colors("Ars Technica") == Outlet.palette[7])   // the same index web/coverage.js picks (test.mjs)
+    assert(Outlet.colors("Ars Technica") == Outlet.palette[7])
+    assert(Outlet.colors("CBC Toronto") == Outlet.colors("CBC") && Outlet.colors("Global BC") == Outlet.colors("Global News"))   // the same index web/coverage.js picks (test.mjs)
     let ranked = Coverage.today(stories, now: Date(timeIntervalSince1970: 10))
     assert(ranked.first?.entries.count == 3)    // the story two newsrooms carry leads Today
 }

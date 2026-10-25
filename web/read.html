@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0059B3">
 <link rel="icon" href="icon.svg">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="reader.css?v=1.19.5">
+<link rel="stylesheet" href="reader.css?v=1.20.0">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="apple-touch-icon" href="/icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -41,8 +41,12 @@
     <button class="act" type="submit">Add</button>
   </form></div>
   <p class="note" id="add-note">Paste any RSS or Atom feed URL to follow it.</p>
+  <p class="label">Local news</p>
+  <div class="group"><ul class="rows" id="local"></ul></div>
+  <p class="note">Pick your city to follow its newsrooms.</p>
   <p class="label">Following</p>
   <div class="group"><ul class="rows" id="following"></ul></div>
+  <p class="note">Tap a feed to read only it. Swipe left to remove it.</p>
   <p class="label" id="suggested-label">Suggested</p>
   <div class="group" id="suggested-group"><ul class="rows" id="suggested"></ul></div>
 </main>
@@ -76,7 +80,7 @@
   <p class="note" id="reading-note"></p>
   <p class="label">Muted</p>
   <div class="group"><ul class="rows" id="muted"></ul></div>
-  <p class="note">Search an outlet or a word on Home, then tap Mute to hide its stories.</p>
+  <p class="note">Search an outlet or a word on Home, then tap Mute to hide its stories. Swipe left to unmute.</p>
   <p class="label">Reading</p>
   <div class="group"><ul class="rows">
     <li><div class="row"><span class="txt">Text size <small id="size-label"></small></span>
@@ -97,13 +101,13 @@
   <a href="#settings" data-tab="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>Settings</a>
 </nav>
 
-<script src="headline.js?v=1.19.5"></script>
-<script src="parse.js?v=1.19.5"></script>
-<script src="rows.js?v=1.19.5"></script>
-<script src="coverage.js?v=1.19.5"></script>
-<script src="reader.js?v=1.19.5"></script>
-<script src="library.js?v=1.19.5"></script>
-<script src="account.js?v=1.19.5"></script>
+<script src="headline.js?v=1.20.0"></script>
+<script src="parse.js?v=1.20.0"></script>
+<script src="rows.js?v=1.20.0"></script>
+<script src="coverage.js?v=1.20.0"></script>
+<script src="reader.js?v=1.20.0"></script>
+<script src="library.js?v=1.20.0"></script>
+<script src="account.js?v=1.20.0"></script>
 
   <script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js'));</script>
 </body>

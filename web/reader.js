@@ -20,6 +20,20 @@ var SEEDS = [
   ['Daring Fireball', 'https://daringfireball.net/feeds/main']
 ].map(function (f) { return { title: f[0], url: f[1] }; });
 
+// Local newsrooms by city (Apple News and Ground News both have a Local feed). Mirrors FeedStore.local.
+var LOCAL = [
+  ['Vancouver', [['Vancouver Sun', 'https://vancouversun.com/feed'], ['The Province', 'https://theprovince.com/feed'], ['CBC British Columbia', 'https://www.cbc.ca/webfeed/rss/rss-canada-britishcolumbia'], ['Global BC', 'https://globalnews.ca/bc/feed/'], ['Vancouver Is Awesome', 'https://www.vancouverisawesome.com/rss']]],
+  ['Calgary', [['Calgary Herald', 'https://calgaryherald.com/feed'], ['CBC Calgary', 'https://www.cbc.ca/webfeed/rss/rss-canada-calgary'], ['Global Calgary', 'https://globalnews.ca/calgary/feed/']]],
+  ['Edmonton', [['Edmonton Journal', 'https://edmontonjournal.com/feed'], ['Global Edmonton', 'https://globalnews.ca/edmonton/feed/']]],
+  ['Toronto', [['Toronto Sun', 'https://torontosun.com/feed'], ['CBC Toronto', 'https://www.cbc.ca/webfeed/rss/rss-canada-toronto'], ['Global Toronto', 'https://globalnews.ca/toronto/feed/']]],
+  ['Ottawa', [['Ottawa Citizen', 'https://ottawacitizen.com/feed'], ['CBC Ottawa', 'https://www.cbc.ca/webfeed/rss/rss-canada-ottawa']]],
+  ['Montreal', [['CBC Montreal', 'https://www.cbc.ca/webfeed/rss/rss-canada-montreal'], ['Global Montreal', 'https://globalnews.ca/montreal/feed/']]],
+  ['Seattle', [['Seattle Times', 'https://www.seattletimes.com/seattle-news/feed/']]],
+  ['New York', [['Gothamist', 'https://gothamist.com/feed'], ['NY Post Metro', 'https://nypost.com/metro/feed/']]],
+  ['Los Angeles', [['LA Times California', 'https://www.latimes.com/california/rss2.0.xml'], ['LAist', 'https://laist.com/index.atom']]],
+  ['London', [['BBC London', 'https://feeds.bbci.co.uk/news/england/london/rss.xml'], ['Evening Standard', 'https://www.standard.co.uk/news/london/rss']]]
+].map(function (r) { return { city: r[0], feeds: r[1].map(function (f) { return { title: f[0], url: f[1] }; }) }; });
+
 var feeds = load(), entries = [], stories = [], storyOf = {};
 
 function load() {
@@ -114,13 +128,13 @@ function renderFeeds() {
     // Tap an outlet to read just it: Home searches for it and takes its color.
     txt.style.cursor = 'pointer';
     txt.onclick = function () { document.getElementById('q').value = f.title; location.hash = '#home'; renderEntries(); };
-    var rm = el('button', 'act', 'Remove');
-    rm.setAttribute('aria-label', 'Remove ' + f.title);
-    rm.onclick = function () { feeds.splice(i, 1); save(); renderFeeds(); refresh(); };
-    row.appendChild(txt); row.appendChild(rm);
+    row.appendChild(txt);
     var li = el('li'); li.appendChild(row); following.appendChild(li);
+    swipeRemove(li, row, 'Remove', function () { feeds.splice(i, 1); save(); renderFeeds(); refresh(); });
   });
   if (!feeds.length) following.appendChild(el('li', 'muted', 'Not following anything yet.'));
+
+  renderLocal();
 
   var spare = [JOURNAL].concat(SEEDS).filter(function (s) {
     return !feeds.some(function (f) { return f.url === s.url; });
@@ -136,6 +150,30 @@ function renderFeeds() {
     btn.setAttribute('aria-label', 'Follow ' + s.title);
     btn.onclick = function () { feeds.push(s); save(); renderFeeds(); refresh(); };
     var li = el('li'); li.appendChild(btn); suggested.appendChild(li);
+  });
+}
+
+// Feeds: pick a city, then follow its newsrooms. Followed ones say so and open like any outlet.
+function renderLocal() {
+  var ul = document.getElementById('local'), region = '';
+  try { region = localStorage.getItem('bugle.region') || ''; } catch (e) {}
+  ul.innerHTML = '';
+  var pick = el('select'); pick.id = 'region'; pick.setAttribute('aria-label', 'City');
+  [''].concat(LOCAL.map(function (r) { return r.city; })).forEach(function (c) {
+    var o = el('option', '', c || 'Choose'); o.value = c; o.selected = c === region; pick.appendChild(o);
+  });
+  pick.onchange = function () { try { localStorage.setItem('bugle.region', pick.value); } catch (e) {} renderLocal(); };
+  var head = el('label', 'row'); head.appendChild(el('span', 'txt', 'City')); head.appendChild(pick);
+  var li = el('li'); li.appendChild(head); ul.appendChild(li);
+  (LOCAL.find(function (r) { return r.city === region; }) || { feeds: [] }).feeds.forEach(function (f) {
+    var on = feeds.some(function (x) { return x.url === f.url; });
+    var btn = el('button', 'row'), txt = el('span', 'txt');
+    txt.appendChild(Coverage.paint(el('b', 'oc', f.title), f.title)); txt.appendChild(el('small', '', region));
+    btn.appendChild(txt); btn.appendChild(el('span', 'act', on ? 'Following' : '+'));
+    btn.setAttribute('aria-label', (on ? 'Read ' : 'Follow ') + f.title);
+    btn.onclick = on ? function () { document.getElementById('q').value = f.title; location.hash = '#home'; renderEntries(); }
+      : function () { feeds.push(f); save(); renderFeeds(); refresh(); };
+    var row = el('li'); row.appendChild(btn); ul.appendChild(row);
   });
 }
 

@@ -43,15 +43,14 @@ function wordList(KEY) {
 }
 var Topics = wordList('bugle.topics'), Muted = wordList('bugle.muted');
 
-function renderMuted() {   // Settings: what you muted, each with Unmute
+function renderMuted() {   // Settings: what you muted; swipe left to unmute
   var ul = document.getElementById('muted');
   ul.innerHTML = '';
   Muted.list().forEach(function (m) {
-    var row = el('div', 'row'), btn = el('button', 'act', 'Unmute');
-    btn.setAttribute('aria-label', 'Unmute ' + m);
-    btn.onclick = function () { Muted.toggle(m); renderMuted(); restory(); };
-    row.appendChild(el('span', 'txt', m)); row.appendChild(btn);
+    var row = el('div', 'row');
+    row.appendChild(el('span', 'txt', m));
     var li = el('li'); li.appendChild(row); ul.appendChild(li);
+    swipeRemove(li, row, 'Unmute', function () { Muted.toggle(m); renderMuted(); restory(); });
   });
   if (!Muted.list().length) ul.appendChild(el('li', 'muted', 'Nothing muted.'));
 }

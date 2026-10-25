@@ -84,6 +84,20 @@ final class FeedStore: ObservableObject {
         return true
     }
 
+    /// Local newsrooms by city (Apple News and Ground News both have a Local feed). Mirrors LOCAL in web/reader.js.
+    static let local: [(city: String, feeds: [Feed])] = [
+        ("Vancouver", [Feed(title: "Vancouver Sun", url: "https://vancouversun.com/feed"), Feed(title: "The Province", url: "https://theprovince.com/feed"), Feed(title: "CBC British Columbia", url: "https://www.cbc.ca/webfeed/rss/rss-canada-britishcolumbia"), Feed(title: "Global BC", url: "https://globalnews.ca/bc/feed/"), Feed(title: "Vancouver Is Awesome", url: "https://www.vancouverisawesome.com/rss")]),
+        ("Calgary", [Feed(title: "Calgary Herald", url: "https://calgaryherald.com/feed"), Feed(title: "CBC Calgary", url: "https://www.cbc.ca/webfeed/rss/rss-canada-calgary"), Feed(title: "Global Calgary", url: "https://globalnews.ca/calgary/feed/")]),
+        ("Edmonton", [Feed(title: "Edmonton Journal", url: "https://edmontonjournal.com/feed"), Feed(title: "Global Edmonton", url: "https://globalnews.ca/edmonton/feed/")]),
+        ("Toronto", [Feed(title: "Toronto Sun", url: "https://torontosun.com/feed"), Feed(title: "CBC Toronto", url: "https://www.cbc.ca/webfeed/rss/rss-canada-toronto"), Feed(title: "Global Toronto", url: "https://globalnews.ca/toronto/feed/")]),
+        ("Ottawa", [Feed(title: "Ottawa Citizen", url: "https://ottawacitizen.com/feed"), Feed(title: "CBC Ottawa", url: "https://www.cbc.ca/webfeed/rss/rss-canada-ottawa")]),
+        ("Montreal", [Feed(title: "CBC Montreal", url: "https://www.cbc.ca/webfeed/rss/rss-canada-montreal"), Feed(title: "Global Montreal", url: "https://globalnews.ca/montreal/feed/")]),
+        ("Seattle", [Feed(title: "Seattle Times", url: "https://www.seattletimes.com/seattle-news/feed/")]),
+        ("New York", [Feed(title: "Gothamist", url: "https://gothamist.com/feed"), Feed(title: "NY Post Metro", url: "https://nypost.com/metro/feed/")]),
+        ("Los Angeles", [Feed(title: "LA Times California", url: "https://www.latimes.com/california/rss2.0.xml"), Feed(title: "LAist", url: "https://laist.com/index.atom")]),
+        ("London", [Feed(title: "BBC London", url: "https://feeds.bbci.co.uk/news/england/london/rss.xml"), Feed(title: "Evening Standard", url: "https://www.standard.co.uk/news/london/rss")])
+    ]
+
     /// Seeds the user has not subscribed to, for the Suggested list.
     var unsubscribedSeeds: [Feed] {
         ([Self.journalFeed] + Self.seedFeeds).filter { seed in !feeds.contains(where: { $0.url == seed.url }) }
@@ -113,5 +127,6 @@ func seedFeedsDemo() {
         assert(!f.title.isEmpty, "seed has no title: \(f.url)")
     }
     assert(Set(seeds.map(\.id)).count == seeds.count, "duplicate seed URL")
+    for f in FeedStore.local.flatMap(\.feeds) { assert(f.url.hasPrefix("https://") && URL(string: f.url)?.host != nil, "bad local feed: \(f.url)") }
 }
 #endif

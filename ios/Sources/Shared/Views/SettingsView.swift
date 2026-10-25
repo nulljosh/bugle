@@ -35,13 +35,13 @@ struct SettingsView: View {
                 }
                 Section {
                     ForEach(Topics.list(muted), id: \.self) { m in
-                        LabeledContent(m) { Button("Unmute") { muted = Topics.toggled(m, in: muted) } }
+                        Text(m).swipeActions { Button("Unmute", role: .destructive) { muted = Topics.toggled(m, in: muted) } }
                     }
                     if muted.isEmpty { Text("Nothing muted.").foregroundStyle(.secondary) }
                 } header: {
                     Text("Muted")
                 } footer: {
-                    Text("Search an outlet or a word on Home, then tap Mute to hide its stories.")
+                    Text("Search an outlet or a word on Home, then tap Mute to hide its stories. Swipe left to unmute.")
                 }
                 Section("Reading") {
                     Stepper(value: $textSize, in: 13...28) {
