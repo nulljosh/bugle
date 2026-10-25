@@ -1,6 +1,6 @@
 <img src="icon.svg" width="80">
 
-![version](https://img.shields.io/badge/version-3.6.0-blue) ![license](https://img.shields.io/badge/license-MIT-green)
+![version](https://img.shields.io/badge/version-3.7.0-blue) ![license](https://img.shields.io/badge/license-MIT-green)
 
 Every feed, one timeline. Bugle reads RSS and Atom feeds and puts every story in one stream, with the same story from several newsrooms grouped into one row and the day's biggest stories first. iPhone, iPad, Mac, Apple Watch and the web. Formerly Coranto, and before that Inkpress. On the App Store it is Bugle News.
 
@@ -13,7 +13,7 @@ Live at [bugle.jaybulb.com](https://bugle.jaybulb.com), reader at [bugle.jaybulb
 
 ## Features
 - Follow any RSS or Atom feed (paste a site address and Bugle finds its feed), pick from twenty-five newsrooms and tech and Mac sites, or the local desks of ten cities. OPML in and out.
-- One row per story: every newsroom that covered it, how left, center and right covered it, and blindspots.
+- One row per story: every newsroom that covered it, how left, center and right covered it, and blindspots, with a Blindspots chip on Home to see only those.
 - Today: the five stories the most newsrooms are carrying lead Home.
 - Each outlet in its own color; read one outlet and the whole reader takes its color.
 - Search stories and outlets, follow a search as a topic, mute an outlet or a word.

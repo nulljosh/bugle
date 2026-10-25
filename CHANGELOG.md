@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 3.7.0
+- A Blindspots chip on Home: only the stories one side of the spectrum covered.
+
 ## 3.6.0
 - Full article text when a feed only sends a summary.
 

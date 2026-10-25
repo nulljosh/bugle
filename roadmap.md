@@ -39,7 +39,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 34 | OPML import and export | | | Import OPML and Export OPML under Following, app and web; duplicates skipped | done | 3.3.0 |
 | 35 | Full article text for summary-only feeds | yes | yes | a summary-only story fetches its page and shows the main article's paragraphs as plain text; menus, sidebars and repeated lines dropped | done | 3.6.0 |
 | 36 | Unread counts and mark all read | yes | | each followed feed shows its unread count; Mark All Read clears them without filling History | done | 3.5.0 |
-| 37 | Blindspot filter on Home | | yes | Blindspot noted per story only | todo | |
+| 37 | Blindspot filter on Home | | yes | a Blindspots chip leads Home and shows only stories one side of the spectrum covered | done | 3.7.0 |
 | 38 | Keyboard shortcuts (Mac, iPad, web) | yes | | none | todo | |
 | 39 | Three columns on iPad and Mac (feeds, list, story) | yes | yes | tabs everywhere | todo | |
 | 40 | Share extension: add a feed or save a story from Safari | yes | yes | none | todo | |

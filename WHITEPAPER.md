@@ -6,7 +6,7 @@ Every feed, one timeline. Bugle reads RSS and Atom feeds straight from the sites
 
 ## The core mechanic: one story, many newsrooms
 
-Every entry from every followed feed goes through `Coverage.cluster`. Headlines are cut to their keywords (stop words out, case folded), and an entry joins a story when at least half of the shorter keyword set overlaps. The newest headline leads the story. Publishers count once: NY Post and NY Post Opinion are one newsroom. Each outlet Bugle rates carries a lean and an owner, so a story knows how many left, center and right newsrooms carried it, and flags a blindspot when only one side did.
+Every entry from every followed feed goes through `Coverage.cluster`. Headlines are cut to their keywords (stop words out, case folded), and an entry joins a story when at least half of the shorter keyword set overlaps. The newest headline leads the story. Publishers count once: NY Post and NY Post Opinion are one newsroom. Each outlet Bugle rates carries a lean and an owner, so a story knows how many left, center and right newsrooms carried it, and flags a blindspot when only one side did. The Blindspots chip, always first under the search, shows only those stories.
 
 `Coverage.today` then ranks: the five stories carried by the most newsrooms in the last 24 hours lead Home, newest first among ties, and everything else follows by time. A muted outlet or word drops out before grouping, so a muted outlet never leads a story or counts toward it.
 

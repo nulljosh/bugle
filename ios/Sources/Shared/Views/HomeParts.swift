@@ -17,11 +17,15 @@ struct TopicBar: View {
         let q = query.trimmingCharacters(in: .whitespaces)
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
+                // Blindspots first: stories only one side of the spectrum covered, like Ground News.
+                let blind = q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame
+                Button(Coverage.blindspots) { query = blind ? "" : Coverage.blindspots }.buttonStyle(Chip(on: blind))
+                    .accessibilityAddTraits(blind ? .isSelected : [])
                 if followable {
                     Button(Topics.has(q, in: topics) ? "Unfollow" : "+ Follow \u{201C}\(q)\u{201D}") { topics = Topics.toggled(q, in: topics) }
                         .buttonStyle(Chip(on: true))
                 }
-                if !q.isEmpty {   // mute anything you can search: an outlet or a word
+                if !q.isEmpty && !blind {   // mute anything you can search: an outlet or a word
                     let isMuted = Topics.has(q, in: muted)
                     Button(isMuted ? "Unmute" : "Mute") {
                         muted = Topics.toggled(q, in: muted)

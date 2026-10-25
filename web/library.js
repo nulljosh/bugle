@@ -103,3 +103,36 @@ document.getElementById('history-clear').onclick = function () { Library.clearHi
 renderLibrary();
 renderMuted();
 restory();   // reader.js drew Home before Topics and Muted existed
+
+// Followed topics as chips under the search (tap to read only it, tap again for everything). Searching for a
+// word that is not an outlet offers to follow it; searching anything offers to mute it. Same as the app.
+// Uses reader.js's feeds and renderEntries.
+function renderTopics() {
+  var box = document.getElementById('topics'), input = document.getElementById('q');
+  if (!box || !window.Topics) return;
+  var raw = input.value.trim(), q = raw.toLowerCase();
+  box.innerHTML = '';
+  // Blindspots first: stories only one side of the spectrum covered, like Ground News.
+  var blind = q === 'blindspots', spot = el('button', 'chip', 'Blindspots');
+  spot.setAttribute('aria-pressed', String(blind));
+  spot.onclick = function () { input.value = blind ? '' : 'Blindspots'; renderEntries(); };
+  box.appendChild(spot);
+  var outlet = Coverage.OUTLETS[raw] || feeds.some(function (f) { return f.title.toLowerCase() === q; });
+  if (raw && !outlet && !blind) {
+    var follow = el('button', 'chip follow', Topics.has(raw) ? 'Unfollow' : '+ Follow \u201C' + raw + '\u201D');
+    follow.onclick = function () { Topics.toggle(raw); renderTopics(); };
+    box.appendChild(follow);
+  }
+  if (raw && !blind) {   // mute anything you can search: an outlet or a word
+    var mute = el('button', 'chip', Muted.has(raw) ? 'Unmute' : 'Mute');
+    mute.onclick = function () { Muted.toggle(raw); if (Muted.has(raw)) input.value = ''; renderMuted(); restory(); };
+    box.appendChild(mute);
+  }
+  Topics.list().forEach(function (t) {
+    var on = t.toLowerCase() === q, chip = el('button', 'chip', t);
+    chip.setAttribute('aria-pressed', String(on));
+    chip.onclick = function () { input.value = on ? '' : t; renderEntries(); };
+    box.appendChild(chip);
+  });
+  box.hidden = !box.children.length;
+}

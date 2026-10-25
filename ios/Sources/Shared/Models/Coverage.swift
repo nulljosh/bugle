@@ -143,6 +143,9 @@ enum Coverage {
         list.contains { e.sourceTitle.caseInsensitiveCompare($0) == .orderedSame || e.title.localizedCaseInsensitiveContains($0) }
     }
 
+    /// The Home chip (and search word) that shows only blindspot stories.
+    static let blindspots = "Blindspots"
+
     static func today(_ stories: [Story], now: Date = .now) -> [Story] {
         let top = stories.filter { $0.publishers > 1 && now.timeIntervalSince($0.lead.date) < 86_400 }
             .sorted { ($0.publishers, $0.lead.date) > ($1.publishers, $1.lead.date) }.prefix(5)

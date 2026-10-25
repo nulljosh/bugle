@@ -88,43 +88,18 @@ function dateText(d, style) {
 // Search matches headlines and outlet names ("BBC" shows only BBC); while searching there is no hero. Same as the app.
 function renderEntries() {
   var q = document.getElementById('q').value.trim().toLowerCase();
-  var shown = (q ? stories.filter(function (st) { return st.entries.some(function (e) { return (e.title + ' ' + e.source).toLowerCase().indexOf(q) >= 0; }); }) : Coverage.today(stories))
+  var shown = (q === 'blindspots' ? stories.filter(function (st) { return st.blindspot; })   // the Blindspots chip
+    : q ? stories.filter(function (st) { return st.entries.some(function (e) { return (e.title + ' ' + e.source).toLowerCase().indexOf(q) >= 0; }); }) : Coverage.today(stories))
     .map(function (st) { return st.lead; });
   // One outlet on screen: the reader wears its color (HN orange, BBC red); several: Bugle blue.
   var root = document.documentElement, only = shown.length && shown.every(function (e) { return e.source === shown[0].source; }) ? shown[0].source : null;
   if (only) { Coverage.paint(root, only); root.dataset.outlet = only; }
   else { delete root.dataset.outlet; root.style.removeProperty('--c'); root.style.removeProperty('--cd'); }   // or unknown outlets inherit it
   renderStories(document.getElementById('entries'), shown, open, !q,
-    q ? 'No stories match \u201C' + q + '\u201D.' : 'No entries yet. Add a feed or pull to refresh.');
-  renderTopics();
+    q === 'blindspots' ? 'No blindspots right now.' : q ? 'No stories match \u201C' + q + '\u201D.' : 'No entries yet. Add a feed or pull to refresh.');
+  if (window.renderTopics) renderTopics();
 }
 
-// Followed topics as chips under the search (tap to read only it, tap again for everything). Searching for a
-// word that is not an outlet offers to follow it; searching anything offers to mute it. Same as the app.
-function renderTopics() {
-  var box = document.getElementById('topics'), input = document.getElementById('q');
-  if (!box || !window.Topics) return;
-  var raw = input.value.trim(), q = raw.toLowerCase();
-  box.innerHTML = '';
-  var outlet = Coverage.OUTLETS[raw] || feeds.some(function (f) { return f.title.toLowerCase() === q; });
-  if (raw && !outlet) {
-    var follow = el('button', 'chip follow', Topics.has(raw) ? 'Unfollow' : '+ Follow \u201C' + raw + '\u201D');
-    follow.onclick = function () { Topics.toggle(raw); renderTopics(); };
-    box.appendChild(follow);
-  }
-  if (raw) {   // mute anything you can search: an outlet or a word
-    var mute = el('button', 'chip', Muted.has(raw) ? 'Unmute' : 'Mute');
-    mute.onclick = function () { Muted.toggle(raw); if (Muted.has(raw)) input.value = ''; renderMuted(); restory(); };
-    box.appendChild(mute);
-  }
-  Topics.list().forEach(function (t) {
-    var on = t.toLowerCase() === q, chip = el('button', 'chip', t);
-    chip.setAttribute('aria-pressed', String(on));
-    chip.onclick = function () { input.value = on ? '' : t; renderEntries(); };
-    box.appendChild(chip);
-  });
-  box.hidden = !box.children.length;
-}
 document.getElementById('q').addEventListener('input', function () { clearTimeout(this._t); this._t = setTimeout(renderEntries, 120); });
 
 function renderFeeds() {

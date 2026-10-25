@@ -66,6 +66,7 @@ struct EntryListView: View {
     /// several outlets is grouped, Ground News style); Today's biggest lead.
     private var shown: [Story] {
         let q = query.trimmingCharacters(in: .whitespaces)
+        if q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame { return feed.stories.filter { $0.blindspot != nil } }
         return q.isEmpty ? Coverage.today(feed.stories) : feed.stories.filter { $0.entries.contains { $0.title.localizedStandardContains(q) || $0.sourceTitle.localizedStandardContains(q) } }
     }
 
@@ -86,13 +87,12 @@ struct EntryListView: View {
             SearchField(text: $query).listRowSeparator(.hidden)
             // Searching for a word that is not an outlet offers to follow it.
             let followable = !q.isEmpty && Outlet.of(q) == nil && !store.feeds.contains { $0.title.caseInsensitiveCompare(q) == .orderedSame }
-            if !topics.isEmpty || !q.isEmpty {
-                TopicBar(query: $query, topics: $topics, muted: $muted, followable: followable).listRowSeparator(.hidden)
-            }
+                && q.caseInsensitiveCompare(Coverage.blindspots) != .orderedSame
+            TopicBar(query: $query, topics: $topics, muted: $muted, followable: followable).listRowSeparator(.hidden)
             if let hero { HeroRow(entry: hero.lead, library: library, story: hero).listRowSeparator(.hidden) }
             ForEach(shown.filter { $0.id != hero?.id }) { EntryRow(entry: $0.lead, library: library, story: $0) }
             if !q.isEmpty && shown.isEmpty {
-                Text("No stories match \u{201C}\(q)\u{201D}.").foregroundStyle(.secondary).listRowSeparator(.hidden)
+                Text(q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame ? "No blindspots right now." : "No stories match \u{201C}\(q)\u{201D}.").foregroundStyle(.secondary).listRowSeparator(.hidden)
             }
         }
         .listStyle(.plain)   // flush with the view, like Mail and News
