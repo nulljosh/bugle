@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 5.1.0
+- Dynamic Type at the largest sizes: chips grow, the outlet line wraps, rows show the whole headline, the top story puts its headline under the photo, and story text follows the system size on top of Bugle's own.
+
 ## 5.0.1
 - VoiceOver reads each story row as one item (outlet, time, sources, headline); labels on the clear button and the saved mark; stand-in pictures and the search magnifier are hidden from it.
 

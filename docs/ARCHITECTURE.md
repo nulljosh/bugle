@@ -25,7 +25,7 @@ A refresh fetches every followed feed at once, parses each into entries tagged w
 | `Sources/Shared/Services/Listen.swift` | Read a story aloud with the system voice |
 | `Sources/Shared/Services/Intents.swift` | Siri and Shortcuts: Top Stories |
 | `Sources/Shared/Services/PreviewImage.swift` | An article's own `og:image` when the feed has no picture |
-| `Sources/Shared/Views/EntryListView.swift`, `HomeParts.swift` | Home: the top story card, rows, topic chips, cached pictures |
+| `Sources/Shared/Views/EntryListView.swift`, `HomeParts.swift`, `StoryParts.swift` | Home: rows, topic chips, cached pictures; the top story card and the outlet line |
 | `Sources/Shared/Views/HomeSplit.swift` | Three columns on iPad (regular width) and the Mac |
 | `Sources/Shared/Views/EntryDetailView.swift` | A story in a web view, with its toolbar |
 | `Sources/Shared/Views/CoverageView.swift` | Every newsroom on a story, by lean |

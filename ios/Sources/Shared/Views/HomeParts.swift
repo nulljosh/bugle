@@ -51,7 +51,7 @@ struct Chip: ButtonStyle {
             .font(.subheadline.weight(.semibold))
             .lineLimit(1)
             .padding(.horizontal, 14)
-            .frame(height: 36)
+            .frame(minHeight: 36)   // grows with Dynamic Type instead of clipping
             .foregroundStyle(on ? AnyShapeStyle(.tint) : AnyShapeStyle(.primary))
             .background(on ? AnyShapeStyle(.tint.opacity(0.14)) : AnyShapeStyle(Color.secondary.opacity(0.12)), in: Capsule())
             .opacity(configuration.isPressed ? 0.6 : 1)

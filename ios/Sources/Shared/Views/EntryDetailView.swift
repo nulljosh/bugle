@@ -12,13 +12,16 @@ struct EntryDetailView: View {
     var story: Story? = nil
     @State private var showCoverage = CommandLine.arguments.contains("-showCoverage")
     @AppStorage("readerTextSize") private var textSize = 17.0
+    /// The system text size on top of the reader's own: 17 at the default, larger with Dynamic Type.
+    @ScaledMetric(relativeTo: .body) private var body17 = 17.0
     @StateObject private var listener = Listener()
     /// The page's own text when the feed only sent a summary (FullText).
     @State private var full: JournalEntry?
 
     var body: some View {
-        ArticleWebView(html: Self.page(for: full ?? entry, textSize: textSize), baseURL: URL(string: entry.url))
-            .id("\(textSize) \(full != nil)")  // a new size or the full text rebuilds the page; it never reloads on its own
+        let size = textSize * body17 / 17
+        ArticleWebView(html: Self.page(for: full ?? entry, textSize: size), baseURL: URL(string: entry.url))
+            .id("\(size) \(full != nil)")  // a new size or the full text rebuilds the page; it never reloads on its own
             .ignoresSafeArea(edges: .bottom)
             .navigationTitle(entry.title)
             #if os(iOS)
