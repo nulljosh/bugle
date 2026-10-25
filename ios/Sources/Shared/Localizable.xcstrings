@@ -3,6 +3,12 @@
   "strings": {
     "%lld Sources": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld مصادر"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -21,10 +27,28 @@
             "value": "%lld sources"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld fonti"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld 件のソース"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "출처 %lld개"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld bronnen"
           }
         },
         "pt-BR": {
@@ -38,11 +62,23 @@
             "state": "translated",
             "value": "%lld 个来源"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld 個來源"
+          }
         }
       }
     },
     "%lld unread": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld غير مقروءة"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -61,10 +97,28 @@
             "value": "%lld non lus"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld da leggere"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "未読 %lld 件"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "읽지 않음 %lld개"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ongelezen"
           }
         },
         "pt-BR": {
@@ -78,11 +132,23 @@
             "state": "translated",
             "value": "%lld 篇未读"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld 篇未讀"
+          }
         }
       }
     },
     "Account": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الحساب"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -101,10 +167,28 @@
             "value": "Compte"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "アカウント"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계정"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account"
           }
         },
         "pt-BR": {
@@ -118,11 +202,23 @@
             "state": "translated",
             "value": "账户"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "帳號"
+          }
         }
       }
     },
     "Add": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إضافة"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -141,10 +237,28 @@
             "value": "Ajouter"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiungi"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "追加"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "추가"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voeg toe"
           }
         },
         "pt-BR": {
@@ -158,11 +272,23 @@
             "state": "translated",
             "value": "添加"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "加入"
+          }
         }
       }
     },
     "Add a feed or pull to refresh": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أضف موجزًا أو اسحب للتحديث"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -181,10 +307,28 @@
             "value": "Ajoutez un flux ou tirez pour actualiser"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiungi un feed o trascina per aggiornare"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "フィードを追加するか、引っ張って更新"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "피드를 추가하거나 당겨서 새로 고침"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voeg een feed toe of trek om te vernieuwen"
           }
         },
         "pt-BR": {
@@ -198,11 +342,23 @@
             "state": "translated",
             "value": "添加订阅源或下拉刷新"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "加入訂閱源或下拉重新整理"
+          }
         }
       }
     },
     "Added %lld feeds": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تمت إضافة %lld موجزات"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -221,10 +377,28 @@
             "value": "%lld flux ajoutés"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld feed aggiunti"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld 件のフィードを追加しました"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "피드 %lld개를 추가했습니다"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld feeds toegevoegd"
           }
         },
         "pt-BR": {
@@ -238,11 +412,93 @@
             "state": "translated",
             "value": "已添加 %lld 个订阅源"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已加入 %lld 個訂閱源"
+          }
+        }
+      }
+    },
+    "Back": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رجوع"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurück"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atrás"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retour"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Indietro"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "戻る"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "뒤로"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terug"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voltar"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "返回"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "返回"
+          }
         }
       }
     },
     "Blindspot: only center outlets covered this.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نقطة عمياء: تناولت هذا وسائل إعلام الوسط فقط."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -261,10 +517,28 @@
             "value": "Angle mort : seuls des médias du centre en ont parlé."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Punto cieco: ne hanno parlato solo testate di centro."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "死角：中道のメディアだけが報じました。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사각지대: 중도 매체만 보도했습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blinde vlek: alleen media uit het midden berichtten hierover."
           }
         },
         "pt-BR": {
@@ -278,11 +552,23 @@
             "state": "translated",
             "value": "盲点：只有中间立场的媒体报道了此事。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "盲點：只有中間立場的媒體報導了此事。"
+          }
         }
       }
     },
     "Blindspot: only left-leaning outlets covered this.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نقطة عمياء: تناولت هذا وسائل إعلام يسارية فقط."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -301,10 +587,28 @@
             "value": "Angle mort : seuls des médias de gauche en ont parlé."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Punto cieco: ne hanno parlato solo testate di sinistra."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "死角：左派のメディアだけが報じました。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사각지대: 진보 성향 매체만 보도했습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blinde vlek: alleen linkse media berichtten hierover."
           }
         },
         "pt-BR": {
@@ -318,11 +622,23 @@
             "state": "translated",
             "value": "盲点：只有偏左的媒体报道了此事。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "盲點：只有偏左的媒體報導了此事。"
+          }
         }
       }
     },
     "Blindspot: only right-leaning outlets covered this.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نقطة عمياء: تناولت هذا وسائل إعلام يمينية فقط."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -341,10 +657,28 @@
             "value": "Angle mort : seuls des médias de droite en ont parlé."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Punto cieco: ne hanno parlato solo testate di destra."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "死角：右派のメディアだけが報じました。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사각지대: 보수 성향 매체만 보도했습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blinde vlek: alleen rechtse media berichtten hierover."
           }
         },
         "pt-BR": {
@@ -358,11 +692,93 @@
             "state": "translated",
             "value": "盲点：只有偏右的媒体报道了此事。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "盲點：只有偏右的媒體報導了此事。"
+          }
+        }
+      }
+    },
+    "Blindspots": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "النقاط العمياء"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blinde Flecken"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puntos ciegos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Angles morts"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Punti ciechi"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "死角"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사각지대"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blinde vlekken"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pontos cegos"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "盲点"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "盲點"
+          }
         }
       }
     },
     "Bring your feeds from another reader, or take them with you.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انقل موجزاتك من قارئ آخر أو خذها معك."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -381,10 +797,28 @@
             "value": "Importez vos flux depuis un autre lecteur, ou emportez-les."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Porta i tuoi feed da un altro lettore, o portali con te."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "ほかのリーダーからフィードを持ち込んだり、持ち出したりできます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다른 리더에서 피드를 가져오거나 내보내세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neem je feeds mee uit een andere lezer, of neem ze mee."
           }
         },
         "pt-BR": {
@@ -398,11 +832,23 @@
             "state": "translated",
             "value": "从其他阅读器导入订阅源，或随身带走。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從其他閱讀器匯入訂閱源，或隨身帶走。"
+          }
         }
       }
     },
     "Bugle finds the site's feed and adds it the next time you open it.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعثر Bugle على موجز الموقع ويضيفه في المرة القادمة التي تفتحه فيها."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -421,10 +867,28 @@
             "value": "Bugle trouve le flux du site et l'ajoute à la prochaine ouverture."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugle trova il feed del sito e lo aggiunge alla prossima apertura."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "Bugleがサイトのフィードを見つけ、次に開いたときに追加します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugle이 사이트의 피드를 찾아 다음에 열 때 추가합니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugle vindt de feed van de site en voegt die toe als je de app weer opent."
           }
         },
         "pt-BR": {
@@ -438,11 +902,23 @@
             "state": "translated",
             "value": "Bugle 会找到该网站的订阅源，并在你下次打开时添加。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugle 會找到該網站的訂閱源，並在你下次開啟時加入。"
+          }
         }
       }
     },
     "Cancel": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إلغاء"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -461,10 +937,28 @@
             "value": "Annuler"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annulla"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "キャンセル"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "취소"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annuleer"
           }
         },
         "pt-BR": {
@@ -478,11 +972,23 @@
             "state": "translated",
             "value": "取消"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消"
+          }
         }
       }
     },
     "Center": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الوسط"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -501,10 +1007,28 @@
             "value": "Centre"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Centro"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "中道"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "중도"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Midden"
           }
         },
         "pt-BR": {
@@ -518,11 +1042,23 @@
             "state": "translated",
             "value": "中间"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "中間"
+          }
         }
       }
     },
     "Choose": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اختر"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -541,10 +1077,28 @@
             "value": "Choisir"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "選択"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "선택"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kies"
           }
         },
         "pt-BR": {
@@ -558,11 +1112,23 @@
             "state": "translated",
             "value": "选择"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇"
+          }
         }
       }
     },
     "City": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المدينة"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -581,10 +1147,28 @@
             "value": "Ville"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Città"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "都市"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "도시"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stad"
           }
         },
         "pt-BR": {
@@ -598,11 +1182,23 @@
             "state": "translated",
             "value": "城市"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "城市"
+          }
         }
       }
     },
     "Clear": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مسح"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -621,10 +1217,28 @@
             "value": "Effacer"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancella"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "消去"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지우기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wis"
           }
         },
         "pt-BR": {
@@ -638,11 +1252,23 @@
             "state": "translated",
             "value": "清除"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清除"
+          }
         }
       }
     },
     "Clear search": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مسح البحث"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -661,10 +1287,28 @@
             "value": "Effacer la recherche"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancella ricerca"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "検索を消去"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "검색 지우기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wis zoekopdracht"
           }
         },
         "pt-BR": {
@@ -678,11 +1322,23 @@
             "state": "translated",
             "value": "清除搜索"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清除搜尋"
+          }
         }
       }
     },
     "Copy Link": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نسخ الرابط"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -701,10 +1357,28 @@
             "value": "Copier le lien"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia link"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "リンクをコピー"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "링크 복사"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopieer link"
           }
         },
         "pt-BR": {
@@ -718,11 +1392,23 @@
             "state": "translated",
             "value": "拷贝链接"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "拷貝連結"
+          }
         }
       }
     },
     "Couldn't load feeds. Pull to retry.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذر تحميل الموجزات. اسحب لإعادة المحاولة."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -741,10 +1427,28 @@
             "value": "Impossible de charger les flux. Tirez pour réessayer."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile caricare i feed. Trascina per riprovare."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "フィードを読み込めませんでした。引っ張って再試行。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "피드를 불러올 수 없습니다. 당겨서 다시 시도하세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kan feeds niet laden. Trek om het opnieuw te proberen."
           }
         },
         "pt-BR": {
@@ -758,11 +1462,23 @@
             "state": "translated",
             "value": "无法加载订阅源。下拉重试。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法載入訂閱源。下拉重試。"
+          }
         }
       }
     },
     "Coverage": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التغطية"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -781,10 +1497,28 @@
             "value": "Couverture"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copertura"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "報道"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보도"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Berichtgeving"
           }
         },
         "pt-BR": {
@@ -798,11 +1532,23 @@
             "state": "translated",
             "value": "报道"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "報導"
+          }
         }
       }
     },
     "Covered by %lld newsrooms. Leans are Bugle's own rating of each outlet.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "غطّتها %lld غرف أخبار. الميول تقييم Bugle الخاص لكل وسيلة."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -821,10 +1567,28 @@
             "value": "Couvert par %lld rédactions. Les tendances sont l'évaluation de chaque média par Bugle."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coperta da %lld redazioni. Gli orientamenti sono la valutazione di Bugle per ogni testata."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld 社の報道機関が報じています。傾向は各メディアに対するBugle独自の評価です。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld개 언론사가 보도했습니다. 성향은 각 매체에 대한 Bugle 자체 평가입니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemeld door %lld redacties. De richting is Bugles eigen beoordeling van elk medium."
           }
         },
         "pt-BR": {
@@ -838,11 +1602,23 @@
             "state": "translated",
             "value": "共有 %lld 家新闻机构报道。倾向是 Bugle 对各媒体的自有评级。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "共有 %lld 家新聞機構報導。傾向是 Bugle 對各媒體的自有評級。"
+          }
         }
       }
     },
     "Create Account": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إنشاء حساب"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -861,10 +1637,28 @@
             "value": "Créer un compte"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crea account"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "アカウントを作成"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계정 만들기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maak account aan"
           }
         },
         "pt-BR": {
@@ -878,11 +1672,23 @@
             "state": "translated",
             "value": "创建账户"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建立帳號"
+          }
         }
       }
     },
     "Delete Account": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف الحساب"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -901,10 +1707,28 @@
             "value": "Supprimer le compte"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elimina account"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "アカウントを削除"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계정 삭제"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verwijder account"
           }
         },
         "pt-BR": {
@@ -918,11 +1742,23 @@
             "state": "translated",
             "value": "删除账户"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刪除帳號"
+          }
         }
       }
     },
     "Delete your Bugle account?": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هل تريد حذف حسابك في Bugle؟"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -941,10 +1777,28 @@
             "value": "Supprimer votre compte Bugle ?"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminare il tuo account Bugle?"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "Bugleアカウントを削除しますか？"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugle 계정을 삭제할까요?"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je Bugle-account verwijderen?"
           }
         },
         "pt-BR": {
@@ -958,11 +1812,23 @@
             "state": "translated",
             "value": "删除你的 Bugle 账户？"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "要刪除你的 Bugle 帳號嗎？"
+          }
         }
       }
     },
     "Done": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -981,10 +1847,28 @@
             "value": "OK"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fine"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "完了"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "완료"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gereed"
           }
         },
         "pt-BR": {
@@ -998,11 +1882,23 @@
             "state": "translated",
             "value": "完成"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完成"
+          }
         }
       }
     },
     "Earlier": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سابقًا"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1021,10 +1917,28 @@
             "value": "Plus tôt"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prima"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "以前"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이전"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eerder"
           }
         },
         "pt-BR": {
@@ -1038,11 +1952,23 @@
             "state": "translated",
             "value": "更早"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更早"
+          }
         }
       }
     },
     "Email": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "البريد الإلكتروني"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1061,10 +1987,28 @@
             "value": "E-mail"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "メール"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이메일"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "E-mail"
           }
         },
         "pt-BR": {
@@ -1078,11 +2022,23 @@
             "state": "translated",
             "value": "电子邮件"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "電子郵件"
+          }
         }
       }
     },
     "Export OPML": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تصدير OPML"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1101,10 +2057,28 @@
             "value": "Exporter l'OPML"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esporta OPML"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "OPMLを書き出す"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OPML 내보내기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exporteer OPML"
           }
         },
         "pt-BR": {
@@ -1118,11 +2092,23 @@
             "state": "translated",
             "value": "导出 OPML"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "匯出 OPML"
+          }
         }
       }
     },
     "Feeds": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الموجزات"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1141,10 +2127,28 @@
             "value": "Flux"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Feed"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "フィード"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "피드"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Feeds"
           }
         },
         "pt-BR": {
@@ -1158,11 +2162,23 @@
             "state": "translated",
             "value": "订阅源"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "訂閱源"
+          }
         }
       }
     },
     "Follow This Site": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تابع هذا الموقع"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1181,10 +2197,28 @@
             "value": "Suivre ce site"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Segui questo sito"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "このサイトをフォロー"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 사이트 팔로우"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volg deze site"
           }
         },
         "pt-BR": {
@@ -1198,11 +2232,23 @@
             "state": "translated",
             "value": "关注此网站"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "追蹤此網站"
+          }
         }
       }
     },
     "Following": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المتابَعة"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1221,10 +2267,28 @@
             "value": "Abonnements"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seguiti"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "フォロー中"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "팔로잉"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gevolgd"
           }
         },
         "pt-BR": {
@@ -1238,11 +2302,23 @@
             "state": "translated",
             "value": "已关注"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "追蹤中"
+          }
         }
       }
     },
     "Forgot Password?": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هل نسيت كلمة السر؟"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1261,10 +2337,28 @@
             "value": "Mot de passe oublié ?"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Password dimenticata?"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "パスワードをお忘れですか？"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "암호를 잊으셨나요?"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wachtwoord vergeten?"
           }
         },
         "pt-BR": {
@@ -1278,11 +2372,93 @@
             "state": "translated",
             "value": "忘记密码？"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "忘記密碼？"
+          }
+        }
+      }
+    },
+    "Forgot password?": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هل نسيت كلمة السر؟"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passwort vergessen?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Olvidaste la contraseña?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mot de passe oublié ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Password dimenticata?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パスワードをお忘れですか？"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "암호를 잊으셨나요?"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wachtwoord vergeten?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esqueceu a senha?"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "忘记密码？"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "忘記密碼？"
+          }
         }
       }
     },
     "History": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السجل"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1301,10 +2477,28 @@
             "value": "Historique"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cronologia"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "履歴"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기록"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geschiedenis"
           }
         },
         "pt-BR": {
@@ -1318,11 +2512,23 @@
             "state": "translated",
             "value": "历史记录"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "瀏覽記錄"
+          }
         }
       }
     },
     "Home": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الرئيسية"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1341,10 +2547,28 @@
             "value": "Accueil"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Home"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "ホーム"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "홈"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Home"
           }
         },
         "pt-BR": {
@@ -1358,11 +2582,23 @@
             "state": "translated",
             "value": "首页"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "首頁"
+          }
         }
       }
     },
     "Import OPML": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استيراد OPML"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1381,10 +2617,28 @@
             "value": "Importer un OPML"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importa OPML"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "OPMLを読み込む"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OPML 가져오기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importeer OPML"
           }
         },
         "pt-BR": {
@@ -1398,11 +2652,23 @@
             "state": "translated",
             "value": "导入 OPML"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "匯入 OPML"
+          }
         }
       }
     },
     "Invalid or duplicate URL": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عنوان غير صالح أو مكرر"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1421,10 +2687,28 @@
             "value": "URL non valide ou en double"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "URL non valido o duplicato"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "無効または重複したURL"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "유효하지 않거나 중복된 URL"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ongeldige of dubbele URL"
           }
         },
         "pt-BR": {
@@ -1438,11 +2722,93 @@
             "state": "translated",
             "value": "网址无效或重复"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "網址無效或重複"
+          }
+        }
+      }
+    },
+    "Larger text": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نص أكبر"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Größerer Text"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Texto más grande"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Texte plus grand"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testo più grande"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文字を大きく"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "텍스트 크게"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grotere tekst"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Texto maior"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "放大文字"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "放大文字"
+          }
         }
       }
     },
     "Leans left": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يميل لليسار"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1461,10 +2827,28 @@
             "value": "Penche à gauche"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tende a sinistra"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "やや左派"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "진보 성향"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neigt naar links"
           }
         },
         "pt-BR": {
@@ -1478,11 +2862,23 @@
             "state": "translated",
             "value": "偏左"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "偏左"
+          }
         }
       }
     },
     "Leans right": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يميل لليمين"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1501,10 +2897,28 @@
             "value": "Penche à droite"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tende a destra"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "やや右派"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보수 성향"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neigt naar rechts"
           }
         },
         "pt-BR": {
@@ -1518,11 +2932,23 @@
             "state": "translated",
             "value": "偏右"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "偏右"
+          }
         }
       }
     },
     "Left": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اليسار"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1541,10 +2967,28 @@
             "value": "Gauche"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sinistra"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "左派"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "진보"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Links"
           }
         },
         "pt-BR": {
@@ -1558,11 +3002,23 @@
             "state": "translated",
             "value": "左派"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "左派"
+          }
         }
       }
     },
     "Listen": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استماع"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1581,10 +3037,28 @@
             "value": "Écouter"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ascolta"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "聴く"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "듣기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luister"
           }
         },
         "pt-BR": {
@@ -1598,11 +3072,93 @@
             "state": "translated",
             "value": "收听"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收聽"
+          }
+        }
+      }
+    },
+    "Loading…": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ التحميل…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird geladen…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cargando…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chargement…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caricamento…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "読み込み中…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "불러오는 중…"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laden…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carregando…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在载入…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在載入…"
+          }
         }
       }
     },
     "Local news": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أخبار محلية"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1621,10 +3177,28 @@
             "value": "Actualités locales"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notizie locali"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "地域のニュース"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지역 뉴스"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lokaal nieuws"
           }
         },
         "pt-BR": {
@@ -1638,11 +3212,23 @@
             "state": "translated",
             "value": "本地新闻"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在地新聞"
+          }
         }
       }
     },
     "Mark All Read": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعليم الكل كمقروء"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1661,10 +3247,28 @@
             "value": "Tout marquer comme lu"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Segna tutto come letto"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "すべて既読にする"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모두 읽음으로 표시"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markeer alles als gelezen"
           }
         },
         "pt-BR": {
@@ -1678,11 +3282,23 @@
             "state": "translated",
             "value": "全部标为已读"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部標為已讀"
+          }
         }
       }
     },
     "Mute": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كتم"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1701,10 +3317,28 @@
             "value": "Masquer"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Silenzia"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "ミュート"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "숨기기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demp"
           }
         },
         "pt-BR": {
@@ -1718,11 +3352,23 @@
             "state": "translated",
             "value": "静音"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "靜音"
+          }
         }
       }
     },
     "Muted": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المكتومة"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1741,10 +3387,28 @@
             "value": "Masqués"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Silenziati"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "ミュート中"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "숨김"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gedempt"
           }
         },
         "pt-BR": {
@@ -1758,11 +3422,23 @@
             "state": "translated",
             "value": "已静音"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已靜音"
+          }
         }
       }
     },
     "No blindspots right now.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد نقاط عمياء الآن."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1781,10 +3457,28 @@
             "value": "Aucun angle mort pour l'instant."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun punto cieco al momento."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "いまは死角はありません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지금은 사각지대가 없습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Op dit moment geen blinde vlekken."
           }
         },
         "pt-BR": {
@@ -1798,11 +3492,23 @@
             "state": "translated",
             "value": "目前没有盲点。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目前沒有盲點。"
+          }
         }
       }
     },
     "No entries yet": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد عناصر بعد"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1821,10 +3527,28 @@
             "value": "Aucun article pour l'instant"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ancora nessun articolo"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "まだ記事がありません"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아직 기사가 없습니다"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nog geen artikelen"
           }
         },
         "pt-BR": {
@@ -1838,11 +3562,23 @@
             "state": "translated",
             "value": "暂无条目"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚無項目"
+          }
         }
       }
     },
     "No new feeds in that file": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد موجزات جديدة في ذلك الملف"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1861,10 +3597,28 @@
             "value": "Aucun nouveau flux dans ce fichier"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun nuovo feed in quel file"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "そのファイルに新しいフィードはありません"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그 파일에 새 피드가 없습니다"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geen nieuwe feeds in dat bestand"
           }
         },
         "pt-BR": {
@@ -1878,11 +3632,93 @@
             "state": "translated",
             "value": "该文件中没有新的订阅源"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "該檔案中沒有新的訂閱源"
+          }
+        }
+      }
+    },
+    "Not following anything yet.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا تتابع أي شيء بعد."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du folgst noch nichts."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no sigues nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun abonnement pour l'instant."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non segui ancora nulla."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "まだ何もフォローしていません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아직 팔로우하는 항목이 없습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je volgt nog niets."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Você ainda não segue nada."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "还没有关注任何内容。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚未追蹤任何內容。"
+          }
         }
       }
     },
     "Not rated": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "غير مصنفة"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1901,10 +3737,28 @@
             "value": "Non évalué"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non valutato"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "未評価"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "평가 없음"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niet beoordeeld"
           }
         },
         "pt-BR": {
@@ -1918,11 +3772,23 @@
             "state": "translated",
             "value": "未评级"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未評級"
+          }
         }
       }
     },
     "Nothing muted.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا شيء مكتوم."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1941,10 +3807,28 @@
             "value": "Rien de masqué."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nulla di silenziato."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "ミュートしているものはありません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "숨긴 항목이 없습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niets gedempt."
           }
         },
         "pt-BR": {
@@ -1958,11 +3842,23 @@
             "state": "translated",
             "value": "没有静音的内容。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "沒有靜音的內容。"
+          }
         }
       }
     },
     "Notifications on": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإشعارات مفعلة"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1981,10 +3877,28 @@
             "value": "Notifications activées"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifiche attive"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "通知オン"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "알림 켬"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meldingen aan"
           }
         },
         "pt-BR": {
@@ -1998,11 +3912,23 @@
             "state": "translated",
             "value": "通知已开启"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通知已開啟"
+          }
         }
       }
     },
     "Notify Me": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أعلمني"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2021,10 +3947,28 @@
             "value": "M'avertir"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avvisami"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "通知する"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "알림 받기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meld het me"
           }
         },
         "pt-BR": {
@@ -2038,11 +3982,23 @@
             "state": "translated",
             "value": "通知我"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通知我"
+          }
         }
       }
     },
     "OK": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حسنًا"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2061,7 +4017,25 @@
             "value": "OK"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        },
         "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "확인"
+          }
+        },
+        "nl": {
           "stringUnit": {
             "state": "translated",
             "value": "OK"
@@ -2078,11 +4052,23 @@
             "state": "translated",
             "value": "好"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "好"
+          }
         }
       }
     },
     "Open a few stories to see how what you read leans.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "افتح بعض الأخبار لترى ميول ما تقرؤه."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2101,10 +4087,28 @@
             "value": "Ouvrez quelques articles pour voir la tendance de ce que vous lisez."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri qualche articolo per vedere l'orientamento di ciò che leggi."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "いくつか記事を開くと、読んでいるものの傾向がわかります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기사를 몇 개 열면 읽는 내용의 성향을 볼 수 있습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open een paar artikelen om te zien welke kant je leesgedrag op neigt."
           }
         },
         "pt-BR": {
@@ -2118,11 +4122,23 @@
             "state": "translated",
             "value": "打开几篇报道，就能看到你阅读内容的倾向。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打開幾篇報導，就能看到你閱讀內容的傾向。"
+          }
         }
       }
     },
     "Open in Browser": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فتح في المتصفح"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2141,10 +4157,28 @@
             "value": "Ouvrir dans le navigateur"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri nel browser"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "ブラウザで開く"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "브라우저에서 열기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open in browser"
           }
         },
         "pt-BR": {
@@ -2158,11 +4192,163 @@
             "state": "translated",
             "value": "在浏览器中打开"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在瀏覽器中開啟"
+          }
+        }
+      }
+    },
+    "Open in browser": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فتح في المتصفح"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Im Browser öffnen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir en el navegador"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir dans le navigateur"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri nel browser"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ブラウザで開く"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "브라우저에서 열기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open in browser"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir no navegador"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在浏览器中打开"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在瀏覽器中開啟"
+          }
+        }
+      }
+    },
+    "Open original": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فتح الأصل"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Original öffnen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir el original"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir l'original"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri l'originale"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "元の記事を開く"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "원문 열기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open origineel"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir o original"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开原文"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟原文"
+          }
         }
       }
     },
     "Optional. Your feeds, saved stories, topics and mutes follow you to every device and the web reader. Reading never needs an account.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اختياري. تنتقل معك موجزاتك وأخبارك المحفوظة ومواضيعك وما كتمته إلى كل أجهزتك وإلى قارئ الويب. القراءة لا تتطلب حسابًا أبدًا."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2181,10 +4367,28 @@
             "value": "Facultatif. Vos flux, articles enregistrés, sujets et masquages vous suivent sur tous vos appareils et sur le lecteur web. Lire ne demande jamais de compte."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Facoltativo. I tuoi feed, gli articoli salvati, gli argomenti e i silenziati ti seguono su ogni dispositivo e nel lettore web. Per leggere non serve mai un account."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "任意。フィード、保存した記事、トピック、ミュートがすべてのデバイスとWebリーダーで同期されます。読むだけならアカウントは不要です。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "선택 사항. 피드, 저장한 기사, 주제, 숨김 설정이 모든 기기와 웹 리더에 동기화됩니다. 읽는 데는 계정이 필요 없습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optioneel. Je feeds, bewaarde artikelen, onderwerpen en dempingen volgen je naar elk apparaat en de webreader. Lezen vraagt nooit om een account."
           }
         },
         "pt-BR": {
@@ -2198,11 +4402,93 @@
             "state": "translated",
             "value": "可选。你的订阅源、已存报道、话题和静音设置会同步到所有设备和网页阅读器。阅读永远不需要账户。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可選。你的訂閱源、已存報導、話題和靜音設定會同步到所有裝置和網頁閱讀器。閱讀永遠不需要帳號。"
+          }
+        }
+      }
+    },
+    "Password": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كلمة السر"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passwort"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contraseña"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mot de passe"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Password"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パスワード"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "암호"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wachtwoord"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senha"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "密码"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "密碼"
+          }
         }
       }
     },
     "Password (8 or more characters)": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كلمة السر (8 أحرف أو أكثر)"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2221,10 +4507,28 @@
             "value": "Mot de passe (8 caractères ou plus)"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Password (8 o più caratteri)"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "パスワード（8文字以上）"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "암호(8자 이상)"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wachtwoord (8 tekens of meer)"
           }
         },
         "pt-BR": {
@@ -2238,11 +4542,23 @@
             "state": "translated",
             "value": "密码（8 个或更多字符）"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "密碼（8 個或以上字元）"
+          }
         }
       }
     },
     "Paste a site or feed address to follow it.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الصق عنوان موقع أو موجز لمتابعته."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2261,10 +4577,28 @@
             "value": "Collez l'adresse d'un site ou d'un flux pour le suivre."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Incolla l'indirizzo di un sito o di un feed per seguirlo."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "サイトまたはフィードのアドレスを貼り付けてフォロー。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사이트나 피드 주소를 붙여 넣어 팔로우하세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plak het adres van een site of feed om die te volgen."
           }
         },
         "pt-BR": {
@@ -2278,11 +4612,23 @@
             "state": "translated",
             "value": "粘贴网站或订阅源地址即可关注。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "貼上網站或訂閱源地址即可追蹤。"
+          }
         }
       }
     },
     "Pick a story": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اختر خبرًا"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2301,10 +4647,28 @@
             "value": "Choisissez un article"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli un articolo"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "記事を選択"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기사를 선택하세요"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kies een artikel"
           }
         },
         "pt-BR": {
@@ -2318,11 +4682,23 @@
             "state": "translated",
             "value": "选择一篇报道"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇一篇報導"
+          }
         }
       }
     },
     "Pick your city to follow its newsrooms.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اختر مدينتك لمتابعة غرف أخبارها."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2341,10 +4717,28 @@
             "value": "Choisissez votre ville pour suivre ses rédactions."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli la tua città per seguirne le redazioni."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "都市を選んで、その地域の報道機関をフォロー。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "도시를 선택해 그 지역 언론사를 팔로우하세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kies je stad om de redacties daar te volgen."
           }
         },
         "pt-BR": {
@@ -2358,11 +4752,23 @@
             "state": "translated",
             "value": "选择你的城市，关注当地的新闻机构。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇你的城市，追蹤當地的新聞機構。"
+          }
         }
       }
     },
     "Privacy": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الخصوصية"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2381,10 +4787,28 @@
             "value": "Confidentialité"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "プライバシー"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "개인정보 보호"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy"
           }
         },
         "pt-BR": {
@@ -2398,11 +4822,23 @@
             "state": "translated",
             "value": "隐私"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隱私權"
+          }
         }
       }
     },
     "Reading": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "القراءة"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2421,10 +4857,28 @@
             "value": "Lecture"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lettura"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "読書"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "읽기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lezen"
           }
         },
         "pt-BR": {
@@ -2438,11 +4892,23 @@
             "state": "translated",
             "value": "阅读"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "閱讀"
+          }
         }
       }
     },
     "Refresh": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تحديث"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2461,10 +4927,28 @@
             "value": "Actualiser"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiorna"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "更新"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "새로 고침"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vernieuw"
           }
         },
         "pt-BR": {
@@ -2478,11 +4962,23 @@
             "state": "translated",
             "value": "刷新"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新整理"
+          }
         }
       }
     },
     "Remove from Saved": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إزالة من المحفوظة"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2501,10 +4997,28 @@
             "value": "Retirer des enregistrés"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rimuovi dai salvati"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "保存済みから削除"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장됨에서 제거"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verwijder uit bewaard"
           }
         },
         "pt-BR": {
@@ -2518,11 +5032,23 @@
             "state": "translated",
             "value": "从已存中移除"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從已儲存中移除"
+          }
         }
       }
     },
     "Right": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اليمين"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2541,10 +5067,28 @@
             "value": "Droite"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Destra"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "右派"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보수"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechts"
           }
         },
         "pt-BR": {
@@ -2558,11 +5102,23 @@
             "state": "translated",
             "value": "右派"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "右派"
+          }
         }
       }
     },
     "Save": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حفظ"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2581,10 +5137,28 @@
             "value": "Enregistrer"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salva"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "保存"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewaar"
           }
         },
         "pt-BR": {
@@ -2598,11 +5172,23 @@
             "state": "translated",
             "value": "存储"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "儲存"
+          }
         }
       }
     },
     "Save Story": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حفظ الخبر"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2621,10 +5207,28 @@
             "value": "Enregistrer l'article"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salva articolo"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "記事を保存"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기사 저장"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewaar artikel"
           }
         },
         "pt-BR": {
@@ -2638,11 +5242,23 @@
             "state": "translated",
             "value": "存储报道"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "儲存報導"
+          }
         }
       }
     },
     "Saved": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المحفوظة"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2661,10 +5277,28 @@
             "value": "Enregistrés"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salvati"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "保存済み"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장됨"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewaard"
           }
         },
         "pt-BR": {
@@ -2678,11 +5312,23 @@
             "state": "translated",
             "value": "已存"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已儲存"
+          }
         }
       }
     },
     "Search an outlet or a word on Home, then tap Mute to hide its stories. Swipe left to unmute.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ابحث عن وسيلة أو كلمة في الرئيسية، ثم اضغط كتم لإخفاء أخبارها. اسحب لليسار لإلغاء الكتم."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2701,10 +5347,28 @@
             "value": "Cherchez un média ou un mot dans Accueil, puis touchez Masquer pour cacher ses articles. Balayez vers la gauche pour les réafficher."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerca una testata o una parola in Home, poi tocca Silenzia per nasconderne gli articoli. Scorri a sinistra per riattivarla."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "ホームでメディアや単語を検索し、「ミュート」をタップするとその記事を隠せます。左にスワイプで解除。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "홈에서 매체나 단어를 검색한 뒤 숨기기를 탭하면 해당 기사가 숨겨집니다. 왼쪽으로 쓸어 해제하세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zoek op Home naar een medium of woord en tik op Demp om de artikelen te verbergen. Veeg naar links om het dempen op te heffen."
           }
         },
         "pt-BR": {
@@ -2718,11 +5382,23 @@
             "state": "translated",
             "value": "在首页搜索媒体或词语，然后轻点“静音”即可隐藏其报道。向左轻扫可取消静音。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在首頁搜尋媒體或字詞，然後點一下「靜音」即可隱藏其報導。向左滑動可取消靜音。"
+          }
         }
       }
     },
     "Search stories and outlets": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ابحث في الأخبار والوسائل"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2741,10 +5417,28 @@
             "value": "Rechercher articles et médias"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerca articoli e testate"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "記事とメディアを検索"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기사 및 매체 검색"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zoek artikelen en media"
           }
         },
         "pt-BR": {
@@ -2758,11 +5452,93 @@
             "state": "translated",
             "value": "搜索报道和媒体"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "搜尋報導與媒體"
+          }
+        }
+      }
+    },
+    "Sections": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الأقسام"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bereiche"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Secciones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sections"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sezioni"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "セクション"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "섹션"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Secties"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seções"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "版块"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "版面"
+          }
         }
       }
     },
     "Settings": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإعدادات"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2781,10 +5557,28 @@
             "value": "Réglages"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impostazioni"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "設定"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "설정"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instellingen"
           }
         },
         "pt-BR": {
@@ -2798,11 +5592,93 @@
             "state": "translated",
             "value": "设置"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定"
+          }
+        }
+      }
+    },
+    "Share": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مشاركة"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teilen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compartir"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partager"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Condividi"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "共有"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "공유"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deel"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compartilhar"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分享"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分享"
+          }
         }
       }
     },
     "Sign In": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل الدخول"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2821,10 +5697,28 @@
             "value": "Se connecter"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accedi"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "サインイン"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "로그인"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log in"
           }
         },
         "pt-BR": {
@@ -2838,11 +5732,23 @@
             "state": "translated",
             "value": "登录"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登入"
+          }
         }
       }
     },
     "Sign In or Create Account": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل الدخول أو أنشئ حسابًا"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2861,10 +5767,28 @@
             "value": "Se connecter ou créer un compte"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accedi o crea un account"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "サインインまたはアカウント作成"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "로그인 또는 계정 만들기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log in of maak een account aan"
           }
         },
         "pt-BR": {
@@ -2878,11 +5802,23 @@
             "state": "translated",
             "value": "登录或创建账户"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登入或建立帳號"
+          }
         }
       }
     },
     "Sign Out": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل الخروج"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2901,10 +5837,28 @@
             "value": "Se déconnecter"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esci"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "サインアウト"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "로그아웃"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log uit"
           }
         },
         "pt-BR": {
@@ -2918,11 +5872,23 @@
             "state": "translated",
             "value": "退出登录"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登出"
+          }
         }
       }
     },
     "Signed in": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم تسجيل الدخول"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2941,10 +5907,28 @@
             "value": "Connecté"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accesso effettuato"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "サインイン済み"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "로그인됨"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingelogd"
           }
         },
         "pt-BR": {
@@ -2958,11 +5942,23 @@
             "state": "translated",
             "value": "已登录"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已登入"
+          }
         }
       }
     },
     "Site or feed address": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عنوان الموقع أو الموجز"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2981,10 +5977,28 @@
             "value": "Adresse du site ou du flux"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Indirizzo del sito o del feed"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "サイトまたはフィードのアドレス"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사이트 또는 피드 주소"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adres van site of feed"
           }
         },
         "pt-BR": {
@@ -2998,11 +6012,93 @@
             "state": "translated",
             "value": "网站或订阅源地址"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "網站或訂閱源地址"
+          }
+        }
+      }
+    },
+    "Smaller text": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نص أصغر"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kleinerer Text"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Texto más pequeño"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Texte plus petit"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testo più piccolo"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文字を小さく"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "텍스트 작게"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kleinere tekst"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Texto menor"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "缩小文字"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "縮小文字"
+          }
         }
       }
     },
     "Stop": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إيقاف"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3021,10 +6117,28 @@
             "value": "Arrêter"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interrompi"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "停止"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "정지"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop"
           }
         },
         "pt-BR": {
@@ -3038,11 +6152,23 @@
             "state": "translated",
             "value": "停止"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "停止"
+          }
         }
       }
     },
     "Stop Notifications": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إيقاف الإشعارات"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3061,10 +6187,28 @@
             "value": "Arrêter les notifications"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disattiva notifiche"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "通知を停止"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "알림 끄기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop meldingen"
           }
         },
         "pt-BR": {
@@ -3078,11 +6222,23 @@
             "state": "translated",
             "value": "停止通知"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "停止通知"
+          }
         }
       }
     },
     "Stories you open show up here.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تظهر هنا الأخبار التي تفتحها."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3101,10 +6257,28 @@
             "value": "Les articles que vous ouvrez apparaissent ici."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gli articoli che apri compaiono qui."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "開いた記事がここに表示されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "연 기사가 여기에 표시됩니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Artikelen die je opent, verschijnen hier."
           }
         },
         "pt-BR": {
@@ -3118,11 +6292,23 @@
             "state": "translated",
             "value": "你打开的报道会显示在这里。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你開啟的報導會顯示在這裡。"
+          }
         }
       }
     },
     "Suggested": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مقترحة"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3141,10 +6327,28 @@
             "value": "Suggestions"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suggeriti"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "おすすめ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "추천"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suggesties"
           }
         },
         "pt-BR": {
@@ -3158,11 +6362,23 @@
             "state": "translated",
             "value": "推荐"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "推薦"
+          }
         }
       }
     },
     "Support": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الدعم"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3181,10 +6397,28 @@
             "value": "Assistance"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Assistenza"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "サポート"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지원"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ondersteuning"
           }
         },
         "pt-BR": {
@@ -3198,11 +6432,23 @@
             "state": "translated",
             "value": "支持"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支援"
+          }
         }
       }
     },
     "Swipe right on a feed to get a notification when it posts. Swipe left to remove it.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسحب موجزًا لليمين لتصلك إشعارات عند النشر. اسحب لليسار لإزالته."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3221,10 +6467,28 @@
             "value": "Balayez un flux vers la droite pour être averti quand il publie. Vers la gauche pour le retirer."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scorri a destra su un feed per ricevere una notifica quando pubblica. Scorri a sinistra per rimuoverlo."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "フィードを右にスワイプすると投稿時に通知されます。左にスワイプで削除。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "피드를 오른쪽으로 쓸면 새 글이 올라올 때 알림을 받습니다. 왼쪽으로 쓸면 삭제됩니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veeg naar rechts op een feed om een melding te krijgen als die iets plaatst. Veeg naar links om hem te verwijderen."
           }
         },
         "pt-BR": {
@@ -3238,11 +6502,23 @@
             "state": "translated",
             "value": "在订阅源上向右轻扫，更新时会收到通知。向左轻扫可移除。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在訂閱源上向右滑動，更新時會收到通知。向左滑動可移除。"
+          }
         }
       }
     },
     "Swipe right on a story, or press and hold it, to save it here. Saved stories open without a connection.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسحب خبرًا لليمين أو اضغط عليه مطولًا لحفظه هنا. تُفتح الأخبار المحفوظة دون اتصال."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3261,10 +6537,28 @@
             "value": "Balayez un article vers la droite ou maintenez-le pour l'enregistrer ici. Les articles enregistrés s'ouvrent hors connexion."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scorri a destra su un articolo, o tienilo premuto, per salvarlo qui. Gli articoli salvati si aprono anche offline."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "記事を右にスワイプするか長押しすると、ここに保存されます。保存した記事はオフラインでも開けます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기사를 오른쪽으로 쓸거나 길게 눌러 여기에 저장하세요. 저장한 기사는 오프라인에서도 열립니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veeg naar rechts op een artikel of houd het vast om het hier te bewaren. Bewaarde artikelen openen ook zonder verbinding."
           }
         },
         "pt-BR": {
@@ -3278,11 +6572,93 @@
             "state": "translated",
             "value": "在报道上向右轻扫或按住即可存储到这里。已存报道无需联网即可打开。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在報導上向右滑動或按住即可儲存到這裡。已儲存的報導不需連線即可開啟。"
+          }
+        }
+      }
+    },
+    "Tap a feed to read only it. Swipe left to remove it.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اضغط على موجز لقراءته وحده. اسحب لليسار لإزالته."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe auf einen Feed, um nur ihn zu lesen. Nach links wischen entfernt ihn."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toca un feed para leer solo ese. Desliza a la izquierda para quitarlo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touchez un flux pour ne lire que lui. Balayez vers la gauche pour le retirer."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tocca un feed per leggere solo quello. Scorri a sinistra per rimuoverlo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "フィードをタップするとそれだけを読めます。左にスワイプで削除。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "피드를 탭하면 그 피드만 읽습니다. 왼쪽으로 쓸면 삭제됩니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tik op een feed om alleen die te lezen. Veeg naar links om hem te verwijderen."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque em um feed para ler só ele. Deslize para a esquerda para removê-lo."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轻点订阅源即可只读它。向左轻扫可移除。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點一下訂閱源即可只讀它。向左滑動可移除。"
+          }
         }
       }
     },
     "Text size": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حجم النص"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3301,10 +6677,28 @@
             "value": "Taille du texte"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dimensioni testo"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "文字サイズ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "텍스트 크기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tekstgrootte"
           }
         },
         "pt-BR": {
@@ -3318,11 +6712,23 @@
             "state": "translated",
             "value": "文字大小"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文字大小"
+          }
         }
       }
     },
     "The quick brown fox reads the news.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الثعلب البني السريع يقرأ الأخبار."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3341,10 +6747,28 @@
             "value": "Le rapide renard brun lit les nouvelles."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La volpe marrone veloce legge le notizie."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "すばしこい茶色のキツネがニュースを読む。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "재빠른 갈색 여우가 뉴스를 읽습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De snelle bruine vos leest het nieuws."
           }
         },
         "pt-BR": {
@@ -3358,11 +6782,23 @@
             "state": "translated",
             "value": "敏捷的棕色狐狸在读新闻。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "敏捷的棕色狐狸在讀新聞。"
+          }
         }
       }
     },
     "This deletes your account and the feeds synced to it. Feeds on this device stay.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سيؤدي هذا إلى حذف حسابك والموجزات المتزامنة معه. تبقى الموجزات على هذا الجهاز."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3381,10 +6817,28 @@
             "value": "Cela supprime votre compte et les flux synchronisés. Les flux de cet appareil restent."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Così elimini il tuo account e i feed sincronizzati. I feed su questo dispositivo restano."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "アカウントと同期済みのフィードが削除されます。このデバイスのフィードは残ります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계정과 동기화된 피드가 삭제됩니다. 이 기기의 피드는 남아 있습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiermee verwijder je je account en de feeds die eraan gekoppeld zijn. De feeds op dit apparaat blijven."
           }
         },
         "pt-BR": {
@@ -3398,11 +6852,23 @@
             "state": "translated",
             "value": "这将删除你的账户及同步到其中的订阅源。此设备上的订阅源会保留。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這將刪除你的帳號及同步到其中的訂閱源。此裝置上的訂閱源會保留。"
+          }
         }
       }
     },
     "Today": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اليوم"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3421,10 +6887,28 @@
             "value": "Aujourd'hui"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oggi"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "今日"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오늘"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vandaag"
           }
         },
         "pt-BR": {
@@ -3438,11 +6922,23 @@
             "state": "translated",
             "value": "今天"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今天"
+          }
         }
       }
     },
     "Today's biggest stories, each with every outlet covering it.": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أبرز أخبار اليوم، مع كل وسيلة تغطيها."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3461,10 +6957,28 @@
             "value": "Les grands titres du jour, chacun avec tous les médias qui le couvrent."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le notizie più importanti di oggi, ognuna con tutte le testate che ne parlano."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "今日の大きなニュースを、報じているすべてのメディアとともに。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오늘의 주요 기사와 이를 보도한 모든 매체."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Het grootste nieuws van vandaag, elk met alle media die erover berichten."
           }
         },
         "pt-BR": {
@@ -3478,11 +6992,23 @@
             "state": "translated",
             "value": "今日最重要的报道，附带所有报道它的媒体。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今日最重要的報導，附上所有報導它的媒體。"
+          }
         }
       }
     },
     "Top Stories": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أهم الأخبار"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3501,10 +7027,28 @@
             "value": "À la une"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notizie principali"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "トップニュース"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "주요 뉴스"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Topverhalen"
           }
         },
         "pt-BR": {
@@ -3518,11 +7062,23 @@
             "state": "translated",
             "value": "头条新闻"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "頭條新聞"
+          }
         }
       }
     },
     "Topics": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المواضيع"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3541,10 +7097,28 @@
             "value": "Sujets"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Argomenti"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "トピック"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "주제"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Onderwerpen"
           }
         },
         "pt-BR": {
@@ -3558,11 +7132,23 @@
             "state": "translated",
             "value": "话题"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "話題"
+          }
         }
       }
     },
     "Unfollow": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إلغاء المتابعة"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3581,10 +7167,28 @@
             "value": "Ne plus suivre"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non seguire più"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "フォロー解除"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "팔로우 취소"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ontvolg"
           }
         },
         "pt-BR": {
@@ -3598,11 +7202,23 @@
             "state": "translated",
             "value": "取消关注"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消追蹤"
+          }
         }
       }
     },
     "Unmute": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إلغاء الكتم"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3621,10 +7237,28 @@
             "value": "Réafficher"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riattiva"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "ミュート解除"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "숨기기 해제"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dempen opheffen"
           }
         },
         "pt-BR": {
@@ -3638,11 +7272,23 @@
             "state": "translated",
             "value": "取消静音"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消靜音"
+          }
         }
       }
     },
     "Unsave": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إلغاء الحفظ"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3661,10 +7307,28 @@
             "value": "Retirer"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rimuovi"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "保存を解除"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장 취소"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niet meer bewaren"
           }
         },
         "pt-BR": {
@@ -3678,11 +7342,23 @@
             "state": "translated",
             "value": "取消存储"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消儲存"
+          }
         }
       }
     },
     "Version": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإصدار"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3701,10 +7377,28 @@
             "value": "Version"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versione"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "バージョン"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "버전"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versie"
           }
         },
         "pt-BR": {
@@ -3718,11 +7412,23 @@
             "state": "translated",
             "value": "版本"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "版本"
+          }
         }
       }
     },
     "Website": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الموقع"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3741,10 +7447,28 @@
             "value": "Site web"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sito web"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "Webサイト"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "웹사이트"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Website"
           }
         },
         "pt-BR": {
@@ -3758,11 +7482,23 @@
             "state": "translated",
             "value": "网站"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "網站"
+          }
         }
       }
     },
     "Your Reading": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قراءاتك"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3781,10 +7517,28 @@
             "value": "Votre lecture"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua lettura"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "あなたの読書"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "나의 읽기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jouw leesgedrag"
           }
         },
         "pt-BR": {
@@ -3797,6 +7551,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "你的阅读"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的閱讀"
           }
         }
       }

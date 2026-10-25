@@ -19,7 +19,7 @@ struct TopicBar: View {
             HStack(spacing: 8) {
                 // Blindspots first: stories only one side of the spectrum covered, like Ground News.
                 let blind = q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame
-                Button(Coverage.blindspots) { query = blind ? "" : Coverage.blindspots }.buttonStyle(Chip(on: blind))
+                Button(LocalizedStringKey(Coverage.blindspots)) { query = blind ? "" : Coverage.blindspots }.buttonStyle(Chip(on: blind))
                     .accessibilityAddTraits(blind ? .isSelected : [])
                 if followable {
                     Button(Topics.has(q, in: topics) ? "Unfollow" : "+ Follow \u{201C}\(q)\u{201D}") { topics = Topics.toggled(q, in: topics) }
