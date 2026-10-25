@@ -201,3 +201,4 @@ li.swiping > .swipe-del { visibility: visible; }
 .row.story:focus-visible, .hero:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); border-radius: 12px; }
 #story-title { opacity: 0; transition: opacity .2s ease; }
 .story-bar.titled #story-title { opacity: 1; }
+.group.links a.row { color: var(--accent); }   /* links in Settings, like the app */

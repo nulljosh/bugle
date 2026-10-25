@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 5.4.2
+- Web Settings matches the app: a Version row, and Website, Privacy and Support in the accent colour.
+
 ## 5.4.1
 - Web story toolbar: the title fades in only once the headline scrolls under the bar, like an iOS inline title, so a phone shows back and the actions with room to breathe.
 
