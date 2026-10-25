@@ -1,21 +1,36 @@
-## [v0.0.1] — 2026-05-22
-
-- 44366d5 journal: 2026-05-22 week
-- 2296f20 chore: snow leopard pass
-- 3f59b60 deploy: 2026-05-16T05:13:18Z
-- 5b06254 deploy: 2026-05-14T09:14:49Z
-- 11ed19d docs: May 8 weekly entry + site improvements
-- 7dfa757 feat: auto-build via GitHub Actions, simplify ship.sh
-- 42158ba docs: add May 1 weekly entry -- Fresh Coat
-- 29c4fe1 docs: Apr 26 weekly entry -- Loose Ends
-
 # Changelog
 
-## [v0.0.1] — 2026-05-16
+Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
-- 3f59b60 deploy: 2026-05-16T05:13:18Z
-- 5b06254 deploy: 2026-05-14T09:14:49Z
-- 11ed19d docs: May 8 weekly entry + site improvements
-- 7dfa757 feat: auto-build via GitHub Actions, simplify ship.sh
-- 42158ba docs: add May 1 weekly entry -- Fresh Coat
-- 29c4fe1 docs: Apr 26 weekly entry -- Loose Ends
+## 3.4.0
+- Reading time on each story, app and web.
+
+## 3.3.0
+- OPML import and export.
+
+## 3.2.0
+- Tech and Mac feeds: Wired, The Verge, Ars Technica, TechCrunch, MacRumors, 9to5Mac, AppleInsider, Macworld, Six Colors.
+
+## 3.1.0
+- Paste a site address and Bugle finds its feed. The web feed proxy always answers in sandboxed plain text.
+
+## 3.0.0
+- Listen: the system voice reads a story aloud. No gaps left against Apple News and Ground News.
+
+## 2.5.0
+- Siri and Shortcuts: "Top stories in Bugle".
+
+## 2.4.0
+- Top Stories widget, small and medium.
+
+## 2.3.0
+- Notifications for the feeds you pick.
+
+## 2.2.0
+- Background refresh; a glass story toolbar on the web.
+
+## 2.1.0
+- The top story as a full-bleed photo card with its headline on glass.
+
+## 2.0.0
+- Sync of saved stories, history, topics and mutes; follow topics, mute, local news, offline pictures, a Watch app on the shared core.

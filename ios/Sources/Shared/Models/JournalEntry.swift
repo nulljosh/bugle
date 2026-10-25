@@ -20,4 +20,22 @@ extension JournalEntry {
             .replacingOccurrences(of: "&quot;", with: "\"").replacingOccurrences(of: "&nbsp;", with: " ")
             .split(whereSeparator: \.isWhitespace).joined(separator: " ")
     }
+
+    /// "4 min read" at 230 words a minute; nil for a summary too short to be worth timing. Same rule as
+    /// readingTime in web/parse.js.
+    var readingTime: String? {
+        let words = plainText.split(separator: " ").count
+        return words < 150 ? nil : "\(Int((Double(words) / 230).rounded(.up))) min read"
+    }
 }
+
+#if DEBUG
+func readingTimeDemo() {
+    func entry(_ words: Int) -> JournalEntry {
+        JournalEntry(title: "t", url: "u", date: .now, htmlContent: "<p>" + Array(repeating: "word", count: words).joined(separator: " ") + "</p>")
+    }
+    assert(entry(149).readingTime == nil)
+    assert(entry(150).readingTime == "1 min read")
+    assert(entry(231).readingTime == "2 min read")
+}
+#endif

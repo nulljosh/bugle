@@ -102,3 +102,10 @@ function parse(xml, source) {
     };
   }).filter(function (e) { return e.url; });
 }
+
+// "4 min read" at 230 words a minute; nothing for a summary too short to be worth timing. Same rule as
+// JournalEntry.readingTime in the app.
+function readingTime(text) {
+  var words = (text.match(/\S+/g) || []).length;
+  return words < 150 ? '' : Math.ceil(words / 230) + ' min read';
+}

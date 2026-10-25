@@ -1,6 +1,6 @@
 # Bugle Technical Whitepaper
 
-**v2.0** | October 2026
+**v3.4** | October 2026
 
 Every feed, one timeline. Bugle reads RSS and Atom feeds straight from the sites that publish them and puts every story in one stream on iPhone, iPad, Mac, Apple Watch and the web. When several newsrooms cover the same story it shows one row with all of them, how each side of the spectrum covered it, and the day's biggest stories first. Reading never needs an account.
 
@@ -12,7 +12,7 @@ Every entry from every followed feed goes through `Coverage.cluster`. Headlines 
 
 ## Feeds and parsing
 
-`FeedStore` keeps the followed list on the device, seeded with sixteen newsrooms so the first screen is never empty, plus local desks for ten cities. `FeedParser` reads RSS `item` and Atom `entry`, prefers `content:encoded` over `description`, and picks a picture in order: the widest `media:thumbnail` or `media:content`, then an image `enclosure`, then the first `img` in the body, then the article page's own `og:image`. BBC thumbnails are asked for at 976 pixels instead of 240.
+`FeedStore` keeps the followed list on the device, seeded with twenty-five newsrooms and tech sites so the first screen is never empty, plus local desks for ten cities. Paste a site address instead of a feed and `FeedStore.discover` (web: `feedio.js`) follows the feed the page names in its `<link rel="alternate">`. OPML imports and exports the list, skipping feeds already followed. `FeedParser` reads RSS `item` and Atom `entry`, prefers `content:encoded` over `description`, and picks a picture in order: the widest `media:thumbnail` or `media:content`, then an image `enclosure`, then the first `img` in the body, then the article page's own `og:image`. BBC thumbnails are asked for at 976 pixels instead of 240.
 
 ## One reader, two languages
 
@@ -22,13 +22,21 @@ The apps share one Swift core (feeds, parser, grouping, headline cleaning, libra
 
 Saved stories are kept whole, body included, so they open offline. The app reads pictures from a disk cache first; the web reader's service worker keeps a saved story's pictures and the reader page itself. History dims stories you have opened and feeds Your Reading, the lean of what you actually read. Topics are followed searches shown as chips on Home.
 
+## Reading
+
+A story opens with its outlet, date and reading time (230 words a minute, left off for summaries under 150 words). Listen reads the headline and body with the system voice, on device, and stops when you leave the story.
+
+## Around the system
+
+The apps refresh in the background about every half hour (`BGAppRefreshTask`) and can notify you, at most three at a time, when a feed you picked posts. The Top Stories widget shows the lead with its photo and the next two in outlet colours; it reads the seed feeds until an App Group shares the user's list. `TopStoriesIntent` answers "Top stories in Bugle" for Siri and hands Shortcuts the headlines as text.
+
 ## Accounts and sync
 
 Optional. A Bugle account lives on jaybulb-api, the fleet's shared auth on Cloudflare D1. One row per account carries the feed list, saved stories (headline, link, outlet, picture), recent history, topics and mutes. Sync is a union by URL or word, so a sync never drops anything. Deleting the account deletes the row.
 
 ## Web
 
-`web/read.html` is a static PWA on Cloudflare Pages. Publishers do not send CORS headers, so `/feed` proxies a feed (https only, private hosts refused, size capped) and `/og` reads an article's preview image. The landing page runs the real reader.
+`web/read.html` is a static PWA on Cloudflare Pages. Publishers do not send CORS headers, so `/feed` proxies a feed (https only, private hosts refused, size capped, always served as sandboxed plain text so a page fetched for discovery never runs on Bugle's origin) and `/og` reads an article's preview image. The landing page runs the real reader.
 
 ## Privacy
 

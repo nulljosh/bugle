@@ -8,6 +8,7 @@ struct JournalApp: App {
         #if DEBUG
         // The self-checks were dead code until this call — nothing invoked them.
         feedParserDemo()
+        readingTimeDemo()
         seedFeedsDemo()
         headlineDemo()
         previewImageDemo()

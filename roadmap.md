@@ -44,7 +44,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 39 | Three columns on iPad and Mac (feeds, list, story) | yes | yes | tabs everywhere | todo | |
 | 40 | Share extension: add a feed or save a story from Safari | yes | yes | none | todo | |
 | 41 | Spotlight and Handoff | yes | | none | todo | |
-| 42 | Reading time on each story | yes | | none | todo | |
+| 42 | Reading time on each story | yes | | "4 min read" beside the outlet and date on every story with a real body, app and web | done | 3.4.0 |
 | 43 | Story timeline: the same story over several days | | yes | clusters only look at what is loaded now | todo | |
 | 28 | Light and dark mode | yes | yes | yes | done | 1.0.6 |
 | 29 | No account, no tracking | Apple ID | account | yes | done | 1.0.0 |

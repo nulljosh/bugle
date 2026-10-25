@@ -193,7 +193,7 @@ function show(e) {
   var box = document.getElementById('article');
   box.innerHTML = '';
   box.appendChild(el('h2', '', e.title));
-  box.appendChild(el('p', 'meta', [e.source, dateText(e.date, 'long')].filter(Boolean).join(' · ')));
+  var meta = box.appendChild(el('p', 'meta', ''));
   // Feed HTML is untrusted: parse it inert and drop scripts and event handlers before
   // it ever reaches the live document.
   var frag = new DOMParser().parseFromString(e.html || '', 'text/html');
@@ -203,6 +203,7 @@ function show(e) {
       if (/^on/i.test(a.name) || /^\s*javascript:/i.test(a.value)) n.removeAttribute(a.name);
     });
   });
+  meta.textContent = [e.source, dateText(e.date, 'long'), readingTime(frag.body.textContent)].filter(Boolean).join(' · ');
   // the story's picture under the headline, like the app, unless the body already opens with pictures
   if (e.image && !frag.querySelector('img')) {
     var pic = el('img', 'lead'); pic.src = e.image; pic.alt = ''; pic.referrerPolicy = 'no-referrer';

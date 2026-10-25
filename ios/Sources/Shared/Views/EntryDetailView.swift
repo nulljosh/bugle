@@ -91,7 +91,7 @@ struct EntryDetailView: View {
 
     private static func byline(for entry: JournalEntry) -> String {
         let dateString = entry.date.formatted(date: .long, time: .omitted)
-        return entry.sourceTitle.isEmpty ? dateString : "\(escape(entry.sourceTitle)) · \(dateString)"
+        return [escape(entry.sourceTitle), dateString, entry.readingTime ?? ""].filter { !$0.isEmpty }.joined(separator: " · ")
     }
 
     private static func heroImage(for entry: JournalEntry) -> String {

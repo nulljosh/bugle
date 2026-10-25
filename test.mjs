@@ -131,3 +131,10 @@ test("BBC thumbnails ask for the 976 px copy, other hosts untouched", () => {
   assert.equal(sharpen("https://i.guim.co.uk/img/x.jpg?width=700"), "https://i.guim.co.uk/img/x.jpg?width=700");
   assert.equal(sharpen("https://nypost.com/wp-content%2Fuploads%2Fa.jpg?w%3D1024"), "https://nypost.com/wp-content/uploads/a.jpg?w=1024");
 });
+
+test("reading time: 230 words a minute, short summaries untimed", () => {
+  const words = (n) => Array(n).fill("word").join(" ");
+  assert.equal(readingTime(words(149)), "");
+  assert.equal(readingTime(words(150)), "1 min read");
+  assert.equal(readingTime(words(231)), "2 min read");
+});
