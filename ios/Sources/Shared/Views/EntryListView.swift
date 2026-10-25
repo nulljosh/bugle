@@ -58,8 +58,8 @@ struct EntryListView: View {
     private var home: some View {
         // Search matches headlines and outlet names ("BBC" shows only BBC). While searching there is no hero.
         let q = query.trimmingCharacters(in: .whitespaces)
-        // One row per story (the same story from several outlets is grouped, Ground News style).
-        let shown = q.isEmpty ? feed.stories : feed.stories.filter { $0.entries.contains { $0.title.localizedStandardContains(q) || $0.sourceTitle.localizedStandardContains(q) } }
+        // One row per story (the same story from several outlets is grouped, Ground News style); Today's biggest lead.
+        let shown = q.isEmpty ? Coverage.today(feed.stories) : feed.stories.filter { $0.entries.contains { $0.title.localizedStandardContains(q) || $0.sourceTitle.localizedStandardContains(q) } }
         // The hero is the newest story with a picture among the first few; everything else is a row.
         let hero = q.isEmpty ? shown.prefix(5).first { $0.lead.imageURL != nil } : nil
         return List {

@@ -84,4 +84,7 @@ test("coverage groups one story across outlets, counts newsrooms once, flags bli
   assert.equal(border.publishers, 2);
   assert.equal(border.blindspot, "right");
   assert.deepEqual(stories.find((s) => s.entries.length === 1).counts, { left: 0, center: 0, right: 0 });
+  const newest = [{ publishers: 1, lead: { date: new Date(9) } }, border];
+  assert.equal(Coverage.today(newest, 10)[0], border);           // two newsrooms outrank a newer single-source story
+  assert.equal(Coverage.today(newest, 864e5 + 10)[0], newest[0]); // a day later it is no longer Today
 });

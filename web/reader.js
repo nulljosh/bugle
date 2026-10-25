@@ -59,7 +59,7 @@ function dateText(d, style) {
 // Search matches headlines and outlet names ("BBC" shows only BBC); while searching there is no hero. Same as the app.
 function renderEntries() {
   var q = document.getElementById('q').value.trim().toLowerCase();
-  var shown = (q ? stories.filter(function (st) { return st.entries.some(function (e) { return (e.title + ' ' + e.source).toLowerCase().indexOf(q) >= 0; }); }) : stories)
+  var shown = (q ? stories.filter(function (st) { return st.entries.some(function (e) { return (e.title + ' ' + e.source).toLowerCase().indexOf(q) >= 0; }); }) : Coverage.today(stories))
     .map(function (st) { return st.lead; });
   renderStories(document.getElementById('entries'), shown, open, !q,
     q ? 'No stories match \u201C' + q + '\u201D.' : 'No entries yet. Add a feed or pull to refresh.');

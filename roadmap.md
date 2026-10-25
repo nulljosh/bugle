@@ -23,7 +23,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 13 | Compare headlines side by side | | yes | Coverage sheet groups headlines Left, Center, Right (app and web) | done | 1.14.0 |
 | 14 | Blindspot: stories one side barely covers | | yes | noted in Coverage (app and web); a Blindspot filter comes with row 16 | done | 1.14.0 |
 | 15 | My news bias (lean of what you read) | | yes | Your Reading in Settings (app and web) | done | 1.14.0 |
-| 16 | Today: top stories ranked by coverage | yes | yes | newest first | todo | |
+| 16 | Today: top stories ranked by coverage | yes | yes | five biggest stories of the day (most newsrooms) lead Home | done | 1.16.0 |
 | 17 | Follow topics | yes | yes | sources only | todo | |
 | 18 | Mute a source or topic | yes | yes | unsubscribe only | partial | |
 | 19 | Local news for your region | yes | yes | two Vancouver outlets seeded | partial | |

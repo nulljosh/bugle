@@ -45,6 +45,13 @@ var Coverage = (function () {
       return { lead: g.entries[0], entries: g.entries, counts: c, publishers: pubs, blindspot: lit.length === 1 && pubs > 1 ? lit[0] : null };
     });
   }
+  // Today: the five biggest stories of the last day (most newsrooms, at least two) lead Home, then the rest, newest first.
+  function today(stories, now) {
+    now = now || Date.now();
+    var top = stories.filter(function (s) { return s.publishers > 1 && now - s.lead.date < 864e5; })
+      .sort(function (a, b) { return b.publishers - a.publishers || b.lead.date - a.lead.date; }).slice(0, 5);
+    return top.concat(stories.filter(function (s) { return top.indexOf(s) < 0; }));
+  }
   function readingLean(history) { var c = { left: 0, center: 0, right: 0 }; history.forEach(function (e) { var o = outlet(e.source); if (o && o.lean != null) c[side(o.lean)]++; }); return c; }
   function bar(c) {
     var total = c.left + c.center + c.right || 1, wrap = el('div', 'leanbar'), track = el('div', 'track'), legend = el('div', 'legend');
@@ -81,5 +88,5 @@ var Coverage = (function () {
     return box;
   }
   function about(feed) { var o = outlet(feed.title); return o ? (o.lean == null ? 'Not rated' : leanLabel(o.lean)) + ' · ' + o.owner : feed.url; }
-  return { cluster: cluster, readingLean: readingLean, bar: bar, section: section, about: about };
+  return { cluster: cluster, today: today, readingLean: readingLean, bar: bar, section: section, about: about };
 })();

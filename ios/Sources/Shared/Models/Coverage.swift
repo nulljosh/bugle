@@ -95,6 +95,14 @@ enum Coverage {
         return groups.map { Story(lead: $0.items[0], entries: $0.items) }.sorted { $0.lead.date > $1.lead.date }
     }
 
+    /// Today: the five biggest stories of the last day (most newsrooms, at least two) lead Home, then the rest, newest first.
+    static func today(_ stories: [Story], now: Date = .now) -> [Story] {
+        let top = stories.filter { $0.publishers > 1 && now.timeIntervalSince($0.lead.date) < 86_400 }
+            .sorted { ($0.publishers, $0.lead.date) > ($1.publishers, $1.lead.date) }.prefix(5)
+        let ids = Set(top.map(\.id))
+        return Array(top) + stories.filter { !ids.contains($0.id) }
+    }
+
     /// The lean of what you read: per side, how many of your opened stories came from it.
     static func readingLean(_ history: [JournalEntry]) -> [Side: Int] {
         var c: [Side: Int] = [:]
@@ -119,5 +127,7 @@ func coverageDemo() {
     assert(border.publishers == 2)              // NY Post and its opinion feed are one newsroom
     assert(border.blindspot == .right)          // two newsrooms, all on the right
     assert(stories.first { $0.entries.count == 1 }!.counts.isEmpty)   // tech outlets are not rated
+    let ranked = Coverage.today(stories, now: Date(timeIntervalSince1970: 10))
+    assert(ranked.first?.entries.count == 3)    // the story two newsrooms carry leads Today
 }
 #endif
