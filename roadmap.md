@@ -43,7 +43,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 38 | Keyboard shortcuts (Mac, iPad, web) | yes | | web: j k, Enter, Esc, /, r, s, l, o, 1 to 3; apps: ⌘R, ⌘1 to ⌘3, ⌘S, ⌘L, ⌘⇧O | done | 4.1.0 |
 | 39 | Three columns on iPad and Mac (feeds, list, story) | yes | yes | iPad in regular width and the Mac: outlets, stories, the story (HomeSplit); phones keep one stack | done | 4.2.0 |
 | 40 | Share extension: add a feed or save a story from Safari | yes | yes | none | todo | |
-| 41 | Spotlight and Handoff | yes | | none | todo | |
+| 41 | Spotlight and Handoff | yes | | saved stories and recent history are in Spotlight; an open story hands off to your other devices, or to the browser | done | 4.3.0 |
 | 42 | Reading time on each story | yes | | "4 min read" beside the outlet and date on every story with a real body, app and web | done | 3.4.0 |
 | 43 | Story timeline: the same story over several days | | yes | a week of headlines is kept; each story lists its earlier coverage under Earlier | done | 4.0.0 |
 | 28 | Light and dark mode | yes | yes | yes | done | 1.0.6 |

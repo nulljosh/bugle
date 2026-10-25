@@ -21,6 +21,7 @@ A refresh fetches every followed feed at once, parses each into entries tagged w
 | `Sources/Shared/Services/Alerts.swift` | Notifications for chosen feeds |
 | `Sources/Shared/Services/Archive.swift` | A week of headlines for each story's Earlier list |
 | `Sources/Shared/Services/FullText.swift` | The article page's paragraphs when a feed sends only a summary |
+| `Sources/Shared/Services/Spotlight.swift` | Spotlight index of saved and recent stories, Handoff |
 | `Sources/Shared/Services/Listen.swift` | Read a story aloud with the system voice |
 | `Sources/Shared/Services/Intents.swift` | Siri and Shortcuts: Top Stories |
 | `Sources/Shared/Services/PreviewImage.swift` | An article's own `og:image` when the feed has no picture |

@@ -27,6 +27,7 @@ struct EntryDetailView: View {
             .onAppear { library.markRead(entry) }
             .task { full = await FullText.fill(entry) }
             .onDisappear { listener.stop() }
+            .handsOff(entry)
             .sheet(isPresented: $showCoverage) { if let story { CoverageView(story: story, library: library) } }
             .toolbar {
                 if let url = URL(string: entry.url) {

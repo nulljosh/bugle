@@ -63,6 +63,9 @@ final class Library: ObservableObject {
 
     private func write() {
         try? JSONEncoder().encode(Stored(saved: saved, history: history)).write(to: file, options: .atomic)
+        #if !os(watchOS)
+        Spotlight.index(saved + history.prefix(50))
+        #endif
     }
 }
 

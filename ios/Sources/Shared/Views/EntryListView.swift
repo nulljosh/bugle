@@ -74,6 +74,7 @@ struct EntryListView: View {
         // signed in: saves, topics and mutes reach the account as they change, like the feed list does
         .onChange(of: "\(library.saved.count)|\(topics)|\(muted)") { if account.signedIn { Task { try? await account.push(store.feeds) } } }
         .onAppear { account.library = library }
+        .continuesStories(in: library) { tab = 0; path = [$0] }
         .task(id: store.feeds) {
             if account.signedIn { try? await account.push(store.feeds) }   // keep the account's copy current
             await feed.refresh(feeds: store.feeds)

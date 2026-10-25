@@ -9,7 +9,7 @@ options:
 settings:
   base:
     SWIFT_VERSION: "5.9"
-    MARKETING_VERSION: "4.2.0"
+    MARKETING_VERSION: "4.3.0"
     CURRENT_PROJECT_VERSION: "202610251232"
     DEVELOPMENT_TEAM: QMM486NPYC
 
@@ -61,6 +61,7 @@ targets:
       - Sources/Shared/Models/Theme.swift
       - Sources/Shared/Services/JournalFeedService.swift
       - Sources/Shared/Services/Archive.swift
+      - Sources/Shared/Services/Spotlight.swift
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.nulljosh.journal.widget
