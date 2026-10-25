@@ -33,3 +33,5 @@ async function discover(url) {
   } catch (e) {}
   return url;
 }
+// Mark All Read: everything loaded now dims on Home and leaves the unread counts.
+document.getElementById('mark-all').onclick = function () { Library.markAllRead(entries); renderFeeds(); };

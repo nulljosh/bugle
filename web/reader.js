@@ -138,6 +138,8 @@ function renderFeeds() {
     txt.style.cursor = 'pointer';
     txt.onclick = function () { document.getElementById('q').value = f.title; location.hash = '#home'; renderEntries(); };
     row.appendChild(txt);
+    var unread = entries.filter(function (e) { return e.source === f.title && !Library.isRead(e); }).length;
+    if (unread) row.appendChild(el('small', 'count', String(unread)));
     var li = el('li'); li.appendChild(row); following.appendChild(li);
     swipeRemove(li, row, 'Remove', function () { feeds.splice(i, 1); save(); renderFeeds(); refresh(); });
   });
@@ -229,6 +231,7 @@ function route() {
   if (tab === 'story' && !current) tab = 'home';
   ['home', 'story', 'feeds', 'saved', 'history', 'settings'].forEach(function (id) { document.getElementById(id).hidden = id !== tab; });
   if (tab === 'story') show(current);
+  if (tab === 'feeds') renderFeeds();   // fresh unread counts
   if (tab !== 'story' && window.renderLibrary) { renderLibrary(); if (tab === 'home') renderEntries(); }   // read and saved marks stay current
   var lit = tab === 'story' ? 'home' : (tab === 'saved' || tab === 'history') ? 'feeds' : tab;
   document.querySelectorAll('.tabbar a').forEach(function (a) {

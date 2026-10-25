@@ -38,7 +38,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 33 | Paste a site address, find its feed (autodiscovery) | | | paste theverge.com and Bugle follows the feed the page links to, app and web | done | 3.1.0 |
 | 34 | OPML import and export | | | Import OPML and Export OPML under Following, app and web; duplicates skipped | done | 3.3.0 |
 | 35 | Full article text for summary-only feeds | yes | yes | shows the feed's summary, then Open original | todo | |
-| 36 | Unread counts and mark all read | yes | | read rows dim; no counts | todo | |
+| 36 | Unread counts and mark all read | yes | | each followed feed shows its unread count; Mark All Read clears them without filling History | done | 3.5.0 |
 | 37 | Blindspot filter on Home | | yes | Blindspot noted per story only | todo | |
 | 38 | Keyboard shortcuts (Mac, iPad, web) | yes | | none | todo | |
 | 39 | Three columns on iPad and Mac (feeds, list, story) | yes | yes | tabs everywhere | todo | |

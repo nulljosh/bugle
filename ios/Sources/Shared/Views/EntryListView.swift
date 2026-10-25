@@ -34,7 +34,7 @@ struct EntryListView: View {
             Group {
                 NavigationStack(path: $path) { home }
                     .tabItem { Label("Home", systemImage: "newspaper") }.tag(0)
-                ManageFeedsView(store: store, library: library) { query = $0.title; tab = 0 }
+                ManageFeedsView(store: store, library: library, entries: feed.entries) { query = $0.title; tab = 0 }
                     .tabItem { Label("Feeds", systemImage: "list.bullet.rectangle") }.tag(1)
                 SettingsView(store: store, account: account, library: library)
                     .tabItem { Label("Settings", systemImage: "gearshape") }.tag(2)

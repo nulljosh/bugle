@@ -4,6 +4,8 @@ import UniformTypeIdentifiers
 struct ManageFeedsView: View {
     @ObservedObject var store: FeedStore
     @ObservedObject var library: Library
+    /// What Home has loaded, for each feed's unread count and Mark All Read.
+    var entries: [JournalEntry] = []
     /// Tap an outlet to read just it: Home searches for it and takes its color.
     var open: (Feed) -> Void = { _ in }
     @State private var newFeed = ""
@@ -77,6 +79,8 @@ struct ManageFeedsView: View {
                                     Text(Self.about(feed)).font(.caption).foregroundStyle(.secondary).lineLimit(1)
                                 }
                                 Spacer()
+                                let unread = entries.filter { $0.sourceTitle == feed.title && !library.isRead($0) }.count
+                                if unread > 0 { Text("\(unread)").foregroundStyle(.secondary).monospacedDigit().accessibilityLabel("\(unread) unread") }
                                 if alerts { Image(systemName: "bell.fill").foregroundStyle(.secondary).imageScale(.small).accessibilityLabel("Notifications on") }
                             }
                         }
@@ -126,6 +130,10 @@ struct ManageFeedsView: View {
                 }
             }
             .navigationTitle("Feeds")
+            .toolbar {
+                Button { library.markAllRead(entries) } label: { Label("Mark All Read", systemImage: "checkmark.circle") }
+                    .disabled(entries.allSatisfy(library.isRead))
+            }
             .alert("Invalid or duplicate URL", isPresented: $showError) {
                 Button("OK", role: .cancel) {}
             }

@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 3.5.0
+- Unread counts on each followed feed, and Mark All Read.
+
 ## 3.4.0
 - Reading time on each story, app and web.
 

@@ -24,7 +24,17 @@ final class Library: ObservableObject {
     }
 
     func isSaved(_ e: JournalEntry) -> Bool { saved.contains { $0.id == e.id } }
-    func isRead(_ e: JournalEntry) -> Bool { history.contains { $0.id == e.id } }
+    func isRead(_ e: JournalEntry) -> Bool { cleared.contains(e.id) || history.contains { $0.id == e.id } }
+
+    /// Stories cleared with Mark All Read: read, but kept out of History so Your Reading only counts what you opened.
+    @Published private(set) var cleared = Set(UserDefaults.standard.stringArray(forKey: "cleared") ?? [])
+
+    func markAllRead(_ entries: [JournalEntry]) {
+        let now = Set(entries.map(\.id))
+        // ponytail: past 3000, keep only what is loaded now; older stories have left the feeds anyway
+        cleared = cleared.count > 3000 ? now : cleared.union(now)
+        UserDefaults.standard.set(Array(cleared), forKey: "cleared")
+    }
 
     func toggleSave(_ e: JournalEntry) {
         if isSaved(e) { saved.removeAll { $0.id == e.id } } else {

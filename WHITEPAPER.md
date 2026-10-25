@@ -20,7 +20,7 @@ The apps share one Swift core (feeds, parser, grouping, headline cleaning, libra
 
 ## Your things
 
-Saved stories are kept whole, body included, so they open offline. The app reads pictures from a disk cache first; the web reader's service worker keeps a saved story's pictures and the reader page itself. History dims stories you have opened and feeds Your Reading, the lean of what you actually read. Topics are followed searches shown as chips on Home.
+Saved stories are kept whole, body included, so they open offline. The app reads pictures from a disk cache first; the web reader's service worker keeps a saved story's pictures and the reader page itself. History dims stories you have opened and feeds Your Reading, the lean of what you actually read. Each followed feed shows how many of its loaded stories are unread; Mark All Read puts them in a separate cleared set, so they dim without counting toward Your Reading. Topics are followed searches shown as chips on Home.
 
 ## Reading
 

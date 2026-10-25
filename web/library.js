@@ -14,12 +14,20 @@ var Library = (function () {
   var revive = function (e) { return Object.assign({}, e, { date: new Date(e.date) }); };
   data.saved = data.saved.map(revive); data.history = data.history.map(revive);
   var has = function (list, e) { return list.some(function (x) { return x.url === e.url; }); };
+  // Stories cleared with Mark All Read: read, but kept out of History so Your Reading only counts what you opened.
+  var cleared = {};
+  try { (JSON.parse(localStorage.getItem('bugle.cleared')) || []).forEach(function (u) { cleared[u] = true; }); } catch (e) {}
   var write = function () { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {} };
   return {
     saved: function () { return data.saved; },
     history: function () { return data.history; },
     isSaved: function (e) { return has(data.saved, e); },
-    isRead: function (e) { return has(data.history, e); },
+    isRead: function (e) { return !!cleared[e.url] || has(data.history, e); },
+    markAllRead: function (list) {
+      if (Object.keys(cleared).length > 3000) cleared = {};   // ponytail: past 3000 keep only what is loaded now
+      list.forEach(function (e) { cleared[e.url] = true; });
+      try { localStorage.setItem('bugle.cleared', JSON.stringify(Object.keys(cleared))); } catch (e) {}
+    },
     toggle: function (e) {
       var on = !has(data.saved, e);
       if (on) data.saved.unshift(e); else data.saved = data.saved.filter(function (x) { return x.url !== e.url; });
