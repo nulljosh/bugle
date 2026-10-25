@@ -35,17 +35,32 @@
   }
 
   // Union by URL, saved to both sides; a sync never drops a feed.
+  // Union of this browser's feeds, saved stories, history, topics and mutes with the account's, saved to both.
+  // Nothing is ever dropped. Mirrors Account.sync in the app.
   async function sync() {
-    var rows = await authed('GET', '/rest/coranto_sync');
-    ((rows[0] && rows[0].feeds) || []).forEach(function (f) {
+    var row = (await authed('GET', '/rest/coranto_sync'))[0] || {};
+    (row.feeds || []).forEach(function (f) {
       if (f && f.url && !feeds.some(function (x) { return x.url === f.url; })) feeds.push({ title: f.title, url: f.url });
     });
-    save(); renderFeeds(); refresh();
+    var entry = function (d) { return { title: d.title, url: d.url, date: new Date(d.date || 0), source: d.source || '', image: d.image || '', html: '' }; };
+    Library.merge((row.saved || []).map(entry), (row.history || []).map(entry));
+    (row.topics || []).forEach(function (w) { if (!Topics.has(w)) Topics.toggle(w); });
+    (row.muted || []).forEach(function (w) { if (!Muted.has(w)) Muted.toggle(w); });
+    save(); renderFeeds(); renderLibrary(); renderMuted(); refresh();
     await push();
   }
+  // headline, link, outlet, picture: the body stays in the browser it was read in
+  var light = function (e) { return { title: e.title, url: e.url, date: e.date, source: e.source, image: e.image || '' }; };
   async function push() {
     if (!session) return;
-    await authed('POST', '/rest/coranto_sync?on_conflict=id', { id: session.id, feeds: feeds }, { Prefer: 'resolution=merge-duplicates' });
+    var up = function (b) { return authed('POST', '/rest/coranto_sync?on_conflict=id', b, { Prefer: 'resolution=merge-duplicates' }); };
+    try {
+      await up({ id: session.id, feeds: feeds, saved: Library.saved().slice(0, 200).map(light),
+        history: Library.history().slice(0, 100).map(light), topics: Topics.list(), muted: Muted.list() });
+    } catch (e) {   // ponytail: a server without the newer columns refuses them; the feed list still syncs
+      if (e.status !== 400) throw e;
+      await up({ id: session.id, feeds: feeds });
+    }
   }
   window.BugleAccount = { push: function () { push().catch(function () {}); } };
 

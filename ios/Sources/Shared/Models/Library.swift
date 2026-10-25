@@ -44,6 +44,13 @@ final class Library: ObservableObject {
 
     func clearHistory() { history = []; write() }
 
+    /// An account sync: stories saved or read on another device join the lists (Account.sync).
+    func merge(saved more: [JournalEntry], history read: [JournalEntry]) {
+        saved += more.filter { !isSaved($0) }
+        history = (history + read.filter { !isRead($0) }).sorted { $0.date > $1.date }.prefix(Self.historyCap).map { $0 }
+        write()
+    }
+
     private func write() {
         try? JSONEncoder().encode(Stored(saved: saved, history: history)).write(to: file, options: .atomic)
     }

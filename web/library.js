@@ -25,12 +25,20 @@ var Library = (function () {
       if (on) data.saved.unshift(e); else data.saved = data.saved.filter(function (x) { return x.url !== e.url; });
       write();
       keepImages(e, on);
+      if (window.BugleAccount) BugleAccount.push();
     },
     markRead: function (e) {
       data.history = [e].concat(data.history.filter(function (x) { return x.url !== e.url; })).slice(0, CAP);
       write();
     },
-    clearHistory: function () { data.history = []; write(); }
+    clearHistory: function () { data.history = []; write(); },
+    // an account sync: stories saved or read elsewhere join the lists (account.js)
+    merge: function (saved, history) {
+      data.saved = data.saved.concat(saved.filter(function (e) { return !has(data.saved, e); }));
+      data.history = data.history.concat(history.filter(function (e) { return !has(data.history, e); }))
+        .sort(function (a, b) { return b.date - a.date; }).slice(0, CAP);
+      write();
+    }
   };
 })();
 
@@ -47,6 +55,7 @@ function wordList(KEY) {
       var i = find(t);
       if (i >= 0) list.splice(i, 1); else list.push(t);
       try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {}
+      if (window.BugleAccount) BugleAccount.push();
     }
   };
 }

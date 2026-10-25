@@ -57,21 +57,51 @@ final class Account: ObservableObject {
         }
     }
 
-    /// Union of this device's feeds and the account's, by URL, saved to both. Nothing is ever dropped by a sync.
+    /// Saved stories and history sync too (EntryListView hands it over); topics and mutes live in UserDefaults.
+    weak var library: Library?
+
+    /// Union of this device's feeds, saved stories, history, topics and mutes with the account's, saved to both.
+    /// Nothing is ever dropped by a sync. Mirrors sync() in web/account.js.
     func sync(_ store: FeedStore) async throws {
-        let rows = try await authed("GET", "/rest/coranto_sync") as? [[String: Any]] ?? []
-        let remote = (rows.first?["feeds"] as? [[String: String]] ?? []).compactMap { d -> Feed? in
+        let row = (try await authed("GET", "/rest/coranto_sync") as? [[String: Any]])?.first ?? [:]
+        let remote = (row["feeds"] as? [[String: String]] ?? []).compactMap { d -> Feed? in
             guard let t = d["title"], let u = d["url"] else { return nil }
             return Feed(title: t, url: u)
         }
         for f in remote where !store.feeds.contains(where: { $0.url == f.url }) { store.feeds.append(f) }
+        library?.merge(saved: Self.entries(row["saved"]), history: Self.entries(row["history"]))
+        for key in ["topics", "muted"] {
+            var raw = UserDefaults.standard.string(forKey: key) ?? ""
+            for w in row[key] as? [String] ?? [] where !Topics.has(w, in: raw) { raw = Topics.toggled(w, in: raw) }
+            UserDefaults.standard.set(raw, forKey: key)
+        }
         try await push(store.feeds)
     }
 
     func push(_ feeds: [Feed]) async throws {
         guard let id = userID else { return }
-        _ = try await authed("POST", "/rest/coranto_sync?on_conflict=id", body: ["id": id, "feeds": feeds.map { ["title": $0.title, "url": $0.url] }],
-                             headers: ["Prefer": "resolution=merge-duplicates"])
+        var body: [String: Any] = ["id": id, "feeds": feeds.map { ["title": $0.title, "url": $0.url] },
+                                   "topics": Topics.list(UserDefaults.standard.string(forKey: "topics") ?? ""),
+                                   "muted": Topics.list(UserDefaults.standard.string(forKey: "muted") ?? "")]
+        if let library {   // headline, link, outlet, picture: the body stays on the device it was read on
+            body["saved"] = library.saved.prefix(200).map(Self.light)
+            body["history"] = library.history.prefix(100).map(Self.light)
+        }
+        let up = { (b: [String: Any]) in try await self.authed("POST", "/rest/coranto_sync?on_conflict=id", body: b, headers: ["Prefer": "resolution=merge-duplicates"]) }
+        // ponytail: a server without the newer columns refuses them; the feed list still syncs. Drop once it has them.
+        do { _ = try await up(body) } catch let e as APIError where e.status == 400 { _ = try await up(["id": id, "feeds": body["feeds"]!]) }
+    }
+
+    private static func light(_ e: JournalEntry) -> [String: String] {
+        ["title": e.title, "url": e.url, "date": ISO8601DateFormatter().string(from: e.date), "source": e.sourceTitle, "image": e.imageURL?.absoluteString ?? ""]
+    }
+
+    private static func entries(_ any: Any?) -> [JournalEntry] {
+        (any as? [[String: String]] ?? []).compactMap { d in
+            guard let t = d["title"], let u = d["url"] else { return nil }
+            return JournalEntry(title: t, url: u, date: d["date"].flatMap { ISO8601DateFormatter().date(from: $0) } ?? .distantPast,
+                                htmlContent: "", sourceTitle: d["source"] ?? "", imageURL: d["image"].flatMap { URL(string: $0) })
+        }
     }
 
     // MARK: plumbing

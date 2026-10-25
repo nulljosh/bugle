@@ -31,7 +31,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 21 | Background refresh | yes | yes | refresh on open only | todo | |
 | 22 | Notifications for chosen sources | yes | yes | none | todo | |
 | 23 | Home Screen widgets | yes | yes | none | todo | |
-| 24 | Sync of feeds, saved and history | yes | account | optional Bugle account (jaybulb-api) syncs the feed list on app and web; saved and history follow when they exist | partial | 1.9.0 |
+| 24 | Sync of feeds, saved and history | yes | account | feeds, saved, history, topics and mutes sync on app and web; waits on the jaybulb-api columns (scratchpad bugle-sync-migrate.sh), until then feeds only | partial | 1.23.0 |
 | 25 | Siri and Shortcuts | yes | | none | todo | |
 | 26 | Listen to a story | News+ | | none; on-device speech | todo | |
 | 27 | Watch app at parity | yes | | runs on the phone's own feed list, parser and grouping: Today first, outlet colors, sources, Save | done | 1.22.0 |
