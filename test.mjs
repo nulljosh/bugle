@@ -138,3 +138,15 @@ test("reading time: 230 words a minute, short summaries untimed", () => {
   assert.equal(readingTime(words(150)), "1 min read");
   assert.equal(readingTime(words(231)), "2 min read");
 });
+
+// Story timeline, shared rule with Archive.earlier (web/timeline.js is a classic script).
+(await import("node:vm")).runInThisContext(readFileSync(new URL("./web/timeline.js", import.meta.url), "utf8"));
+
+test("timeline finds the earlier coverage only", () => {
+  const e = (title, hoursAgo) => ({ title, url: title, date: new Date(Date.now() - hoursAgo * 3600000), source: "BBC" });
+  const lead = e("Hurricane Maria makes landfall in Florida", 1);
+  const story = { lead, entries: [lead, e("Hurricane Maria nears Florida", 20)] };
+  const found = Timeline.earlier(story, [e("Hurricane Maria strengthens off Florida coast", 30), e("Florida votes on budget", 40),
+    e("Hurricane Maria landfall Florida live", 0.5)]);
+  assert.deepEqual(found.map((x) => x.title), ["Hurricane Maria nears Florida", "Hurricane Maria strengthens off Florida coast"]);
+});

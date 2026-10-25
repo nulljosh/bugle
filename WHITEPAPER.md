@@ -1,12 +1,12 @@
 # Bugle Technical Whitepaper
 
-**v3.4** | October 2026
+**v4.0** | October 2026
 
 Every feed, one timeline. Bugle reads RSS and Atom feeds straight from the sites that publish them and puts every story in one stream on iPhone, iPad, Mac, Apple Watch and the web. When several newsrooms cover the same story it shows one row with all of them, how each side of the spectrum covered it, and the day's biggest stories first. Reading never needs an account.
 
 ## The core mechanic: one story, many newsrooms
 
-Every entry from every followed feed goes through `Coverage.cluster`. Headlines are cut to their keywords (stop words out, case folded), and an entry joins a story when at least half of the shorter keyword set overlaps. The newest headline leads the story. Publishers count once: NY Post and NY Post Opinion are one newsroom. Each outlet Bugle rates carries a lean and an owner, so a story knows how many left, center and right newsrooms carried it, and flags a blindspot when only one side did. The Blindspots chip, always first under the search, shows only those stories.
+Every entry from every followed feed goes through `Coverage.cluster`. Headlines are cut to their keywords (stop words out, case folded), and an entry joins a story when at least half of the shorter keyword set overlaps. The newest headline leads the story. Publishers count once: NY Post and NY Post Opinion are one newsroom. Each outlet Bugle rates carries a lean and an owner, so a story knows how many left, center and right newsrooms carried it, and flags a blindspot when only one side did. The Blindspots chip, always first under the search, shows only those stories. `Archive` (web: `timeline.js`) keeps a week of headlines without their bodies, so a story also lists, under Earlier, the headlines from before its oldest entry that the same grouping rule would have joined to it.
 
 `Coverage.today` then ranks: the five stories carried by the most newsrooms in the last 24 hours lead Home, newest first among ties, and everything else follows by time. A muted outlet or word drops out before grouping, so a muted outlet never leads a story or counts toward it.
 

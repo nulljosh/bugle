@@ -45,7 +45,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 40 | Share extension: add a feed or save a story from Safari | yes | yes | none | todo | |
 | 41 | Spotlight and Handoff | yes | | none | todo | |
 | 42 | Reading time on each story | yes | | "4 min read" beside the outlet and date on every story with a real body, app and web | done | 3.4.0 |
-| 43 | Story timeline: the same story over several days | | yes | clusters only look at what is loaded now | todo | |
+| 43 | Story timeline: the same story over several days | | yes | a week of headlines is kept; each story lists its earlier coverage under Earlier | done | 4.0.0 |
 | 28 | Light and dark mode | yes | yes | yes | done | 1.0.6 |
 | 29 | No account, no tracking | Apple ID | account | yes | done | 1.0.0 |
 | 30 | Factuality score per source | | yes | | n/a | no free source we can cite; we won't invent scores |

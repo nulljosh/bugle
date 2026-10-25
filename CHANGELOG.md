@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 4.0.0
+- Story timeline: a week of headlines is kept, and each story shows its earlier coverage. Band 3.x (RSS power) is done.
+
 ## 3.7.0
 - A Blindspots chip on Home: only the stories one side of the spectrum covered.
 

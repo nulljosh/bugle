@@ -192,6 +192,8 @@ li.swiping > .swipe-del { visibility: visible; }
 .leanbar .legend { display: flex; justify-content: space-between; font-size: 13px; line-height: 18px; color: var(--sub); margin-top: var(--sp-2); }
 .coverage { margin-top: var(--sp-6); padding-top: var(--sp-5); border-top: 1px solid var(--line); }
 .coverage h3 { font-family: var(--display); font-size: 22px; line-height: 28px; letter-spacing: -.02em; margin-bottom: var(--sp-3); }
+.earlier-head { font-family: var(--display); font-size: 22px; line-height: 28px; letter-spacing: -.02em; margin: var(--sp-6) 0 var(--sp-3); }
+.earlier .txt > span { display: block; font-weight: 600; }
 .coverage .note-line { font-size: 13px; line-height: 18px; color: var(--sub); margin: var(--sp-2) 0 0; }
 .coverage .label { margin: var(--sp-5) var(--sp-4) var(--sp-2); }
 .coverage .group { background: var(--surface); border-radius: var(--r-group); overflow: hidden; }

@@ -69,6 +69,7 @@ async function refresh() {
   var seen = {};
   entries = [].concat.apply([], results).sort(function (a, b) { return b.date - a.date; })
     .filter(function (e) { return !seen[e.url] && (seen[e.url] = true); });
+  if (window.Timeline) Timeline.keep(entries);
   restory();
 }
 
@@ -195,6 +196,7 @@ function show(e) {
   p.appendChild(a); box.appendChild(p);
   var st = storyOf[e.url];
   if (st && st.entries.length > 1) box.appendChild(Coverage.section(st, open));
+  if (window.Timeline) Timeline.render(box, st || { entries: [e] });
 }
 
 // Tabs live in the hash so the browser's back button works; an open story is one extra

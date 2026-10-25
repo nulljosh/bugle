@@ -119,5 +119,5 @@ var Coverage = (function () {
     return box;
   }
   function about(feed) { var o = outlet(feed.title); return o ? (o.lean == null ? 'Not rated' : leanLabel(o.lean)) + ' · ' + o.owner : feed.url; }
-  return { cluster: cluster, today: today, muted: muted, BRAND: BRAND, PALETTE: PALETTE, OUTLETS: OUTLETS, colors: colors, paint: paint, readingLean: readingLean, bar: bar, section: section, about: about };
+  return { keywords: keywords, cluster: cluster, today: today, muted: muted, BRAND: BRAND, PALETTE: PALETTE, OUTLETS: OUTLETS, colors: colors, paint: paint, readingLean: readingLean, bar: bar, section: section, about: about };
 })();

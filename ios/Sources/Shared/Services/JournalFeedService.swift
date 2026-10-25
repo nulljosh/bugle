@@ -60,6 +60,7 @@ final class JournalFeedService: ObservableObject {
         var seen = Set<String>()
         entries = merged.sorted { $0.date > $1.date }.filter { seen.insert($0.id).inserted }
         saveCache()
+        Archive.keep(entries)
     }
 
     private func loadCache() {

@@ -10,6 +10,7 @@ struct JournalApp: App {
         feedParserDemo()
         readingTimeDemo()
         fullTextDemo()
+        archiveDemo()
         seedFeedsDemo()
         headlineDemo()
         previewImageDemo()

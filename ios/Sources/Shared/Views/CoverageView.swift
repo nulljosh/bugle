@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Every outlet's take on one story, Ground News style: who covered it, how the coverage leans, a blindspot note when
-/// only one side did, and the headlines side by side by lean. Opened from the reader's Sources button.
+/// only one side did, the headlines side by side by lean, and the days before. Opened from the reader's Sources button.
 struct CoverageView: View {
     let story: Story
     @ObservedObject var library: Library
@@ -27,6 +27,22 @@ struct CoverageView: View {
                 }
                 let unrated = story.entries.filter { Outlet.of($0.sourceTitle)?.lean == nil }
                 if !unrated.isEmpty { Section("Not rated") { ForEach(unrated) { CoverageRow(entry: $0) } } }
+                // The days before: the same story as the feeds carried it earlier in the week (Archive).
+                let earlier = Archive.earlier(story)
+                if !earlier.isEmpty {
+                    Section("Earlier") {
+                        ForEach(earlier) { e in
+                            NavigationLink(value: e) {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    (Text(e.sourceTitle).foregroundColor(Outlet.color(e.sourceTitle))
+                                        + Text(" · " + e.date.formatted(.dateTime.weekday(.wide).month().day())).foregroundColor(.secondary))
+                                        .font(.caption)
+                                    Text(Headline.clean(e.title, source: e.sourceTitle)).font(.body)
+                                }
+                            }
+                        }
+                    }
+                }
             }
             .navigationTitle("Coverage")
             #if os(iOS)

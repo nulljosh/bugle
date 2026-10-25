@@ -31,7 +31,7 @@ struct EntryDetailView: View {
             .toolbar {
                 if let url = URL(string: entry.url) {
                     ToolbarItemGroup(placement: .primaryAction) {
-                        if let story, story.entries.count > 1 {
+                        if let story, story.entries.count > 1 || !Archive.earlier(story).isEmpty {
                             Button { showCoverage = true } label: { Label("\(story.publishers) Sources", systemImage: "square.stack") }
                         }
                         Button { library.toggleSave(entry) } label: {
