@@ -24,7 +24,7 @@ Saved stories are kept whole, body included, so they open offline. The app reads
 
 ## Reading
 
-A story opens with its outlet, date and reading time (230 words a minute, left off for summaries under 150 words). Listen reads the headline and body with the system voice, on device, and stops when you leave the story.
+A story opens with its outlet, date and reading time (230 words a minute, left off for summaries under 150 words). When the feed sent only a summary, `FullText` (web: `fulltext.js`) fetches the article page, drops menus, sidebars, footers, forms and any line the page repeats, and keeps the paragraphs of the `<article>` or `<main>` with the most text, as plain text; nothing from the page runs or styles the reader. Listen reads the headline and body with the system voice, on device, and stops when you leave the story.
 
 ## Around the system
 

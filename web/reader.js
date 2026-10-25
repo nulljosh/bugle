@@ -212,7 +212,9 @@ function show(e) {
     pic.onerror = function () { pic.remove(); };
     box.appendChild(pic);
   }
-  Array.prototype.forEach.call(frag.body.childNodes, function (n) { box.appendChild(document.importNode(n, true)); });
+  var body = box.appendChild(el('div'));
+  Array.prototype.forEach.call(frag.body.childNodes, function (n) { body.appendChild(document.importNode(n, true)); });
+  if (window.fillFullText) fillFullText(e, body, meta);
   var p = el('p'), a = el('a', '', 'Open original');
   a.href = e.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
   p.appendChild(a); box.appendChild(p);

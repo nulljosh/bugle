@@ -13,16 +13,19 @@ struct EntryDetailView: View {
     @State private var showCoverage = CommandLine.arguments.contains("-showCoverage")
     @AppStorage("readerTextSize") private var textSize = 17.0
     @StateObject private var listener = Listener()
+    /// The page's own text when the feed only sent a summary (FullText).
+    @State private var full: JournalEntry?
 
     var body: some View {
-        ArticleWebView(html: Self.page(for: entry, textSize: textSize), baseURL: URL(string: entry.url))
-            .id(textSize)  // a new size rebuilds the page; the web view never reloads on its own
+        ArticleWebView(html: Self.page(for: full ?? entry, textSize: textSize), baseURL: URL(string: entry.url))
+            .id("\(textSize) \(full != nil)")  // a new size or the full text rebuilds the page; it never reloads on its own
             .ignoresSafeArea(edges: .bottom)
             .navigationTitle(entry.title)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .onAppear { library.markRead(entry) }
+            .task { full = await FullText.fill(entry) }
             .onDisappear { listener.stop() }
             .sheet(isPresented: $showCoverage) { if let story { CoverageView(story: story, library: library) } }
             .toolbar {
@@ -34,7 +37,7 @@ struct EntryDetailView: View {
                         Button { library.toggleSave(entry) } label: {
                             Label(library.isSaved(entry) ? "Remove from Saved" : "Save", systemImage: library.isSaved(entry) ? "bookmark.fill" : "bookmark")
                         }
-                        Button { listener.toggle(entry) } label: {
+                        Button { listener.toggle(full ?? entry) } label: {
                             Label(listener.speaking ? "Stop" : "Listen", systemImage: listener.speaking ? "stop.fill" : "speaker.wave.2")
                         }
                         ShareLink(item: url)

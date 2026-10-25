@@ -19,6 +19,7 @@ A refresh fetches every followed feed at once, parses each into entries tagged w
 | `Sources/Shared/Services/JournalFeedService.swift` | Fetch, cache and group; `FeedParser` for RSS and Atom, picture choice and sharpening |
 | `Sources/Shared/Services/Account.swift` | Optional account on api.jaybulb.com and sync |
 | `Sources/Shared/Services/Alerts.swift` | Notifications for chosen feeds |
+| `Sources/Shared/Services/FullText.swift` | The article page's paragraphs when a feed sends only a summary |
 | `Sources/Shared/Services/Listen.swift` | Read a story aloud with the system voice |
 | `Sources/Shared/Services/Intents.swift` | Siri and Shortcuts: Top Stories |
 | `Sources/Shared/Services/PreviewImage.swift` | An article's own `og:image` when the feed has no picture |
@@ -38,7 +39,8 @@ A refresh fetches every followed feed at once, parses each into entries tagged w
 | `index.html`, `landing.css`, `footer-band.js` | The landing, which runs the real reader in a frame |
 | `read.html`, `reader.css` | The reader PWA |
 | `reader.js` | Feeds, refresh, routing, the story screen, Listen |
-| `feedio.js` | Site-address discovery and OPML |
+| `feedio.js` | Site-address discovery, OPML, Mark All Read |
+| `fulltext.js` | The article page's paragraphs when a feed sends only a summary |
 | `parse.js` | RSS and Atom parsing, picture sharpening, reading time |
 | `coverage.js`, `headline.js`, `library.js`, `rows.js`, `account.js` | Mirrors of the Swift core, rows and swipe, account sync |
 | `sw.js` | Offline: the reader shell and saved stories' pictures |

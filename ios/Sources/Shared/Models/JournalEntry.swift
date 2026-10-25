@@ -11,15 +11,22 @@ struct JournalEntry: Codable, Identifiable, Hashable {
     var imageURL: URL? = nil
 }
 
-extension JournalEntry {
-    /// The body as plain text: tags out, the common entities decoded, whitespace collapsed.
+extension String {
+    /// Tags out, the common entities decoded, whitespace collapsed.
     var plainText: String {
-        htmlContent.replacingOccurrences(of: "<[^>]+>", with: " ", options: .regularExpression)
+        replacingOccurrences(of: "<[^>]+>", with: " ", options: .regularExpression)
             .replacingOccurrences(of: "&amp;", with: "&").replacingOccurrences(of: "&lt;", with: "<")
             .replacingOccurrences(of: "&gt;", with: ">").replacingOccurrences(of: "&#39;", with: "'")
             .replacingOccurrences(of: "&quot;", with: "\"").replacingOccurrences(of: "&nbsp;", with: " ")
+            .replacingOccurrences(of: "&#8217;", with: "\u{2019}").replacingOccurrences(of: "&#8220;", with: "\u{201C}")
+            .replacingOccurrences(of: "&#8221;", with: "\u{201D}")
             .split(whereSeparator: \.isWhitespace).joined(separator: " ")
     }
+}
+
+extension JournalEntry {
+    /// The body as plain text: tags out, the common entities decoded, whitespace collapsed.
+    var plainText: String { htmlContent.plainText }
 
     /// "4 min read" at 230 words a minute; nil for a summary too short to be worth timing. Same rule as
     /// readingTime in web/parse.js.

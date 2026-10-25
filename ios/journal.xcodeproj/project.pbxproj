@@ -23,6 +23,7 @@
 		478575512E1269F84367C5C5 /* JournalFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC44D06947275059DED3B30 /* JournalFeedService.swift */; };
 		4AD9F7618B6EC05F357127C7 /* HomeParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AE8705428F23AB464516DF /* HomeParts.swift */; };
 		4B15D51C1E86510F5B9BA466 /* Intents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EFD18A9189F3E8143A9750 /* Intents.swift */; };
+		4BB443B0C390790CA4936408 /* FullText.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE1F890E370D3866420F8A7 /* FullText.swift */; };
 		4F165CED438C3D62665BA2B1 /* Coverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE1E0BC7D447CF605C09BEC /* Coverage.swift */; };
 		5D7EBE7D411C4B9B8E890D29 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38ACDB28857F0E41D3C492E /* JournalEntry.swift */; };
 		5F453D67275FA1842F7EC347 /* AtomFeedParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D618F75CD0D4C5B4BBCC223 /* AtomFeedParserTests.swift */; };
@@ -57,6 +58,7 @@
 		EBEA260D9FA6F4EAD27152C9 /* CoverageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4104A2D941F019E4AF96736A /* CoverageView.swift */; };
 		F111AA90E55B52E307B5CF83 /* BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB5BD621A0E17BB795698B /* BackgroundRefresh.swift */; };
 		F23E64C0B8D7BBDD37C153EE /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1005C95DA55CC984C69AA6 /* Alerts.swift */; };
+		F4D994B541C7B0C8E5974E3E /* FullText.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE1F890E370D3866420F8A7 /* FullText.swift */; };
 		F666DD9F09A0ADA05D0830C4 /* Listen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBFB39021A73479B6BD739B /* Listen.swift */; };
 		FDC6361ACDFB8701BDFAC9A9 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38ACDB28857F0E41D3C492E /* JournalEntry.swift */; };
 		FFE534C3561E65CBBCE68F40 /* EntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8286BB5BF361BF084AB417E5 /* EntryListView.swift */; };
@@ -113,6 +115,7 @@
 		B38ACDB28857F0E41D3C492E /* JournalEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
 		D9B2FC2F32D71F065BB94DA3 /* JournalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalApp.swift; sourceTree = "<group>"; };
 		DBBFB39021A73479B6BD739B /* Listen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listen.swift; sourceTree = "<group>"; };
+		DEE1F890E370D3866420F8A7 /* FullText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullText.swift; sourceTree = "<group>"; };
 		E099194237BF0D71FD3C6424 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		E6AB5BD621A0E17BB795698B /* BackgroundRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefresh.swift; sourceTree = "<group>"; };
 		EC5CBADBDFC8F276FBD980DD /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
@@ -187,6 +190,7 @@
 				31C7997BFD552FE881F61BEB /* Account.swift */,
 				4B1005C95DA55CC984C69AA6 /* Alerts.swift */,
 				4D618F75CD0D4C5B4BBCC223 /* AtomFeedParserTests.swift */,
+				DEE1F890E370D3866420F8A7 /* FullText.swift */,
 				88EFD18A9189F3E8143A9750 /* Intents.swift */,
 				EEC44D06947275059DED3B30 /* JournalFeedService.swift */,
 				DBBFB39021A73479B6BD739B /* Listen.swift */,
@@ -375,6 +379,7 @@
 				726E2BDEC0363FC1A23D0AAD /* EntryDetailView.swift in Sources */,
 				844DF1D2B31BE048837E9B2A /* EntryListView.swift in Sources */,
 				22019299B142F9C6C8192940 /* Feed.swift in Sources */,
+				F4D994B541C7B0C8E5974E3E /* FullText.swift in Sources */,
 				D68D92DD45C2273DB6D7258F /* Headline.swift in Sources */,
 				4AD9F7618B6EC05F357127C7 /* HomeParts.swift in Sources */,
 				38F0F1C5FA78839917F6389D /* Intents.swift in Sources */,
@@ -403,6 +408,7 @@
 				68500BE3A139766A706BDA66 /* EntryDetailView.swift in Sources */,
 				FFE534C3561E65CBBCE68F40 /* EntryListView.swift in Sources */,
 				D27391643EA9F0F0D6A9AD87 /* Feed.swift in Sources */,
+				4BB443B0C390790CA4936408 /* FullText.swift in Sources */,
 				C8EAE57F73061750EBF41BBF /* Headline.swift in Sources */,
 				6AB1253441731A145FAC2256 /* HomeParts.swift in Sources */,
 				4B15D51C1E86510F5B9BA466 /* Intents.swift in Sources */,
@@ -478,7 +484,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 3.5.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -543,7 +549,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 3.5.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;

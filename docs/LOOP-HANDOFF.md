@@ -12,15 +12,15 @@ Restart prompt:
 
 ## Where things stand
 
-- Git is at 3.5.0. Band 3.x so far: 3.5.0 unread counts and Mark All Read (a `cleared` set, kept out of History), 3.1.0 site-address discovery (and the feed proxy now answers in sandboxed plain text), 3.2.0 nine tech and Mac feeds, 3.3.0 OPML, 3.4.0 reading time. 3.0.0 (tag `bugle-v3.0.0`): Every gap row against Apple News and Ground News from the original matrix is done: follow topics, mute, local news, offline pictures, sync of saved and history, background refresh, notifications, the Top Stories widget (2.4.0), Siri and Shortcuts (2.5.0) and Listen (3.0.0).
+- Git is at 3.6.0. Band 3.x so far: 3.6.0 full article text for summary-only feeds, 3.5.0 unread counts and Mark All Read (a `cleared` set, kept out of History), 3.1.0 site-address discovery (and the feed proxy now answers in sandboxed plain text), 3.2.0 nine tech and Mac feeds, 3.3.0 OPML, 3.4.0 reading time. 3.0.0 (tag `bugle-v3.0.0`): Every gap row against Apple News and Ground News from the original matrix is done: follow topics, mute, local news, offline pictures, sync of saved and history, background refresh, notifications, the Top Stories widget (2.4.0), Siri and Shortcuts (2.5.0) and Listen (3.0.0).
 - The widget reads the seed feeds, not the user's list; an App Group would let it read `feeds.json`.
-- The web reader is live at 3.5.x. `web/reader.js` sits near the 5000 token hook; new web features go in their own file (as `feedio.js` did).
+- The web reader is live at 3.6.x. `web/reader.js` sits near the 5000 token hook; new web features go in their own file (as `feedio.js` did).
 - App Store: iOS and Mac 2.0.0 are waiting for review. The new icon and everything since 2.1 ship with the next build; never cancel the review to swap builds.
 - Brand: the bugle icon, share card, footer band and `brand/BRAND.md` design system are done.
 
 ## Next, in order
 
-1. Band 3.x, RSS power, toward 4.0: 35 full text (next up), 37 Blindspot filter, 43 story timeline.
+1. Band 3.x, RSS power, toward 4.0: 37 Blindspot filter (next up), 43 story timeline.
 2. Band 4.x, iPad and Mac, toward 5.0: 38 keyboard shortcuts, 39 three columns, 40 share extension, 41 Spotlight and Handoff.
 3. Once 2.0.0 clears review, archive main as the next store version and submit iOS and Mac.
 4. One Liquid Glass pass on one screen every tick.
