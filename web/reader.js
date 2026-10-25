@@ -281,18 +281,6 @@ document.getElementById('add-form').addEventListener('submit', function (ev) {
     save(); renderFeeds(); refresh();
   });
 });
-// A site address works as well as a feed address: if the page is not a feed, follow the feed it links to.
-async function discover(url) {
-  try {
-    var r = await fetch('/feed?url=' + encodeURIComponent(url));
-    var text = await r.text();
-    if (/<(rss|feed|rdf:RDF)[\s>]/.test(text)) return url;
-    var link = new DOMParser().parseFromString(text, 'text/html')
-      .querySelector('link[rel~="alternate"][type*="rss"], link[rel~="alternate"][type*="atom"]');
-    if (link && link.getAttribute('href')) return new URL(link.getAttribute('href'), url).href;
-  } catch (e) {}
-  return url;
-}
 // Pull to refresh: drag down from the top of Home. Coming back to the tab after 15 minutes refreshes too, which
 // is how a desktop browser (no pull) stays current.
 var pullStart = null, pulled = 0, lastRefresh = Date.now(), pullEl = document.getElementById('pull');

@@ -1,4 +1,5 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct ManageFeedsView: View {
     @ObservedObject var store: FeedStore
@@ -7,6 +8,8 @@ struct ManageFeedsView: View {
     var open: (Feed) -> Void = { _ in }
     @State private var newFeed = ""
     @State private var showError = false
+    @State private var importing = false
+    @State private var imported: Int?
     @AppStorage("region") private var region = ""
     @AppStorage(Alerts.key) private var notify = ""
 
@@ -35,7 +38,7 @@ struct ManageFeedsView: View {
                             .disabled(newFeed.trimmingCharacters(in: .whitespaces).isEmpty)
                     }
                 } footer: {
-                    Text("Paste any RSS or Atom feed URL to follow it.")
+                    Text("Paste a site or feed address to follow it.")
                 }
 
                 // Pick a city, then follow its newsrooms; followed ones open like any outlet.
@@ -96,6 +99,13 @@ struct ManageFeedsView: View {
                     #endif
                 }
 
+                Section {
+                    Button("Import OPML") { importing = true }
+                    ShareLink("Export OPML", item: store.opmlFile)
+                } footer: {
+                    Text("Bring your feeds from another reader, or take them with you.")
+                }
+
                 if !store.unsubscribedSeeds.isEmpty {
                     Section("Suggested") {
                         ForEach(store.unsubscribedSeeds) { feed in
@@ -117,6 +127,15 @@ struct ManageFeedsView: View {
             }
             .navigationTitle("Feeds")
             .alert("Invalid or duplicate URL", isPresented: $showError) {
+                Button("OK", role: .cancel) {}
+            }
+            .fileImporter(isPresented: $importing, allowedContentTypes: [UTType(filenameExtension: "opml") ?? .xml, .xml]) { result in
+                guard let url = try? result.get() else { return }
+                let scoped = url.startAccessingSecurityScopedResource()
+                defer { if scoped { url.stopAccessingSecurityScopedResource() } }
+                imported = (try? Data(contentsOf: url)).map(store.importOPML) ?? 0
+            }
+            .alert(imported == 0 ? "No new feeds in that file" : "Added \(imported ?? 0) feeds", isPresented: Binding(get: { imported != nil }, set: { if !$0 { imported = nil } })) {
                 Button("OK", role: .cancel) {}
             }
         }

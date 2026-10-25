@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0059B3">
 <link rel="icon" href="icon.svg">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="reader.css?v=3.2.0">
+<link rel="stylesheet" href="reader.css?v=3.3.0">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="apple-touch-icon" href="/icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -57,6 +57,11 @@
   <p class="label">Following</p>
   <div class="group"><ul class="rows" id="following"></ul></div>
   <p class="note">Tap a feed to read only it. Swipe left to remove it.</p>
+  <div class="group"><ul class="rows">
+    <li><label class="row"><span class="txt">Import OPML</span><input type="file" id="opml-in" accept=".opml,.xml,text/xml" hidden></label></li>
+    <li><a class="row" id="opml-out" href="#feeds" download="Bugle.opml"><span class="txt">Export OPML</span></a></li>
+  </ul></div>
+  <p class="note" id="opml-note">Bring your feeds from another reader, or take them with you.</p>
   <p class="label" id="suggested-label">Suggested</p>
   <div class="group" id="suggested-group"><ul class="rows" id="suggested"></ul></div>
 </main>
@@ -111,13 +116,14 @@
   <a href="#settings" data-tab="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>Settings</a>
 </nav>
 
-<script src="headline.js?v=3.2.0"></script>
-<script src="parse.js?v=3.2.0"></script>
-<script src="rows.js?v=3.2.0"></script>
-<script src="coverage.js?v=3.2.0"></script>
-<script src="reader.js?v=3.2.0"></script>
-<script src="library.js?v=3.2.0"></script>
-<script src="account.js?v=3.2.0"></script>
+<script src="headline.js?v=3.3.0"></script>
+<script src="parse.js?v=3.3.0"></script>
+<script src="rows.js?v=3.3.0"></script>
+<script src="coverage.js?v=3.3.0"></script>
+<script src="reader.js?v=3.3.0"></script>
+<script src="feedio.js?v=3.3.0"></script>
+<script src="library.js?v=3.3.0"></script>
+<script src="account.js?v=3.3.0"></script>
 
   <script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js'));</script>
 </body>

@@ -138,6 +138,46 @@ final class FeedStore: ObservableObject {
     }
 }
 
+/// OPML, the file every feed reader trades: export writes the followed feeds, import follows each outline with an
+/// xmlUrl that is not followed yet and says how many that was.
+extension FeedStore {
+    var opml: String {
+        func esc(_ s: String) -> String {
+            s.replacingOccurrences(of: "&", with: "&amp;").replacingOccurrences(of: "\"", with: "&quot;").replacingOccurrences(of: "<", with: "&lt;")
+        }
+        let body = feeds.map { "    <outline type=\"rss\" text=\"\(esc($0.title))\" title=\"\(esc($0.title))\" xmlUrl=\"\(esc($0.url))\"/>" }
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<opml version=\"2.0\">\n  <head><title>Bugle feeds</title></head>\n  <body>\n"
+            + body.joined(separator: "\n") + "\n  </body>\n</opml>\n"
+    }
+
+    /// The export as a file, for the share sheet.
+    var opmlFile: URL {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("Bugle.opml")
+        try? opml.write(to: url, atomically: true, encoding: .utf8)
+        return url
+    }
+
+    func importOPML(_ data: Data) -> Int {
+        OPMLParser.feeds(in: data).filter { add($0) }.count
+    }
+}
+
+final class OPMLParser: NSObject, XMLParserDelegate {
+    private var feeds: [Feed] = []
+
+    static func feeds(in data: Data) -> [Feed] {
+        let p = OPMLParser(), x = XMLParser(data: data)
+        x.delegate = p
+        x.parse()
+        return p.feeds
+    }
+
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName: String?, attributes a: [String: String] = [:]) {
+        guard elementName == "outline", let url = a["xmlUrl"], url.lowercased().hasPrefix("http"), let host = URL(string: url)?.host else { return }
+        feeds.append(Feed(title: a["title"] ?? a["text"] ?? host, url: url))
+    }
+}
+
 #if DEBUG
 /// ponytail: minimal self-check for the seed list, same style as `feedParserDemo()`.
 /// Catches a typo'd or duplicated seed URL at launch; it does not check that a feed is
@@ -152,6 +192,8 @@ func seedFeedsDemo() {
         assert(!f.title.isEmpty, "seed has no title: \(f.url)")
     }
     assert(Set(seeds.map(\.id)).count == seeds.count, "duplicate seed URL")
+    let back = OPMLParser.feeds(in: Data(FeedStore().opml.utf8))
+    assert(!back.isEmpty && back.allSatisfy { $0.url.hasPrefix("http") }, "OPML export does not read back")
     for f in FeedStore.local.flatMap(\.feeds) { assert(f.url.hasPrefix("https://") && URL(string: f.url)?.host != nil, "bad local feed: \(f.url)") }
 }
 #endif

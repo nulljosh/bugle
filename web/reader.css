@@ -20,7 +20,7 @@ ul.rows { list-style: none; }
 ul.rows li + li { background: linear-gradient(var(--line), var(--line)) 16px 0 / calc(100% - 16px) 1px no-repeat; }
 .row { display: flex; gap: var(--sp-3); align-items: center; width: 100%; min-height: 48px; text-align: left;
   background: none; border: 0; padding: var(--sp-3) var(--sp-4); font: inherit; color: var(--text); transition: background .2s ease; }
-button.row { cursor: pointer; }
+button.row, label.row { cursor: pointer; }
 button.row:hover { background: color-mix(in srgb, var(--text) 4%, transparent); }
 .row .txt { flex: 1; min-width: 0; }
 .row b { display: block; font-size: 16px; line-height: 22px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
