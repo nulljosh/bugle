@@ -199,3 +199,5 @@ li.swiping > .swipe-del { visibility: visible; }
 .coverage .group { background: var(--surface); border-radius: var(--r-group); overflow: hidden; }
 .coverage .cov-title { display: block; font-size: 16px; line-height: 22px; color: var(--text); }
 .row.story:focus-visible, .hero:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); border-radius: 12px; }
+#story-title { opacity: 0; transition: opacity .2s ease; }
+.story-bar.titled #story-title { opacity: 1; }

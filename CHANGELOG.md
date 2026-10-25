@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 5.4.1
+- Web story toolbar: the title fades in only once the headline scrolls under the bar, like an iOS inline title, so a phone shows back and the actions with room to breathe.
+
 ## 5.4.0
 - Italian, Korean, Traditional Chinese, Dutch and Arabic (right to left), in the apps and the web reader. The web-only strings moved into the one String Catalog.
 
