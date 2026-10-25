@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 5.3.0
+- The web reader speaks the same six languages, from the apps' String Catalog (`scripts/gen_i18n.py` writes `web/i18n.js`).
+
 ## 5.2.1
 - Lean labels, the blindspot note, the Saved and History empty states and the load error are translated too.
 

@@ -1,6 +1,6 @@
 <img src="icon.svg" width="80">
 
-![version](https://img.shields.io/badge/version-5.2.1-blue) ![license](https://img.shields.io/badge/license-MIT-green)
+![version](https://img.shields.io/badge/version-5.3.0-blue) ![license](https://img.shields.io/badge/license-MIT-green)
 
 Every feed, one timeline. Bugle reads RSS and Atom feeds and puts every story in one stream, with the same story from several newsrooms grouped into one row and the day's biggest stories first. iPhone, iPad, Mac, Apple Watch and the web. Formerly Coranto, and before that Inkpress. On the App Store it is Bugle News.
 
@@ -25,7 +25,7 @@ Live at [bugle.jaybulb.com](https://bugle.jaybulb.com), reader at [bugle.jaybulb
 - Keyboard: j and k through stories, / to search, Esc back, s, l and o on a story; ⌘R, ⌘1 to ⌘3, ⌘S, ⌘L in the apps.
 - Your Reading: the lean of what you actually open.
 - Optional account that syncs feeds, saved stories, history, topics and mutes across devices and the web.
-- In English, Spanish, French, German, Portuguese, Japanese and Chinese.
+- In English, Spanish, French, German, Portuguese, Japanese and Chinese, in the apps and the web reader.
 - No tracking, no analytics, no ads.
 
 ## Run
