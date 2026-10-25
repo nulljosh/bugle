@@ -28,7 +28,7 @@ Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works to
 | 18 | Mute a source or topic | yes | yes | Mute on Home hides an outlet or word; Settings lists mutes | done | 1.19.0 |
 | 19 | Local news for your region | yes | yes | pick a city in Feeds (10 cities), follow its newsrooms | done | 1.20.0 |
 | 20 | Follow sources, suggested sources | yes | yes | Feeds tab | done | 1.0.8 |
-| 21 | Background refresh | yes | yes | refresh on open only | todo | |
+| 21 | Background refresh | yes | yes | iOS wakes Bugle about every half hour to fetch feeds and the top pictures; the web refreshes on open | done | 2.2.0 |
 | 22 | Notifications for chosen sources | yes | yes | none | todo | |
 | 23 | Home Screen widgets | yes | yes | none | todo | |
 | 24 | Sync of feeds, saved and history | yes | account | feeds, saved, history, topics and mutes sync on app and web (jaybulb-api columns live 2026-10-25) | done | 1.23.0 |

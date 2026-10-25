@@ -178,7 +178,9 @@ function renderLocal() {
 }
 
 function show(e) {
-  if (window.Library) { Library.markRead(e); document.getElementById('save').textContent = Library.isSaved(e) ? 'Saved' : 'Save'; }
+  if (window.Library) { Library.markRead(e); document.getElementById('save').setAttribute('aria-pressed', String(Library.isSaved(e))); }
+  document.getElementById('story-title').textContent = Headline.clean(e.title, e.source);
+  document.getElementById('open').href = e.url;
   var box = document.getElementById('article');
   box.innerHTML = '';
   box.appendChild(el('h2', '', e.title));
@@ -192,6 +194,12 @@ function show(e) {
       if (/^on/i.test(a.name) || /^\s*javascript:/i.test(a.value)) n.removeAttribute(a.name);
     });
   });
+  // the story's picture under the headline, like the app, unless the body already opens with pictures
+  if (e.image && !frag.querySelector('img')) {
+    var pic = el('img', 'lead'); pic.src = e.image; pic.alt = ''; pic.referrerPolicy = 'no-referrer';
+    pic.onerror = function () { pic.remove(); };
+    box.appendChild(pic);
+  }
   Array.prototype.forEach.call(frag.body.childNodes, function (n) { box.appendChild(document.importNode(n, true)); });
   var p = el('p'), a = el('a', '', 'Open original');
   a.href = e.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
@@ -226,9 +234,11 @@ document.getElementById('share').onclick = function () {
   if (!current) return;
   var btn = this;
   if (navigator.share) { navigator.share({ title: current.title, url: current.url }).catch(function () {}); return; }
-  navigator.clipboard.writeText(current.url).then(function () {
-    btn.textContent = 'Link copied';
-    setTimeout(function () { btn.textContent = 'Share'; }, 1500);
+  navigator.clipboard.writeText(current.url).then(function () {   // no share sheet: copy, and show a check for a moment
+    var was = btn.innerHTML;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>';
+    btn.setAttribute('aria-label', 'Link copied');
+    setTimeout(function () { btn.innerHTML = was; btn.setAttribute('aria-label', 'Share'); }, 1500);
   });
 };
 

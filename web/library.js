@@ -88,7 +88,7 @@ function renderLibrary() {
 document.getElementById('save').onclick = function () {
   if (!current) return;
   Library.toggle(current);
-  this.textContent = Library.isSaved(current) ? 'Saved' : 'Save';
+  this.setAttribute('aria-pressed', String(Library.isSaved(current)));
   renderLibrary();
 };
 document.getElementById('history-clear').onclick = function () { Library.clearHistory(); renderLibrary(); renderEntries(); };
