@@ -1,6 +1,7 @@
 /* The web reader: Home, Feeds and Settings behind a bottom bar, like the app. Tokens come from style.css.
    House Apple rules: 8 point grid, 20 side margin, 680 reading column, 44 to 48 point controls, one radius set
    (groups 20, controls round, images 12), inset hairlines, liquid glass on what floats. */
+body { font-size: 16px; line-height: 22px; }   /* a step under the landing: Bugle Sans reads larger than SF at the same size */
 .screen { max-width: 680px; margin: 0 auto; padding: var(--sp-6) 20px 128px; padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
 .screen[hidden] { display: none; }
 .head { display: flex; align-items: center; gap: var(--sp-3); min-height: 48px; margin-bottom: var(--sp-4); }
@@ -22,8 +23,8 @@ ul.rows li + li { background: linear-gradient(var(--line), var(--line)) 16px 0 /
 button.row { cursor: pointer; }
 button.row:hover { background: color-mix(in srgb, var(--text) 4%, transparent); }
 .row .txt { flex: 1; min-width: 0; }
-.row b { display: block; font-size: 17px; line-height: 24px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.row b.title { white-space: normal; max-height: 48px; }   /* two lines, like Apple News; fitTitles picks a cut that fits */
+.row b { display: block; font-size: 16px; line-height: 22px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.row b.title { white-space: normal; max-height: 44px; }   /* two lines, like Apple News; fitTitles picks a cut that fits */
 .row small { display: block; color: var(--sub); font-size: 13px; line-height: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .row .thumb { flex: 0 0 56px; width: 56px; height: 56px; object-fit: cover; border-radius: 12px; background: var(--line); }
 .row .mono { --o: var(--c, var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 700; color: var(--o);
@@ -36,13 +37,13 @@ a.row:hover { text-decoration: none; background: color-mix(in srgb, var(--text) 
 .act { flex: none; min-height: 44px; background: none; border: 0; color: var(--accent); font: inherit; font-weight: 600; cursor: pointer; padding: 0 var(--sp-2); }
 .row a { color: var(--accent); }
 .add { display: flex; gap: var(--sp-2); padding: 0 var(--sp-2) 0 var(--sp-4); align-items: center; min-height: 48px; }
-.add input { flex: 1; min-width: 0; height: 48px; border: 0; background: none; font: inherit; font-size: 17px; color: var(--text); }
+.add input { flex: 1; min-width: 0; height: 48px; border: 0; background: none; font: inherit; font-size: 16px; color: var(--text); }
 .add input:focus-visible { outline: none; }
 .add:focus-within { box-shadow: 0 0 0 4px var(--ring); border-radius: var(--r-group); }
 .muted { color: var(--sub); padding: var(--sp-4); }
 
 .story-bar { display: flex; justify-content: space-between; margin-bottom: var(--sp-3); }
-.back-btn { min-height: 44px; background: none; border: 0; color: var(--accent); font: inherit; font-size: 17px; font-weight: 600; cursor: pointer; padding: 0; }
+.back-btn { min-height: 44px; background: none; border: 0; color: var(--accent); font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; padding: 0; }
 .article { font-size: var(--read-size, 17px); line-height: 1.5; }
 .article h2 { font-family: var(--display); text-transform: none; letter-spacing: -.02em; font-size: 28px; line-height: 32px; margin-bottom: var(--sp-2); }
 .article .meta { color: var(--sub); font-size: 13px; line-height: 18px; margin-bottom: var(--sp-5); }
@@ -60,8 +61,10 @@ a.row:hover { text-decoration: none; background: color-mix(in srgb, var(--text) 
   background: rgba(255, 255, 255, .26); backdrop-filter: blur(30px) saturate(190%) brightness(1.3); -webkit-backdrop-filter: blur(30px) saturate(190%) brightness(1.3);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 0 0 .5px rgba(0, 0, 0, .08), 0 8px 24px rgba(0, 0, 0, .12); }
 .tabbar a { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 72px; min-height: 48px;
-  padding: 0 var(--sp-3); border-radius: var(--r-pill); color: var(--text); font-size: 0;   /* glyphs only; the label stays for screen readers */ transition: background .2s ease, color .2s ease; }
+  padding: 0 var(--sp-3); border-radius: var(--r-pill); color: var(--text); font-size: 0; line-height: 0;   /* glyphs only; the label stays for screen readers */ transition: background .2s ease, color .2s ease; }
 .tabbar a:hover { text-decoration: none; }
+/* taps land at once: no double-tap zoom wait, no gray flash */
+.tabbar a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 .tabbar a svg { width: 26px; height: 26px; }
 .tabbar a[aria-current="page"] { color: var(--accent); background: rgba(255, 255, 255, .5); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tabbar { background: rgba(28, 28, 30, .34); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 0 0 .5px rgba(255, 255, 255, .08), 0 8px 24px rgba(0, 0, 0, .4); }
@@ -92,7 +95,7 @@ a.row:hover { text-decoration: none; background: color-mix(in srgb, var(--text) 
 .row .thumb.icon { object-fit: contain; padding: 14px; background: color-mix(in srgb, var(--accent) 12%, transparent); }
 .hero { display: block; width: 100%; text-align: left; background: none; border: 0; padding: var(--sp-2) 20px var(--sp-4); font: inherit; color: var(--text); cursor: pointer; }
 .hero img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 12px; margin-bottom: var(--sp-2); background: var(--surface); }
-.hero h3 { font-family: var(--display); font-size: 22px; line-height: 28px; letter-spacing: -.02em; font-weight: 700; }
+.hero h3 { font-family: var(--display); font-size: 20px; line-height: 26px; letter-spacing: -.02em; font-weight: 700; }
 .story-bar .txt { flex: 1; }
 .story-bar { gap: var(--sp-4); }
 .pull { height: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: height .2s ease; }
@@ -103,14 +106,14 @@ a.row:hover { text-decoration: none; background: color-mix(in srgb, var(--text) 
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* account fields sit in the grouped list like Settings rows in the app */
-.acct input { flex: 1; min-width: 0; height: 44px; border: 0; background: none; font: inherit; font-size: 17px; color: var(--text); }
+.acct input { flex: 1; min-width: 0; height: 44px; border: 0; background: none; font: inherit; font-size: 16px; color: var(--text); }
 .acct input:focus-visible { outline: none; }
 .acct .row:focus-within { box-shadow: inset 0 0 0 4px var(--ring); }
 .act:disabled { opacity: .4; cursor: default; }
 .act.danger { color: #d70015; }
 /* sign in: a filled capsule, create account a tinted one, both full width and 48 points (house controls) */
 .acct-btns { display: flex; flex-direction: column; gap: var(--sp-2); padding: var(--sp-3) var(--sp-4) var(--sp-2); }
-.btn { height: 48px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: var(--r-pill); background: var(--accent); color: #fff; font: inherit; font-size: 17px; font-weight: 600; cursor: pointer; }
+.btn { height: 48px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: var(--r-pill); background: var(--accent); color: #fff; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; }
 .btn.quiet { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
 .btn:disabled { opacity: .4; cursor: default; }
 .btn:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); }
@@ -120,13 +123,13 @@ a.row:hover { text-decoration: none; background: color-mix(in srgb, var(--text) 
 /* capsule search, 44 points, leading magnifier (house Apple rules) */
 .search { display: flex; align-items: center; gap: var(--sp-2); height: 44px; margin: var(--sp-2) 20px var(--sp-2); padding: 0 14px; border-radius: var(--r-pill); background: var(--surface); color: var(--sub); }
 .search svg { width: 18px; height: 18px; flex: none; }
-.search input { flex: 1; min-width: 0; border: 0; background: none; font: inherit; font-size: 17px; color: var(--text); height: 44px; }
+.search input { flex: 1; min-width: 0; border: 0; background: none; font: inherit; font-size: 16px; color: var(--text); height: 44px; }
 .search input:focus-visible { outline: none; }
 .search:focus-within { box-shadow: 0 0 0 4px var(--ring); }
 /* followed topics: one scrolling row of capsules under the search */
 .topics { display: flex; gap: var(--sp-2); overflow-x: auto; scrollbar-width: none; margin: 0 0 var(--sp-2); padding: 0 20px; }
 .topics::-webkit-scrollbar { display: none; }
-.chip { flex: none; height: 36px; padding: 0 14px; border: 0; border-radius: var(--r-pill); background: var(--surface); color: var(--text); font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.chip { flex: none; height: 36px; padding: 0 14px; border: 0; border-radius: var(--r-pill); background: var(--surface); color: var(--text); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; }
 .chip[aria-pressed="true"], .chip.follow { color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); }
 .chip:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); }
 
@@ -142,4 +145,4 @@ a.row:hover { text-decoration: none; background: color-mix(in srgb, var(--text) 
 .coverage .note-line { font-size: 13px; line-height: 18px; color: var(--sub); margin: var(--sp-2) 0 0; }
 .coverage .label { margin: var(--sp-5) var(--sp-4) var(--sp-2); }
 .coverage .group { background: var(--surface); border-radius: var(--r-group); overflow: hidden; }
-.coverage .cov-title { display: block; font-size: 17px; line-height: 22px; color: var(--text); }
+.coverage .cov-title { display: block; font-size: 16px; line-height: 22px; color: var(--text); }
