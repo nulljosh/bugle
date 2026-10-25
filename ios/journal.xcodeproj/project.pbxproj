@@ -34,6 +34,7 @@
 		7013F9F2F3975890B4EB03A7 /* Coverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE1E0BC7D447CF605C09BEC /* Coverage.swift */; };
 		726E2BDEC0363FC1A23D0AAD /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409A12C7017D00F584C499DF /* EntryDetailView.swift */; };
 		73BE4014EAC63815897A2F19 /* Coverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE1E0BC7D447CF605C09BEC /* Coverage.swift */; };
+		7924EFBC4A675A0704F3AC88 /* Listen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBFB39021A73479B6BD739B /* Listen.swift */; };
 		844DF1D2B31BE048837E9B2A /* EntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8286BB5BF361BF084AB417E5 /* EntryListView.swift */; };
 		84E72AA7516E11B4EB10D15B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7752BAEFA1F38659693A2814 /* SettingsView.swift */; };
 		8B988350CD5A3A382149E64D /* BugleWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5A293F420B365A0A1736ADC3 /* BugleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -56,6 +57,7 @@
 		EBEA260D9FA6F4EAD27152C9 /* CoverageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4104A2D941F019E4AF96736A /* CoverageView.swift */; };
 		F111AA90E55B52E307B5CF83 /* BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB5BD621A0E17BB795698B /* BackgroundRefresh.swift */; };
 		F23E64C0B8D7BBDD37C153EE /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1005C95DA55CC984C69AA6 /* Alerts.swift */; };
+		F666DD9F09A0ADA05D0830C4 /* Listen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBFB39021A73479B6BD739B /* Listen.swift */; };
 		FDC6361ACDFB8701BDFAC9A9 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38ACDB28857F0E41D3C492E /* JournalEntry.swift */; };
 		FFE534C3561E65CBBCE68F40 /* EntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8286BB5BF361BF084AB417E5 /* EntryListView.swift */; };
 /* End PBXBuildFile section */
@@ -110,6 +112,7 @@
 		B29B9530A60D6C424502F145 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B38ACDB28857F0E41D3C492E /* JournalEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
 		D9B2FC2F32D71F065BB94DA3 /* JournalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalApp.swift; sourceTree = "<group>"; };
+		DBBFB39021A73479B6BD739B /* Listen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listen.swift; sourceTree = "<group>"; };
 		E099194237BF0D71FD3C6424 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		E6AB5BD621A0E17BB795698B /* BackgroundRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefresh.swift; sourceTree = "<group>"; };
 		EC5CBADBDFC8F276FBD980DD /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
@@ -186,6 +189,7 @@
 				4D618F75CD0D4C5B4BBCC223 /* AtomFeedParserTests.swift */,
 				88EFD18A9189F3E8143A9750 /* Intents.swift */,
 				EEC44D06947275059DED3B30 /* JournalFeedService.swift */,
+				DBBFB39021A73479B6BD739B /* Listen.swift */,
 				77498857B3215CE9BF932E32 /* PreviewImage.swift */,
 			);
 			path = Services;
@@ -378,6 +382,7 @@
 				5D7EBE7D411C4B9B8E890D29 /* JournalEntry.swift in Sources */,
 				BD71979F992F2F9CFF17813A /* JournalFeedService.swift in Sources */,
 				CE1E8C2899A0802992715A37 /* Library.swift in Sources */,
+				7924EFBC4A675A0704F3AC88 /* Listen.swift in Sources */,
 				65959DE874A252B4341CB060 /* ManageFeedsView.swift in Sources */,
 				A99290777413A4AF24674771 /* PreviewImage.swift in Sources */,
 				A38E084ADAA18B1D2FC59AFA /* SettingsView.swift in Sources */,
@@ -404,6 +409,7 @@
 				DD53568E6EABB2BA898581F1 /* JournalEntry.swift in Sources */,
 				115D58CB75FBB35F1D6A049B /* JournalFeedService.swift in Sources */,
 				D00111A11EE6FBEAB2BA089A /* Library.swift in Sources */,
+				F666DD9F09A0ADA05D0830C4 /* Listen.swift in Sources */,
 				96438221DF43E8FF93AC2D58 /* ManageFeedsView.swift in Sources */,
 				44B5993CFAE70D4F6DB01FEE /* PreviewImage.swift in Sources */,
 				BE1CA69DF5DC8D9673A9374F /* ScreenshotCapture.swift in Sources */,
@@ -472,7 +478,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.5.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -537,7 +543,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.5.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;

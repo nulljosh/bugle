@@ -214,6 +214,7 @@ var current = null;
 var homeScroll = 0;   // coming back from a story lands where you were, like the app
 function open(e) { if (location.hash.slice(1) === '' || location.hash === '#home') homeScroll = scrollY; current = e; history.pushState(null, '', '#story'); route(); }
 function route() {
+  hush();
   var tab = location.hash.slice(1) || 'home';
   if (tab === 'story' && !current) tab = 'home';
   ['home', 'story', 'feeds', 'saved', 'history', 'settings'].forEach(function (id) { document.getElementById(id).hidden = id !== tab; });
@@ -229,6 +230,17 @@ function route() {
 addEventListener('hashchange', route);
 addEventListener('popstate', route);
 document.querySelectorAll('.back-btn[data-back]').forEach(function (b) { b.onclick = function () { history.back(); }; });
+// Listen: the browser's own voice reads the headline and the story; leaving the story stops it.
+var listen = document.getElementById('listen');
+if (!window.speechSynthesis) listen.hidden = true;
+function hush() { if (window.speechSynthesis) speechSynthesis.cancel(); document.getElementById('listen').setAttribute('aria-pressed', 'false'); }
+listen.onclick = function () {
+  if (listen.getAttribute('aria-pressed') === 'true') { hush(); return; }
+  var say = new SpeechSynthesisUtterance(current.title + '. ' + document.getElementById('article').innerText);
+  say.onend = function () { listen.setAttribute('aria-pressed', 'false'); };
+  speechSynthesis.speak(say);
+  listen.setAttribute('aria-pressed', 'true');
+};
 // The system share sheet where there is one (phones, Safari), otherwise copy the link.
 document.getElementById('share').onclick = function () {
   if (!current) return;

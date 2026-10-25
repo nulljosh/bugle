@@ -12,6 +12,7 @@ struct EntryDetailView: View {
     var story: Story? = nil
     @State private var showCoverage = CommandLine.arguments.contains("-showCoverage")
     @AppStorage("readerTextSize") private var textSize = 17.0
+    @StateObject private var listener = Listener()
 
     var body: some View {
         ArticleWebView(html: Self.page(for: entry, textSize: textSize), baseURL: URL(string: entry.url))
@@ -22,6 +23,7 @@ struct EntryDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .onAppear { library.markRead(entry) }
+            .onDisappear { listener.stop() }
             .sheet(isPresented: $showCoverage) { if let story { CoverageView(story: story, library: library) } }
             .toolbar {
                 if let url = URL(string: entry.url) {
@@ -31,6 +33,9 @@ struct EntryDetailView: View {
                         }
                         Button { library.toggleSave(entry) } label: {
                             Label(library.isSaved(entry) ? "Remove from Saved" : "Save", systemImage: library.isSaved(entry) ? "bookmark.fill" : "bookmark")
+                        }
+                        Button { listener.toggle(entry) } label: {
+                            Label(listener.speaking ? "Stop" : "Listen", systemImage: listener.speaking ? "stop.fill" : "speaker.wave.2")
                         }
                         ShareLink(item: url)
                         Link(destination: url) { Label("Open in Browser", systemImage: "safari") }
