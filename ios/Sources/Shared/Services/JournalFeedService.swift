@@ -53,7 +53,7 @@ final class JournalFeedService: ObservableObject {
         }
 
         if merged.isEmpty {
-            if failures > 0 { errorMessage = "Couldn't load feeds. Pull to retry." }
+            if failures > 0 { errorMessage = String(localized: "Couldn't load feeds. Pull to retry.") }
             return
         }
         // One row per story: outlets that share a newsroom (NY Post and NY Post Opinion) carry the same link.

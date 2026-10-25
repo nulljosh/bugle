@@ -241,6 +241,126 @@
         }
       }
     },
+    "Blindspot: only center outlets covered this.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blinder Fleck: Nur Medien der Mitte haben darüber berichtet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Punto ciego: solo medios de centro cubrieron esto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Angle mort : seuls des médias du centre en ont parlé."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "死角：中道のメディアだけが報じました。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ponto cego: só veículos de centro cobriram isto."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "盲点：只有中间立场的媒体报道了此事。"
+          }
+        }
+      }
+    },
+    "Blindspot: only left-leaning outlets covered this.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blinder Fleck: Nur linke Medien haben darüber berichtet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Punto ciego: solo medios de izquierda cubrieron esto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Angle mort : seuls des médias de gauche en ont parlé."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "死角：左派のメディアだけが報じました。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ponto cego: só veículos de esquerda cobriram isto."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "盲点：只有偏左的媒体报道了此事。"
+          }
+        }
+      }
+    },
+    "Blindspot: only right-leaning outlets covered this.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blinder Fleck: Nur rechte Medien haben darüber berichtet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Punto ciego: solo medios de derecha cubrieron esto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Angle mort : seuls des médias de droite en ont parlé."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "死角：右派のメディアだけが報じました。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ponto cego: só veículos de direita cobriram isto."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "盲点：只有偏右的媒体报道了此事。"
+          }
+        }
+      }
+    },
     "Bring your feeds from another reader, or take them with you.": {
       "localizations": {
         "de": {
@@ -357,6 +477,46 @@
           "stringUnit": {
             "state": "translated",
             "value": "取消"
+          }
+        }
+      }
+    },
+    "Center": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mitte"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Centro"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Centre"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "中道"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Centro"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "中间"
           }
         }
       }
@@ -557,6 +717,46 @@
           "stringUnit": {
             "state": "translated",
             "value": "拷贝链接"
+          }
+        }
+      }
+    },
+    "Couldn't load feeds. Pull to retry.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Feeds konnten nicht geladen werden. Zum Wiederholen ziehen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron cargar los feeds. Desliza para reintentar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible de charger les flux. Tirez pour réessayer."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "フィードを読み込めませんでした。引っ張って再試行。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível carregar os feeds. Puxe para tentar de novo."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法加载订阅源。下拉重试。"
           }
         }
       }
@@ -1237,6 +1437,126 @@
           "stringUnit": {
             "state": "translated",
             "value": "网址无效或重复"
+          }
+        }
+      }
+    },
+    "Leans left": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eher links"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiende a la izquierda"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Penche à gauche"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "やや左派"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tende à esquerda"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "偏左"
+          }
+        }
+      }
+    },
+    "Leans right": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eher rechts"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiende a la derecha"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Penche à droite"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "やや右派"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tende à direita"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "偏右"
+          }
+        }
+      }
+    },
+    "Left": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Links"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Izquierda"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gauche"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "左派"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esquerda"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "左派"
           }
         }
       }
@@ -2201,6 +2521,46 @@
         }
       }
     },
+    "Right": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechts"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Derecha"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Droite"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "右派"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Direita"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "右派"
+          }
+        }
+      }
+    },
     "Save": {
       "localizations": {
         "de": {
@@ -2721,6 +3081,46 @@
         }
       }
     },
+    "Stories you open show up here.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Artikel, die du öffnest, erscheinen hier."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las noticias que abres aparecen aquí."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les articles que vous ouvrez apparaissent ici."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開いた記事がここに表示されます。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As notícias que você abre aparecem aqui."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你打开的报道会显示在这里。"
+          }
+        }
+      }
+    },
     "Suggested": {
       "localizations": {
         "de": {
@@ -2837,6 +3237,46 @@
           "stringUnit": {
             "state": "translated",
             "value": "在订阅源上向右轻扫，更新时会收到通知。向左轻扫可移除。"
+          }
+        }
+      }
+    },
+    "Swipe right on a story, or press and hold it, to save it here. Saved stories open without a connection.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wische bei einem Artikel nach rechts oder halte ihn gedrückt, um ihn hier zu merken. Gemerkte Artikel öffnen sich auch offline."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desliza a la derecha en una noticia o mantenla pulsada para guardarla aquí. Las noticias guardadas se abren sin conexión."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Balayez un article vers la droite ou maintenez-le pour l'enregistrer ici. Les articles enregistrés s'ouvrent hors connexion."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記事を右にスワイプするか長押しすると、ここに保存されます。保存した記事はオフラインでも開けます。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deslize uma notícia para a direita ou mantenha-a pressionada para salvá-la aqui. Notícias salvas abrem sem conexão."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在报道上向右轻扫或按住即可存储到这里。已存报道无需联网即可打开。"
           }
         }
       }

@@ -14,7 +14,7 @@ struct CoverageView: View {
                     Text(Headline.clean(story.lead.title, source: story.lead.sourceTitle)).font(.headline)
                     LeanBar(counts: story.counts)
                     if let side = story.blindspot {
-                        Label("Blindspot: only \(side == .center ? "center" : side.title.lowercased() + "-leaning") outlets covered this.", systemImage: "eye.slash")
+                        Label(side == .left ? "Blindspot: only left-leaning outlets covered this." : side == .right ? "Blindspot: only right-leaning outlets covered this." : "Blindspot: only center outlets covered this.", systemImage: "eye.slash")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }

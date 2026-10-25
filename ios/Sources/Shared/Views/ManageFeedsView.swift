@@ -152,7 +152,7 @@ struct ManageFeedsView: View {
     /// "Leans left · Canadian public broadcaster" for outlets Bugle rates; the address for anything else.
     static func about(_ feed: Feed) -> String {
         guard let o = Outlet.of(feed.title) else { return feed.url }
-        return (o.lean.map(Outlet.leanLabel) ?? "Not rated") + " · " + o.owner
+        return (o.lean.map(Outlet.leanLabel) ?? String(localized: "Not rated")) + " · " + o.owner
     }
 
     private func add() {
@@ -169,14 +169,14 @@ struct StoryList: View {
     let title: String
     let entries: [JournalEntry]
     @ObservedObject var library: Library
-    let empty: String
+    let empty: LocalizedStringKey
     var clear: (() -> Void)? = nil
 
     var body: some View {
         List(entries) { EntryRow(entry: $0, library: library) }
             .listStyle(.plain)
-            .overlay { if entries.isEmpty { ContentUnavailableView(title, systemImage: title == "Saved" ? "bookmark" : "clock", description: Text(empty)) } }
-            .navigationTitle(title)
+            .overlay { if entries.isEmpty { ContentUnavailableView(LocalizedStringKey(title), systemImage: title == "Saved" ? "bookmark" : "clock", description: Text(empty)) } }
+            .navigationTitle(LocalizedStringKey(title))
             .navigationDestination(for: JournalEntry.self) { EntryDetailView(entry: $0, library: library) }
             .toolbar {
                 if let clear, !entries.isEmpty { ToolbarItem(placement: .primaryAction) { Button("Clear", role: .destructive, action: clear) } }

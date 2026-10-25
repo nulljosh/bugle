@@ -75,13 +75,13 @@ struct Outlet {
     }
 
     static func leanLabel(_ lean: Int) -> String {
-        ["Left", "Leans left", "Center", "Leans right", "Right"][max(0, min(4, lean + 2))]
+        String(localized: String.LocalizationValue(["Left", "Leans left", "Center", "Leans right", "Right"][max(0, min(4, lean + 2))]))
     }
 }
 
 enum Side: Int, CaseIterable { case left, center, right
     init(lean: Int) { self = lean < 0 ? .left : lean > 0 ? .right : .center }
-    var title: String { ["Left", "Center", "Right"][rawValue] }
+    var title: String { String(localized: String.LocalizationValue(["Left", "Center", "Right"][rawValue])) }
 }
 
 struct Story: Identifiable {

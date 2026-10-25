@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 5.2.1
+- Lean labels, the blindspot note, the Saved and History empty states and the load error are translated too.
+
 ## 5.2.0
 - The apps speak Spanish, French, German, Brazilian Portuguese, Japanese and Simplified Chinese (a String Catalog in `ios/Sources/Shared/Localizable.xcstrings`).
 
