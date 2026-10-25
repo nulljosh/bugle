@@ -6,6 +6,7 @@ struct ManageFeedsView: View {
     @ObservedObject var library: Library
     /// What Home has loaded, for each feed's unread count and Mark All Read.
     var entries: [JournalEntry] = []
+    var dead: Set<String> = []
     /// Tap an outlet to read just it: Home searches for it and takes its color.
     var open: (Feed) -> Void = { _ in }
     @State private var newFeed = ""
@@ -76,7 +77,7 @@ struct ManageFeedsView: View {
                             HStack {
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text(feed.title).font(.body).foregroundStyle(Outlet.color(feed.title))
-                                    Text(Self.about(feed)).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+                                    Text(dead.contains(feed.url) ? String(localized: "Not loading right now") : Self.about(feed)).font(.caption).foregroundStyle(.secondary).lineLimit(1)
                                 }
                                 Spacer()
                                 let unread = entries.filter { $0.sourceTitle == feed.title && !library.isRead($0) }.count

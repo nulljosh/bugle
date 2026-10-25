@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 5.4.3
+- A feed that gave nothing on the last refresh says "Not loading right now" in Feeds, on the web and in the apps (CBC blocks the web proxy).
+
 ## 5.4.2
 - Web Settings matches the app: a Version row, and Website, Privacy and Support in the accent colour.
 

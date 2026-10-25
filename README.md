@@ -1,6 +1,6 @@
 <img src="icon.svg" width="80">
 
-![version](https://img.shields.io/badge/version-5.4.2-blue) ![license](https://img.shields.io/badge/license-MIT-green)
+![version](https://img.shields.io/badge/version-5.4.3-blue) ![license](https://img.shields.io/badge/license-MIT-green)
 
 Every feed, one timeline. Bugle reads RSS and Atom feeds and puts every story in one stream, with the same story from several newsrooms grouped into one row and the day's biggest stories first. iPhone, iPad, Mac, Apple Watch and the web. Formerly Coranto, and before that Inkpress. On the App Store it is Bugle News.
 

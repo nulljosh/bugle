@@ -9,6 +9,8 @@ final class JournalFeedService: ObservableObject {
     @Published private(set) var stories: [Story] = []
     private var storyOf: [String: Story] = [:]
     @Published var isLoading = false
+    /// Feeds that gave nothing on the last refresh; Feeds says "Not loading right now" under them.
+    @Published private(set) var dead: Set<String> = []
     @Published var errorMessage: String?
 
     private let cacheURL: URL = {
@@ -37,20 +39,22 @@ final class JournalFeedService: ObservableObject {
 
         var merged: [JournalEntry] = []
         var failures = 0
-        await withTaskGroup(of: [JournalEntry].self) { group in
+        var gone = Set<String>()
+        await withTaskGroup(of: (String, [JournalEntry]).self) { group in
             for feed in feeds {
                 group.addTask {
                     guard let url = URL(string: feed.url),
-                          let (data, _) = try? await URLSession.shared.data(from: url) else { return [] }
-                    return FeedParser.parse(data: data).map {
+                          let (data, _) = try? await URLSession.shared.data(from: url) else { return (feed.url, []) }
+                    return (feed.url, FeedParser.parse(data: data).map {
                         var e = $0; e.sourceTitle = feed.title; return e
-                    }
+                    })
                 }
             }
-            for await result in group {
-                if result.isEmpty { failures += 1 } else { merged.append(contentsOf: result) }
+            for await (url, result) in group {
+                if result.isEmpty { failures += 1; gone.insert(url) } else { merged.append(contentsOf: result) }
             }
         }
+        dead = gone
 
         if merged.isEmpty {
             if failures > 0 { errorMessage = String(localized: "Couldn't load feeds. Pull to retry.") }

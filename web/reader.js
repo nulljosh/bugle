@@ -43,7 +43,7 @@ var LOCAL = [
   ['London', [['BBC London', 'https://feeds.bbci.co.uk/news/england/london/rss.xml'], ['Evening Standard', 'https://www.standard.co.uk/news/london/rss']]]
 ].map(function (r) { return { city: r[0], feeds: r[1].map(function (f) { return { title: f[0], url: f[1] }; }) }; });
 
-var feeds = load(), entries = [], stories = [], storyOf = {};
+var feeds = load(), entries = [], stories = [], storyOf = {}, dead = {};   // dead: feeds that gave nothing last refresh
 
 function load() {
   try { return JSON.parse(localStorage.getItem('inkpress.feeds')) || SEEDS.slice(); }
@@ -61,9 +61,10 @@ async function refresh() {
   var results = await Promise.all(feeds.map(async function (f) {
     try {
       var r = await fetch('/feed?url=' + encodeURIComponent(f.url));
-      if (!r.ok) return [];
-      return parse(await r.text(), f.title);
-    } catch (e) { return []; }
+      var got = r.ok ? parse(await r.text(), f.title) : [];
+      dead[f.url] = !got.length;
+      return got;
+    } catch (e) { dead[f.url] = true; return []; }
   }));
   // One row per story: outlets that share a newsroom (NY Post and NY Post Opinion) carry the same link.
   var seen = {};
@@ -109,7 +110,7 @@ function renderFeeds() {
   feeds.forEach(function (f, i) {
     var row = el('div', 'row');
     var txt = el('span', 'txt');
-    txt.appendChild(Coverage.paint(el('b', 'oc', f.title), f.title)); txt.appendChild(el('small', '', Coverage.about(f)));
+    txt.appendChild(Coverage.paint(el('b', 'oc', f.title), f.title)); txt.appendChild(el('small', '', dead[f.url] ? 'Not loading right now' : Coverage.about(f)));
     // Tap an outlet to read just it: Home searches for it and takes its color.
     txt.style.cursor = 'pointer';
     txt.onclick = function () { document.getElementById('q').value = f.title; location.hash = '#home'; renderEntries(); };
