@@ -9,7 +9,7 @@ options:
 settings:
   base:
     SWIFT_VERSION: "5.9"
-    MARKETING_VERSION: "4.4.0"
+    MARKETING_VERSION: "5.0.0"
     CURRENT_PROJECT_VERSION: "202610251232"
     DEVELOPMENT_TEAM: QMM486NPYC
 
@@ -73,6 +73,8 @@ targets:
       path: Sources/Widget/Info.plist
       properties:
         CFBundleDisplayName: Bugle
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleShortVersionString: $(MARKETING_VERSION)
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
 
@@ -94,6 +96,8 @@ targets:
       path: Sources/Share/Info.plist
       properties:
         CFBundleDisplayName: Bugle
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleShortVersionString: $(MARKETING_VERSION)
         NSExtension:
           NSExtensionPointIdentifier: com.apple.share-services
           NSExtensionPrincipalClass: ShareViewController

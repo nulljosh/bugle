@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 5.0.0
+- Band 4.x (iPad and Mac) done and QA'd on iPhone, iPad, web and the landing, light and dark. App extensions carry the app's build number. The landing logo no longer shows a stale cached icon.
+
 ## 4.4.0
 - Share extension: from Safari or any app, Share → Bugle saves the story or follows the site.
 

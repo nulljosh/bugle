@@ -1,6 +1,6 @@
 # Bugle Technical Whitepaper
 
-**v4.0** | October 2026
+**v5.0** | October 2026
 
 Every feed, one timeline. Bugle reads RSS and Atom feeds straight from the sites that publish them and puts every story in one stream on iPhone, iPad, Mac, Apple Watch and the web. When several newsrooms cover the same story it shows one row with all of them, how each side of the spectrum covered it, and the day's biggest stories first. Reading never needs an account.
 

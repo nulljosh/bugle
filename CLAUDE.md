@@ -1,5 +1,5 @@
 # Bugle
-iOS and Mac 2.0.0 in App Review. Repo at 4.0.0: 0 gaps vs Apple News and Ground News, band 3.x (RSS power) done; band 4.x (iPad and Mac) is next. Web reader live at bugle.jaybulb.com/read.
+iOS and Mac 2.0.0 in App Review. Repo at 5.0.0: 0 gaps vs Apple News, Ground News and RSS readers; bands 1 to 4 done. Podcasts (5 to 9) wait on Joshua's yes. Web reader live at bugle.jaybulb.com/read.
 
 ## Open
 - Looping to 0 gaps vs Apple News and Ground News, then v100: gap matrix in `roadmap.md`, loop prompt `~/.claude/loops/bugle.md`. Tags are `bugle-vX.Y.Z` (the monorepo shares tags).
