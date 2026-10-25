@@ -119,17 +119,32 @@ enum Coverage {
         return Set(String(cleaned).split(separator: " ").map(String.init).filter { $0.count > 2 && !stop.contains($0) })
     }
 
-    /// Group stories that share at least half their headline keywords, newest seeding each group so the title is the
-    /// latest wording. ponytail: O(n²) keyword overlap, same as Sidewise; embeddings if it ever groups badly.
+    /// One story: at least two keywords in common ("Netflix" alone is not a story) and half of the shorter headline's,
+    /// measured against the headline that seeded the story (its lead), never against every word a group collected.
+    static func sameStory(_ a: Set<String>, _ b: Set<String>) -> Bool {
+        let n = a.intersection(b).count
+        return n >= 2 && Double(n) / Double(min(a.count, b.count)) >= 0.5
+    }
+
+    /// Words in so many of today's headlines they say nothing about which story it is ("apple", "iphone" on a tech
+    /// day): in more headlines than any one story gets, max(8, 1 in 40). ponytail: a document-frequency cut, not TF-IDF.
+    static func common(_ titles: [String]) -> Set<String> {
+        var df: [String: Int] = [:]
+        for t in titles { for w in keywords(t) { df[w, default: 0] += 1 } }
+        let cut = max(8, titles.count / 40)
+        return Set(df.filter { $0.value > cut }.keys)
+    }
+
+    /// Group stories that share their headline keywords, newest seeding each group so the title is the latest wording.
+    /// ponytail: O(n²) keyword overlap, same as Sidewise; embeddings if it ever groups badly.
     static func cluster(_ entries: [JournalEntry]) -> [Story] {
         var groups: [(kw: Set<String>, items: [JournalEntry])] = []
+        let noise = common(entries.map(\.title))
         for e in entries.sorted(by: { $0.date > $1.date }) {
-            let kw = keywords(e.title)
+            let kw = keywords(e.title).subtracting(noise)
             guard !kw.isEmpty else { groups.append((kw, [e])); continue }
-            // two shared keywords at least: one word in common ("Netflix") is not one story
-            if let i = groups.firstIndex(where: { let n = $0.kw.intersection(kw).count; return n >= 2 && Double(n) / Double(min($0.kw.count, kw.count)) >= 0.5 }) {
+            if let i = groups.firstIndex(where: { sameStory($0.kw, kw) }) {
                 groups[i].items.append(e)
-                groups[i].kw.formUnion(kw)
             } else {
                 groups.append((kw, [e]))
             }
@@ -176,6 +191,14 @@ func coverageDemo() {
     let border = stories.first { $0.entries.count == 3 }!
     assert(border.publishers == 2)              // NY Post and its opinion feed are one newsroom
     assert(border.blindspot == .right)          // two newsrooms, all on the right
+    // a busy topic does not swallow its neighbours: on a tech day "apple iphone duo" is in everything
+    let day = (1...9).map { e("Apple iPhone Duo review roundup part \($0)", "Macworld", Double(100 + $0)) }
+    let duo = Coverage.cluster(day + [e("Apple wants to fix Safari's cramped layout on iPhone Duo", "MacRumors", 50),
+                                      e("Apple exploring fix for Safari's cramped layout on the iPhone Duo's outer display", "9to5Mac", 40),
+                                      e("Using an Apple Pencil with the iPhone Duo: what to know", "MacRumors", 30),
+                                      e("New Apple TV 4K adds Siri AI support", "Six Colors", 20)])
+    let size = { (word: String) in duo.first { $0.lead.title.contains(word) || $0.entries.contains { $0.title.contains(word) } }!.entries.count }
+    assert(size("Safari") == 2 && size("Pencil") == 1 && size("Siri") == 1, "grouping: the same story joins, its neighbours do not")
     assert(stories.first { $0.entries.count == 1 }!.counts.isEmpty)   // tech outlets are not rated
     assert(Outlet.colors("The Verge") == Outlet.palette[4])
     assert(Outlet.colors("CBC Toronto") == Outlet.colors("CBC") && Outlet.colors("Global BC") == Outlet.colors("Global News"))   // the same index web/coverage.js picks (test.mjs)

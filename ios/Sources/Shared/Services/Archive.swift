@@ -34,12 +34,9 @@ enum Archive {
 
     nonisolated static func earlier(_ story: Story, in archive: [JournalEntry]) -> [JournalEntry] {
         let ids = Set(story.entries.map(\.id))
-        let kw = story.entries.reduce(into: Set<String>()) { $0.formUnion(Coverage.keywords($1.title)) }
-        let matches = archive.filter { e in
-            guard !ids.contains(e.id) else { return false }
-            let k = Coverage.keywords(e.title), n = k.intersection(kw).count
-            return n >= 2 && Double(n) / Double(min(k.count, kw.count)) >= 0.5
-        }
+        // the same test the grouping uses, with the week's own common words left out
+        let noise = Coverage.common(archive.map(\.title)), kw = Coverage.keywords(story.lead.title).subtracting(noise)
+        let matches = archive.filter { !ids.contains($0.id) && Coverage.sameStory(kw, Coverage.keywords($0.title).subtracting(noise)) }
         let cutoff = story.lead.date.addingTimeInterval(-12 * 3600)
         return (story.entries + matches).filter { $0.date < cutoff }.sorted { $0.date > $1.date }
     }

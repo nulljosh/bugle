@@ -14,14 +14,13 @@ var Timeline = (function () {
   // the story's timeline: its own headlines and the archive's matching ones (same grouping rule) from more than
   // 12 hours before the lead, newest first
   function earlier(st, archive) {
-    var ids = {}, kw = new Set(), lead = st.lead || st.entries[0];
-    st.entries.forEach(function (e) { ids[e.url] = true; Coverage.keywords(e.title).forEach(function (w) { kw.add(w); }); });
-    var matches = (archive || list).filter(function (e) {
-      if (ids[e.url]) return false;
-      var k = Coverage.keywords(e.title), n = 0;
-      k.forEach(function (w) { if (kw.has(w)) n++; });
-      return n >= 2 && n / Math.min(k.size, kw.size) >= 0.5;
-    });
+    // the same test the grouping uses, with the week's own common words left out
+    var ids = {}, lead = st.lead || st.entries[0], pool = archive || list;
+    var noise = Coverage.common(pool.map(function (e) { return e.title; }));
+    var strip = function (t) { var k = Coverage.keywords(t); noise.forEach(function (w) { k.delete(w); }); return k; };
+    var kw = strip(lead.title);
+    st.entries.forEach(function (e) { ids[e.url] = true; });
+    var matches = pool.filter(function (e) { return !ids[e.url] && Coverage.same(kw, strip(e.title)); });
     var cutoff = +lead.date - 12 * 3600000;
     return st.entries.concat(matches).filter(function (e) { return +e.date < cutoff; }).sort(function (a, b) { return b.date - a.date; });
   }

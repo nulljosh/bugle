@@ -150,3 +150,14 @@ test("timeline finds the earlier coverage only", () => {
     e("Hurricane Maria landfall Florida live", 0.5)]);
   assert.deepEqual(found.map((x) => x.title), ["Hurricane Maria nears Florida", "Hurricane Maria strengthens off Florida coast"]);
 });
+
+test("a busy topic does not swallow its neighbours", () => {
+  const e = (title, source, h) => ({ title, source, url: title, date: new Date(Date.now() - h * 3600000) });
+  const day = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => e("Apple iPhone Duo review roundup part " + n, "Macworld", 10 + n));
+  const duo = Coverage.cluster(day.concat([e("Apple wants to fix Safari's cramped layout on iPhone Duo", "MacRumors", 5),
+    e("Apple exploring fix for Safari's cramped layout on the iPhone Duo's outer display", "9to5Mac", 4),
+    e("Using an Apple Pencil with the iPhone Duo: what to know", "MacRumors", 3),
+    e("New Apple TV 4K adds Siri AI support", "Six Colors", 2)]));
+  const size = (word) => duo.find((s) => s.entries.some((x) => x.title.includes(word))).entries.length;
+  assert.deepEqual([size("Safari"), size("Pencil"), size("Siri")], [2, 1, 1]);
+});

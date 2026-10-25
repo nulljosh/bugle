@@ -53,17 +53,28 @@ var Coverage = (function () {
     entries.forEach(function (e) { var o = outlet(e.source); if (o && o.lean != null) seen[side(o.lean)].add(o.publisher); });
     return { left: seen.left.size, center: seen.center.size, right: seen.right.size };
   }
-  // Group stories sharing at least half their headline keywords; the newest seeds each group. O(n²), like Sidewise.
+  // One story: two keywords in common at least ("Netflix" alone is not a story) and half of the shorter headline's,
+  // against the headline that seeded the story (its lead), never every word a group collected. Mirrors Coverage.sameStory.
+  function same(a, b) {
+    var n = 0; b.forEach(function (w) { if (a.has(w)) n++; });
+    return n >= 2 && n / Math.min(a.size, b.size) >= 0.5;
+  }
+  // Words in so many of today's headlines they say nothing about which story it is ("apple", "iphone" on a tech day):
+  // in more headlines than any one story gets, max(8, 1 in 40). Mirrors Coverage.common.
+  function common(titles) {
+    var df = {}, cut = Math.max(8, Math.floor(titles.length / 40)), out = new Set();
+    titles.forEach(function (t) { keywords(t).forEach(function (w) { df[w] = (df[w] || 0) + 1; }); });
+    Object.keys(df).forEach(function (w) { if (df[w] > cut) out.add(w); });
+    return out;
+  }
+  // Group stories sharing their headline keywords; the newest seeds each group. O(n²), like Sidewise.
   function cluster(entries) {
-    var groups = [];
+    var groups = [], noise = common(entries.map(function (e) { return e.title; }));
     entries.slice().sort(function (a, b) { return b.date - a.date; }).forEach(function (e) {
       var kw = keywords(e.title), hit = null;
-      if (kw.size) hit = groups.find(function (g) {
-        if (!g.kw.size) return false;
-        var n = 0; kw.forEach(function (w) { if (g.kw.has(w)) n++; });
-        return n >= 2 && n / Math.min(g.kw.size, kw.size) >= 0.5;   // one word in common ("Netflix") is not one story
-      });
-      if (hit) { hit.entries.push(e); kw.forEach(function (w) { hit.kw.add(w); }); } else groups.push({ kw: kw, entries: [e] });
+      noise.forEach(function (w) { kw.delete(w); });
+      if (kw.size) hit = groups.find(function (g) { return same(g.kw, kw); });
+      if (hit) hit.entries.push(e); else groups.push({ kw: kw, entries: [e] });
     });
     return groups.map(function (g) {
       var c = counts(g.entries), pubs = new Set(g.entries.map(function (e) { var o = outlet(e.source); return o ? o.publisher : e.source; })).size;
@@ -119,5 +130,5 @@ var Coverage = (function () {
     return box;
   }
   function about(feed) { var o = outlet(feed.title); return o ? (o.lean == null ? 'Not rated' : leanLabel(o.lean)) + ' · ' + o.owner : feed.url; }
-  return { keywords: keywords, cluster: cluster, today: today, muted: muted, BRAND: BRAND, PALETTE: PALETTE, OUTLETS: OUTLETS, colors: colors, paint: paint, readingLean: readingLean, bar: bar, section: section, about: about };
+  return { keywords: keywords, same: same, common: common, cluster: cluster, today: today, muted: muted, BRAND: BRAND, PALETTE: PALETTE, OUTLETS: OUTLETS, colors: colors, paint: paint, readingLean: readingLean, bar: bar, section: section, about: about };
 })();
