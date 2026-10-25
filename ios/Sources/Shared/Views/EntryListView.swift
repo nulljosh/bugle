@@ -29,10 +29,22 @@ struct EntryListView: View {
     @Environment(\.horizontalSizeClass) private var sizeClass
     #endif
 
+    /// Three columns on the Mac and on iPad in regular width (HomeSplit); one stack on a phone.
+    private var split: Bool {
+        #if os(macOS)
+        true
+        #else
+        sizeClass == .regular
+        #endif
+    }
+
     var body: some View {
         TabView(selection: $tab) {
             Group {
-                NavigationStack(path: $path) { home }
+                Group {
+                    if split { HomeSplit(query: $query, path: $path, feeds: store.feeds, topics: Topics.list(topics)) { home } story: { EntryDetailView(entry: $0, library: library, story: feed.story(for: $0)) } }
+                    else { NavigationStack(path: $path) { home } }
+                }
                     .tabItem { Label("Home", systemImage: "newspaper") }.tag(0)
                 ManageFeedsView(store: store, library: library, entries: feed.entries) { query = $0.title; tab = 0 }
                     .tabItem { Label("Feeds", systemImage: "list.bullet.rectangle") }.tag(1)
