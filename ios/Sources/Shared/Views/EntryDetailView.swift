@@ -255,19 +255,19 @@ struct MiniPlayer: View {
 
 extension View {
     /// The mini player on the tab view: the tab bar accessory on iOS 26.1 and later, a floating capsule elsewhere.
-    @ViewBuilder func miniPlayer(_ player: Player, open: @escaping (JournalEntry) -> Void) -> some View {
+    @ViewBuilder func miniPlayer(_ player: Player, hidden: Bool, open: @escaping (JournalEntry) -> Void) -> some View {
         #if os(iOS)
         if #available(iOS 26.1, *) {
-            tabViewBottomAccessory(isEnabled: player.entry != nil) { MiniPlayer(player: player, open: open) }
-        } else { floatingMiniPlayer(player, open: open) }
+            tabViewBottomAccessory(isEnabled: player.entry != nil && !hidden) { MiniPlayer(player: player, open: open) }
+        } else { floatingMiniPlayer(player, hidden: hidden, open: open) }
         #else
-        floatingMiniPlayer(player, open: open)
+        floatingMiniPlayer(player, hidden: hidden, open: open)
         #endif
     }
 
-    private func floatingMiniPlayer(_ player: Player, open: @escaping (JournalEntry) -> Void) -> some View {
+    private func floatingMiniPlayer(_ player: Player, hidden: Bool, open: @escaping (JournalEntry) -> Void) -> some View {
         safeAreaInset(edge: .bottom) {
-            if player.entry != nil {
+            if player.entry != nil && !hidden {
                 MiniPlayer(player: player, open: open).frame(height: 56)
                     .background(.regularMaterial, in: Capsule()).padding(.horizontal, 16).padding(.bottom, 8)
             }

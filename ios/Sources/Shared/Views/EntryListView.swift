@@ -62,7 +62,8 @@ struct EntryListView: View {
         .environment(\.horizontalSizeClass, .compact)
         #endif
         .tint(accent)
-        .miniPlayer(player) { _ in nowPlaying = true }
+        // hidden on the playing episode's own story, where its full player already is
+        .miniPlayer(player, hidden: path.last?.id == player.entry?.id) { _ in nowPlaying = true }
         .sheet(isPresented: $nowPlaying) { NowPlayingView(player: player) { tab = 0; path = [$0] } }
         // Keyboard (Mac, iPad): ⌘R refreshes, ⌘1 to ⌘3 pick a tab. Invisible buttons carry the shortcuts.
         .background {

@@ -72,7 +72,7 @@ Rewritten 2026-10-25 at 1.19.5 (Joshua: "identify gaps, build roadmap, loop unti
 - **2.x Around the system** (rows 21, 22, 23, 25, 26: background refresh, notifications, widgets, Shortcuts, listen). **3.0** = 0 gaps against Apple News and Ground News: side-by-side QA.
 - **3.x RSS power** (rows 33 to 37, 42, 43: autodiscovery, OPML, full text, unread counts, Blindspot filter, reading time, timelines). **4.0** = 0 gaps against NetNewsWire and Reeder too.
 - **4.x iPad and Mac** (rows 38 to 41: shortcuts, three columns, share extension, Spotlight and Handoff). **5.0** QA.
-- **6 to 9 Podcasts** (Joshua 2026-08-24; yes on 2026-10-25, with his own shows as the defaults). Apple Podcasts is the reference.
+- **6 to 9 Podcasts** (Joshua 2026-08-24; yes on 2026-10-25, with his own shows as the defaults). Apple Podcasts is the reference. **7.0.0** closes it: 0 gaps against Apple Podcasts' core (play, queue, mini player, Now Playing, downloads, sleep timer).
   - [x] 6.0.0: enclosure audio, fourteen default shows, the Podcasts chip, a player with speed, skips, background audio, lock-screen controls and resume, on the apps and the web.
   - [x] 6.1.0: Up Next, and a mini player that keeps playing after you leave the story.
   - [x] 6.2.0: downloads, so an episode plays offline (apps; the web streams).

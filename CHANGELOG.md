@@ -2,6 +2,12 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.0.0
+Podcasts, done as a whole: fourteen default shows, the Podcasts chip, a player with speed, skips, the lock screen and resume, Up Next, a mini player, Now Playing with AirPlay, downloads and a sleep timer, on the iPhone, iPad, Mac and the web.
+- QA pass on iPhone and iPad in light and dark, the web at phone and desktop width, and the landing. Builds for iPhone, iPad, Mac and Watch.
+- The mini player hides on the playing episode's own story, where its full player already is.
+- New App Store screenshots that show podcasts (`ios/.asc/screenshots`).
+
 ## 6.4.0
 - Now Playing: tap the mini player for the episode (tap it to open its story), Up Next to drag into order or swipe away, Clear, the full controls, and AirPlay. The web opens the same sheet, with Move up and remove.
 - QA hooks load an episode paused (`-cueEpisode`, `-nowPlaying`), so a screenshot run never plays sound.
