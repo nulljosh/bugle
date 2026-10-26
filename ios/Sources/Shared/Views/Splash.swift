@@ -1,4 +1,5 @@
 import SwiftUI
+import os
 
 /// The boot splash: the mascot pops up, blinks, and sounds its call, then Home fades up. About a second, while the
 /// first feeds load underneath; Reduce Motion gets the mascot still and a fade.
@@ -6,6 +7,9 @@ struct Splash: View {
     /// False from launch until the splash has gone (iOS only; true where there is no splash), so the first-run
     /// topic picker never opens over it.
     @MainActor static var finished = true
+    static let log = Logger(subsystem: "com.nulljosh.journal", category: "boot")
+    /// QA: `-splashAt 0.9` holds the splash at that moment, for a still of any frame of the animation.
+    static let frozen = UserDefaults.standard.object(forKey: "splashAt").flatMap { Double("\($0)") }
 
     @Environment(\.accessibilityReduceMotion) private var still
     @Environment(\.scenePhase) private var phase
@@ -18,12 +22,13 @@ struct Splash: View {
         TimelineView(.animation(paused: still)) { tl in
             // the clock starts at the first frame drawn once the app is active: before that iOS is still crossfading
             // from the launch screen, and a clock started earlier played half the animation behind it
-            let first = clock.start ?? (phase == .active ? { clock.start = tl.date; return tl.date }() : nil)
-            let t = still ? 2 : first.map { tl.date.timeIntervalSince($0) } ?? 0
+            let first = clock.start ?? (phase == .active ? { clock.start = tl.date; Self.log.info("splash clock start"); return tl.date }() : nil)
+            let t = Self.frozen ?? (still ? 2 : first.map { tl.date.timeIntervalSince($0) } ?? 0)
             let pop = min(1, t / 0.4)
-            Mascot(blink: Self.pulse(t, at: 0.45, for: 0.24),
-                   toot: Self.pulse(t, at: 0.75, for: 0.36),
-                   waves: max(0, min(3, (t - 0.8) / 0.1)))
+            Mascot(blink: Self.pulse(t, at: 0.42, for: 0.24),
+                   toot: Self.pulse(t, at: 0.8, for: 0.36),
+                   waves: max(0, (t - 0.85) / 0.12),
+                   lean: Mascot.lean(t, call: 0.8))
                 .frame(width: 196, height: 196)
                 .scaleEffect(0.6 + 0.4 * Self.overshoot(pop))
                 .opacity(min(1, t / 0.15))
@@ -33,9 +38,11 @@ struct Splash: View {
         .ignoresSafeArea()
         .accessibilityHidden(true)
         .task {   // done 1.35 s after the first frame, however late that frame came
+            if Self.frozen != nil { return }   // a QA still never leaves
             while clock.start == nil { try? await Task.sleep(for: .milliseconds(30)) }
             try? await Task.sleep(for: .seconds(still ? 0.5 : 1.35))
             for _ in 0..<30 where !JournalFeedService.ready { try? await Task.sleep(for: .milliseconds(50)) }   // Home whole, 1.5 s at most
+            Self.log.info("splash done, ready \(JournalFeedService.ready)")
             done()
             try? await Task.sleep(for: .seconds(0.45))   // the fade
             Self.finished = true

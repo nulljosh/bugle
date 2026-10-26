@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.18.0
+The mascot's call has a body to it: it leans back for a breath, stretches forward into the toot, and three sound waves ripple out of the bell and fade. The web picker mascot toots for every pick too.
+
 ## 7.17.1
 The splash starts its animation only once the app is on screen, so the whole call plays in light and dark. Every refresh hands back finished stories (widget, Siri, background refresh and the Watch read them right after). A first launch shows the mascot loading instead of "No entries yet". The picker waits for the splash to finish. The web mascot follows dark mode, like the app.
 

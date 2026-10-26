@@ -19,7 +19,8 @@ struct TopicPicker: View {
                     TimelineView(.animation(paused: still)) { tl in
                         let t = tl.date.timeIntervalSinceReferenceDate, since = tl.date.timeIntervalSince(tooted)
                         Mascot(blink: Splash.pulse(t.truncatingRemainder(dividingBy: 4), at: 3.6, for: 0.16),
-                               toot: Splash.pulse(since, at: 0, for: 0.3), waves: since < 0.6 ? min(3, since / 0.08) : 0)
+                               toot: Splash.pulse(since, at: 0.12, for: 0.3), waves: max(0, (since - 0.15) / 0.1),
+                               lean: Mascot.lean(since, call: 0.12))
                             .frame(width: 96, height: 96)
                             .offset(y: still ? 0 : sin(t * 2.2) * 3)
                     }
