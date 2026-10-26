@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.2.0
+- Liquid Glass, first pass: the episode player is a glass card floating over the page on iOS 26 and macOS 26, and so is the mini player on the Mac and older iPhones. Earlier systems keep the bar material.
+
 ## 7.1.0
 - Eight more languages: Hindi, Russian, Turkish, Polish, Swedish, Indonesian, Vietnamese and Hebrew (right to left). Nineteen in all, on the apps and the web.
 - Times ("2h ago"), source counts, reading time and episode length are translated too, in every language; the web matches strings with numbers in them.

@@ -146,7 +146,7 @@ struct EpisodeBar: View {
     var body: some View {
         Group { if player.entry?.id == entry.id { controls } else { cue } }
             .padding(.horizontal, 20).padding(.top, 12).padding(.bottom, 8)
-            .background(.regularMaterial)
+            .floatingGlass()
     }
 
     private var cue: some View {
@@ -256,6 +256,16 @@ struct MiniPlayer: View {
 }
 
 extension View {
+    /// Liquid Glass over the page on iOS 26 and macOS 26: a card that floats off the edges with the content showing
+    /// through. Earlier systems get the bar material, edge to edge.
+    @ViewBuilder func floatingGlass(in shape: some Shape = RoundedRectangle(cornerRadius: 28, style: .continuous)) -> some View {
+        if #available(iOS 26, macOS 26, *) {
+            glassEffect(.regular, in: shape).padding(.horizontal, 12).padding(.bottom, 8)
+        } else {
+            background(.regularMaterial, in: shape).padding(.horizontal, 12).padding(.bottom, 8)
+        }
+    }
+
     /// The mini player on the tab view: the tab bar accessory on iOS 26.1 and later, a floating capsule elsewhere.
     @ViewBuilder func miniPlayer(_ player: Player, hidden: Bool, open: @escaping (JournalEntry) -> Void) -> some View {
         #if os(iOS)
@@ -271,7 +281,7 @@ extension View {
         safeAreaInset(edge: .bottom) {
             if player.entry != nil && !hidden {
                 MiniPlayer(player: player, open: open).frame(height: 56)
-                    .background(.regularMaterial, in: Capsule()).padding(.horizontal, 16).padding(.bottom, 8)
+                    .floatingGlass(in: Capsule())
             }
         }
     }
