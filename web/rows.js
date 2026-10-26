@@ -78,6 +78,7 @@ function heroRow(e, onOpen) {
   img.src = e.image; img.alt = ''; img.referrerPolicy = 'no-referrer';
   img.onerror = function () { img.remove(); btn.classList.add('noimg'); };
   btn.appendChild(img);
+  if (window.HiRes) HiRes.sharpen(img, e);   // the phone-wide card gets the full-size picture
   // the outlet and headline sit on glass rising out of the photo, like an App Store Today card (same as the app)
   var glass = el('span', 'glass');
   glass.appendChild(kicker(e));

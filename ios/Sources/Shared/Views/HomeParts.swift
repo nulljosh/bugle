@@ -81,7 +81,8 @@ struct CachedImage<Content: View>: View {
     @State private var phase: AsyncImagePhase = .empty
 
     var body: some View {
-        content(phase).task(id: url) { phase = await Self.load(url) }
+        // a new URL clears the old picture first: a reused row must never show the last story's photo while it loads
+        content(phase).task(id: url) { phase = .empty; phase = await Self.load(url) }
     }
 
     static func load(_ url: URL?) async -> AsyncImagePhase {

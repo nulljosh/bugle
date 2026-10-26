@@ -36,3 +36,35 @@ body.searching nav.tabbar, body.searching .mini { display: none; }
 /* Compact layout (Settings, Layout): no pictures, tighter rows */
 body[data-layout="compact"] .row.story .thumb { display: none; }
 body[data-layout="compact"] .row.story { padding-top: var(--sp-2); padding-bottom: var(--sp-2); }
+
+/* First-run topic picker (picker.js): a sheet of chips and one capsule button */
+.picker p.muted { margin: 0 0 var(--sp-4); }
+.pick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: var(--sp-2); }
+.pick-grid .chip { width: 100%; justify-content: center; }
+.pick-go { display: block; width: 100%; height: 48px; margin: var(--sp-5) 0 var(--sp-2); border: 0; border-radius: var(--r-pill); background: var(--accent); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+
+/* Boot splash (read.html #splash, Splash.swift): the mascot pops up, blinks, and sounds its horn */
+#splash { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--bg); animation: splash-out .35s ease-out 1.2s forwards; }
+#splash svg { width: 168px; height: 168px; overflow: visible; }
+#splash .pop { transform-box: view-box; transform-origin: 50% 55%; animation: pop .4s cubic-bezier(.34, 1.56, .64, 1) both; }
+#splash .eyes { transform-box: fill-box; transform-origin: 50% 50%; animation: blink .16s ease-in-out .45s; }
+#splash .bell { transform-box: fill-box; transform-origin: 0% 50%; animation: toot .3s ease-in-out .62s; }
+#splash .w { fill: none; stroke: #0059B3; stroke-width: 7; stroke-linecap: round; opacity: 0; animation: wave .12s ease-out forwards; }
+#splash .w1 { animation-delay: .66s; } #splash .w2 { animation-delay: .75s; } #splash .w3 { animation-delay: .84s; }
+@keyframes pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+@keyframes blink { 50% { transform: scaleY(.1); } }
+@keyframes toot { 50% { transform: scale(1.14); } }
+@keyframes wave { to { opacity: 1; } }
+@keyframes splash-out { to { opacity: 0; visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { #splash .pop, #splash .eyes, #splash .bell { animation: none; } #splash .w { animation: none; opacity: 1; } }
+
+/* The mascot in the topic picker: bobs while you choose, hops for every pick */
+.pick-mascot { display: block; width: 96px; height: 96px; margin: 0 auto var(--sp-3); animation: bob 2.8s ease-in-out infinite; }
+.pick-mascot.hop { animation: hop .3s ease-out; }
+@keyframes bob { 50% { transform: translateY(-3px); } }
+@keyframes hop { 40% { transform: translateY(-10px) scale(1.06); } }
+@media (prefers-reduced-motion: reduce) { .pick-mascot, .pick-mascot.hop { animation: none; } }
+.picker .chip:not([aria-pressed="true"]) { background: color-mix(in srgb, var(--text) 10%, transparent); }   /* visible on the sheet's own gray */
+.picker { --accent: #0059B3; }   /* Bugle's own blue, whatever outlet colors Home behind it */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .picker { --accent: #5aa9ff; } }
+:root[data-theme="dark"] .picker { --accent: #5aa9ff; }

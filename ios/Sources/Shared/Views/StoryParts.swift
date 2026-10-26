@@ -48,9 +48,7 @@ struct HeroRow: View {
         RowLink(entry: entry) {
             VStack(alignment: .leading, spacing: 8) {
                 Color.clear.aspectRatio(4 / 3, contentMode: .fit)
-                    .overlay { CachedImage(url: entry.imageURL) { phase in
-                        if case .success(let image) = phase { image.resizable().aspectRatio(contentMode: .fill) } else { Color(white: 0.11) }
-                    } }
+                    .overlay { HeroImage(entry: entry).id(entry.id) }
                     .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
                 Kicker(entry: entry, saved: library.isSaved(entry), sources: story?.publishers ?? 1)
                 Text(Headline.clean(entry.title, source: entry.sourceTitle)).font(.title2.weight(.bold)).fixedSize(horizontal: false, vertical: true)
@@ -66,11 +64,7 @@ struct HeroRow: View {
             Color.clear
                 .aspectRatio(4 / 3, contentMode: .fit)
                 .frame(maxWidth: .infinity, maxHeight: 480)
-                .overlay {
-                    CachedImage(url: entry.imageURL) { phase in
-                        if case .success(let image) = phase { image.resizable().aspectRatio(contentMode: .fill) } else { Color(white: 0.11) }   // dark while it loads, so white type reads
-                    }
-                }
+                .overlay { HeroImage(entry: entry).id(entry.id) }
                 .overlay(alignment: .bottom) {
                     VStack(alignment: .leading, spacing: 4) {
                         Kicker(entry: entry, saved: library.isSaved(entry), sources: story?.publishers ?? 1)
@@ -94,6 +88,31 @@ struct HeroRow: View {
         .contextMenu {
             Button { library.toggleSave(entry) } label: { Label(library.isSaved(entry) ? "Remove from Saved" : "Save", systemImage: "bookmark") }
             if let url = URL(string: entry.url) { ShareLink(item: url) }
+        }
+    }
+}
+
+/// The hero's picture: the feed's small copy at once (dark while it loads, so white type reads), then the full-size one
+/// over it as soon as it arrives (HiRes), so a phone-wide card is never soft.
+struct HeroImage: View {
+    let entry: JournalEntry
+    @State private var hd: URL?
+
+    var body: some View {
+        ZStack {
+            CachedImage(url: entry.imageURL) { phase in
+                if case .success(let image) = phase { image.resizable().aspectRatio(contentMode: .fill) } else { Color(white: 0.11) }
+            }
+            if let hd {
+                CachedImage(url: hd) { phase in
+                    if case .success(let image) = phase { image.resizable().aspectRatio(contentMode: .fill).transition(.opacity) }
+                }
+            }
+        }
+        .task(id: entry.id) {
+            guard let u = entry.imageURL else { return }
+            let big = HiRes.upsize(u)
+            hd = await HiRes.fromPage(u, story: entry.url) ?? (big == u ? nil : big)
         }
     }
 }

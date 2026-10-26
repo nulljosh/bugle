@@ -27,7 +27,7 @@ struct EntryRow: View {
                 }
                 // unread: a dot in the margin, like Mail, so every title still starts on the same edge
                 .overlay(alignment: .topLeading) {
-                    if !read { Circle().fill(Color.bugleAccent).frame(width: 8, height: 8).offset(x: -14, y: 5).accessibilityHidden(true) }
+                    if !read { Circle().fill(Color.bugleAccent).frame(width: 8, height: 8).offset(x: -11, y: 5).accessibilityHidden(true) }
                 }
                 Spacer(minLength: 0)
                 if !compact {

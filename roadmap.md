@@ -78,7 +78,7 @@ App Store screenshots of Ground News, Particle, SmartNews, Yahoo News, Flipboard
 | 49 | Your shows: a grid of followed podcasts, each opening its episodes; Up Next total time | Pocket Casts | M | done | 7.12.0 |
 | 50 | Unread filter and unread dots (Today, All Unread, Starred) | NetNewsWire, Inoreader | S | done | 7.13.0 |
 | 51 | Compact list layout (no pictures, two lines) | Unread, Inoreader, Ground News | S | done | 7.14.0 |
-| 52 | First-run topic picker | Yahoo News, SmartNews | M | todo | |
+| 52 | First-run topic picker | Yahoo News, SmartNews | M | done | 7.15.0 |
 | 53 | Key takeaways and where sources agree or differ, written on device (Apple Foundation Models, no cloud) | Ground News, Particle, Yahoo | L | todo | the 8.0.0 major |
 
 Skipped: factuality scores (no source we can cite), social profiles and magazines (Flipboard), streaks and rewards, AI rewrites in other tones, video tabs.

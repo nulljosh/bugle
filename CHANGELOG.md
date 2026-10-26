@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.15.0
+Bugle has a mascot: the horn come alive, its coil a round smiling face. It pops up on a new boot splash, blinks and sounds its call, then Home fades up. A first-run topic picker asks what you follow, with the mascot bobbing above and tooting for every pick; a new account sees it on its first sign-in too. Lead pictures load full size, so the hero card and the story's own picture are sharp on a phone (the Guardian's come from the story page, since it signs its picture links).
+
 ## 7.14.0
 A compact layout, in Settings under Reading: no pictures and no lead story, two lines a row, so far more of the news fits on one screen. On the apps and the web.
 

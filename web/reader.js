@@ -162,7 +162,7 @@ function show(e) {
   listen.hidden = !window.speechSynthesis || !!e.audio;   // an episode plays its own audio instead
   // the story's picture under the headline, like the app, unless the body already opens with pictures
   if (e.image && !frag.querySelector('img')) {
-    var pic = el('img', e.audio ? 'lead art' : 'lead'); pic.src = e.image; pic.alt = ''; pic.referrerPolicy = 'no-referrer';
+    var pic = el('img', e.audio ? 'lead art' : 'lead'); pic.src = window.HiRes ? HiRes.upsize(e.image) : e.image; pic.alt = ''; pic.referrerPolicy = 'no-referrer';
     pic.onerror = function () { pic.remove(); };
     box.appendChild(pic);
   }

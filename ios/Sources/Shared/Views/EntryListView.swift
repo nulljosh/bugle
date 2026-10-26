@@ -13,6 +13,8 @@ struct EntryListView: View {
     @ObservedObject private var player = Player.shared
     @State private var nowPlaying = false
     @State private var briefing = false
+    /// A fresh install with nothing followed and nothing read picks its topics first (`-pickTopics` forces it).
+    @State private var pickTopics = false
     @State private var path: [JournalEntry] = []
     /// The search tab's own stack, so a story opened there does not land on Home too.
     @State private var searchPath: [JournalEntry] = []
@@ -117,6 +119,15 @@ struct EntryListView: View {
         .miniPlayer(player, hidden: (tab == 3 ? searchPath : path).last?.id == player.entry?.id) { _ in nowPlaying = true }
         .minimizesTabBar()
         .sheet(isPresented: $nowPlaying) { NowPlayingView(player: player) { tab = 0; path = [$0] } }
+        .sheet(isPresented: $pickTopics) { TopicPicker(topics: $topics) { pickTopics = false } }
+        .onChange(of: account.askTopics) { _, ask in if ask { account.askTopics = false; pickTopics = true } }
+        .onAppear {
+            let forced = CommandLine.arguments.contains("-pickTopics")
+            guard forced || !UserDefaults.standard.bool(forKey: "topicsPicked") else { return }
+            UserDefaults.standard.set(true, forKey: "topicsPicked")   // asked once, whatever the answer
+            guard forced || (topics.isEmpty && library.history.isEmpty) else { return }
+            Task { try? await Task.sleep(for: .seconds(1.6)); pickTopics = true }   // after the boot splash, never over it
+        }
         .sheet(isPresented: $briefing) { BriefingView(stories: Array(Coverage.today(feed.stories).prefix(5))) { tab = 0; path = [$0] } }
         // Keyboard (Mac, iPad): ⌘R refreshes, ⌘1 to ⌘3 pick a tab. Invisible buttons carry the shortcuts.
         .background {

@@ -223,7 +223,7 @@ struct EntryDetailView: View {
 
     private static func heroImage(for entry: JournalEntry) -> String {
         guard let url = entry.imageURL else { return "" }
-        let src = escape(url.absoluteString)
+        let src = escape(HiRes.upsize(url).absoluteString)   // both heroes are phone-wide: ask for the big copy
         guard entry.audioURL != nil else { return "<img class=\"hero\" src=\"\(src)\">" }
         return "<div class=\"cover\" style=\"--art: url('\(src.replacingOccurrences(of: "'", with: "%27"))')\"><img src=\"\(src)\" alt=\"\"></div>"
     }

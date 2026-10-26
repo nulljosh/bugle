@@ -218,3 +218,11 @@ test("collections pick by side, biggest first", () => {
   assert.deepEqual(Coverage.pick("Both Sides", [a, b, c]), [c, b]);
   assert.equal(Coverage.pick("BBC", [a]), undefined);
 });
+// The hero's full-size picture, same rules as HiRes.swift.
+(await import("node:vm")).runInThisContext(readFileSync(new URL("./web/hires.js", import.meta.url), "utf8"));
+test("hero pictures ask for the big copy", () => {
+  assert.equal(HiRes.upsize("https://ichef.bbci.co.uk/ace/standard/976/cps/a.jpg"), "https://ichef.bbci.co.uk/ace/standard/1536/cps/a.jpg");
+  assert.match(HiRes.upsize("https://nypost.com/a.jpg?quality=75&strip=all&w=1024"), /w=1600$/);
+  assert.equal(HiRes.upsize("https://example.com/a.jpg"), "https://example.com/a.jpg");
+  assert.equal(HiRes.widest(["x?width=700&fit=max", "x?width=1065&fit=max", "x?width=140"]), "x?width=1065&fit=max");
+});

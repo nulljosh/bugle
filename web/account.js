@@ -78,7 +78,8 @@
   }
   var creds = function () { return { email: $('acct-mail').value.trim(), password: $('acct-pass').value }; };
 
-  $('acct-signin').onclick = function () { act(async function () { keep(await call('POST', '/auth/token?grant_type=password', creds())); say(); await sync(); }); };
+  $('acct-signin').onclick = function () { act(async function () { keep(await call('POST', '/auth/token?grant_type=password', creds())); say(); await sync();
+    if (!Topics.list().length && window.TopicPicker) TopicPicker.show(); }); };   // a new account: what do you follow?
   $('acct-signup').onclick = function () { act(async function () {
     var c = creds(); if (c.password.length < 8) throw new Error('Use 8 or more characters for the password.');
     await call('POST', '/auth/signup', Object.assign(c, { redirect_to: BACK })); say('Check ' + c.email + ' for a link to confirm your account, then sign in.'); }); };

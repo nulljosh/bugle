@@ -21,6 +21,8 @@ final class Account: ObservableObject {
     }
 
     var signedIn: Bool { email != nil }
+    /// Set when a sign-in lands with nothing followed (a new account): Home asks what you follow (TopicPicker).
+    @Published var askTopics = false
 
     func signUp(email: String, password: String) async {
         await run {
@@ -34,6 +36,7 @@ final class Account: ObservableObject {
             let session = try await self.call("POST", "/auth/token?grant_type=password", body: ["email": email, "password": password])
             try self.keep(session)
             try await self.sync(store)
+            if (UserDefaults.standard.string(forKey: "topics") ?? "").isEmpty { self.askTopics = true }
         }
     }
 
