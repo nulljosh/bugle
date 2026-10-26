@@ -2,14 +2,14 @@
 
 Every feed, one timeline. A bugle calls everyone in at once; Bugle does that for the feeds you follow.
 
-## The mark
-A bugle, side on: a mouthpiece, one coil hanging from the lead pipe, a wide bell. Bold, flat, white, on the clrs blue gradient. No text, no outline, no emblem. The pipe and bell are one shape, so nothing breaks at small sizes; it still reads as a bugle at 29 px.
+## The mascot and the icon
+The horn come alive: its coil is a round smiling face (dot eyes with a highlight, pink cheeks, a small smile), the tube runs from a mouthpiece behind the face into a wide bell. Bugle blue on a white face; on the icon tile everything but the face's features is white. It blinks, swells its bell and sends three sound waves out of it.
 
-- `../Bugle.icon` is the source of truth (Icon Composer), light and dark fills set in it.
-- `icon-1024.png` is the App Store icon, no alpha. The iOS, Mac and Watch icon sets are cut from it; the Mac one is inset to 824 px with 185 px corners, like every Mac icon.
-- `../icon.svg` is the README copy (80 px). `mark.svg` is the glyph alone in `currentColor`.
-- `web/og.png` is the share card: the tile, the name in Bugle Display, the line.
-- Clear space equal to the bell's height. Smallest size 16 px.
+- `web/mascot.svg` (and `brand/mascot.svg`) is the source, a 240 grid. `Mascot.swift` draws the same shapes and animates them (`blink`, `toot`, `waves`).
+- Where it lives: the app icon, the boot splash (pops up, blinks, toots, then Home fades up, about a second, a still fade under Reduce Motion), above the first-run topic picker (bobs, toots for every pick), the landing hero and the Get it section.
+- `../Bugle.icon` is the icon's source of truth (Icon Composer: the white mascot on the clrs blue gradient, a deep navy one in dark mode). `icon-1024.png` is the App Store icon, no alpha; the iOS and Watch sets are cut from it, the Mac one is inset to 824 px with 185 px corners. `../icon.svg` is the README copy, also `web/icon.svg` and the favicons.
+- `mark.svg` is the plain horn alone in `currentColor`, for one-colour places.
+- Clear space equal to the bell's height. Smallest size 16 px; at 29 px it still reads as a face with a horn.
 
 ## Colour
 | Role | Light | Dark |
@@ -27,8 +27,7 @@ Never brown, beige, purple or teal, and no decorative gradients. The only gradie
 **Outlet colours.** Each newsroom wears its own colour, a light and dark pair that each pass 4.5:1 on white and on black (`BRAND` in `web/coverage.js`, `Outlet.brand` in `Coverage.swift`, checked by `test.mjs`): Hacker News orange, BBC and CBC red, The Guardian navy, NPR blue and so on. A newsroom's local desks take its colour (CBC Toronto is CBC red). Unknown feeds get one of ten fixed pairs by name. When everything on screen comes from one outlet, the whole reader takes its colour.
 
 ## Type
-- **Apps:** SF, the system scale. Large title 34, title 22, headline 17 semibold, body 17, footnote 13.
-- **Web:** Bugle Display (Inter Tight Bold, renamed by `scripts/gen_font.py`) for headlines in normal case, tracked -0.02em, -0.035em at hero size; Bugle Sans (Inter) for the rest. The reader runs a step under the landing because Inter reads larger than SF: body and rows 16/22, hero 20/26, story title 26/32, chips 14, footnote 13/18. No forced capitals anywhere.
+The system font everywhere: SF in the apps and on the web (`-apple-system, BlinkMacSystemFont, "SF Pro Text"`, Helvetica elsewhere). No webfonts. Large title 34, title 22, headline 17 semibold, body 17 (the web reader runs 16/22), footnote 13. No forced capitals anywhere.
 
 ## Space and shape
 - The 8 point grid: 4, 8, 12, 16, 24, 32, 48. Side margin 20. Reading column 680.
@@ -43,9 +42,14 @@ Glass is for whatever floats over content: the tab bar, the story toolbar, the t
 - White type on glass over photos, in both modes; each outlet uses its dark-mode colour there.
 
 ## Components
+- **Home:** a large title with the date under it, the Briefing as a round glass button at the top right, and search as its own tab that opens a glass field at the bottom (iOS 18 and later; iOS 17 keeps the field at the top). Filtered, the title names the filter and a glass button clears it.
+- **Collection chips:** Unread, Blindspots, Popular Left, Popular Right, Both Sides, Podcasts; each is a search word and a title.
+- **Unread:** an 8 point accent dot in the margin, so titles still start on one edge; read rows dim.
+- **Layout:** Standard, or Compact (no pictures, no lead story, two lines a row), in Settings.
+- **Episode page:** the cover as a hero across the top third, blurred up under the glass bar, with a parallax as you scroll.
 - **Top story card:** the photo fills a 28 point card (4:3 on a phone, 16:9 wide, 480 at most); the outlet and headline sit on glass at its foot. Dark under the photo while it loads.
 - **Rows:** the outlet above the headline, time and sources beside it, the picture on the right, no disclosure arrows; read rows dim.
-- **Chips:** followed topics under the search, 36 tall; on means accent text on a 14 percent accent tint.
+- **Chips:** collections and followed topics, 36 tall; on means accent text on a 14 percent accent tint.
 - **Toolbars:** glyphs, never words. A round glass back button, then one glass capsule of actions (save, share, open).
 - **Tab bar:** native SwiftUI in the apps; on the web a glass capsule of three glyphs, labels kept for screen readers.
 - **Lists that can lose a row** swipe left to remove (Following, Muted); a feed swipes right for notifications.

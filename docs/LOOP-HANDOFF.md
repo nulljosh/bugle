@@ -4,7 +4,7 @@
 
 The Bugle loop works the gap matrix in `roadmap.md` top to bottom, every `todo` or `partial` row against Apple News and Ground News, then the Road to v100 bands. The goal is 0 gaps at A+, then v100. The loop prompt lives in `~/.claude/loops/bugle.md`. Bugle is one codebase in the labs monorepo: SwiftUI for iPhone, iPad, Mac and Watch, plus the web reader in `web/`.
 
-Rules that bite: deploy the web from the bugle root, never from `web/` (that left out `functions/` and emptied the live Home once). Commit only bugle paths, because the monorepo is shared with other sessions. Tags are `bugle-vX.Y.Z`, never bare `vX.Y.Z`. Keep the Swift, JS and KMP parsers in step. Never cancel a review to swap builds, and check `asc` for an open review before any upload. UI copy stays in plain words, SF in the apps and Bugle Sans on the web, no em dashes, no emojis.
+Rules that bite: deploy the web from the bugle root, never from `web/` (that left out `functions/` and emptied the live Home once). Commit only bugle paths, because the monorepo is shared with other sessions. Tags are `bugle-vX.Y.Z`, never bare `vX.Y.Z`. Keep the Swift, JS and KMP parsers in step. Never cancel a review to swap builds, and check `asc` for an open review before any upload. UI copy stays in plain words, SF everywhere (the system font), no em dashes, no emojis.
 
 ## Where things stand
 

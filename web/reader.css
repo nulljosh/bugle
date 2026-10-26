@@ -1,7 +1,7 @@
 /* The web reader: Home, Feeds and Settings behind a bottom bar, like the app. Tokens come from style.css.
    House Apple rules: 8 point grid, 20 side margin, 680 reading column, 44 to 48 point controls, one radius set
    (groups 20, controls round, images 12), inset hairlines, liquid glass on what floats. */
-body { font-size: 16px; line-height: 22px; }   /* a step under the landing: Bugle Sans reads larger than SF at the same size */
+body { font-size: 16px; line-height: 22px; }   /* the system font, SF on Apple devices, same as the apps */
 .screen { max-width: 680px; margin: 0 auto; padding: var(--sp-6) 20px 128px; padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
 .screen[hidden], button[hidden], .glass-btn.group > [hidden] { display: none; }
 .head { display: flex; align-items: center; gap: var(--sp-3); min-height: 48px; margin-bottom: var(--sp-4); }

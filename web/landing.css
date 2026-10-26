@@ -135,3 +135,9 @@ h3 { font-size: 30px; line-height: 32px; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
   .btn { transition: none; }
 }
+
+/* The mascot: above the hero headline, and over Get it. Bobs gently, still under reduced motion. */
+.hero-mascot { display: block; margin: 0 auto var(--sp-4); animation: bob 2.8s ease-in-out infinite; }
+.get-mascot { display: block; margin: 0 auto var(--sp-4); }
+@keyframes bob { 50% { transform: translateY(-4px); } }
+@media (prefers-reduced-motion: reduce) { .hero-mascot { animation: none; } }

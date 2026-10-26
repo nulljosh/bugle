@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.16.0
+The mascot is the app icon now: the smiling horn in white on the blue tile, on iPhone, iPad, Mac, Watch, the favicon and the share card. The web reader and landing use the system font, SF, the same as the apps, so the webfont is gone. The landing shows the mascot, and its copy covers collections, Hacker News threads, unread, the compact layout, the shows shelf and the topic picker. The brand kit documents the mascot and the new components.
+
 ## 7.15.0
 Bugle has a mascot: the horn come alive, its coil a round smiling face. It pops up on a new boot splash, blinks and sounds its call, then Home fades up. A first-run topic picker asks what you follow, with the mascot bobbing above and tooting for every pick; a new account sees it on its first sign-in too. Lead pictures load full size, so the hero card and the story's own picture are sharp on a phone (the Guardian's come from the story page, since it signs its picture links).
 

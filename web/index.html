@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0e0d0d" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://bugle.jaybulb.com/">
-<link rel="icon" href="favicon.svg?v=3" type="image/svg+xml">
+<link rel="icon" href="favicon.svg?v=4" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png?v=3" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=3">
 <link rel="manifest" href="/manifest.webmanifest">
@@ -19,12 +19,11 @@
 <meta property="og:title" content="Bugle. Every feed, one timeline.">
 <meta property="og:description" content="Add any blog, paper or Hacker News, and read everything in one timeline, newest first.">
 <meta property="og:url" content="https://bugle.jaybulb.com/">
-<meta property="og:image" content="https://bugle.jaybulb.com/og.png?v=3">
+<meta property="og:image" content="https://bugle.jaybulb.com/og.png?v=4">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://bugle.jaybulb.com/og.png?v=3">
-<link rel="preload" href="fonts/BugleDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="twitter:image" content="https://bugle.jaybulb.com/og.png?v=4">
 <link rel="stylesheet" href="tokens.css">
-<link rel="stylesheet" href="landing.css?v=6">
+<link rel="stylesheet" href="landing.css?v=7">
 </head>
 <body>
 
@@ -33,7 +32,7 @@
     <a href="#features">Features</a>
     <a href="#get">Get it</a>
   </nav>
-  <a class="nav-brand" href="#top" aria-label="Bugle home"><img src="icon.svg?v=3" alt="" width="28" height="28"><span>Bugle</span></a>
+  <a class="nav-brand" href="#top" aria-label="Bugle home"><img src="icon.svg?v=4" alt="" width="28" height="28"><span>Bugle</span></a>
   <div class="nav-end">
     <a class="nav-get" href="read.html">Web reader</a>
     <a class="btn btn-solid" href="https://apps.apple.com/app/id6787759999">App Store</a>
@@ -46,6 +45,7 @@
 <main id="top">
 <section class="hero">
   <div class="wrap center">
+    <img class="hero-mascot" src="mascot.svg?v=1" alt="" width="112" height="112">
     <h1>Every feed, one timeline.</h1>
     <p class="lead">Blogs, papers, Hacker News, podcasts. Everything you follow runs into one list, the day's biggest stories first.</p>
     <div class="cta">
@@ -75,11 +75,12 @@
   </div>
   <div class="frows">
     <article class="frow reveal"><div class="art" style="--img: url(art/amman.png)" aria-hidden="true"></div><div><p class="label">Subscribe</p><h3>Any site, any feed</h3><p>Paste a site address and Bugle finds its feed. Newsrooms, tech and Mac sites and ten cities' local desks are a tap away, and OPML brings the rest.</p></div></article>
-    <article class="frow reveal"><div class="art" style="--img: url(art/casse.png)" aria-hidden="true"></div><div><p class="label">Timeline</p><h3>One story, every newsroom</h3><p>The same story from several outlets is one row, with how left, center and right covered it. The day's biggest lead, and Blindspots shows what one side skipped.</p></div></article>
-    <article class="frow reveal"><div class="art" style="--img: url(art/compositor.png)" aria-hidden="true"></div><div><p class="label">Reading</p><h3>The whole story, quietly</h3><p>Stories open in full even when a feed only sends a summary, with their reading time and the days of coverage before. Listen reads one aloud, and podcasts play right in the story, at up to 2x.</p></div></article>
-    <article class="frow reveal"><div class="art" style="--img: url(art/card-press.png)" aria-hidden="true"></div><div><p class="label">Listen</p><h3>Podcasts beside the news</h3><p>Your shows come in with the headlines. Play an episode at up to 2x, line up the next ones, download for the plane, set a sleep timer, and pick up where you left off. The Briefing reads you the day's five biggest stories.</p></div></article>
+    <article class="frow reveal"><div class="art" style="--img: url(art/casse.png)" aria-hidden="true"></div><div><p class="label">Timeline</p><h3>One story, every newsroom</h3><p>The same story from several outlets is one row, with how left, center and right covered it. Blindspots shows what one side skipped, Popular Left and Popular Right what each side covers most, and Both Sides the stories to compare.</p></div></article>
+    <article class="frow reveal"><div class="art" style="--img: url(art/compositor.png)" aria-hidden="true"></div><div><p class="label">Reading</p><h3>The whole story, quietly</h3><p>Stories open in full even when a feed only sends a summary, with sharp pictures and the days of coverage before. Hacker News stories come with the whole comment thread. A dot marks what you have not read, and a compact layout fits more on a screen.</p></div></article>
+    <article class="frow reveal"><div class="art" style="--img: url(art/card-press.png)" aria-hidden="true"></div><div><p class="label">Listen</p><h3>Podcasts beside the news</h3><p>Your shows sit on a shelf beside the headlines, and each episode opens on its cover. Play at up to 2x, line up the next ones and see how long they run, download for the plane, and set a sleep timer. The Briefing reads you the day's five biggest stories.</p></div></article>
   </div>
   <div class="cells">
+    <article class="cell reveal"><p class="label">Start</p><h3>Pick what you follow</h3><p>The first launch asks what you care about, AI, housing, your city, and makes each one a chip on Home.</p></article>
     <article class="cell reveal"><p class="label">Offline</p><h3>Keeps what you save</h3><p>Saved stories open with their pictures on the train.</p></article>
     <article class="cell reveal"><p class="label">Private</p><h3>No account needed</h3><p>Read without signing up, in nineteen languages, and translate any story on your device. An optional account syncs your feeds, saved stories, topics and mutes.</p></article>
     <article class="cell reveal"><p class="label">Native</p><h3>At home on Apple devices</h3><p>A widget, Siri, Spotlight, Share from Safari, and three columns on iPad and Mac.</p></article>
@@ -88,7 +89,7 @@
 
 <section class="sec" id="get">
   <div class="wrap center">
-    <i class="mark reveal" aria-hidden="true"></i>
+    <img class="get-mascot reveal" src="mascot.svg?v=1" alt="" width="72" height="72">
     <p class="label reveal">Get it</p>
     <h2 class="reveal">Read it anywhere</h2>
     <p class="body reveal">One app on your phone and your Mac, and the same reader in any browser.</p>
@@ -112,7 +113,7 @@
 
 <footer class="foot">
   <div class="foot-top">
-    <div class="foot-brand"><img src="icon.svg?v=3" alt="" width="40" height="40"><b>Bugle</b><p>Every feed, one timeline.</p></div>
+    <div class="foot-brand"><img src="icon.svg?v=4" alt="" width="40" height="40"><b>Bugle</b><p>Every feed, one timeline.</p></div>
     <nav class="foot-cols" aria-label="Footer">
       <div><p class="label">Bugle</p><a href="https://apps.apple.com/app/id6787759999">App Store</a><a href="read.html">Web reader</a><a href="#features">Features</a><a href="support.html">Support</a></div>
       <div><p class="label">Source</p><a href="https://github.com/nulljosh/labs/tree/main/bugle">GitHub</a><a href="https://github.com/nulljosh/labs/blob/main/bugle/WHITEPAPER.md">Whitepaper</a><a href="https://github.com/nulljosh/labs/blob/main/bugle/brand/BRAND.md">Brand kit</a><a href="privacy.html">Privacy</a></div>

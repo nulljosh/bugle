@@ -24,6 +24,7 @@ var TopicPicker = (function () {
 
   try {
     var force = /[?&]pickTopics/.test(location.search);
+    if (/[?&]embed/.test(location.search)) return { show: show };   // the landing's live demo never asks
     // after the boot splash, never over it (a modal sits above everything)
     if (force || (!localStorage.getItem('bugle.topicsPicked') && !Topics.list().length && !(window.Library && Library.history().length))) setTimeout(show, document.getElementById('splash') ? 1600 : 0);
     localStorage.setItem('bugle.topicsPicked', '1');   // asked once, whatever the answer

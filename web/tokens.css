@@ -1,11 +1,6 @@
 /* Bugle design tokens. One source for the landing, the web reader and the apps (Theme.swift mirrors the accent).
    Shared system: 8 point grid, one radius set, 48 point capsule controls. clrs.cc blue is the only colour Bugle owns. */
-@font-face { font-family: "Bugle Sans"; src: url("fonts/BugleSans-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Bugle Sans"; src: url("fonts/BugleSans-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
-@font-face { font-family: "Bugle Sans"; src: url("fonts/BugleSans-Semibold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
-@font-face { font-family: "Bugle Sans"; src: url("fonts/BugleSans-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
-/* Bugle Sans is Inter, Bugle Display is Inter Tight Bold (SIL OFL 1.1, fonts/OFL.txt); headlines in normal case */
-@font-face { font-family: "Bugle Display"; src: url("fonts/BugleDisplay-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+/* Type is the system font, SF on Apple devices, the same as the apps (2026-10-26; the web used to ship Bugle Sans, a renamed Inter) */
 
 :root {
   /* colour */
@@ -26,8 +21,8 @@
   --sub: #6e6e73;
 
   /* type */
-  --display: "Bugle Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font: "Bugle Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --size-title: 34px;         /* section heads: 40 line */
   --size-headline: 20px;      /* card heads: 28 line */
   --size-body: 17px;          /* 24 line */
