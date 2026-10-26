@@ -1,27 +1,27 @@
-# Bugle loop handoff (2026-10-26, 00:30)
+# Bugle loop handoff (2026-10-26, 01:45)
 
 ## What the loop is
 
-The Bugle loop works the gap matrix in `roadmap.md` top to bottom, every `todo` or `partial` row against Apple News and Ground News, then the Road to v100 bands. The goal is 0 gaps at A+, then v100. The loop prompt lives in `~/.claude/loops/bugle.md`. Bugle is one codebase in the labs monorepo: SwiftUI for iPhone, iPad, Mac and Watch, plus the web reader in `web/`.
+The Bugle loop works the gap matrix in `roadmap.md` top to bottom, every `todo` or `partial` row against Apple News and Ground News, then the Road to v100 bands. The goal is 0 gaps at A+, then v100. The loop prompt lives in `~/.claude/loops/bugle.md`. Joshua stopped the loop at 01:45 to wrap up; it is not running now. Restart it with the prompt below when he asks. Bugle is one codebase in the labs monorepo: SwiftUI for iPhone, iPad, Mac and Watch, plus the web reader in `web/`.
 
-Rules that bite: deploy the web from the bugle root, never from `web/` (that left out `functions/` and emptied the live Home once). Commit only bugle paths, because the monorepo is shared with other sessions. Tags are `bugle-vX.Y.Z`, never bare `vX.Y.Z`. Keep the Swift, JS and KMP parsers in step. Never cancel a review to swap builds, and check `asc` for an open review before any upload. UI copy stays in plain words, SF everywhere (the system font), no em dashes, no emojis.
+Rules that bite: deploy the web from the bugle root, never from `web/` (that left out `functions/` and emptied the live Home once). Commit only bugle paths, because the monorepo is shared with other sessions. Tags are `bugle-vX.Y.Z`, never bare `vX.Y.Z`. Keep the Swift, JS and KMP parsers in step. Never cancel a review to swap builds, and check `asc` for an open review before any upload. UI copy stays in plain words, SF in the apps and on the web, no em dashes, no emojis.
 
 ## Where things stand
 
-- Repo is at 7.14.0 (tag `bugle-v7.14.0`). Tonight's run went from 7.9.0 to 7.14.0.
-- 7.9: the episode cover is a hero across the top third, blurred under the glass bar, with scroll parallax. Hacker News stories open in the reader with the whole comment thread. Pages with no article body show their own summary. Swipe left to save, in green. Washed-out covers no longer tint the player.
-- 7.10: Home is redone as Apple would build it: a large title with the date, a round glass Briefing button, and search as its own tab that opens a glass field at the bottom. The web matches.
-- 7.11 to 7.14: Popular Left, Popular Right and Both Sides collections (rows 48 to 51 are done, along with the shelf of followed podcasts and Up Next total time, unread dots with an Unread chip, and the Compact layout in Settings). All in 19 languages.
-- Gap matrix: rows 52 and 53 are the only `todo` rows left.
-- Store: iOS 2.0.0 is live, iOS 6.1.0 is waiting for review, Mac 2.0.0 is in review. The screenshots in `ios/.asc/screenshots` predate the 7.10 Home redesign and need a retake before the next submit.
+- Repo is at 7.18.1 (tag `bugle-v7.18.1`). The 7.14 to 7.18 run added:
+- 7.15: the mascot (the horn with a round smiling face), a boot splash where it pops up, blinks and toots, and a first-run topic picker, also shown after a new account's first sign-in. Lead pictures come in full size.
+- 7.16: the mascot is the app icon (white on the blue tile; Icon Composer bundle, iOS, Mac and Watch sets, favicons, share card). The web uses the system font. `brand/BRAND.md` documents the mascot.
+- 7.17 and 7.17.1: the splash plays whole and crossfades into a complete Home; launch work moved off the main thread; refresh returns grouped stories to every caller; the mascot sits on loading and empty lists; twice-escaped headline entities decode.
+- 7.18 and 7.18.1: the mascot leans back into its toot with three waves that ripple out; the mascot is on the iOS launch screen itself, so a first launch shows it from the first frame. Joshua graded the mascot and its animation A+.
+- Gap matrix: rows 48 to 52 are done. Row 53 (on-device key takeaways, the 8.0.0 major) is the only `todo` row left.
+- Store: iOS 6.1.0 is approved and live. iOS 7.17.1 was uploaded and is WAITING_FOR_REVIEW. Mac 2.0.0 is still in review. The store screenshots in `ios/.asc/screenshots` predate the 7.10 Home redesign and need a retake.
 
 ## Next, in order
 
-0. Retake the store screenshots so they show the new Home (large title, search tab), the cover hero, the Podcasts shelf and the Compact layout.
-1. Store, on Joshua's yes: when iOS 6.1.0 clears, create iOS 7.0.0, upload the new screenshots to the APP_IPHONE_65 and APP_IPAD_PRO_3GEN_129 sets on en-US, archive, upload and submit. When Mac 2.0.0 clears, archive and submit Mac 7.0.0.
-2. Row 52: first-run topic picker (M, after Yahoo News and SmartNews).
-3. Row 53: key takeaways and where sources agree or differ, written on device with Apple Foundation Models and no cloud (L, the 8.0.0 major).
-4. Then the rest of the Road to v100 bands. Writing and subscribers (bands 10 to 29) and Android (30 to 49) stay gated on Joshua.
+0. Retake the store screenshots so they show the new Home, the mascot and the first-run picker.
+1. Store, on Joshua's yes: submit 7.18.x once iOS 7.17.1 clears, and submit Mac 7.x once Mac 2.0.0 clears. Never cancel a review.
+2. Row 53: key takeaways and where sources agree or differ, written on device with Apple Foundation Models and no cloud (L, the 8.0.0 major).
+3. Then the rest of the Road to v100 bands. Writing and subscribers (bands 10 to 29) and Android (30 to 49) stay gated on Joshua.
 
 ## Restart prompt
 
