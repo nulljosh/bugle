@@ -38,6 +38,7 @@ function kicker(e) {
   if (window.listenTime && listenTime(e)) k.appendChild(document.createTextNode(' · ' + listenTime(e)));   // an episode's length
   var st = window.storyOf && storyOf[e.url];
   if (st && st.publishers > 1) k.appendChild(document.createTextNode(' · ' + st.publishers + ' sources'));
+  if (window.Player && e.audio && Player.queued(e)) k.appendChild(document.createTextNode(' · Up Next'));
   if (window.Library && Library.isSaved(e)) k.appendChild(el('span', 'saved', ' · Saved'));
   return k;
 }

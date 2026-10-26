@@ -2,6 +2,11 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 6.1.0
+- One player for the whole app: an episode keeps playing while you read on. A mini player rides above the tab bar (the tab bar's own accessory on iOS 26.1, glass over the bottom edge on the Mac and the web) with the art, play and forward 30; tap it to open the episode. The last episode comes back paused after a relaunch.
+- Up Next: add an episode from its page or by pressing and holding its row. Up Next leads the Podcasts list, and when an episode ends the next one plays.
+- An episode you are not playing shows Play (or Resume) and Up Next instead of a second player.
+
 ## 6.0.1
 - Feeds says "Podcast" under the default shows instead of their feed address.
 - An episode WSJ posts to two of its shows is listed once.

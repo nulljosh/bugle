@@ -10,6 +10,7 @@ struct EntryListView: View {
     @StateObject private var store: FeedStore
     @StateObject private var account = Account()
     @StateObject private var library = Library()
+    @ObservedObject private var player = Player.shared
     @State private var path: [JournalEntry] = []
     @State private var query = UserDefaults.standard.string(forKey: "search") ?? ""   // `-search BBC` for screenshots
     @AppStorage("topics") private var topics = ""
@@ -60,6 +61,7 @@ struct EntryListView: View {
         .environment(\.horizontalSizeClass, .compact)
         #endif
         .tint(accent)
+        .miniPlayer(player) { tab = 0; path = [$0] }
         // Keyboard (Mac, iPad): ⌘R refreshes, ⌘1 to ⌘3 pick a tab. Invisible buttons carry the shortcuts.
         .background {
             Group {
@@ -92,7 +94,10 @@ struct EntryListView: View {
     private var shown: [Story] {
         let q = query.trimmingCharacters(in: .whitespaces)
         if q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame { return feed.stories.filter { $0.blindspot != nil } }
-        if q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame { return feed.episodes.map { Story(lead: $0, entries: [$0]) } }
+        // Up Next first, in order, then every other episode newest first
+        if q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame {
+            return (player.queue + feed.episodes.filter { !player.isQueued($0) }).map { Story(lead: $0, entries: [$0]) }
+        }
         return q.isEmpty ? Coverage.today(feed.stories) : feed.stories.filter { $0.entries.contains { $0.title.localizedStandardContains(q) || $0.sourceTitle.localizedStandardContains(q) } }
     }
 
@@ -173,6 +178,12 @@ struct EntryRow: View {
         .contextMenu {
             Button { library.toggleSave(entry) } label: {
                 Label(library.isSaved(entry) ? "Remove from Saved" : "Save", systemImage: library.isSaved(entry) ? "bookmark.slash" : "bookmark")
+            }
+            if entry.audioURL != nil {
+                Button { Player.shared.start(entry) } label: { Label("Play", systemImage: "play") }
+                Button { Player.shared.toggleQueue(entry) } label: {
+                    Label(Player.shared.isQueued(entry) ? "Remove from Up Next" : "Add to Up Next", systemImage: "text.line.first.and.arrowtriangle.forward")
+                }
             }
             if let url = URL(string: entry.url) {
                 ShareLink(item: url)

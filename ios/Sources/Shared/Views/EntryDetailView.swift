@@ -16,7 +16,7 @@ struct EntryDetailView: View {
     @ScaledMetric(relativeTo: .body) private var body17 = 17.0
     @StateObject private var listener = Listener()
     /// A podcast episode's own audio (EpisodeBar); articles get Listen instead.
-    @StateObject private var player = Player()
+    @ObservedObject private var player = Player.shared
     /// The page's own text when the feed only sent a summary (FullText).
     @State private var full: JournalEntry?
 
@@ -31,12 +31,9 @@ struct EntryDetailView: View {
             #endif
             .onAppear { library.markRead(entry) }
             .task { full = await FullText.fill(entry) }
-            .onDisappear { listener.stop(); player.stop() }
-            .task(id: entry.id) {
-                player.prepare(entry)
-                if CommandLine.arguments.contains("-playEpisode") { player.play() }   // screenshot and QA hook
-            }
-            .safeAreaInset(edge: .bottom, spacing: 0) { if entry.audioURL != nil { EpisodeBar(player: player) } }
+            .onDisappear { listener.stop() }   // an episode keeps playing; the mini player has it
+            .task(id: entry.id) { if CommandLine.arguments.contains("-playEpisode") { player.start(entry) } }   // screenshot and QA hook
+            .safeAreaInset(edge: .bottom, spacing: 0) { if entry.audioURL != nil { EpisodeBar(player: player, entry: entry) } }
             .handsOff(entry)
             .sheet(isPresented: $showCoverage) { if let story { CoverageView(story: story, library: library) } }
             .toolbar {
@@ -126,12 +123,37 @@ struct EntryDetailView: View {
     }
 }
 
-/// The episode's controls under its show notes, like Apple Podcasts' player: the scrubber with elapsed and left, then
-/// speed, back 15, play, forward 30. Glass over the page, 48 point targets.
+/// The episode's controls under its show notes. Playing it: Apple Podcasts' player, the scrubber with elapsed and left,
+/// then speed, back 15, play, forward 30. Not playing: Play (or Resume) and Up Next. Glass over the page, 48 point targets.
 struct EpisodeBar: View {
     @ObservedObject var player: Player
+    let entry: JournalEntry
 
     var body: some View {
+        Group { if player.entry?.id == entry.id { controls } else { cue } }
+            .padding(.horizontal, 20).padding(.top, 12).padding(.bottom, 8)
+            .background(.regularMaterial)
+    }
+
+    private var cue: some View {
+        HStack(spacing: 12) {
+            Button { player.start(entry) } label: {
+                Label(Player.positions[entry.id] == nil ? "Play" : "Resume", systemImage: "play.fill")
+                    .font(.headline).frame(maxWidth: .infinity, minHeight: 48)
+                    .foregroundStyle(.white).background(Color.bugleAccent, in: Capsule())
+            }
+            .keyboardShortcut("l")
+            Button { player.toggleQueue(entry) } label: {
+                Label(player.isQueued(entry) ? "In Up Next" : "Up Next", systemImage: player.isQueued(entry) ? "checkmark" : "text.line.first.and.arrowtriangle.forward")
+                    .font(.headline).frame(maxWidth: .infinity, minHeight: 48)
+                    .background(Color.secondary.opacity(0.14), in: Capsule())
+            }
+            .accessibilityLabel(player.isQueued(entry) ? "Remove from Up Next" : "Add to Up Next")
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var controls: some View {
         VStack(spacing: 4) {
             Slider(value: $player.elapsed, in: 0...max(player.duration, player.elapsed, 1)) { editing in
                 player.scrubbing = editing
@@ -168,8 +190,63 @@ struct EpisodeBar: View {
             .buttonStyle(.plain)
             .frame(minHeight: 48)
         }
-        .padding(.horizontal, 20).padding(.top, 12).padding(.bottom, 8)
-        .background(.regularMaterial)
+    }
+}
+
+/// Now playing, above the tab bar like Apple Podcasts: the art, the episode and its show, play and forward 30. Tap it
+/// to open the episode. On iOS 26.1 it is the tab bar's own accessory; elsewhere it floats over the bottom edge.
+struct MiniPlayer: View {
+    @ObservedObject var player: Player
+    let open: (JournalEntry) -> Void
+
+    var body: some View {
+        if let e = player.entry {
+            HStack(spacing: 4) {
+                Button { open(e) } label: {
+                    HStack(spacing: 12) {
+                        CachedImage(url: e.imageURL) { phase in
+                            if case .success(let image) = phase { image.resizable().aspectRatio(contentMode: .fill) } else { Color.secondary.opacity(0.2) }
+                        }
+                        .frame(width: 32, height: 32).clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
+                        VStack(alignment: .leading, spacing: 0) {
+                            Text(Headline.clean(e.title, source: e.sourceTitle)).font(.subheadline.weight(.semibold)).lineLimit(1)
+                            Text(e.sourceTitle).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+                        }
+                        Spacer(minLength: 0)
+                    }
+                    .contentShape(Rectangle())
+                }
+                .accessibilityLabel("Now Playing, \(Headline.clean(e.title, source: e.sourceTitle))")
+                Button { player.toggle() } label: { Image(systemName: player.playing ? "pause.fill" : "play.fill").font(.title3).frame(width: 44, height: 44) }
+                    .accessibilityLabel(player.playing ? "Pause" : "Play")
+                Button { player.skip(30) } label: { Image(systemName: "goforward.30").font(.title3).frame(width: 44, height: 44) }
+                    .accessibilityLabel("Forward 30 seconds")
+            }
+            .buttonStyle(.plain)
+            .padding(.leading, 12).padding(.trailing, 4)
+        }
+    }
+}
+
+extension View {
+    /// The mini player on the tab view: the tab bar accessory on iOS 26.1 and later, a floating capsule elsewhere.
+    @ViewBuilder func miniPlayer(_ player: Player, open: @escaping (JournalEntry) -> Void) -> some View {
+        #if os(iOS)
+        if #available(iOS 26.1, *) {
+            tabViewBottomAccessory(isEnabled: player.entry != nil) { MiniPlayer(player: player, open: open) }
+        } else { floatingMiniPlayer(player, open: open) }
+        #else
+        floatingMiniPlayer(player, open: open)
+        #endif
+    }
+
+    private func floatingMiniPlayer(_ player: Player, open: @escaping (JournalEntry) -> Void) -> some View {
+        safeAreaInset(edge: .bottom) {
+            if player.entry != nil {
+                MiniPlayer(player: player, open: open).frame(height: 56)
+                    .background(.regularMaterial, in: Capsule()).padding(.horizontal, 16).padding(.bottom, 8)
+            }
+        }
     }
 }
 

@@ -74,7 +74,7 @@ Rewritten 2026-10-25 at 1.19.5 (Joshua: "identify gaps, build roadmap, loop unti
 - **4.x iPad and Mac** (rows 38 to 41: shortcuts, three columns, share extension, Spotlight and Handoff). **5.0** QA.
 - **6 to 9 Podcasts** (Joshua 2026-08-24; yes on 2026-10-25, with his own shows as the defaults). Apple Podcasts is the reference.
   - [x] 6.0.0: enclosure audio, fourteen default shows, the Podcasts chip, a player with speed, skips, background audio, lock-screen controls and resume, on the apps and the web.
-  - [ ] A queue (Up Next) and a mini player that keeps playing after you leave the story.
+  - [x] 6.1.0: Up Next, and a mini player that keeps playing after you leave the story.
   - [ ] Downloads, so an episode plays offline.
   - [ ] Sleep timer.
   - [ ] Web: BBC episodes redirect to plain-http audio, which an https page cannot play. The apps allow it for bbc.co.uk and tritondigital.com only.

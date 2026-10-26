@@ -6,37 +6,60 @@ import AppKit
 import UIKit
 #endif
 
-/// Podcasts: the episode's own audio, played from its story, with the lock screen's controls and picking up where you
-/// left off. Back 15, forward 30 and 1x to 2x, like Apple Podcasts. Same rules as the player in web/reader.js.
-/// ponytail: one episode at a time, owned by its story; leaving the story stops it. A queue and a mini player that
-/// outlives the story come with the next podcast versions.
+/// Podcasts: one player for the whole app, so an episode keeps playing while you read on. A mini player rides above the
+/// tab bar, Up Next plays in order when an episode ends, the lock screen has the controls, and every episode picks up
+/// where you left off. Back 15, forward 30 and 1x to 2x, like Apple Podcasts. Same rules as web/player.js.
 @MainActor
 final class Player: ObservableObject {
+    static let shared = Player()
+
+    /// The episode loaded, playing or paused; nil hides the mini player.
+    @Published private(set) var entry: JournalEntry?
     @Published private(set) var playing = false
     @Published private(set) var duration: Double = 0
     @Published var elapsed: Double = 0
     @Published private(set) var rate: Float = 1
+    /// Up Next, in order. Kept across launches.
+    @Published private(set) var queue: [JournalEntry] = Player.saved("queue") ?? [] { didSet { Self.save(queue, "queue") } }
     /// While the slider is held the clock stops moving it.
     var scrubbing = false
 
     private var player: AVPlayer?
-    private var entry: JournalEntry?
     private var tick: Any?
     private var ended: NSObjectProtocol?
     static let rates: [Float] = [1, 1.25, 1.5, 2]
 
-    /// Point the player at a story's episode without playing it: the bar shows the length and where you left off.
-    func prepare(_ entry: JournalEntry) {
-        guard entry.id != self.entry?.id, let url = entry.audioURL else { return }
-        stop()
+    private init() {
+        // the last episode comes back paused where you left it, so the mini player is still there after a relaunch
+        if let last: JournalEntry = Self.saved("nowPlaying") { load(last) }
+    }
+
+    /// Play this episode now. The one playing stops where it is, and its place is kept.
+    func start(_ e: JournalEntry) {
+        if e.id != entry?.id { load(e) }
+        queue.removeAll { $0.id == e.id }
+        play()
+    }
+
+    func isQueued(_ e: JournalEntry) -> Bool { queue.contains { $0.id == e.id } }
+
+    /// Add to the end of Up Next, or take it out.
+    func toggleQueue(_ e: JournalEntry) {
+        if isQueued(e) { queue.removeAll { $0.id == e.id } } else if e.id != entry?.id { queue.append(e) }
+    }
+
+    private func load(_ entry: JournalEntry) {
+        guard let url = entry.audioURL else { return }
+        unload()
         self.entry = entry
+        Self.save(entry, "nowPlaying")
         let item = AVPlayerItem(url: url)
         let p = AVPlayer(playerItem: item)
         player = p
         elapsed = Self.positions[entry.id] ?? 0
         duration = Double(entry.audioSeconds ?? 0)
         if elapsed > 0 { p.seek(to: CMTime(seconds: elapsed, preferredTimescale: 600)) }
-        Task { if let d = try? await item.asset.load(.duration).seconds, d.isFinite, d > 0 { duration = d } }
+        Task { if let d = try? await item.asset.load(.duration).seconds, d.isFinite, d > 0, self.entry?.id == entry.id { duration = d } }
         tick = p.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 600), queue: .main) { [weak self] t in
             MainActor.assumeIsolated {
                 guard let self, !self.scrubbing else { return }
@@ -87,26 +110,36 @@ final class Player: ObservableObject {
         nowPlaying()
     }
 
-    func stop() {
+    private func unload() {
         guard let player else { return }
         remember()
         player.pause()
         if let tick { player.removeTimeObserver(tick) }
         if let ended { NotificationCenter.default.removeObserver(ended) }
         tick = nil; ended = nil
-        self.player = nil; entry = nil; playing = false
+        self.player = nil; playing = false
+        artwork = nil; artFor = nil
+    }
+
+    /// The end of an episode: the next in Up Next plays, or the player clears and the mini player goes.
+    private func finish() {
+        if let entry { Self.positions[entry.id] = nil }
+        if let next = queue.first { start(next); return }
+        unload()
+        entry = nil
+        Self.save(JournalEntry?.none, "nowPlaying")
         let center = MPRemoteCommandCenter.shared()
         [center.playCommand, center.pauseCommand, center.togglePlayPauseCommand, center.skipBackwardCommand,
          center.skipForwardCommand, center.changePlaybackPositionCommand].forEach { $0.removeTarget(nil) }
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nil
     }
 
-    private func finish() {
-        playing = false
-        elapsed = 0
-        if let entry { Self.positions[entry.id] = nil }
-        player?.seek(to: .zero)
-        nowPlaying()
+    private static func saved<T: Decodable>(_ key: String) -> T? {
+        UserDefaults.standard.data(forKey: key).flatMap { try? JSONDecoder().decode(T.self, from: $0) }
+    }
+
+    private static func save<T: Encodable>(_ value: T?, _ key: String) {
+        UserDefaults.standard.set(value.flatMap { try? JSONEncoder().encode($0) }, forKey: key)
     }
 
     // MARK: where you left off
@@ -118,7 +151,7 @@ final class Player: ObservableObject {
     }
 
     private func remember() {
-        guard let entry else { return }
+        guard let entry, player != nil else { return }
         Self.positions[entry.id] = elapsed > 5 && (duration == 0 || elapsed < duration - 30) ? elapsed : nil
     }
 

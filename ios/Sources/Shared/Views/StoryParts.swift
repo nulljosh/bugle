@@ -10,7 +10,8 @@ struct Kicker: View {
 
     var body: some View {
         let src = entry.sourceTitle, ago = RelativeTime.short(entry.date)
-        let rest = [ago, entry.listenTime ?? "", sources > 1 ? "\(sources) sources" : ""].filter { !$0.isEmpty }
+        let rest = [ago, entry.listenTime ?? "", sources > 1 ? "\(sources) sources" : "",
+                    entry.audioURL != nil && Player.shared.isQueued(entry) ? String(localized: "Up Next") : ""].filter { !$0.isEmpty }
         let tail = rest.map { " · " + $0 }.joined()
         (Text(src).fontWeight(.semibold).foregroundStyle(Outlet.color(src))
             + Text(src.isEmpty ? String(tail.dropFirst(3)) : tail).foregroundStyle(.secondary)

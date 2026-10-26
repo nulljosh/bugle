@@ -106,7 +106,7 @@ function dateText(d, style) {
 function renderEntries() {
   var q = document.getElementById('q').value.trim().toLowerCase();
   var shown = (q === 'blindspots' ? stories.filter(function (st) { return st.blindspot; })   // the Blindspots chip
-    : q === 'podcasts' ? episodes
+    : q === 'podcasts' ? (window.Player ? Player.upNext(episodes) : episodes)
     : q ? stories.filter(function (st) { return st.entries.some(function (e) { return (e.title + ' ' + e.source).toLowerCase().indexOf(q) >= 0; }); }) : Coverage.today(stories))
     .map(function (st) { return st.lead; });
   // One outlet on screen: the reader wears its color (HN orange, BBC red); several: Bugle blue.
@@ -236,6 +236,7 @@ function route() {
     if (a.dataset.tab === lit) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   });
   window.scrollTo(0, tab === 'home' ? homeScroll : 0);
+  if (window.Player) Player.mini();   // the mini player hides on its own episode's story
   refit();
 }
 addEventListener('hashchange', route);
@@ -244,7 +245,7 @@ document.querySelectorAll('.back-btn[data-back]').forEach(function (b) { b.oncli
 // Listen: the browser's own voice reads the headline and the story; leaving the story stops it.
 var listen = document.getElementById('listen');
 if (!window.speechSynthesis) listen.hidden = true;
-function hush() { if (window.Player) Player.stop(); if (window.speechSynthesis) speechSynthesis.cancel(); document.getElementById('listen').setAttribute('aria-pressed', 'false'); }
+function hush() { if (window.speechSynthesis) speechSynthesis.cancel(); document.getElementById('listen').setAttribute('aria-pressed', 'false'); }
 listen.onclick = function () {
   if (listen.getAttribute('aria-pressed') === 'true') { hush(); return; }
   var say = new SpeechSynthesisUtterance(current.title + '. ' + document.getElementById('article').innerText);
