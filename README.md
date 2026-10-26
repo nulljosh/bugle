@@ -20,6 +20,7 @@ Live at [bugle.jaybulb.com](https://bugle.jaybulb.com), reader at [bugle.jaybulb
 - Search stories and outlets, follow a search as a topic, mute an outlet or a word.
 - Save stories whole so they open offline, pictures included. History dims what you have read; each feed shows its unread count, and Mark All Read clears them. Stories open in full even when a feed only sends a summary, with their reading time.
 - Listen: the system voice reads a story aloud, on device.
+- Podcasts: fourteen shows followed by default, a Podcasts chip with every episode newest first, and a player with 1x to 2x, back 15, forward 30, lock screen controls and resume.
 - Top Stories widget, "Top stories in Bugle" for Siri and Shortcuts, background refresh, and notifications for the feeds you pick.
 - Three columns on iPad and the Mac: outlets, stories and the story side by side. Saved stories show up in Spotlight, an open story hands off to your other devices, and Share → Bugle saves a story or follows a site from Safari.
 - Keyboard: j and k through stories, / to search, Esc back, s, l and o on a story; ⌘R, ⌘1 to ⌘3, ⌘S, ⌘L in the apps.

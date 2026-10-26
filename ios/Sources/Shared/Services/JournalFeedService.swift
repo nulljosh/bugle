@@ -7,6 +7,9 @@ final class JournalFeedService: ObservableObject {
     var muted: [String] = [] { didSet { if muted != oldValue { regroup() } } }
     /// The same story across outlets, grouped (Coverage.cluster); Home shows one row per story.
     @Published private(set) var stories: [Story] = []
+    /// Podcast episodes, newest first. They stay out of `stories`: a daily show's "top stories in 10 minutes" is
+    /// not news coverage, and grouping it would skew the common-word list.
+    @Published private(set) var episodes: [JournalEntry] = []
     private var storyOf: [String: Story] = [:]
     @Published var isLoading = false
     /// Feeds that gave nothing on the last refresh; Feeds says "Not loading right now" under them.
@@ -26,7 +29,9 @@ final class JournalFeedService: ObservableObject {
     func story(for entry: JournalEntry) -> Story? { storyOf[entry.id] }
 
     private func regroup() {
-        stories = Coverage.cluster(entries.filter { !Coverage.isMuted($0, muted) })
+        let shown = entries.filter { !Coverage.isMuted($0, muted) }
+        stories = Coverage.cluster(shown.filter { $0.audioURL == nil })
+        episodes = shown.filter { $0.audioURL != nil }
         storyOf = Dictionary(stories.flatMap { s in s.entries.map { ($0.id, s) } }, uniquingKeysWith: { a, _ in a })
     }
 
@@ -45,9 +50,10 @@ final class JournalFeedService: ObservableObject {
                 group.addTask {
                     guard let url = URL(string: feed.url),
                           let (data, _) = try? await URLSession.shared.data(from: url) else { return (feed.url, []) }
-                    return (feed.url, FeedParser.parse(data: data).map {
-                        var e = $0; e.sourceTitle = feed.title; return e
-                    })
+                    var got = FeedParser.parse(data: data).map { var e = $0; e.sourceTitle = feed.title; return e }
+                    // ponytail: a show's newest 30 episodes; its back catalog (2000 in one WSJ feed) stays on its site
+                    if got.contains(where: { $0.audioURL != nil }) { got = Array(got.sorted { $0.date > $1.date }.prefix(30)) }
+                    return (feed.url, got)
                 }
             }
             for await (url, result) in group {
@@ -64,7 +70,7 @@ final class JournalFeedService: ObservableObject {
         var seen = Set<String>()
         entries = merged.sorted { $0.date > $1.date }.filter { seen.insert($0.id).inserted }
         saveCache()
-        Archive.keep(entries)
+        Archive.keep(entries.filter { $0.audioURL == nil })
     }
 
     private func loadCache() {
@@ -92,6 +98,10 @@ final class FeedParser: NSObject, XMLParserDelegate {
     private var mediaSrc = ""
     private var mediaWidth = -1
     private var enclosureSrc = ""
+    private var audioSrc = ""   // a podcast episode's <enclosure type="audio/...">
+    private var duration = ""   // <itunes:duration>, "1:02:03", "16:40" or seconds
+    private var showNotes = ""  // <itunes:summary>, for episodes with no description (CBC)
+    private var showArt = ""    // the channel's <itunes:image>
     private var inItem = false
 
     static func parse(data: Data) -> [JournalEntry] {
@@ -99,14 +109,25 @@ final class FeedParser: NSObject, XMLParserDelegate {
         let delegate = FeedParser()
         parser.delegate = delegate
         parser.parse()
-        return delegate.entries
+        // WSJ and Megaphone shows give every episode the show's page as its link; an episode is then known by its
+        // audio, or the whole show would collapse into one row
+        // An episode with no art of its own wears the show's.
+        let links = Dictionary(delegate.entries.map { ($0.url, 1) }, uniquingKeysWith: +)
+        let showArt = URL(string: delegate.showArt).flatMap(sharpen)
+        return delegate.entries.map { e in
+            guard let audio = e.audioURL else { return e }
+            var one = JournalEntry(title: e.title, url: links[e.url, default: 0] > 1 ? audio.absoluteString : e.url, date: e.date,
+                                   htmlContent: e.htmlContent, imageURL: e.imageURL ?? showArt, audioURL: audio)
+            one.audioSeconds = e.audioSeconds
+            return one
+        }
     }
 
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName: String?, attributes attributeDict: [String: String] = [:]) {
         element = elementName
         if elementName == "entry" || elementName == "item" {
             inItem = true; title = ""; link = ""; date = ""; content = ""; summary = ""
-            mediaSrc = ""; mediaWidth = -1; enclosureSrc = ""
+            mediaSrc = ""; mediaWidth = -1; enclosureSrc = ""; audioSrc = ""; duration = ""; showNotes = ""
         } else if elementName == "link", inItem,
                   attributeDict["rel"] == nil || attributeDict["rel"] == "alternate",
                   let href = attributeDict["href"] {
@@ -120,12 +141,16 @@ final class FeedParser: NSObject, XMLParserDelegate {
                elementName == "media:thumbnail" || Self.isImage(attributeDict, url: u) {
                 mediaSrc = u; mediaWidth = w
             }
+        } else if !inItem, elementName == "itunes:image", showArt.isEmpty, let u = attributeDict["href"] {
+            showArt = u
         } else if inItem, elementName == "itunes:image", mediaSrc.isEmpty, let u = attributeDict["href"] {
             mediaWidth = 0
             mediaSrc = u   // podcast and some blog feeds put the episode art here
         } else if inItem, elementName == "enclosure" {
             if enclosureSrc.isEmpty, let u = attributeDict["url"], Self.isImage(attributeDict, url: u) {
                 enclosureSrc = u
+            } else if audioSrc.isEmpty, let u = attributeDict["url"], Self.isAudio(attributeDict, url: u) {
+                audioSrc = u
             }
         }
     }
@@ -138,6 +163,8 @@ final class FeedParser: NSObject, XMLParserDelegate {
         case "published", "updated", "pubDate", "dc:date": date += string
         case "content", "content:encoded": content += string
         case "description", "summary": summary += string
+        case "itunes:summary": showNotes += string
+        case "itunes:duration": duration += string
         default: break
         }
     }
@@ -147,6 +174,7 @@ final class FeedParser: NSObject, XMLParserDelegate {
         switch element {
         case "content", "content:encoded": content += s
         case "description", "summary": summary += s
+        case "itunes:summary": showNotes += s
         case "title": title += s
         default: break
         }
@@ -155,16 +183,30 @@ final class FeedParser: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName: String?) {
         guard elementName == "entry" || elementName == "item" else { return }
         inItem = false
-        let entryURL = link.trimmingCharacters(in: .whitespacesAndNewlines)
-        let body = content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? summary : content
-        entries.append(JournalEntry(
+        let audio = Self.resolve(audioSrc, against: link)
+        // an episode with no page of its own is known by its audio
+        let entryURL = link.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? (audio?.absoluteString ?? "")
+            : link.trimmingCharacters(in: .whitespacesAndNewlines)
+        let body = [content, summary, showNotes].first { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty } ?? ""
+        var entry = JournalEntry(
             title: title.trimmingCharacters(in: .whitespacesAndNewlines),
             url: entryURL,
             date: Self.parseDate(date.trimmingCharacters(in: .whitespacesAndNewlines)),
             htmlContent: body,
             imageURL: Self.pickImage(media: mediaSrc, enclosure: enclosureSrc,
-                                     html: content + summary, entryURL: entryURL).flatMap(Self.sharpen)
-        ))
+                                     html: content + summary, entryURL: entryURL).flatMap(Self.sharpen),
+            audioURL: audio
+        )
+        entry.audioSeconds = audio == nil ? nil : Self.seconds(duration)
+        entries.append(entry)
+    }
+
+    /// "1:02:03", "16:40" or "1000" as seconds; nil when the feed gives none.
+    static func seconds(_ s: String) -> Int? {
+        let parts = s.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: ":").map { Int($0) }
+        guard !parts.isEmpty, parts.count <= 3, !parts.contains(nil) else { return nil }
+        let total = parts.reduce(0) { $0 * 60 + $1! }
+        return total > 0 ? total : nil
     }
 
     private static let imageExtensions: Set<String> = ["jpg", "jpeg", "png", "gif", "webp", "avif"]
@@ -176,6 +218,15 @@ final class FeedParser: NSObject, XMLParserDelegate {
         if let medium = attributes["medium"] { return medium.lowercased() == "image" }
         let ext = (URL(string: url)?.pathExtension ?? "").lowercased()
         return imageExtensions.contains(ext)
+    }
+
+    private static let audioExtensions: Set<String> = ["mp3", "m4a", "aac", "ogg", "oga", "opus", "wav"]
+
+    /// An enclosure is a podcast episode's audio if its type says audio, or, with no type, its URL ends in an
+    /// audio extension. Same rule as audioFor in web/parse.js.
+    static func isAudio(_ attributes: [String: String], url: String) -> Bool {
+        if let type = attributes["type"] { return type.lowercased().hasPrefix("audio/") }
+        return audioExtensions.contains((URL(string: url)?.pathExtension ?? "").lowercased())
     }
 
     private static let imgTagRegex = try? NSRegularExpression(pattern: "<img\\b[^>]*>", options: .caseInsensitive)
@@ -231,8 +282,12 @@ final class FeedParser: NSObject, XMLParserDelegate {
     /// BBC feeds point at a 240 px copy; the same path serves 976 px. NY Post escapes its whole path and query
     /// ("wp-content%2F...?w%3D1024"), so the resize never applies and a 5000 px original loads; unescape it.
     /// Mirrors sharpen in web/parse.js.
+    /// Pictures load over https (the apps' ATS refuses plain http; BBC podcast art is http), and BBC podcast art asks for
+    /// 480 px instead of 3000.
     static func sharpen(_ url: URL) -> URL? {
         var s = url.absoluteString.replacingOccurrences(of: #"(ichef\.bbci\.co\.uk/(?:ace/\w+|news))/\d+/"#, with: "$1/976/", options: .regularExpression)
+            .replacingOccurrences(of: #"^http://"#, with: "https://", options: .regularExpression)
+            .replacingOccurrences(of: #"(ichef\.bbci\.co\.uk/images/ic)/\d+x\d+/"#, with: "$1/480x480/", options: .regularExpression)
         if let r = s.range(of: #"^https?://[^/]+/"#, options: .regularExpression), s[r.upperBound...].contains("%2F"),
            let rest = s[r.upperBound...].removingPercentEncoding {
             s = String(s[..<r.upperBound]) + rest

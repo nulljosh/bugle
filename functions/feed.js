@@ -32,22 +32,16 @@ export async function onRequestGet({ request }) {
     return bad("feed unreachable", 502);
   }
 
-  const declared = Number(upstream.headers.get("content-length"));
-  if (declared > MAX_BYTES) return bad("feed too large", 413);
+  // A declared size past any feed's is refused before a byte is read.
+  if (Number(upstream.headers.get("content-length")) > 16 * MAX_BYTES) return bad("feed too large", 413);
 
-  // content-length is optional, so cap the stream itself as well.
-  let seen = 0;
-  const capped = upstream.body?.pipeThrough(
-    new TransformStream({
-      transform(chunk, controller) {
-        seen += chunk.byteLength;
-        if (seen > MAX_BYTES) controller.error(new Error("feed too large"));
-        else controller.enqueue(chunk);
-      },
-    }),
-  );
+  // Read at most MAX_BYTES (content-length is optional). A podcast's feed carries its whole back catalog and runs past
+  // that (My First Million is 9 MB): keep its newest items, cut at a whole item, rather than refuse it.
+  const body = await readCapped(upstream.body);
+  const out = body && trim(body.bytes, body.over);
+  if (!out) return bad("feed too large", 413);
 
-  return new Response(capped, {
+  return new Response(out, {
     status: upstream.status,
     headers: {
       // Plain text, never HTML: a pasted site address passes through here for feed discovery, and its page must
@@ -59,6 +53,50 @@ export async function onRequestGet({ request }) {
       "cache-control": "public, max-age=300",
     },
   });
+}
+
+async function readCapped(stream) {
+  if (!stream) return { bytes: new Uint8Array(), over: false };
+  const reader = stream.getReader(), parts = [];
+  let seen = 0, over = false;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (seen + value.byteLength > MAX_BYTES) { parts.push(value.subarray(0, MAX_BYTES - seen)); seen = MAX_BYTES; over = true; reader.cancel(); break; }
+    parts.push(value); seen += value.byteLength;
+  }
+  const bytes = new Uint8Array(seen);
+  let at = 0;
+  for (const p of parts) { bytes.set(p, at); at += p.byteLength; }
+  return { bytes, over };
+}
+
+const ITEMS = 100;   // a feed's newest 100 items; the readers show at most a show's newest 30 episodes
+const enc = (s) => new TextEncoder().encode(s);
+const CUTS = [[enc("</item>"), enc("\n</channel></rss>\n")], [enc("</entry>"), enc("\n</feed>\n")]];
+
+// The body up to its ITEMS-th item, or up to its last whole item when the read was cut off, closed so it still parses.
+// Byte search: the tags are ASCII in any charset a feed uses. null when an over-long body has no item to cut at.
+export function trim(bytes, over) {
+  for (const [end, close] of CUTS) {
+    let n = 0, last = -1, i = 0;
+    while ((i = find(bytes, end, i)) >= 0) { i += end.length; last = i; if (++n === ITEMS) break; }
+    if (last < 0) continue;
+    if (!over && n < ITEMS) return bytes;
+    const out = new Uint8Array(last + close.length);
+    out.set(bytes.subarray(0, last)); out.set(close, last);
+    return out;
+  }
+  return over ? null : bytes;
+}
+
+function find(bytes, needle, from) {
+  for (let i = bytes.indexOf(needle[0], from); i >= 0 && i <= bytes.length - needle.length; i = bytes.indexOf(needle[0], i + 1)) {
+    let k = 1;
+    while (k < needle.length && bytes[i + k] === needle[k]) k++;
+    if (k === needle.length) return i;
+  }
+  return -1;
 }
 
 function bad(message, status = 400) {

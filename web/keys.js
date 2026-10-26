@@ -11,7 +11,7 @@ addEventListener('keydown', function (ev) {
     'Escape': function () { if (story) history.back(); },
     'r': function () { if (!story) refresh(); },
     's': function () { if (story) click('save'); },
-    'l': function () { if (story) click('listen'); },
+    'l': function () { if (story) { if (document.querySelector('.episode')) Player.toggle(); else click('listen'); } },
     'o': function () { if (story) click('open'); },
     '1': function () { location.hash = '#home'; },
     '2': function () { location.hash = '#feeds'; },

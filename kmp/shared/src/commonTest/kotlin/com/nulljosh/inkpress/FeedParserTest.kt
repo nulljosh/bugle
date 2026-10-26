@@ -72,4 +72,14 @@ class FeedParserTest {
         val ms = parseFeedDate("Wed, 03 Sep 2026 12:00:00 EDT")
         assertTrue(ms > 0)
     }
+
+    @Test fun audioEnclosureIsTheEpisode() {
+        val xml = """<rss><channel>
+            <item><title>A</title><link>https://e.com/show</link><enclosure url="https://c.com/a.mp3" type="audio/mpeg"/></item>
+            <item><title>B</title><link>https://e.com/show</link><enclosure url="https://c.com/b.mp3" type="audio/mpeg"/></item>
+            </channel></rss>"""
+        val got = parseFeed(xml)
+        assertEquals(listOf("https://c.com/a.mp3", "https://c.com/b.mp3"), got.map { it.url })
+        assertEquals("https://c.com/a.mp3", got[0].audioUrl)
+    }
 }

@@ -18,6 +18,7 @@ struct HomeSplit<Home: View, Story: View>: View {
                 Section {
                     Label("Today", systemImage: "newspaper").tag("")
                     Label(LocalizedStringKey(Coverage.blindspots), systemImage: "eye.slash").tag(Coverage.blindspots)
+                    Label(LocalizedStringKey(Coverage.podcasts), systemImage: "headphones").tag(Coverage.podcasts)
                 }
                 if !topics.isEmpty {
                     Section("Topics") { ForEach(topics, id: \.self) { Label($0, systemImage: "number").tag($0) } }

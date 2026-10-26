@@ -2,6 +2,12 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 6.0.0
+- Podcasts. Fourteen shows come followed by default (WSJ's briefings, Wall Street Breakfast, World Report, The Markets, The AI Daily Brief, My First Million, Mel Robbins, Tim Dillon and more); add any podcast feed like any other. A Podcasts chip on Home, and a Podcasts row in the iPad and Mac sidebar, lists episodes newest first with their length. Episodes stay out of the news grouping.
+- An episode's story plays its own audio: scrubber, 1x to 2x, back 15, forward 30, lock screen and Control Center controls, background audio, and it picks up where you left off. The same player on the web, with Media Session for the lock screen.
+- The web proxy keeps a feed's newest 100 items, and cuts an oversized feed at its last whole item instead of refusing it, so big podcast feeds load on the web.
+- Pictures load over https, so BBC podcast art and any other plain-http image show in the apps.
+
 ## 5.4.3
 - A feed that gave nothing on the last refresh says "Not loading right now" in Feeds, on the web and in the apps (CBC blocks the web proxy).
 

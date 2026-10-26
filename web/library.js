@@ -117,13 +117,17 @@ function renderTopics() {
   spot.setAttribute('aria-pressed', String(blind));
   spot.onclick = function () { input.value = blind ? '' : 'Blindspots'; renderEntries(); };
   box.appendChild(spot);
+  var pods = q === 'podcasts', pod = el('button', 'chip', 'Podcasts');   // episodes, newest first, apart from the news
+  pod.setAttribute('aria-pressed', String(pods));
+  pod.onclick = function () { input.value = pods ? '' : 'Podcasts'; renderEntries(); };
+  box.appendChild(pod);
   var outlet = Coverage.OUTLETS[raw] || feeds.some(function (f) { return f.title.toLowerCase() === q; });
-  if (raw && !outlet && !blind) {
+  if (raw && !outlet && !blind && !pods) {
     var follow = el('button', 'chip follow', Topics.has(raw) ? 'Unfollow' : '+ Follow \u201C' + raw + '\u201D');
     follow.onclick = function () { Topics.toggle(raw); renderTopics(); };
     box.appendChild(follow);
   }
-  if (raw && !blind) {   // mute anything you can search: an outlet or a word
+  if (raw && !blind && !pods) {   // mute anything you can search: an outlet or a word
     var mute = el('button', 'chip', Muted.has(raw) ? 'Unmute' : 'Mute');
     mute.onclick = function () { Muted.toggle(raw); if (Muted.has(raw)) input.value = ''; renderMuted(); restory(); };
     box.appendChild(mute);

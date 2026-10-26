@@ -9,6 +9,7 @@ struct JournalApp: App {
         // The self-checks were dead code until this call — nothing invoked them.
         feedParserDemo()
         readingTimeDemo()
+        clockDemo()
         fullTextDemo()
         archiveDemo()
         inboxDemo()

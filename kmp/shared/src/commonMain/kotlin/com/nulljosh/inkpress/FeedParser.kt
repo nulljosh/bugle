@@ -10,6 +10,8 @@ data class JournalEntry(
     val dateMillis: Long,
     val htmlContent: String,
     val imageUrl: String?,
+    /** A podcast episode's audio (the feed's audio enclosure); null for an article. */
+    val audioUrl: String? = null,
 )
 
 private val IMAGE_EXTENSIONS = setOf("jpg", "jpeg", "png", "gif", "webp", "avif")
@@ -21,6 +23,14 @@ private fun isImage(attributes: Map<String, String>, url: String): Boolean {
     attributes["medium"]?.let { return it.lowercase() == "image" }
     val ext = url.substringAfterLast('.', "").substringBefore('?').lowercase()
     return ext in IMAGE_EXTENSIONS
+}
+
+private val AUDIO_EXTENSIONS = setOf("mp3", "m4a", "aac", "ogg", "oga", "opus", "wav")
+
+/** An enclosure is an episode's audio if its type says audio, or, with no type, its URL ends in an audio extension. */
+private fun isAudio(attributes: Map<String, String>, url: String): Boolean {
+    attributes["type"]?.let { return it.lowercase().startsWith("audio/") }
+    return url.substringAfterLast('.', "").substringBefore('?').lowercase() in AUDIO_EXTENSIONS
 }
 
 private val IMG_SRC_REGEX = Regex("<img[^>]+src\\s*=\\s*[\"']([^\"']+)[\"']", RegexOption.IGNORE_CASE)
@@ -108,6 +118,7 @@ fun parseFeed(xml: String): List<JournalEntry> {
     var summary = "" // RSS feeds often send both a summary and the full text
     var mediaSrc = ""
     var enclosureSrc = ""
+    var audioSrc = ""
     var inItem = false
 
     for (event in tokenizeXml(xml)) {
@@ -117,7 +128,7 @@ fun parseFeed(xml: String): List<JournalEntry> {
                 when {
                     event.name == "entry" || event.name == "item" -> {
                         inItem = true; title = ""; link = ""; date = ""; content = ""; summary = ""
-                        mediaSrc = ""; enclosureSrc = ""
+                        mediaSrc = ""; enclosureSrc = ""; audioSrc = ""
                     }
                     event.name == "link" && inItem -> event.attributes["href"]?.let { link = it }
                     inItem && (event.name == "media:thumbnail" || event.name == "media:content") -> {
@@ -131,6 +142,8 @@ fun parseFeed(xml: String): List<JournalEntry> {
                             val u = event.attributes["url"]
                             if (u != null && isImage(event.attributes, u)) enclosureSrc = u
                         }
+                        val a = event.attributes["url"]
+                        if (audioSrc.isEmpty() && a != null && isAudio(event.attributes, a)) audioSrc = a
                     }
                 }
             }
@@ -154,7 +167,8 @@ fun parseFeed(xml: String): List<JournalEntry> {
             is XmlEvent.EndElement -> {
                 if (event.name == "entry" || event.name == "item") {
                     inItem = false
-                    val entryUrl = link.trim()
+                    val audio = audioSrc.ifBlank { null }
+                    val entryUrl = link.trim().ifBlank { audio ?: "" }   // an episode with no page is known by its audio
                     entries.add(
                         JournalEntry(
                             title = title.trim(),
@@ -162,13 +176,16 @@ fun parseFeed(xml: String): List<JournalEntry> {
                             dateMillis = parseFeedDate(date.trim()),
                             htmlContent = content.ifBlank { summary },
                             imageUrl = pickImage(mediaSrc, enclosureSrc, content + summary, entryUrl),
+                            audioUrl = audio,
                         ),
                     )
                 }
             }
         }
     }
-    return entries
+    // Shows that link every episode to the show's page: an episode is then known by its audio. Same as the Swift parser.
+    val links = entries.groupingBy { it.url }.eachCount()
+    return entries.map { e -> if (e.audioUrl != null && (links[e.url] ?: 0) > 1) e.copy(url = e.audioUrl) else e }
 }
 
 private inline fun appendField(text: String, element: String, apply: (String, String) -> Unit) {

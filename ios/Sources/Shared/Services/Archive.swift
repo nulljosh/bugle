@@ -18,6 +18,7 @@ enum Archive {
             var slim = JournalEntry(title: e.title, url: e.url, date: e.date, htmlContent: "")
             slim.sourceTitle = e.sourceTitle
             slim.imageURL = e.imageURL
+            slim.audioURL = e.audioURL
             return slim
         } + entries)
             .filter { now.timeIntervalSince($0.date) < 7 * 86_400 && seen.insert($0.id).inserted }

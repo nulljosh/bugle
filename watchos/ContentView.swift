@@ -17,8 +17,8 @@ struct ContentView: View {
             }
             .navigationTitle("Bugle")
             .navigationDestination(for: JournalEntry.self) { StoryView(entry: $0, library: library) }
-            .task(id: store.feeds) { await feed.refresh(feeds: store.feeds) }
-            .refreshable { await feed.refresh(feeds: store.feeds) }
+            .task(id: store.news) { await feed.refresh(feeds: store.news) }
+            .refreshable { await feed.refresh(feeds: store.news) }
         }
         .tint(.bugleAccent)
     }

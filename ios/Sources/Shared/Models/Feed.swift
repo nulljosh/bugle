@@ -75,7 +75,31 @@ final class FeedStore: ObservableObject {
         } else {
             feeds = Self.seedFeeds
         }
+        // Podcasts arrived in 6.0; everyone gets the default shows once, after which removing one sticks.
+        if !UserDefaults.standard.bool(forKey: "podcastsAdded") {
+            UserDefaults.standard.set(true, forKey: "podcastsAdded")
+            feeds += Self.podcasts.filter { p in !feeds.contains { $0.url == p.url } }
+        }
     }
+
+    /// The default shows (Joshua's own list, 2026-10-25), kept apart from `seedFeeds` so the widget, which fetches
+    /// the seeds, never pulls a podcast's megabytes of episodes. Mirrors PODCASTS in web/reader.js.
+    static let podcasts: [Feed] = [
+        Feed(title: "Wall Street Breakfast", url: "https://www.spreaker.com/show/5725002/episodes/feed"),
+        Feed(title: "WSJ What's News", url: "https://video-api.shdsvc.dowjones.io/api/podcasts/feed/the%20wall%20street%20journal%20whats%20news"),
+        Feed(title: "WSJ Tech News Briefing", url: "https://video-api.shdsvc.dowjones.io/api/podcasts/feed/the%20wall%20street%20journal%20tech%20talk"),
+        Feed(title: "WSJ Your Money Briefing", url: "https://video-api.shdsvc.dowjones.io/api/podcasts/feed/the%20wall%20street%20journals%20your%20money%20matters"),
+        Feed(title: "World Report", url: "https://www.cbc.ca/podcasting/includes/wr.xml"),
+        Feed(title: "The Markets", url: "https://feeds.megaphone.fm/GLD9322922848"),
+        Feed(title: "AI Daily: Claude News", url: "https://media.rss.com/claude-ai-daily/feed.xml"),
+        Feed(title: "The AI Daily Brief", url: "https://anchor.fm/s/f7cac464/podcast/rss"),
+        Feed(title: "The Philip DeFranco Show", url: "https://feeds.megaphone.fm/AETTA1864906649"),
+        Feed(title: "Good Bad Billionaire", url: "https://podcasts.files.bbci.co.uk/p0g7xj36.rss"),
+        Feed(title: "Deep Questions", url: "https://rss.pdrl.fm/2d4b16/feeds.simplecast.com/_IjaDYAj"),
+        Feed(title: "My First Million", url: "https://feeds.megaphone.fm/HS2300184645"),
+        Feed(title: "The Tim Dillon Show", url: "https://audioboom.com/channels/5093219.rss"),
+        Feed(title: "The Mel Robbins Podcast", url: "https://feeds.simplecast.com/UCwaTX1J")
+    ]
 
     /// A site address works as well as a feed address: if the page is not a feed, the feed it links to
     /// (`<link rel="alternate" type="application/rss+xml">`). Anything that fails comes back as typed.
@@ -123,9 +147,12 @@ final class FeedStore: ObservableObject {
         ("London", [Feed(title: "BBC London", url: "https://feeds.bbci.co.uk/news/england/london/rss.xml"), Feed(title: "Evening Standard", url: "https://www.standard.co.uk/news/london/rss")])
     ]
 
+    /// What the watch, Siri and the widget read: the feeds minus the default shows, whose episodes they never play.
+    var news: [Feed] { feeds.filter { f in !Self.podcasts.contains(f) } }
+
     /// Seeds the user has not subscribed to, for the Suggested list.
     var unsubscribedSeeds: [Feed] {
-        ([Self.journalFeed] + Self.seedFeeds).filter { seed in !feeds.contains(where: { $0.url == seed.url }) }
+        ([Self.journalFeed] + Self.seedFeeds + Self.podcasts).filter { seed in !feeds.contains(where: { $0.url == seed.url }) }
     }
 
     func remove(at offsets: IndexSet) {
@@ -184,7 +211,7 @@ final class OPMLParser: NSObject, XMLParserDelegate {
 /// live — that is newsline's `npm run feeds` recency job, not the app's business.
 @MainActor
 func seedFeedsDemo() {
-    let seeds = FeedStore.seedFeeds
+    let seeds = FeedStore.seedFeeds + FeedStore.podcasts
     assert(!seeds.isEmpty, "seedFeeds is empty")
     for f in seeds {
         assert(f.url.hasPrefix("https://"), "seed not https: \(f.url)")

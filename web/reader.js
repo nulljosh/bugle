@@ -43,11 +43,20 @@ var LOCAL = [
   ['London', [['BBC London', 'https://feeds.bbci.co.uk/news/england/london/rss.xml'], ['Evening Standard', 'https://www.standard.co.uk/news/london/rss']]]
 ].map(function (r) { return { city: r[0], feeds: r[1].map(function (f) { return { title: f[0], url: f[1] }; }) }; });
 
-var feeds = load(), entries = [], stories = [], storyOf = {}, dead = {};   // dead: feeds that gave nothing last refresh
+var feeds = load(), entries = [], stories = [], episodes = [], storyOf = {}, dead = {};   // dead: feeds that gave nothing last refresh
 
 function load() {
-  try { return JSON.parse(localStorage.getItem('inkpress.feeds')) || SEEDS.slice(); }
-  catch (e) { return SEEDS.slice(); }
+  var list;
+  try { list = JSON.parse(localStorage.getItem('inkpress.feeds')) || SEEDS.slice(); } catch (e) { list = SEEDS.slice(); }
+  // Podcasts arrived in 6.0; everyone gets the default shows once, after which removing one sticks.
+  try {
+    if (!localStorage.getItem('bugle.podcasts')) {
+      localStorage.setItem('bugle.podcasts', '1');
+      list = list.concat(PODCASTS.filter(function (p) { return !list.some(function (f) { return f.url === p.url; }); }));
+      localStorage.setItem('inkpress.feeds', JSON.stringify(list));
+    }
+  } catch (e) {}
+  return list;
 }
 function save() {
   try { localStorage.setItem('inkpress.feeds', JSON.stringify(feeds)); } catch (e) {}
@@ -62,6 +71,8 @@ async function refresh() {
     try {
       var r = await fetch('/feed?url=' + encodeURIComponent(f.url));
       var got = r.ok ? parse(await r.text(), f.title) : [];
+      // ponytail: a show's newest 30 episodes; its back catalog stays on its site
+      if (got.some(function (e) { return e.audio; })) got = got.sort(function (a, b) { return b.date - a.date; }).slice(0, 30);
       dead[f.url] = !got.length;
       return got;
     } catch (e) { dead[f.url] = true; return []; }
@@ -70,7 +81,7 @@ async function refresh() {
   var seen = {};
   entries = [].concat.apply([], results).sort(function (a, b) { return b.date - a.date; })
     .filter(function (e) { return !seen[e.url] && (seen[e.url] = true); });
-  if (window.Timeline) Timeline.keep(entries);
+  if (window.Timeline) Timeline.keep(entries.filter(function (e) { return !e.audio; }));
   restory();
 }
 
@@ -78,7 +89,10 @@ async function refresh() {
 // Muted outlets and words drop out first, so a muted outlet's copy never leads or counts.
 function restory() {
   var m = window.Muted ? Muted.list() : [];
-  stories = Coverage.cluster(entries.filter(function (e) { return !Coverage.muted(e, m); })); storyOf = {};
+  // Episodes stay out of the news: a daily show's "top stories in 10 minutes" is not coverage. The Podcasts chip lists them.
+  var shown = entries.filter(function (e) { return !Coverage.muted(e, m); });
+  stories = Coverage.cluster(shown.filter(function (e) { return !e.audio; })); storyOf = {};
+  episodes = shown.filter(function (e) { return e.audio; }).map(function (e) { return { lead: e, entries: [e], publishers: 1 }; });
   stories.forEach(function (st) { st.entries.forEach(function (e) { storyOf[e.url] = st; }); });
   renderEntries();
 }
@@ -91,6 +105,7 @@ function dateText(d, style) {
 function renderEntries() {
   var q = document.getElementById('q').value.trim().toLowerCase();
   var shown = (q === 'blindspots' ? stories.filter(function (st) { return st.blindspot; })   // the Blindspots chip
+    : q === 'podcasts' ? episodes
     : q ? stories.filter(function (st) { return st.entries.some(function (e) { return (e.title + ' ' + e.source).toLowerCase().indexOf(q) >= 0; }); }) : Coverage.today(stories))
     .map(function (st) { return st.lead; });
   // One outlet on screen: the reader wears its color (HN orange, BBC red); several: Bugle blue.
@@ -98,7 +113,7 @@ function renderEntries() {
   if (only) { Coverage.paint(root, only); root.dataset.outlet = only; }
   else { delete root.dataset.outlet; root.style.removeProperty('--c'); root.style.removeProperty('--cd'); }   // or unknown outlets inherit it
   renderStories(document.getElementById('entries'), shown, open, !q,
-    q === 'blindspots' ? 'No blindspots right now.' : q ? 'No stories match \u201C' + q + '\u201D.' : 'No entries yet. Add a feed or pull to refresh.');
+    q === 'blindspots' ? 'No blindspots right now.' : q === 'podcasts' ? 'No episodes yet. Follow a podcast in Feeds.' : q ? 'No stories match \u201C' + q + '\u201D.' : 'No entries yet. Add a feed or pull to refresh.');
   if (window.renderTopics) renderTopics();
 }
 
@@ -124,7 +139,7 @@ function renderFeeds() {
 
   renderLocal();
 
-  var spare = [JOURNAL].concat(SEEDS).filter(function (s) {
+  var spare = [JOURNAL].concat(SEEDS, PODCASTS).filter(function (s) {
     return !feeds.some(function (f) { return f.url === s.url; });
   });
   var suggested = document.getElementById('suggested');
@@ -182,16 +197,18 @@ function show(e) {
       if (/^on/i.test(a.name) || /^\s*javascript:/i.test(a.value)) n.removeAttribute(a.name);
     });
   });
-  meta.textContent = [e.source, dateText(e.date, 'long'), readingTime(frag.body.textContent)].filter(Boolean).join(' · ');
+  meta.textContent = [e.source, dateText(e.date, 'long'), listenTime(e) || readingTime(frag.body.textContent)].filter(Boolean).join(' · ');
+  listen.hidden = !window.speechSynthesis || !!e.audio;   // an episode plays its own audio instead
   // the story's picture under the headline, like the app, unless the body already opens with pictures
   if (e.image && !frag.querySelector('img')) {
-    var pic = el('img', 'lead'); pic.src = e.image; pic.alt = ''; pic.referrerPolicy = 'no-referrer';
+    var pic = el('img', e.audio ? 'lead art' : 'lead'); pic.src = e.image; pic.alt = ''; pic.referrerPolicy = 'no-referrer';
     pic.onerror = function () { pic.remove(); };
     box.appendChild(pic);
   }
+  if (e.audio && window.Player) Player.mount(box, e);   // the show's art, then its player, then the show notes
   var body = box.appendChild(el('div'));
   Array.prototype.forEach.call(frag.body.childNodes, function (n) { body.appendChild(document.importNode(n, true)); });
-  if (window.fillFullText) fillFullText(e, body, meta);
+  if (window.fillFullText && !e.audio) fillFullText(e, body, meta);   // an episode's show notes are its page
   var p = el('p'), a = el('a', '', 'Open original');
   a.href = e.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
   p.appendChild(a); box.appendChild(p);
@@ -226,7 +243,7 @@ document.querySelectorAll('.back-btn[data-back]').forEach(function (b) { b.oncli
 // Listen: the browser's own voice reads the headline and the story; leaving the story stops it.
 var listen = document.getElementById('listen');
 if (!window.speechSynthesis) listen.hidden = true;
-function hush() { if (window.speechSynthesis) speechSynthesis.cancel(); document.getElementById('listen').setAttribute('aria-pressed', 'false'); }
+function hush() { if (window.Player) Player.stop(); if (window.speechSynthesis) speechSynthesis.cancel(); document.getElementById('listen').setAttribute('aria-pressed', 'false'); }
 listen.onclick = function () {
   if (listen.getAttribute('aria-pressed') === 'true') { hush(); return; }
   var say = new SpeechSynthesisUtterance(current.title + '. ' + document.getElementById('article').innerText);

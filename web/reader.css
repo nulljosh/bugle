@@ -3,7 +3,7 @@
    (groups 20, controls round, images 12), inset hairlines, liquid glass on what floats. */
 body { font-size: 16px; line-height: 22px; }   /* a step under the landing: Bugle Sans reads larger than SF at the same size */
 .screen { max-width: 680px; margin: 0 auto; padding: var(--sp-6) 20px 128px; padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
-.screen[hidden] { display: none; }
+.screen[hidden], button[hidden] { display: none; }
 .head { display: flex; align-items: center; gap: var(--sp-3); min-height: 48px; margin-bottom: var(--sp-4); }
 .head h1 { font-size: 34px; line-height: 41px; letter-spacing: -.022em; flex: 1; }
 .icon-btn { width: 44px; height: 44px; border-radius: var(--r-pill); border: 0; background: var(--surface); color: var(--text);
@@ -175,6 +175,7 @@ li.swiping > .swipe-del { visibility: visible; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .glass-btn { background: rgba(44, 44, 46, .62); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 0 0 .5px rgba(255, 255, 255, .08), 0 8px 24px rgba(0, 0, 0, .4); } }
 :root[data-theme="dark"] .glass-btn { background: rgba(44, 44, 46, .62); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 0 0 .5px rgba(255, 255, 255, .08), 0 8px 24px rgba(0, 0, 0, .4); }
 .article img.lead { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 16px; margin: 0 0 var(--sp-4); background: var(--surface); }
+.article img.lead.art { width: 160px; aspect-ratio: 1; }   /* a podcast's square art, like an Apple Podcasts episode page */
 .search:focus-within { box-shadow: 0 0 0 4px var(--ring); }
 /* followed topics: one scrolling row of capsules under the search */
 .topics { display: flex; gap: var(--sp-2); overflow-x: auto; scrollbar-width: none; margin: 0 0 var(--sp-2); padding: 0 20px; }

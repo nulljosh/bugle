@@ -93,14 +93,16 @@ final class Account: ObservableObject {
     }
 
     private static func light(_ e: JournalEntry) -> [String: String] {
-        ["title": e.title, "url": e.url, "date": ISO8601DateFormatter().string(from: e.date), "source": e.sourceTitle, "image": e.imageURL?.absoluteString ?? ""]
+        ["title": e.title, "url": e.url, "date": ISO8601DateFormatter().string(from: e.date), "source": e.sourceTitle, "image": e.imageURL?.absoluteString ?? "",
+         "audio": e.audioURL?.absoluteString ?? ""]
     }
 
     private static func entries(_ any: Any?) -> [JournalEntry] {
         (any as? [[String: String]] ?? []).compactMap { d in
             guard let t = d["title"], let u = d["url"] else { return nil }
             return JournalEntry(title: t, url: u, date: d["date"].flatMap { ISO8601DateFormatter().date(from: $0) } ?? .distantPast,
-                                htmlContent: "", sourceTitle: d["source"] ?? "", imageURL: d["image"].flatMap { URL(string: $0) })
+                                htmlContent: "", sourceTitle: d["source"] ?? "", imageURL: d["image"].flatMap { URL(string: $0) },
+                                audioURL: d["audio"].flatMap { URL(string: $0) })
         }
     }
 

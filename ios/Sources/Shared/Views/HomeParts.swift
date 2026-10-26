@@ -21,11 +21,14 @@ struct TopicBar: View {
                 let blind = q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame
                 Button(LocalizedStringKey(Coverage.blindspots)) { query = blind ? "" : Coverage.blindspots }.buttonStyle(Chip(on: blind))
                     .accessibilityAddTraits(blind ? .isSelected : [])
+                let pods = q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame
+                Button(LocalizedStringKey(Coverage.podcasts)) { query = pods ? "" : Coverage.podcasts }.buttonStyle(Chip(on: pods))
+                    .accessibilityAddTraits(pods ? .isSelected : [])
                 if followable {
                     Button(Topics.has(q, in: topics) ? "Unfollow" : "+ Follow \u{201C}\(q)\u{201D}") { topics = Topics.toggled(q, in: topics) }
                         .buttonStyle(Chip(on: true))
                 }
-                if !q.isEmpty && !blind {   // mute anything you can search: an outlet or a word
+                if !q.isEmpty && !blind && !pods {   // mute anything you can search: an outlet or a word
                     let isMuted = Topics.has(q, in: muted)
                     Button(isMuted ? "Unmute" : "Mute") {
                         muted = Topics.toggled(q, in: muted)

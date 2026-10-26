@@ -81,6 +81,7 @@ struct EntryListView: View {
             await feed.refresh(feeds: store.feeds)
             // ponytail: store screenshot hook so a frame can open on an article
             if CommandLine.arguments.contains("-selectFirst"), let first = feed.entries.first { path = [first] }
+            if CommandLine.arguments.contains("-selectEpisode"), let first = feed.episodes.first { path = [first] }
             // `-showCoverage` opens the first story several outlets covered, with its Coverage sheet up
             if CommandLine.arguments.contains("-showCoverage"), let s = feed.stories.first(where: { $0.publishers > 1 }) { path = [s.lead] }
         }
@@ -91,6 +92,7 @@ struct EntryListView: View {
     private var shown: [Story] {
         let q = query.trimmingCharacters(in: .whitespaces)
         if q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame { return feed.stories.filter { $0.blindspot != nil } }
+        if q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame { return feed.episodes.map { Story(lead: $0, entries: [$0]) } }
         return q.isEmpty ? Coverage.today(feed.stories) : feed.stories.filter { $0.entries.contains { $0.title.localizedStandardContains(q) || $0.sourceTitle.localizedStandardContains(q) } }
     }
 
@@ -111,12 +113,14 @@ struct EntryListView: View {
             SearchField(text: $query).listRowSeparator(.hidden)
             // Searching for a word that is not an outlet offers to follow it.
             let followable = !q.isEmpty && Outlet.of(q) == nil && !store.feeds.contains { $0.title.caseInsensitiveCompare(q) == .orderedSame }
-                && q.caseInsensitiveCompare(Coverage.blindspots) != .orderedSame
+                && q.caseInsensitiveCompare(Coverage.blindspots) != .orderedSame && q.caseInsensitiveCompare(Coverage.podcasts) != .orderedSame
             TopicBar(query: $query, topics: $topics, muted: $muted, followable: followable).listRowSeparator(.hidden)
             if let hero { HeroRow(entry: hero.lead, library: library, story: hero).listRowSeparator(.hidden) }
             ForEach(shown.filter { $0.id != hero?.id }) { EntryRow(entry: $0.lead, library: library, story: $0) }
             if !q.isEmpty && shown.isEmpty {
-                Text(q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame ? "No blindspots right now." : "No stories match \u{201C}\(q)\u{201D}.").foregroundStyle(.secondary).listRowSeparator(.hidden)
+                Text(q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame ? "No blindspots right now."
+                     : q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame ? "No episodes yet. Follow a podcast in Feeds."
+                     : "No stories match \u{201C}\(q)\u{201D}.").foregroundStyle(.secondary).listRowSeparator(.hidden)
             }
         }
         .listStyle(.plain)   // flush with the view, like Mail and News

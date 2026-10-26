@@ -9,6 +9,10 @@ struct JournalEntry: Codable, Identifiable, Hashable {
     var sourceTitle: String = ""
     // Optional so entries cached before thumbnails existed still decode.
     var imageURL: URL? = nil
+    /// A podcast episode's audio (the feed's audio enclosure); nil for an article.
+    var audioURL: URL? = nil
+    /// The episode's length from the feed, when it says.
+    var audioSeconds: Int? = nil
 }
 
 extension String {
@@ -33,6 +37,12 @@ extension JournalEntry {
     var readingTime: String? {
         let words = plainText.split(separator: " ").count
         return words < 150 ? nil : "\(Int((Double(words) / 230).rounded(.up))) min read"
+    }
+
+    /// An episode's length, "16 min" (Apple Podcasts rounds the same way); nil for an article. Same as listenTime in
+    /// web/parse.js.
+    var listenTime: String? {
+        audioSeconds.map { "\(max(1, Int((Double($0) / 60).rounded()))) min" }
     }
 }
 

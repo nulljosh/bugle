@@ -35,6 +35,7 @@ function kicker(e) {
   var when = ago(e.date);
   if (e.source && when) k.appendChild(document.createTextNode(' · '));
   if (when) k.appendChild(document.createTextNode(when));
+  if (window.listenTime && listenTime(e)) k.appendChild(document.createTextNode(' · ' + listenTime(e)));   // an episode's length
   var st = window.storyOf && storyOf[e.url];
   if (st && st.publishers > 1) k.appendChild(document.createTextNode(' · ' + st.publishers + ' sources'));
   if (window.Library && Library.isSaved(e)) k.appendChild(el('span', 'saved', ' · Saved'));

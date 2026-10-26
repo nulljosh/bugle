@@ -35,8 +35,11 @@ function resolveImage(src, base) {
 // BBC feeds point at a 240 px copy; the same path serves 976 px. NY Post escapes its whole path and query
 // ("wp-content%2F...?w%3D1024"), so the resize never applies and a 5000 px original loads; unescape it.
 // Mirrors FeedParser.sharpen.
+// Pictures load over https (BBC podcast art is plain http, which an https page blocks), and BBC podcast art asks for
+// 480 px instead of 3000.
 function sharpen(url) {
-  url = url.replace(/(ichef\.bbci\.co\.uk\/(?:ace\/\w+|news))\/\d+\//, '$1/976/');
+  url = url.replace(/(ichef\.bbci\.co\.uk\/(?:ace\/\w+|news))\/\d+\//, '$1/976/').replace(/^http:\/\//, 'https://')
+    .replace(/(ichef\.bbci\.co\.uk\/images\/ic)\/\d+x\d+\//, '$1/480x480/');
   var m = /^(https?:\/\/[^\/]+\/)([^?]*%2F.*)$/i.exec(url);
   if (m) try { url = m[1] + decodeURIComponent(m[2]); } catch (e) {}
   return url;
@@ -82,25 +85,61 @@ function imageSrcs(html) {
   return out;
 }
 
+// A podcast episode's audio: an <enclosure> whose type says audio, or with no type, an audio file extension. Same
+// rule as FeedParser.isAudio in the app.
+function isAudio(type, url) {
+  return type ? /^audio\//i.test(type) : /\.(mp3|m4a|aac|ogg|oga|opus|wav)(\?|#|$)/i.test(url || '');
+}
+function audioFor(node, link) {
+  var encs = node.getElementsByTagName('enclosure');
+  for (var i = 0; i < encs.length; i++) {
+    var u = encs[i].getAttribute('url');
+    if (u && isAudio(encs[i].getAttribute('type'), u)) return resolveImage(u, link);
+  }
+  return '';
+}
+// <itunes:duration> as seconds: "1:02:03", "16:40" or "1000"; 0 when there is none. Same as FeedParser.seconds.
+function seconds(s) {
+  var parts = String(s || '').trim().split(':');
+  if (!parts[0] || parts.length > 3 || parts.some(function (p) { return !/^\d+$/.test(p); })) return 0;
+  return parts.reduce(function (t, p) { return t * 60 + +p; }, 0);
+}
+
 // RSS <item> and Atom <entry> differ only in tag names and where the link lives.
 function parse(xml, source) {
   var doc = new DOMParser().parseFromString(xml, 'application/xml');
   if (doc.querySelector('parsererror')) return [];
   var nodes = doc.querySelectorAll('item, entry');
-  return Array.prototype.map.call(nodes, function (n) {
+  var out = Array.prototype.map.call(nodes, function (n) {
     var link = text(n, ['link']) ||
       (n.querySelector('link[href]') ? n.querySelector('link[href]').getAttribute('href') : '');
     var d = text(n, ['pubDate', 'updated', 'published', 'dc\\:date']);
-    var html = text(n, ['content\\:encoded', 'content', 'description', 'summary']);
+    var html = text(n, ['content\\:encoded', 'content', 'description', 'summary']) || tagText(n, 'itunes:summary');
+    var audio = audioFor(n, link);
     return {
       title: text(n, ['title']) || '(untitled)',
-      url: link,
+      url: link || audio,   // an episode with no page of its own is known by its audio
       date: d ? new Date(d) : new Date(0),
       html: html,
       image: sharpen(imageFor(n, html, link)),
+      audio: audio,
+      seconds: audio ? seconds(tagText(n, 'itunes:duration')) : 0,
       source: source
     };
   }).filter(function (e) { return e.url; });
+  // WSJ and Megaphone shows give every episode the show's page as its link; an episode is then known by its audio,
+  // or the whole show would collapse into one row. Same as FeedParser.parse.
+  // An episode with no art of its own wears the show's.
+  var links = {}, ch = doc.querySelector('channel'), art = '';
+  if (ch) Array.prototype.some.call(ch.children, function (c) { return c.tagName === 'itunes:image' && (art = resolveImage(c.getAttribute('href'))); });
+  out.forEach(function (e) { links[e.url] = (links[e.url] || 0) + 1; });
+  out.forEach(function (e) { if (e.audio && links[e.url] > 1) e.url = e.audio; if (e.audio && !e.image) e.image = sharpen(art); });
+  return out;
+}
+// querySelector cannot name a prefixed tag; getElementsByTagName takes the qualified name as written.
+function tagText(node, name) {
+  var el = node.getElementsByTagName(name)[0];
+  return el ? el.textContent.trim() : '';
 }
 
 // "4 min read" at 230 words a minute; nothing for a summary too short to be worth timing. Same rule as
@@ -108,4 +147,9 @@ function parse(xml, source) {
 function readingTime(text) {
   var words = (text.match(/\S+/g) || []).length;
   return words < 150 ? '' : Math.ceil(words / 230) + ' min read';
+}
+
+// An episode's length, "16 min"; nothing for an article. Same as JournalEntry.listenTime.
+function listenTime(e) {
+  return e.seconds ? Math.max(1, Math.round(e.seconds / 60)) + ' min' : '';
 }

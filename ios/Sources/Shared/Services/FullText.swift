@@ -20,7 +20,8 @@ enum FullText {
 
     /// The entry with the page's text as its body, or nil when the page has no more than the feed did.
     static func fill(_ entry: JournalEntry) async -> JournalEntry? {
-        guard entry.readingTime == nil, let url = URL(string: entry.url),
+        // an episode's show notes are its page; there is nothing more to read
+        guard entry.readingTime == nil, entry.audioURL == nil, let url = URL(string: entry.url),
               let (data, _) = try? await URLSession.shared.data(from: url),
               let html = String(data: data, encoding: .utf8) ?? String(data: data, encoding: .isoLatin1) else { return nil }
         let found = paragraphs(inHTML: html)

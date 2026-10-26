@@ -15,6 +15,8 @@ struct EntryDetailView: View {
     /// The system text size on top of the reader's own: 17 at the default, larger with Dynamic Type.
     @ScaledMetric(relativeTo: .body) private var body17 = 17.0
     @StateObject private var listener = Listener()
+    /// A podcast episode's own audio (EpisodeBar); articles get Listen instead.
+    @StateObject private var player = Player()
     /// The page's own text when the feed only sent a summary (FullText).
     @State private var full: JournalEntry?
 
@@ -29,7 +31,12 @@ struct EntryDetailView: View {
             #endif
             .onAppear { library.markRead(entry) }
             .task { full = await FullText.fill(entry) }
-            .onDisappear { listener.stop() }
+            .onDisappear { listener.stop(); player.stop() }
+            .task(id: entry.id) {
+                player.prepare(entry)
+                if CommandLine.arguments.contains("-playEpisode") { player.play() }   // screenshot and QA hook
+            }
+            .safeAreaInset(edge: .bottom, spacing: 0) { if entry.audioURL != nil { EpisodeBar(player: player) } }
             .handsOff(entry)
             .sheet(isPresented: $showCoverage) { if let story { CoverageView(story: story, library: library) } }
             .toolbar {
@@ -42,10 +49,12 @@ struct EntryDetailView: View {
                             Label(library.isSaved(entry) ? "Remove from Saved" : "Save", systemImage: library.isSaved(entry) ? "bookmark.fill" : "bookmark")
                         }
                         .keyboardShortcut("s")
-                        Button { listener.toggle(full ?? entry) } label: {
-                            Label(listener.speaking ? "Stop" : "Listen", systemImage: listener.speaking ? "stop.fill" : "speaker.wave.2")
+                        if entry.audioURL == nil {
+                            Button { listener.toggle(full ?? entry) } label: {
+                                Label(listener.speaking ? "Stop" : "Listen", systemImage: listener.speaking ? "stop.fill" : "speaker.wave.2")
+                            }
+                            .keyboardShortcut("l")
                         }
-                        .keyboardShortcut("l")
                         ShareLink(item: url)
                         Link(destination: url) { Label("Open in Browser", systemImage: "safari") }
                             .keyboardShortcut("o", modifiers: [.command, .shift])
@@ -74,7 +83,7 @@ struct EntryDetailView: View {
             font: -apple-system-body;
             font-family: -apple-system, system-ui;
             font-size: \(Int(textSize))px; line-height: 1.5;
-            margin: 0; padding: 16px 20px 40px;
+            margin: 0; padding: 16px 20px \(entry.audioURL == nil ? 40 : 160)px;
             -webkit-text-size-adjust: 100%;
             overflow-wrap: break-word;
           }
@@ -90,6 +99,7 @@ struct EntryDetailView: View {
           a { color: #0059B3; }
           @media (prefers-color-scheme: dark) { a { color: #5aa9ff; } }
           .hero { width: 100%; max-height: 50vh; object-fit: cover; border-radius: 12px; margin: 0 0 16px; }
+          .art { width: 160px; height: 160px; object-fit: cover; border-radius: 16px; margin: 0 0 16px; }   /* podcast art */
         </style></head><body>
         <h1>\(escape(entry.title))</h1>
         <p class="date">\(byline(for: entry))</p>
@@ -101,18 +111,65 @@ struct EntryDetailView: View {
 
     private static func byline(for entry: JournalEntry) -> String {
         let dateString = entry.date.formatted(date: .long, time: .omitted)
-        return [escape(entry.sourceTitle), dateString, entry.readingTime ?? ""].filter { !$0.isEmpty }.joined(separator: " · ")
+        return [escape(entry.sourceTitle), dateString, entry.listenTime ?? entry.readingTime ?? ""].filter { !$0.isEmpty }.joined(separator: " · ")
     }
 
     private static func heroImage(for entry: JournalEntry) -> String {
         guard let url = entry.imageURL else { return "" }
-        return "<img class=\"hero\" src=\"\(escape(url.absoluteString))\">"
+        return "<img class=\"\(entry.audioURL == nil ? "hero" : "art")\" src=\"\(escape(url.absoluteString))\">"
     }
 
     private static func escape(_ s: String) -> String {
         s.replacingOccurrences(of: "&", with: "&amp;")
             .replacingOccurrences(of: "<", with: "&lt;")
             .replacingOccurrences(of: ">", with: "&gt;")
+    }
+}
+
+/// The episode's controls under its show notes, like Apple Podcasts' player: the scrubber with elapsed and left, then
+/// speed, back 15, play, forward 30. Glass over the page, 48 point targets.
+struct EpisodeBar: View {
+    @ObservedObject var player: Player
+
+    var body: some View {
+        VStack(spacing: 4) {
+            Slider(value: $player.elapsed, in: 0...max(player.duration, player.elapsed, 1)) { editing in
+                player.scrubbing = editing
+                if !editing { player.seek(to: player.elapsed) }
+            }
+            .accessibilityLabel("Position")
+            .accessibilityValue(clock(player.elapsed))
+            HStack {
+                Text(clock(player.elapsed))
+                Spacer()
+                Text(player.duration > 0 ? "-" + clock(player.duration - player.elapsed) : "")
+            }
+            .font(.caption.monospacedDigit()).foregroundStyle(.secondary)
+            HStack {
+                Button { player.nextRate() } label: {
+                    Text(String(format: "%g\u{00D7}", player.rate)).font(.subheadline.weight(.semibold))
+                        .frame(width: 48, height: 48, alignment: .leading).contentShape(Rectangle())
+                }
+                .accessibilityLabel("Speed")
+                .accessibilityValue(String(format: "%g", player.rate))
+                Spacer()
+                Button { player.skip(-15) } label: { Image(systemName: "gobackward.15").font(.title2) }
+                    .accessibilityLabel("Back 15 seconds")
+                Spacer()
+                Button { player.toggle() } label: { Image(systemName: player.playing ? "pause.fill" : "play.fill").font(.largeTitle) }
+                    .accessibilityLabel(player.playing ? "Pause" : "Play")
+                    .keyboardShortcut("l")
+                Spacer()
+                Button { player.skip(30) } label: { Image(systemName: "goforward.30").font(.title2) }
+                    .accessibilityLabel("Forward 30 seconds")
+                Spacer()
+                Color.clear.frame(width: 48, height: 1)   // balances the speed button so play sits in the middle
+            }
+            .buttonStyle(.plain)
+            .frame(minHeight: 48)
+        }
+        .padding(.horizontal, 20).padding(.top, 12).padding(.bottom, 8)
+        .background(.regularMaterial)
     }
 }
 

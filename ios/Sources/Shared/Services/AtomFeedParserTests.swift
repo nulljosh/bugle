@@ -77,6 +77,33 @@ func feedParserDemo() {
     </item></channel></rss>
     """)
     assert(podcast.imageURL?.absoluteString == "https://cdn.example.com/art.jpg", "audio enclosure must be skipped")
+    assert(podcast.audioURL?.absoluteString == "https://cdn.example.com/ep.mp3", "the audio enclosure is the episode")
+
+    // An episode with no link of its own is known by its audio; an untyped .m4a still counts.
+    let bare = firstEntry("""
+    <?xml version="1.0"?>
+    <rss version="2.0"><channel><item>
+      <title>E</title><enclosure url="https://cdn.example.com/ep.m4a?x=1"/>
+    </item></channel></rss>
+    """)
+    assert(bare.url == "https://cdn.example.com/ep.m4a?x=1" && bare.audioURL != nil, "linkless episode keeps its audio as its url")
+    assert(media.audioURL == nil, "an article has no audio")
+
+    // A show that links every episode to its own page: each episode is known by its audio, and wears the show's art.
+    let show = FeedParser.parse(data: Data("""
+    <?xml version="1.0"?>
+    <rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"><channel>
+      <itunes:image href="https://cdn.example.com/show.jpg"/>
+      <item><title>A</title><link>https://example.com/show</link><enclosure url="https://cdn.example.com/a.mp3" type="audio/mpeg"/>
+        <itunes:duration>16:40</itunes:duration></item>
+      <item><title>B</title><link>https://example.com/show</link><enclosure url="https://cdn.example.com/b.mp3" type="audio/mpeg"/></item>
+    </channel></rss>
+    """.utf8))
+    assert(show.map(\.url) == ["https://cdn.example.com/a.mp3", "https://cdn.example.com/b.mp3"], "shared show link: episodes keep apart")
+    assert(show[0].imageURL?.absoluteString == "https://cdn.example.com/show.jpg", "episode wears the show's art")
+    assert(show[0].listenTime == "17 min" && show[1].listenTime == nil, "episode length")
+    assert(FeedParser.sharpen(URL(string: "http://ichef.bbci.co.uk/images/ic/3000x3000/p0.jpg")!)?.absoluteString
+           == "https://ichef.bbci.co.uk/images/ic/480x480/p0.jpg", "http art upgraded and shrunk")
 
     // Protocol-relative and plain-relative srcs resolve against the entry link.
     let protoRel = firstEntry("""

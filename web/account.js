@@ -42,7 +42,7 @@
     (row.feeds || []).forEach(function (f) {
       if (f && f.url && !feeds.some(function (x) { return x.url === f.url; })) feeds.push({ title: f.title, url: f.url });
     });
-    var entry = function (d) { return { title: d.title, url: d.url, date: new Date(d.date || 0), source: d.source || '', image: d.image || '', html: '' }; };
+    var entry = function (d) { return { title: d.title, url: d.url, date: new Date(d.date || 0), source: d.source || '', image: d.image || '', audio: d.audio || '', html: '' }; };
     Library.merge((row.saved || []).map(entry), (row.history || []).map(entry));
     (row.topics || []).forEach(function (w) { if (!Topics.has(w)) Topics.toggle(w); });
     (row.muted || []).forEach(function (w) { if (!Muted.has(w)) Muted.toggle(w); });
@@ -50,7 +50,7 @@
     await push();
   }
   // headline, link, outlet, picture: the body stays in the browser it was read in
-  var light = function (e) { return { title: e.title, url: e.url, date: e.date, source: e.source, image: e.image || '' }; };
+  var light = function (e) { return { title: e.title, url: e.url, date: e.date, source: e.source, image: e.image || '', audio: e.audio || '' }; };
   async function push() {
     if (!session) return;
     var up = function (b) { return authed('POST', '/rest/coranto_sync?on_conflict=id', b, { Prefer: 'resolution=merge-duplicates' }); };

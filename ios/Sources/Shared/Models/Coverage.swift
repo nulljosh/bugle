@@ -160,6 +160,8 @@ enum Coverage {
 
     /// The Home chip (and search word) that shows only blindspot stories.
     static let blindspots = "Blindspots"
+    /// The Podcasts chip: episodes, newest first, apart from the news.
+    static let podcasts = "Podcasts"
 
     static func today(_ stories: [Story], now: Date = .now) -> [Story] {
         let top = stories.filter { $0.publishers > 1 && now.timeIntervalSince($0.lead.date) < 86_400 }

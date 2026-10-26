@@ -1,0 +1,10 @@
+/* Podcasts: the episode's player (player.js), Apple Podcasts' order: scrubber, times, then speed, back 15, play, forward 30. */
+.episode { background: var(--surface); border-radius: var(--r-group); padding: var(--sp-3) var(--sp-4) var(--sp-2); margin: 0 0 var(--sp-5); }
+.episode .scrub { width: 100%; margin: 0; accent-color: var(--accent); height: 24px; }
+.episode .times { display: flex; justify-content: space-between; color: var(--sub); font-size: 13px; line-height: 18px; font-variant-numeric: tabular-nums; }
+.episode .ctl { display: flex; align-items: center; justify-content: space-between; }
+.episode button { width: 48px; height: 48px; border: 0; padding: 0; background: none; color: var(--text); display: grid; place-items: center; cursor: pointer; border-radius: var(--r-pill); }
+.episode button svg { width: 30px; height: 30px; }
+.episode .play svg { width: 40px; height: 40px; }
+.episode .rate { width: 48px; font: inherit; font-size: 15px; font-weight: 600; text-align: left; justify-items: start; }
+.episode button:focus-visible { outline: 4px solid color-mix(in srgb, var(--accent) 30%, transparent); }

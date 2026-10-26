@@ -9,7 +9,7 @@ struct TopStoriesIntent: AppIntent {
     @MainActor
     func perform() async throws -> some IntentResult & ReturnsValue<String> & ProvidesDialog {
         let service = JournalFeedService()
-        await service.refresh(feeds: FeedStore().feeds)
+        await service.refresh(feeds: FeedStore().news)
         let lines = Coverage.today(service.stories).prefix(3).map {
             "\($0.lead.sourceTitle): \(Headline.clean($0.lead.title, source: $0.lead.sourceTitle))"
         }

@@ -32,8 +32,21 @@ test("never returns a wildcard CORS origin", async () => {
 
 test("refuses a feed larger than the cap", async () => {
   globalThis.fetch = async () =>
-    new Response("x", { headers: { "content-length": String(50 * 1024 * 1024) } });
+    new Response("x", { headers: { "content-length": String(500 * 1024 * 1024) } });
   assert.equal((await call("https://example.com/big")).status, 413);
+  globalThis.fetch = async () => new Response("x".repeat(6 * 1024 * 1024));   // too big and no item to cut at
+  assert.equal((await call("https://example.com/big")).status, 413);
+});
+
+test("a podcast feed past the cap keeps its newest whole items and still parses", async () => {
+  const item = "<item><title>t</title><enclosure url='https://c.com/a.mp3' type='audio/mpeg'/>" + "n".repeat(100000) + "</item>";
+  globalThis.fetch = async () => new Response("<rss><channel>" + item.repeat(80) + "</channel></rss>");
+  const text = await (await call("https://example.com/pod")).text();
+  assert.ok(text.endsWith("</item>\n</channel></rss>\n"));
+  assert.ok((text.match(/<item>/g) || []).length < 80 && text.length <= 5 * 1024 * 1024 + 20);
+  const { trim } = await import("./functions/feed.js");
+  const many = new TextEncoder().encode("<rss><channel>" + "<item>x</item>".repeat(150) + "</channel></rss>");
+  assert.equal((new TextDecoder().decode(trim(many, false)).match(/<item>/g) || []).length, 100);
 });
 
 // Headline cleaning, shared rules with the Swift app (web/headline.js sets globalThis.Headline).
@@ -160,4 +173,26 @@ test("a busy topic does not swallow its neighbours", () => {
     e("New Apple TV 4K adds Siri AI support", "Six Colors", 2)]));
   const size = (word) => duo.find((s) => s.entries.some((x) => x.title.includes(word))).entries.length;
   assert.deepEqual([size("Safari"), size("Pencil"), size("Siri")], [2, 1, 1]);
+});
+
+// Podcasts: which enclosure is an episode, and how long it runs. Same rules as FeedParser.isAudio and seconds.
+(await import("node:vm")).runInThisContext(readFileSync(new URL("./web/parse.js", import.meta.url), "utf8"));
+test("an audio enclosure is an episode; an image is not", () => {
+  assert.ok(isAudio("audio/mpeg", "https://x.com/a"));
+  assert.ok(isAudio("", "https://x.com/a.m4a?x=1"));
+  assert.ok(!isAudio("image/jpeg", "https://x.com/a.mp3"));
+  assert.ok(!isAudio("", "https://x.com/a.jpg"));
+});
+test("itunes:duration reads clock or seconds", () => {
+  assert.equal(seconds("1:02:03"), 3723);
+  assert.equal(seconds("16:40"), 1000);
+  assert.equal(seconds("600"), 600);
+  assert.equal(seconds(""), 0);
+  assert.equal(seconds("abc"), 0);
+  assert.equal(listenTime({ seconds: 1000 }), "17 min");
+  assert.equal(listenTime({ seconds: 0 }), "");
+});
+test("pictures load over https; BBC podcast art asks for 480 px", () => {
+  assert.equal(sharpen("http://ichef.bbci.co.uk/images/ic/3000x3000/p0.jpg"), "https://ichef.bbci.co.uk/images/ic/480x480/p0.jpg");
+  assert.equal(sharpen("https://x.com/a.jpg"), "https://x.com/a.jpg");
 });
