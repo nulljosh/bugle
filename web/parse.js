@@ -142,6 +142,12 @@ function tagText(node, name) {
   return el ? el.textContent.trim() : '';
 }
 
+// Newest first, one row per link: outlets that share a newsroom (NY Post and NY Post Opinion) carry the same one.
+function dedupe(list) {
+  var seen = {};
+  return list.slice().sort(function (a, b) { return b.date - a.date; }).filter(function (e) { return !seen[e.url] && (seen[e.url] = true); });
+}
+
 // "4 min read" at 230 words a minute; nothing for a summary too short to be worth timing. Same rule as
 // JournalEntry.readingTime in the app.
 function readingTime(text) {

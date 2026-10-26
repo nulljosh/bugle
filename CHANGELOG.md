@@ -2,6 +2,10 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 6.1.1
+- Home fills in as feeds arrive instead of waiting on the slowest one. A first launch on a phone network sat on a spinner; a clean install now shows stories in about 3 seconds. Same on the web.
+- A feed that stops answering gives up after 15 seconds of silence instead of 60.
+
 ## 6.1.0
 - One player for the whole app: an episode keeps playing while you read on. A mini player rides above the tab bar (the tab bar's own accessory on iOS 26.1, glass over the bottom edge on the Mac and the web) with the art, play and forward 30; tap it to open the episode. The last episode comes back paused after a relaunch.
 - Up Next: add an episode from its page or by pressing and holding its row. Up Next leads the Podcasts list, and when an episode ends the next one plays.

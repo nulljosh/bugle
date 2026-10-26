@@ -66,21 +66,20 @@ function save() {
 
 async function refresh() {
   lastRefresh = Date.now();
-  document.getElementById('entries').innerHTML = '<li class="muted">Loading…</li>';
+  var empty = !entries.length, all = [], shown = 0;   // nothing on screen: fill in as feeds arrive
+  if (empty) document.getElementById('entries').innerHTML = '<li class="muted">Loading…</li>';
   var results = await Promise.all(feeds.map(async function (f) {
     try {
       var r = await fetch('/feed?url=' + encodeURIComponent(f.url));
       var got = r.ok ? parse(await r.text(), f.title) : [];
-      // ponytail: a show's newest 30 episodes; its back catalog stays on its site
+      // ponytail: a show's newest 30 episodes
       if (got.some(function (e) { return e.audio; })) got = got.sort(function (a, b) { return b.date - a.date; }).slice(0, 30);
       dead[f.url] = !got.length;
+      if (empty && got.length) { all = all.concat(got); if (Date.now() - shown > 2000) { shown = Date.now(); entries = dedupe(all); restory(); } }
       return got;
     } catch (e) { dead[f.url] = true; return []; }
   }));
-  // One row per story: outlets that share a newsroom (NY Post and NY Post Opinion) carry the same link.
-  var seen = {};
-  entries = [].concat.apply([], results).sort(function (a, b) { return b.date - a.date; })
-    .filter(function (e) { return !seen[e.url] && (seen[e.url] = true); });
+  entries = dedupe([].concat.apply([], results));
   if (window.Timeline) Timeline.keep(entries.filter(function (e) { return !e.audio; }));
   restory();
 }

@@ -47,11 +47,14 @@ final class JournalFeedService: ObservableObject {
         var merged: [JournalEntry] = []
         var failures = 0
         var gone = Set<String>()
+        var shown = Date.distantPast
+        let empty = entries.isEmpty   // with a cached list on screen, swap once at the end instead of shrinking it
         await withTaskGroup(of: (String, [JournalEntry]).self) { group in
             for feed in feeds {
                 group.addTask {
+                    // A feed that stops answering gives up after 15 seconds of silence instead of URLSession's 60.
                     guard let url = URL(string: feed.url),
-                          let (data, _) = try? await URLSession.shared.data(from: url) else { return (feed.url, []) }
+                          let (data, _) = try? await URLSession.shared.data(for: URLRequest(url: url, timeoutInterval: 15)) else { return (feed.url, []) }
                     var got = FeedParser.parse(data: data).map { var e = $0; e.sourceTitle = feed.title; return e }
                     // ponytail: a show's newest 30 episodes; its back catalog (2000 in one WSJ feed) stays on its site
                     if got.contains(where: { $0.audioURL != nil }) { got = Array(got.sorted { $0.date > $1.date }.prefix(30)) }
@@ -60,6 +63,9 @@ final class JournalFeedService: ObservableObject {
             }
             for await (url, result) in group {
                 if result.isEmpty { failures += 1; gone.insert(url) } else { merged.append(contentsOf: result) }
+                // With nothing on screen, Home fills in as feeds arrive instead of waiting on the slowest one (a first
+                // launch on a phone network sat on a spinner): the first feed in, then at most every two seconds.
+                if empty, !merged.isEmpty, Date().timeIntervalSince(shown) > 2 { show(merged); shown = .now }
             }
         }
         dead = gone
@@ -68,11 +74,15 @@ final class JournalFeedService: ObservableObject {
             if failures > 0 { errorMessage = String(localized: "Couldn't load feeds. Pull to retry.") }
             return
         }
-        // One row per story: outlets that share a newsroom (NY Post and NY Post Opinion) carry the same link.
-        var seen = Set<String>()
-        entries = merged.sorted { $0.date > $1.date }.filter { seen.insert($0.id).inserted }
+        show(merged)
         saveCache()
         Archive.keep(entries.filter { $0.audioURL == nil })
+    }
+
+    /// Newest first, one row per link: outlets that share a newsroom (NY Post and NY Post Opinion) carry the same one.
+    private func show(_ merged: [JournalEntry]) {
+        var seen = Set<String>()
+        entries = merged.sorted { $0.date > $1.date }.filter { seen.insert($0.id).inserted }
     }
 
     private func loadCache() {
