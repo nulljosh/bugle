@@ -226,3 +226,7 @@ test("hero pictures ask for the big copy", () => {
   assert.equal(HiRes.upsize("https://example.com/a.jpg"), "https://example.com/a.jpg");
   assert.equal(HiRes.widest(["x?width=700&fit=max", "x?width=1065&fit=max", "x?width=140"]), "x?width=1065&fit=max");
 });
+// Titles a feed escaped twice decode, same as String.decodingEntities.
+test("twice-escaped titles decode", () => {
+  assert.equal(decodeEntities("iFixit&#8217;s look &amp; feel &#x2014; &#9999999;"), "iFixit’s look & feel — &#9999999;");
+});

@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="reader.css?v=7.16.0">
 <link rel="stylesheet" href="hn.css?v=7.9.0">
-<link rel="stylesheet" href="home.css?v=7.15.2">
+<link rel="stylesheet" href="home.css?v=7.17.0">
 <link rel="stylesheet" href="themes.css?v=7.10.0">
 <link rel="stylesheet" href="player.css?v=7.12.1">
   <link rel="manifest" href="/manifest.webmanifest">
@@ -19,7 +19,7 @@
 </head>
 <body>
 <!-- the boot splash: the mascot pops up, blinks and sounds its call, then the reader fades up (home.css, same as Splash.swift); once a session -->
-<div id="splash" aria-hidden="true"><svg viewBox="0 18 240 240">
+<div id="splash" aria-hidden="true"><svg viewBox="5 -3 280 280">
   <g class="pop"><rect x="22" y="92" width="160" height="22" rx="11" fill="#0059B3"/><rect x="10" y="86" width="22" height="34" rx="8" fill="#0059B3"/>
   <path class="bell" d="M170 92 C 196 90 214 78 226 60 V 146 C 214 128 196 116 170 114 Z" fill="#0059B3"/>
   <path class="w w1" d="M240 92 A18 18 0 0 1 240 114"/><path class="w w2" d="M253 83 A34 34 0 0 1 253 123"/><path class="w w3" d="M266 73 A50 50 0 0 1 266 133"/>
@@ -27,7 +27,7 @@
   <g class="eyes"><ellipse cx="80" cy="138" rx="9" ry="12" fill="#0B2545"/><ellipse cx="120" cy="138" rx="9" ry="12" fill="#0B2545"/></g>
   <circle cx="64" cy="160" r="9" fill="#FF8FA3" opacity=".7"/><circle cx="136" cy="160" r="9" fill="#FF8FA3" opacity=".7"/>
   <path d="M88 162 Q 100 174 112 162" fill="none" stroke="#0B2545" stroke-width="6" stroke-linecap="round"/></g></svg></div>
-<script>try { var sp = document.getElementById('splash'); if (sessionStorage.getItem('bugle.splashed') || /[?&]embed/.test(location.search)) sp.remove(); else { sessionStorage.setItem('bugle.splashed', '1'); setTimeout(function () { sp.remove(); }, 1600); } } catch (e) {}</script>
+<script>try { var sp = document.getElementById('splash'); if (sessionStorage.getItem('bugle.splashed') || /[?&]embed/.test(location.search)) sp.remove(); else { sessionStorage.setItem('bugle.splashed', '1'); setTimeout(function () { sp.remove(); }, 1800); } } catch (e) {}</script>
 
 <main class="screen plain" id="home">
   <!-- a large title with the date, as Apple's apps have; pull down to refresh (same as the app) -->
@@ -124,7 +124,7 @@
   </ul></div>
   <p class="label"></p>
   <div class="group"><ul class="rows">
-    <li><div class="row"><span class="txt">Version</span><small class="count">7.16.0</small></div></li>
+    <li><div class="row"><span class="txt">Version</span><small class="count">7.17.0</small></div></li>
   </ul></div>
   <p class="label"></p>
   <div class="group links"><ul class="rows">
@@ -143,9 +143,9 @@
 </nav>
 
 <script src="headline.js?v=4.1.0"></script>
-<script src="parse.js?v=6.1.1"></script>
+<script src="parse.js?v=7.17.0"></script>
 <script src="hires.js?v=7.15.0"></script>
-<script src="rows.js?v=7.15.0"></script>
+<script src="rows.js?v=7.17.0"></script>
 <script src="coverage.js?v=7.11.0"></script>
 <script src="seeds.js?v=6.2.0"></script>
 <script src="player.js?v=7.12.1"></script>

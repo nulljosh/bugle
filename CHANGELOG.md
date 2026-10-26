@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.17.0
+The boot splash plays whole: the mascot fades and pops in, blinks, sounds three waves out of its bell, then Home crossfades in complete instead of cutting in half built. Launch is lighter too: the saved stories load and group off the main thread. The mascot waits with you while feeds load and sits over every empty list (All caught up, nothing matching). Headlines a feed escaped twice (iFixit&amp;#8217;s) now read cleanly.
+
 ## 7.16.0
 The mascot is the app icon now: the smiling horn in white on the blue tile, on iPhone, iPad, Mac, Watch, the favicon and the share card. The web reader and landing use the system font, SF, the same as the apps, so the webfont is gone. The landing shows the mascot, and its copy covers collections, Hacker News threads, unread, the compact layout, the shows shelf and the topic picker. The brand kit documents the mascot and the new components.
 

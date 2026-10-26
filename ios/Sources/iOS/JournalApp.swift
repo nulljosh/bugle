@@ -3,7 +3,6 @@ import SwiftUI
 @main
 struct JournalApp: App {
     @Environment(\.scenePhase) private var phase
-    @State private var splash = true
 
     init() {
         #if DEBUG
@@ -28,15 +27,24 @@ struct JournalApp: App {
 
     var body: some Scene {
         WindowGroup {
-            EntryListView()
-            .tint(.bugleAccent)
-            .overlay { if splash { Splash().transition(.opacity) } }
-            .task {   // the call, then Home fades up; the feeds have been loading underneath the whole time
-                try? await Task.sleep(for: .seconds(1.1))
-                withAnimation(.easeOut(duration: 0.35)) { splash = false }
-            }
+            BootView()
         }
         .onChange(of: phase) { if phase == .background { BackgroundRefresh.schedule() } }
         .backgroundTask(.appRefresh(BackgroundRefresh.id)) { await BackgroundRefresh.run() }
+    }
+}
+
+/// Home under the boot splash. The splash state lives in a view, not the App: a change to App state does not animate
+/// the views, so the fade cut straight to Home.
+struct BootView: View {
+    @State private var splash = true
+
+    var body: some View {
+        ZStack {
+            EntryListView().tint(.bugleAccent)
+            // the call, then Home fades up; the feeds have been loading underneath the whole time
+            if splash { Splash { splash = false }.transition(.opacity).zIndex(1) }
+        }
+        .animation(.easeOut(duration: 0.4), value: splash)
     }
 }

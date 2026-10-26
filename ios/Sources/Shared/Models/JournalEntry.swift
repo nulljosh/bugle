@@ -16,6 +16,20 @@ struct JournalEntry: Codable, Identifiable, Hashable {
 }
 
 extension String {
+    /// HTML entities a feed escaped twice ("iFixit&#8217;s" after XML has had its turn): numeric ones and the five
+    /// named ones that turn up in headlines. Mirrors decodeEntities in web/parse.js.
+    var decodingEntities: String {
+        guard contains("&") else { return self }
+        let named = ["&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": "\"", "&apos;": "'", "&nbsp;": " "]
+        return replacing(/&#(x[0-9a-fA-F]+|[0-9]+);|&(amp|lt|gt|quot|apos|nbsp);/) { m in
+            if let n = m.output.1 {
+                let v = n.hasPrefix("x") ? UInt32(n.dropFirst(), radix: 16) : UInt32(n)
+                return v.flatMap(Unicode.Scalar.init).map { String(Character($0)) } ?? String(m.output.0)
+            }
+            return named[String(m.output.0)] ?? String(m.output.0)
+        }
+    }
+
     /// Tags out, the common entities decoded, whitespace collapsed.
     var plainText: String {
         replacingOccurrences(of: "<[^>]+>", with: " ", options: .regularExpression)

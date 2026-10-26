@@ -13,16 +13,17 @@ struct Mascot: View {
 
     var body: some View {
         Canvas { ctx, size in
-            let s = min(size.width, size.height) / 240
-            ctx.translateBy(x: (size.width - 240 * s) / 2, y: (size.height - 240 * s) / 2)
+            // a 280 box, so the waves out of the bell fit beside the mascot instead of being cut off
+            let s = min(size.width, size.height) / 280
+            ctx.translateBy(x: (size.width - 280 * s) / 2, y: (size.height - 280 * s) / 2)
             ctx.scaleBy(x: s, y: s)
-            ctx.translateBy(x: 0, y: -18)
+            ctx.translateBy(x: -5, y: 3)
             let blue = GraphicsContext.Shading.color(Self.blue), ink = GraphicsContext.Shading.color(Self.ink)
             // the tube from the mouthpiece, behind the face, into the bell
             ctx.fill(Path(roundedRect: CGRect(x: 22, y: 92, width: 160, height: 22), cornerRadius: 11), with: blue)
             ctx.fill(Path(roundedRect: CGRect(x: 10, y: 86, width: 22, height: 34), cornerRadius: 8), with: blue)
             var bell = ctx
-            let swell = 1 + 0.14 * toot
+            let swell = 1 + 0.2 * toot
             bell.translateBy(x: 170, y: 103); bell.scaleBy(x: swell, y: swell); bell.translateBy(x: -170, y: -103)
             var b = Path()
             b.move(to: CGPoint(x: 170, y: 92))
@@ -51,5 +52,24 @@ struct Mascot: View {
             ctx.stroke(smile, with: ink, style: StrokeStyle(lineWidth: 6, lineCap: .round))
         }
         .accessibilityHidden(true)
+    }
+}
+
+/// The mascot on a loop, for waiting and empty screens: it toots every 1.6 s while `tooting` (loading), blinks every
+/// few seconds, and bobs. Still under Reduce Motion.
+struct MascotLoop: View {
+    var tooting = true
+    var size: CGFloat = 88
+    @Environment(\.accessibilityReduceMotion) private var still
+
+    var body: some View {
+        TimelineView(.animation(paused: still)) { tl in
+            let t = tl.date.timeIntervalSinceReferenceDate, beat = t.truncatingRemainder(dividingBy: 1.6)
+            Mascot(blink: Splash.pulse(t.truncatingRemainder(dividingBy: 3.8), at: 3.4, for: 0.24),
+                   toot: tooting ? Splash.pulse(beat, at: 0, for: 0.36) : 0,
+                   waves: tooting && beat < 0.9 ? min(3, beat / 0.1) : 0)
+                .frame(width: size, height: size)
+                .offset(y: still ? 0 : sin(t * 2.2) * 2)
+        }
     }
 }

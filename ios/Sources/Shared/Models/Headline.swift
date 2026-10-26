@@ -73,6 +73,7 @@ enum Headline {
 /// ponytail: minimal self-check, same style as `feedParserDemo()`.
 func headlineDemo() {
     assert(Headline.clean("Opinion | Congress’s Russia Problems") == "Congress’s Russia Problems")
+    assert("iFixit&#8217;s look &amp; feel &#x2014; &#9999999;".decodingEntities == "iFixit\u{2019}s look & feel \u{2014} &#9999999;", "twice-escaped titles decode")
     assert(Headline.clean("Storm hits coast - BBC News", source: "BBC") == "Storm hits coast")
     assert(Headline.clean("Rates fall (again) [Video]") == "Rates fall")
     let v = Headline.variants("Jaylen Brown ratchets up Jayson Tatum drama: ‘He should stay ready at all times’")

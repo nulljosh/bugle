@@ -22,24 +22,53 @@ final class JournalFeedService: ObservableObject {
     }()
 
     init() {
-        loadCache()
-        regroup()
+        // the cache loads and groups off the main thread, so launch never waits on it (it held the launch screen and
+        // froze the splash); Home shows what it had a moment later
+        cacheLoad = Task {
+            let url = cacheURL
+            let cached = await Task.detached(priority: .userInitiated) { () -> [JournalEntry] in
+                guard let data = try? Data(contentsOf: url), let list = try? JSONDecoder().decode([JournalEntry].self, from: data) else { return [] }
+                return list.sorted { $0.date > $1.date }
+            }.value
+            if entries.isEmpty, !cached.isEmpty { entries = cached } else { Self.ready = true }
+        }
     }
 
     func story(for entry: JournalEntry) -> Story? { storyOf[entry.id] }
 
+    private var grouping: Task<Void, Never>?
+    /// The cache read at launch; a refresh waits for it, so the cached list shows first and is replaced whole.
+    private var cacheLoad: Task<Void, Never>?
+    /// True once Home has something whole to show (the cache grouped, or nothing cached): the boot splash waits for
+    /// it, so Home never appears half built and then reflows.
+    static private(set) var ready = false
+    /// Waits for the latest grouping, for callers that read `stories` right after a refresh.
+    func grouped() async { await grouping?.value }
+
+    /// Group into stories off the main thread (an O(n²) pass over every headline), then publish; a newer call
+    /// cancels an older one, so the last list in always wins.
     private func regroup() {
-        let shown = entries.filter { !Coverage.isMuted($0, muted) }
-        stories = Coverage.cluster(shown.filter { $0.audioURL == nil })
-        // WSJ posts one episode to two of its shows; list it once
-        var titles = Set<String>()
-        episodes = shown.filter { $0.audioURL != nil && titles.insert($0.title).inserted }
-        storyOf = Dictionary(stories.flatMap { s in s.entries.map { ($0.id, s) } }, uniquingKeysWith: { a, _ in a })
+        let all = entries, muted = muted
+        grouping?.cancel()
+        grouping = Task {
+            let (stories, episodes) = await Task.detached(priority: .userInitiated) { () -> ([Story], [JournalEntry]) in
+                let shown = all.filter { !Coverage.isMuted($0, muted) }
+                // WSJ posts one episode to two of its shows; list it once
+                var titles = Set<String>()
+                return (Coverage.cluster(shown.filter { $0.audioURL == nil }), shown.filter { $0.audioURL != nil && titles.insert($0.title).inserted })
+            }.value
+            guard !Task.isCancelled else { return }
+            self.stories = stories
+            self.episodes = episodes
+            storyOf = Dictionary(stories.flatMap { s in s.entries.map { ($0.id, s) } }, uniquingKeysWith: { a, _ in a })
+            Self.ready = true
+        }
     }
 
     /// Fetch every subscribed feed concurrently, tag each entry with its source, and merge.
     func refresh(feeds: [Feed]) async {
         guard !feeds.isEmpty else { entries = []; return }
+        await cacheLoad?.value
         isLoading = true
         errorMessage = nil
         defer { isLoading = false }
@@ -85,15 +114,9 @@ final class JournalFeedService: ObservableObject {
         entries = merged.sorted { $0.date > $1.date }.filter { seen.insert($0.id).inserted }
     }
 
-    private func loadCache() {
-        guard let data = try? Data(contentsOf: cacheURL),
-              let cached = try? JSONDecoder().decode([JournalEntry].self, from: data) else { return }
-        entries = cached.sorted { $0.date > $1.date }
-    }
-
     private func saveCache() {
-        guard let data = try? JSONEncoder().encode(entries) else { return }
-        try? data.write(to: cacheURL)
+        let list = entries, url = cacheURL
+        Task.detached(priority: .utility) { if let data = try? JSONEncoder().encode(list) { try? data.write(to: url) } }
     }
 }
 
@@ -201,7 +224,7 @@ final class FeedParser: NSObject, XMLParserDelegate {
             : link.trimmingCharacters(in: .whitespacesAndNewlines)
         let body = [content, summary, showNotes].first { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty } ?? ""
         var entry = JournalEntry(
-            title: title.trimmingCharacters(in: .whitespacesAndNewlines),
+            title: title.trimmingCharacters(in: .whitespacesAndNewlines).decodingEntities,
             url: entryURL,
             date: Self.parseDate(date.trimmingCharacters(in: .whitespacesAndNewlines)),
             htmlContent: body,

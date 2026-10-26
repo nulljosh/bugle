@@ -4,16 +4,22 @@ import SwiftUI
 /// first feeds load underneath; Reduce Motion gets the mascot still and a fade.
 struct Splash: View {
     @Environment(\.accessibilityReduceMotion) private var still
-    @State private var start = Date.now
+    var done: () -> Void = {}
+    /// When the first frame drew. A reference, so setting it from inside the timeline never redraws anything.
+    @State private var clock = Clock()
+    final class Clock { var start: Date? }
 
     var body: some View {
         TimelineView(.animation(paused: still)) { tl in
-            let t = still ? 2 : tl.date.timeIntervalSince(start)
+            // the clock starts at the first frame actually drawn: launch can hold the main thread a second after
+            // onAppear, and a clock started there played the whole animation before anyone saw it
+            let first = clock.start ?? { clock.start = tl.date; return tl.date }()
+            let t = still ? 2 : tl.date.timeIntervalSince(first)
             let pop = min(1, t / 0.4)
-            Mascot(blink: Self.pulse(t, at: 0.45, for: 0.16),
-                   toot: Self.pulse(t, at: 0.62, for: 0.3),
-                   waves: max(0, min(3, (t - 0.66) / 0.09)))
-                .frame(width: 168, height: 168)
+            Mascot(blink: Self.pulse(t, at: 0.45, for: 0.24),
+                   toot: Self.pulse(t, at: 0.75, for: 0.36),
+                   waves: max(0, min(3, (t - 0.8) / 0.1)))
+                .frame(width: 196, height: 196)
                 .scaleEffect(0.6 + 0.4 * Self.overshoot(pop))
                 .opacity(min(1, t / 0.15))
         }
@@ -21,6 +27,12 @@ struct Splash: View {
         .background(Color("LaunchBackground"))   // the launch screen's own color, so boot never jumps
         .ignoresSafeArea()
         .accessibilityHidden(true)
+        .task {   // done 1.35 s after the first frame, however late that frame came
+            while clock.start == nil { try? await Task.sleep(for: .milliseconds(30)) }
+            try? await Task.sleep(for: .seconds(still ? 0.5 : 1.35))
+            for _ in 0..<30 where !JournalFeedService.ready { try? await Task.sleep(for: .milliseconds(50)) }   // Home whole, 1.5 s at most
+            done()
+        }
     }
 
     /// 0 to 1 and back over `d` seconds from `a`.

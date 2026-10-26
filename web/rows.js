@@ -94,7 +94,10 @@ function heroRow(e, onOpen) {
 // Fill a list. withHero puts the newest story with a picture (among the first five) on top, big.
 function renderStories(ul, list, onOpen, withHero, empty) {
   ul.innerHTML = '';
-  if (!list.length) { ul.appendChild(el('li', 'muted', empty)); return; }
+  if (!list.length) {   // empty or loading: the mascot over the reason; it hops while the feeds come in
+    var li = el('li', 'empty' + (/…$/.test(empty) ? ' loading' : '')), face = el('img', 'empty-mascot');
+    face.src = 'mascot.svg'; face.alt = ''; li.appendChild(face); li.appendChild(el('p', 'muted', empty)); ul.appendChild(li); return;
+  }
   var hero = withHero ? list.slice(0, 5).find(function (e) { return e.image; }) : null;
   if (hero) ul.appendChild(heroRow(hero, onOpen));
   list.slice(0, 300).forEach(function (e) { if (e !== hero) ul.appendChild(storyRow(e, onOpen)); });

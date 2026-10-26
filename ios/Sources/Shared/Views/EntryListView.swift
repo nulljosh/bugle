@@ -126,7 +126,7 @@ struct EntryListView: View {
             guard forced || !UserDefaults.standard.bool(forKey: "topicsPicked") else { return }
             UserDefaults.standard.set(true, forKey: "topicsPicked")   // asked once, whatever the answer
             guard forced || (topics.isEmpty && library.history.isEmpty) else { return }
-            Task { try? await Task.sleep(for: .seconds(1.6)); pickTopics = true }   // after the boot splash, never over it
+            Task { try? await Task.sleep(for: .seconds(2)); pickTopics = true }   // after the boot splash, never over it
         }
         .sheet(isPresented: $briefing) { BriefingView(stories: Array(Coverage.today(feed.stories).prefix(5))) { tab = 0; path = [$0] } }
         // Keyboard (Mac, iPad): ⌘R refreshes, ⌘1 to ⌘3 pick a tab. Invisible buttons carry the shortcuts.
@@ -148,6 +148,7 @@ struct EntryListView: View {
         .task(id: store.feeds) {
             if account.signedIn { try? await account.push(store.feeds) }   // keep the account's copy current
             await feed.refresh(feeds: store.feeds)
+            await feed.grouped()
             // ponytail: store screenshot hook so a frame can open on an article
             if CommandLine.arguments.contains("-selectFirst"), let first = feed.entries.first { path = [first] }
             if CommandLine.arguments.contains("-selectEpisode"), let first = feed.episodes.first { path = [first] }
@@ -214,21 +215,28 @@ struct EntryListView: View {
             if q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame && !feed.episodes.isEmpty { ShowsRow(episodes: feed.episodes) { query = $0 } }
             if let hero { HeroRow(entry: hero.lead, library: library, story: hero).listRowSeparator(.hidden) }
             ForEach(shown.filter { $0.id != hero?.id }) { EntryRow(entry: $0.lead, library: library, story: $0) }
-            if !q.isEmpty && shown.isEmpty {
-                Text(q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame ? "No blindspots right now."
+            if !q.isEmpty && shown.isEmpty && !feed.isLoading {
+                // empty: the mascot, still, over the reason
+                VStack(spacing: 12) {
+                    MascotLoop(tooting: false, size: 80)
+                    Text(q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame ? "No blindspots right now."
                      : q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame ? "No episodes yet. Follow a podcast in Feeds."
                      : q.caseInsensitiveCompare(Coverage.unread) == .orderedSame ? "All caught up."
                      : Coverage.isCollection(q) ? "Nothing here right now."
-                     : "No stories match \u{201C}\(q)\u{201D}.").foregroundStyle(.secondary).listRowSeparator(.hidden)
+                     : "No stories match \u{201C}\(q)\u{201D}.").foregroundStyle(.secondary).multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity).padding(.top, 48).listRowSeparator(.hidden)
             }
         }
         .listStyle(.plain)   // flush with the view, like Mail and News
         .refreshable { await feed.refresh(feeds: store.feeds) }
         .overlay {
             if shown.isEmpty && feed.isLoading {   // podcasts can land before the news: still loading, not empty
-                ProgressView()
+                MascotLoop()   // the mascot sounds its call while the feeds come in
+                    .accessibilityElement().accessibilityLabel("Loading")
             } else if feed.entries.isEmpty {
-                ContentUnavailableView("No entries yet", systemImage: "doc.text", description: Text("Add a feed or pull to refresh"))
+                ContentUnavailableView { Label { Text("No entries yet") } icon: { MascotLoop(tooting: false, size: 88) } }
+                    description: { Text("Add a feed or pull to refresh") }
             }
         }
         #if os(iOS)

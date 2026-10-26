@@ -37,6 +37,17 @@ function resolveImage(src, base) {
 // Mirrors FeedParser.sharpen.
 // Pictures load over https (BBC podcast art is plain http, which an https page blocks), and BBC podcast art asks for
 // 480 px instead of 3000.
+// HTML entities a feed escaped twice ("iFixit&#8217;s" after the XML parser): numeric ones and the five named ones
+// that turn up in headlines. Same as String.decodingEntities.
+var NAMED = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
+function decodeEntities(s) {
+  return (s || '').replace(/&#(x[0-9a-f]+|[0-9]+);|&(amp|lt|gt|quot|apos|nbsp);/gi, function (m, n, w) {
+    if (w) return NAMED[w.toLowerCase()];
+    var v = n[0] === 'x' || n[0] === 'X' ? parseInt(n.slice(1), 16) : +n;
+    return v > 0 && v <= 0x10FFFF ? String.fromCodePoint(v) : m;
+  });
+}
+
 function sharpen(url) {
   url = url.replace(/(ichef\.bbci\.co\.uk\/(?:ace\/\w+|news))\/\d+\//, '$1/976/').replace(/^http:\/\//, 'https://')
     .replace(/(ichef\.bbci\.co\.uk\/images\/ic)\/\d+x\d+\//, '$1/480x480/');
@@ -117,7 +128,7 @@ function parse(xml, source) {
     var html = text(n, ['content\\:encoded', 'content', 'description', 'summary']) || tagText(n, 'itunes:summary');
     var audio = audioFor(n, link);
     return {
-      title: text(n, ['title']) || '(untitled)',
+      title: decodeEntities(text(n, ['title'])) || '(untitled)',
       url: link || audio,   // an episode with no page of its own is known by its audio
       date: d ? new Date(d) : new Date(0),
       html: html,
