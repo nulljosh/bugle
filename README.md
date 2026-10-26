@@ -26,7 +26,7 @@ Live at [bugle.jaybulb.com](https://bugle.jaybulb.com), reader at [bugle.jaybulb
 - Keyboard: j and k through stories, / to search, Esc back, s, l and o on a story; ⌘R, ⌘1 to ⌘3, ⌘S, ⌘L in the apps.
 - Your Reading: the lean of what you actually open.
 - Optional account that syncs feeds, saved stories, history, topics and mutes across devices and the web.
-- In eleven languages, Arabic right to left, in the apps and the web reader.
+- In nineteen languages, Arabic and Hebrew right to left, in the apps and the web reader.
 - No tracking, no analytics, no ads.
 
 ## Run

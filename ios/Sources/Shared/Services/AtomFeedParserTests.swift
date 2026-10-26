@@ -101,7 +101,7 @@ func feedParserDemo() {
     """.utf8))
     assert(show.map(\.url) == ["https://cdn.example.com/a.mp3", "https://cdn.example.com/b.mp3"], "shared show link: episodes keep apart")
     assert(show[0].imageURL?.absoluteString == "https://cdn.example.com/show.jpg", "episode wears the show's art")
-    assert(show[0].listenTime == "17 min" && show[1].listenTime == nil, "episode length")
+    assert(show[0].listenTime == String(localized: "\(17) min") && show[1].listenTime == nil, "episode length")
     assert(FeedParser.sharpen(URL(string: "http://ichef.bbci.co.uk/images/ic/3000x3000/p0.jpg")!)?.absoluteString
            == "https://ichef.bbci.co.uk/images/ic/480x480/p0.jpg", "http art upgraded and shrunk")
 

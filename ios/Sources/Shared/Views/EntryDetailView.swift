@@ -167,6 +167,7 @@ struct EpisodeBar: View {
         .buttonStyle(.plain)
     }
 
+    // Time runs left to right in every language (Apple keeps media controls unmirrored in Arabic and Hebrew).
     private var controls: some View {
         VStack(spacing: 4) {
             Slider(value: $player.elapsed, in: 0...max(player.duration, player.elapsed, 1)) { editing in
@@ -215,6 +216,7 @@ struct EpisodeBar: View {
             .buttonStyle(.plain)
             .frame(minHeight: 48)
         }
+        .environment(\.layoutDirection, .leftToRight)
     }
 }
 

@@ -36,13 +36,13 @@ extension JournalEntry {
     /// readingTime in web/parse.js.
     var readingTime: String? {
         let words = plainText.split(separator: " ").count
-        return words < 150 ? nil : "\(Int((Double(words) / 230).rounded(.up))) min read"
+        return words < 150 ? nil : String(localized: "\(Int((Double(words) / 230).rounded(.up))) min read")
     }
 
     /// An episode's length, "16 min" (Apple Podcasts rounds the same way); nil for an article. Same as listenTime in
     /// web/parse.js.
     var listenTime: String? {
-        audioSeconds.map { "\(max(1, Int((Double($0) / 60).rounded()))) min" }
+        audioSeconds.map { String(localized: "\(max(1, Int((Double($0) / 60).rounded()))) min") }
     }
 }
 
@@ -52,7 +52,7 @@ func readingTimeDemo() {
         JournalEntry(title: "t", url: "u", date: .now, htmlContent: "<p>" + Array(repeating: "word", count: words).joined(separator: " ") + "</p>")
     }
     assert(entry(149).readingTime == nil)
-    assert(entry(150).readingTime == "1 min read")
-    assert(entry(231).readingTime == "2 min read")
+    assert(entry(150).readingTime == String(localized: "\(1) min read"))
+    assert(entry(231).readingTime == String(localized: "\(2) min read"))
 }
 #endif

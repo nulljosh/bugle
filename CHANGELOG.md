@@ -2,6 +2,12 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.1.0
+- Eight more languages: Hindi, Russian, Turkish, Polish, Swedish, Indonesian, Vietnamese and Hebrew (right to left). Nineteen in all, on the apps and the web.
+- Times ("2h ago"), source counts, reading time and episode length are translated too, in every language; the web matches strings with numbers in them.
+- The player keeps time running left to right in Arabic and Hebrew, as Apple does, and English stories keep their own direction on a right-to-left page.
+- Home says Loading while feeds are still coming in, instead of "No entries yet" when the podcasts land before the news.
+
 ## 7.0.0
 Podcasts, done as a whole: fourteen default shows, the Podcasts chip, a player with speed, skips, the lock screen and resume, Up Next, a mini player, Now Playing with AirPlay, downloads and a sleep timer, on the iPhone, iPad, Mac and the web.
 - QA pass on iPhone and iPad in light and dark, the web at phone and desktop width, and the landing. Builds for iPhone, iPad, Mac and Watch.

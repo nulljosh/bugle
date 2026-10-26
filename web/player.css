@@ -58,3 +58,5 @@ body.has-mini .screen { padding-bottom: 192px; }
 /* Dark: the sheet rises off the black page on the grouped surface, its cards a step lighter. */
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .np, :root:not([data-theme="light"]) .np-top { background: #1c1c1e; }
   :root:not([data-theme="light"]) .np .np-ep, :root:not([data-theme="light"]) .np .np-q, :root:not([data-theme="light"]) .np .episode.current { background: #2c2c2e; } }
+/* Time runs left to right in every language: Apple keeps media controls unmirrored in Arabic and Hebrew. */
+.episode.current, .mini > button:not(.now) { direction: ltr; }

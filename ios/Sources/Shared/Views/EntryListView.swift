@@ -142,7 +142,7 @@ struct EntryListView: View {
         .listStyle(.plain)   // flush with the view, like Mail and News
         .refreshable { await feed.refresh(feeds: store.feeds) }
         .overlay {
-            if feed.entries.isEmpty && feed.isLoading {
+            if shown.isEmpty && feed.isLoading {   // podcasts can land before the news: still loading, not empty
                 ProgressView()
             } else if feed.entries.isEmpty {
                 ContentUnavailableView("No entries yet", systemImage: "doc.text", description: Text("Add a feed or pull to refresh"))

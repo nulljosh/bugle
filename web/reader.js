@@ -1,4 +1,4 @@
-var feeds = load(), entries = [], stories = [], episodes = [], storyOf = {}, dead = {};   // dead: feeds that gave nothing last refresh
+var loading = false, feeds = load(), entries = [], stories = [], episodes = [], storyOf = {}, dead = {};   // dead: feeds that gave nothing last refresh
 
 function load() {
   var list;
@@ -22,6 +22,7 @@ function save() {
 async function refresh() {
   lastRefresh = Date.now();
   var empty = !entries.length, all = [], shown = 0;   // nothing on screen: fill in as feeds arrive
+  loading = true;
   if (empty) document.getElementById('entries').innerHTML = '<li class="muted">Loading…</li>';
   var results = await Promise.all(feeds.map(async function (f) {
     try {
@@ -34,6 +35,7 @@ async function refresh() {
       return got;
     } catch (e) { dead[f.url] = true; return []; }
   }));
+  loading = false;
   entries = dedupe([].concat.apply([], results));
   if (window.Timeline) Timeline.keep(entries.filter(function (e) { return !e.audio; }));
   restory();
@@ -68,7 +70,7 @@ function renderEntries() {
   if (only) { Coverage.paint(root, only); root.dataset.outlet = only; }
   else { delete root.dataset.outlet; root.style.removeProperty('--c'); root.style.removeProperty('--cd'); }   // or unknown outlets inherit it
   renderStories(document.getElementById('entries'), shown, open, !q,
-    q === 'blindspots' ? 'No blindspots right now.' : q === 'podcasts' ? 'No episodes yet. Follow a podcast in Feeds.' : q ? 'No stories match \u201C' + q + '\u201D.' : 'No entries yet. Add a feed or pull to refresh.');
+    q === 'blindspots' ? 'No blindspots right now.' : loading && !shown.length ? 'Loading…' : q === 'podcasts' ? 'No episodes yet. Follow a podcast in Feeds.' : q ? 'No stories match \u201C' + q + '\u201D.' : 'No entries yet. Add a feed or pull to refresh.');
   if (window.renderTopics) renderTopics();
 }
 

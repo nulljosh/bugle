@@ -87,10 +87,10 @@ enum RelativeTime {
     static func short(_ date: Date, now: Date = Date()) -> String {
         guard date > .distantPast.addingTimeInterval(1) else { return "" }
         let s = now.timeIntervalSince(date)
-        if s < 60 { return "Now" }
-        if s < 3600 { return "\(Int(s / 60))m ago" }
-        if s < 86400 { return "\(Int(s / 3600))h ago" }
-        if Calendar.current.isDateInYesterday(date) { return "Yesterday" }
+        if s < 60 { return String(localized: "Now") }
+        if s < 3600 { return String(localized: "\(Int(s / 60))m ago") }
+        if s < 86400 { return String(localized: "\(Int(s / 3600))h ago") }
+        if Calendar.current.isDateInYesterday(date) { return String(localized: "Yesterday") }
         return date.formatted(.dateTime.month(.abbreviated).day())
     }
 }
@@ -98,9 +98,10 @@ enum RelativeTime {
 #if DEBUG
 func relativeTimeDemo() {
     let now = Date()
-    assert(RelativeTime.short(now.addingTimeInterval(-30), now: now) == "Now")
-    assert(RelativeTime.short(now.addingTimeInterval(-600), now: now) == "10m ago")
-    assert(RelativeTime.short(now.addingTimeInterval(-7200), now: now) == "2h ago")
+    // in the device's language, so a launch in Hebrew checks the Hebrew
+    assert(RelativeTime.short(now.addingTimeInterval(-30), now: now) == String(localized: "Now"))
+    assert(RelativeTime.short(now.addingTimeInterval(-600), now: now) == String(localized: "\(10)m ago"))
+    assert(RelativeTime.short(now.addingTimeInterval(-7200), now: now) == String(localized: "\(2)h ago"))
     assert(RelativeTime.short(.distantPast, now: now) == "")
     assert(Topics.toggled("AI", in: "") == "AI")
     assert(Topics.toggled("ai", in: "Canada\nAI") == "Canada")
