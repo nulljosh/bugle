@@ -1,8 +1,8 @@
 # Bugle Technical Whitepaper
 
-**v5.0** | October 2026
+**v7.5** | October 2026
 
-Every feed, one timeline. Bugle reads RSS and Atom feeds straight from the sites that publish them and puts every story in one stream on iPhone, iPad, Mac, Apple Watch and the web. When several newsrooms cover the same story it shows one row with all of them, how each side of the spectrum covered it, and the day's biggest stories first. Reading never needs an account.
+Every feed, one timeline. Bugle reads RSS and Atom feeds straight from the sites that publish them and puts every story in one stream on iPhone, iPad, Mac, Apple Watch and the web. When several newsrooms cover the same story it shows one row with all of them, how each side of the spectrum covered it, and the day's biggest stories first. Podcasts play alongside the news, and reading never needs an account.
 
 ## The core mechanic: one story, many newsrooms
 
@@ -27,6 +27,8 @@ Saved stories are kept whole, body included, so they open offline. The app reads
 A story opens with its outlet, date and reading time (230 words a minute, left off for summaries under 150 words). When the feed sent only a summary, `FullText` (web: `fulltext.js`) fetches the article page, drops menus, sidebars, footers, forms and any line the page repeats, and keeps the paragraphs of the `<article>` or `<main>` with the most text, as plain text; nothing from the page runs or styles the reader. Listen reads the headline and body with the system voice, on device, and stops when you leave the story.
 
 A podcast is a feed whose items carry an audio enclosure. The parsers keep that audio and the `itunes:duration`, give an episode its show's art when it has none, and know an episode by its audio when a show links every episode to the same page (WSJ and Megaphone do). A show keeps its newest 30 episodes, and episodes stay out of the story grouping, so a daily "top stories in 10 minutes" never counts as coverage. The Podcasts chip lists them newest first. One player serves the whole app (`Player.shared`, web: one audio element), so an episode keeps playing while you read on, with a mini player above the tab bar (iOS 26.1's tab bar accessory) that opens it. It plays at 1x to 2x with back 15 and forward 30, shows on the lock screen through MPNowPlayingInfoCenter (web: Media Session), remembers where you stopped, and comes back paused after a relaunch. Up Next leads the Podcasts list; when an episode ends, the next one plays.
+
+The Briefing takes the five stories Today leads with and lists them numbered, each with its first sentence (a sentence ends at a stop after a lowercase letter or digit, so "B.C." and "U.S." do not cut it short) and the minutes the five take to read; Listen reads them in order. Translate hands a story's text to the system Translate sheet, which works on device. The interface ships in nineteen languages from one String Catalog; the web reader loads the same table and matches strings with numbers in them ("2h ago") as patterns.
 
 ## Around the system
 

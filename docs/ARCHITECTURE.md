@@ -24,6 +24,7 @@ A refresh fetches every followed feed at once, parses each into entries tagged w
 | `Sources/Shared/Services/FullText.swift` | The article page's paragraphs when a feed sends only a summary |
 | `Sources/Shared/Services/Spotlight.swift` | Spotlight index of saved and recent stories, Handoff |
 | `Sources/Shared/Services/Listen.swift` | Read a story aloud with the system voice |
+| `Sources/Shared/Views/BriefingView.swift` | The Briefing: today's five, numbered, first lines, minutes, Listen |
 | `Sources/Shared/Views/NowPlayingView.swift` | Now Playing from the mini player: Up Next to reorder and remove, controls, AirPlay |
 | `Sources/Shared/Services/Downloads.swift` | Save an episode for offline; played downloads are removed |
 | `Sources/Shared/Services/Player.swift` | The one podcast player (`Player.shared`): Up Next, speed, skips, lock screen, resume. `EpisodeBar` and `MiniPlayer` live in `EntryDetailView` |
@@ -47,6 +48,7 @@ A refresh fetches every followed feed at once, parses each into entries tagged w
 | `index.html`, `landing.css`, `footer-band.js` | The landing, which runs the real reader in a frame |
 | `read.html`, `reader.css` | The reader PWA |
 | `reader.js` | Feeds, refresh, routing, the story screen, Listen |
+| `briefing.js` | The Briefing on the web, in the Now Playing sheet's styles |
 | `seeds.js` | The default feeds: news seeds, local newsrooms, podcasts |
 | `player.js` | The default podcasts and the one player: story bar, mini player, Up Next, Media Session |
 | `feedio.js` | Site-address discovery, OPML, Mark All Read |
