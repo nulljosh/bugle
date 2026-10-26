@@ -64,6 +64,25 @@ Apple News's "similar screens" on Mobbin lined up about 18 news apps (informed, 
 - Saved in reach (Guardian and USA Today put it in the tab bar; Bugle keeps it in Feeds): row 6.
 - LIVE badges: not in RSS, skip.
 
+## Competitor screens (2026-10-25 night, the `mobbin` skill)
+
+App Store screenshots of Ground News, Particle, SmartNews, Yahoo News, Flipboard, Feedly, Inoreader, Reeder, NetNewsWire, Unread, Pocket Casts and Overcast (no Mobbin login needed). What they ship that Bugle does not, one minor version each, road to 8.0.0:
+
+| # | Gap | Who has it | Size | Status | Version |
+|---|-----|-----------|------|--------|---------|
+| 44 | Translate a story into your language | SmartNews | S | todo | |
+| 45 | Next and previous story from the reader (up and down arrows) | NetNewsWire | S | todo | |
+| 46 | A briefing: today's top five, numbered, with minutes to read, and Listen to it | Ground News (The Last 24), Yahoo (audio digest), Apple News Today | M | todo | |
+| 47 | Reader themes (light, sepia, dark, black) and a serif option | Unread, Feedly | M | todo | |
+| 48 | Collections from coverage: Popular on the left, Popular on the right, Divergent takes | Ground News | S | todo | |
+| 49 | Your shows: a grid of followed podcasts, each opening its episodes; Up Next total time | Pocket Casts | M | todo | |
+| 50 | Unread filter and unread dots (Today, All Unread, Starred) | NetNewsWire, Inoreader | S | todo | |
+| 51 | Compact list layout (no pictures, two lines) | Unread, Inoreader, Ground News | S | todo | |
+| 52 | First-run topic picker | Yahoo News, SmartNews | M | todo | |
+| 53 | Key takeaways and where sources agree or differ, written on device (Apple Foundation Models, no cloud) | Ground News, Particle, Yahoo | L | todo | the 8.0.0 major |
+
+Skipped: factuality scores (no source we can cite), social profiles and magazines (Flipboard), streaks and rewards, AI rewrites in other tones, video tabs.
+
 ## Road to v100
 
 Rewritten 2026-10-25 at 1.19.5 (Joshua: "identify gaps, build roadmap, loop until v5, then 10"). Minor version per row, major version per band. Each major gets the full QA below, fresh README, WHITEPAPER and architecture.svg, and a store submit if no review is open.
