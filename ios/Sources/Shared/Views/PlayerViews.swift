@@ -119,14 +119,31 @@ struct MiniPlayer: View {
 }
 
 extension View {
-    /// Liquid Glass over the page on iOS 26 and macOS 26: a card that floats off the edges with the content showing
-    /// through. Earlier systems get the bar material, edge to edge.
-    @ViewBuilder func floatingGlass(in shape: some Shape = RoundedRectangle(cornerRadius: 28, style: .continuous)) -> some View {
+    /// Liquid Glass for controls that float over the page (the functional layer, never content): on iOS 26 and macOS 26
+    /// the card's corners are concentric with the display's, earlier systems get the bar material.
+    @ViewBuilder func floatingGlass() -> some View {
+        if #available(iOS 26, macOS 26, *) {
+            glassEffect(.regular, in: ConcentricRectangle(corners: .concentric(minimum: 24), isUniform: true)).padding(.horizontal, 12).padding(.bottom, 8)
+        } else {
+            background(.regularMaterial, in: RoundedRectangle(cornerRadius: 28, style: .continuous)).padding(.horizontal, 12).padding(.bottom, 8)
+        }
+    }
+
+    @ViewBuilder func floatingGlass(in shape: some Shape) -> some View {
         if #available(iOS 26, macOS 26, *) {
             glassEffect(.regular, in: shape).padding(.horizontal, 12).padding(.bottom, 8)
         } else {
             background(.regularMaterial, in: shape).padding(.horizontal, 12).padding(.bottom, 8)
         }
+    }
+
+    /// The tab bar recedes while you scroll down through stories and comes back on the way up (iOS 26).
+    @ViewBuilder func minimizesTabBar() -> some View {
+        #if os(iOS)
+        if #available(iOS 26, *) { tabBarMinimizeBehavior(.onScrollDown) } else { self }
+        #else
+        self
+        #endif
     }
 
     /// The mini player on the tab view: the tab bar accessory on iOS 26.1 and later, a floating capsule elsewhere.

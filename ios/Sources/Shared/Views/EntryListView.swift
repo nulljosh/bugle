@@ -65,6 +65,7 @@ struct EntryListView: View {
         .tint(accent)
         // hidden on the playing episode's own story, where its full player already is
         .miniPlayer(player, hidden: path.last?.id == player.entry?.id) { _ in nowPlaying = true }
+        .minimizesTabBar()
         .sheet(isPresented: $nowPlaying) { NowPlayingView(player: player) { tab = 0; path = [$0] } }
         .sheet(isPresented: $briefing) { BriefingView(stories: Array(Coverage.today(feed.stories).prefix(5))) { tab = 0; path = [$0] } }
         // Keyboard (Mac, iPad): ⌘R refreshes, ⌘1 to ⌘3 pick a tab. Invisible buttons carry the shortcuts.
@@ -259,7 +260,7 @@ struct SearchField: View {
         }
         .padding(.horizontal, 14)
         .frame(height: 44)
-        .capsuleGlass(fill: AnyShapeStyle(Color.secondary.opacity(0.12)))
+        .background(Color.secondary.opacity(0.12), in: Capsule())   // content layer: a fill, not glass
     }
 }
 

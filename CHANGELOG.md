@@ -2,6 +2,13 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.7.0
+Liquid Glass, done Apple's way (from Apple's Adopting Liquid Glass, Applying Liquid Glass to custom views and the Materials guidelines):
+- Glass only in the functional layer. The chips and search field scroll with the stories, so they are plain fills again (7.3.0 had made them glass).
+- The player card's corners are concentric with the display's (`ConcentricRectangle`), and the tab bar recedes while you scroll down through stories.
+- Web: with Reduce Transparency on, the tab bar, story toolbar and mini player go solid.
+- Audited: every toolbar icon has a label, icons and text never share a background, sheets keep the system background.
+
 ## 7.6.0
 - Reader themes: Auto, Light, Dusk (a soft gray for reading in the dark) and Black, from the story's More menu or Settings; the bar above the story matches. Same on the web, in Settings. No sepia or serif: the house palette has no beige, and type is sans serif.
 
