@@ -14,6 +14,8 @@ struct EntryDetailView: View {
     /// The stories above and below this one in the list it came from, for the up and down arrows (NetNewsWire's).
     var stepper: StoryStepper? = nil
     @State private var translating = false
+    /// An episode's cover color, which tints the player's glass.
+    @State private var art: Color?
     @State private var showCoverage = CommandLine.arguments.contains("-showCoverage")
     @AppStorage("readerTextSize") private var textSize = 17.0
     @AppStorage("readerTheme") private var readerTheme = ReaderTheme.auto.rawValue
@@ -32,6 +34,7 @@ struct EntryDetailView: View {
         ArticleWebView(html: Self.page(for: full ?? entry, textSize: size, theme: theme), baseURL: URL(string: entry.url))
             .id("\(size) \(full != nil) \(readerTheme)")
             .background(theme.page.ignoresSafeArea())
+            .background { if entry.audioURL != nil && theme == .auto { CoverBackdrop(url: entry.imageURL) } }
             #if os(iOS)
             .toolbarColorScheme(theme == .auto ? nil : theme == .light ? .light : .dark, for: .navigationBar)   // the bar matches the page
             #endif  // a new size or the full text rebuilds the page; it never reloads on its own
@@ -43,11 +46,14 @@ struct EntryDetailView: View {
             .onAppear { library.markRead(entry) }
             .task { full = await FullText.fill(entry) }
             .onDisappear { listener.stop() }   // an episode keeps playing; the mini player has it
+            .task(id: entry.id) {
+                if entry.audioURL != nil, let u = entry.imageURL { art = await ArtColor.of(u) }
+            }
             .task(id: entry.id) {   // screenshot and QA hooks
                 if CommandLine.arguments.contains("-downloadEpisode") { await downloads.download(entry) }
                 if CommandLine.arguments.contains("-cueEpisode") { player.cue(entry) }   // the player bar, paused and silent
             }
-            .safeAreaInset(edge: .bottom, spacing: 0) { if entry.audioURL != nil { EpisodeBar(player: player, entry: entry) } }
+            .safeAreaInset(edge: .bottom, spacing: 0) { if entry.audioURL != nil { EpisodeBar(player: player, entry: entry, tint: art) } }
             .handsOff(entry)
             .sheet(isPresented: $showCoverage) { if let story { CoverageView(story: story, library: library) } }
             .toolbar {
@@ -117,7 +123,7 @@ struct EntryDetailView: View {
     private static func page(for entry: JournalEntry, textSize: Double, theme: ReaderTheme = .auto) -> String {
         let pinned = theme.colors.map { c in
             "html, body { background: \(c.bg); color: \(c.text); color-scheme: \(theme == .light ? "light" : "dark"); } .date { color: \(c.sub); } a, a:visited { color: \(c.link) !important; }"
-        } ?? ""
+        } ?? (entry.audioURL != nil ? "html, body { background: transparent; }" : "")   // an episode's cover shows through
         return """
         <!doctype html><html><head>
         <meta name="viewport" content="width=device-width, initial-scale=1">

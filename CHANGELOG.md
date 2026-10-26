@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.8.0
+- The cover blends into the episode: its art, blurred, washes the top of the page, and the player's glass takes a tint of the cover's color. Now Playing sits on the blurred cover, dimmed 35 percent so the rows read, as Apple asks for glass over rich media.
+
 ## 7.7.0
 Liquid Glass, done Apple's way (from Apple's Adopting Liquid Glass, Applying Liquid Glass to custom views and the Materials guidelines):
 - Glass only in the functional layer. The chips and search field scroll with the stories, so they are plain fills again (7.3.0 had made them glass).

@@ -5,11 +5,13 @@ import SwiftUI
 struct EpisodeBar: View {
     @ObservedObject var player: Player
     let entry: JournalEntry
+    /// The cover's color: the glass takes a little of it, so the card belongs to the episode.
+    var tint: Color? = nil
 
     var body: some View {
         Group { if player.entry?.id == entry.id { controls } else { cue } }
             .padding(.horizontal, 20).padding(.top, 12).padding(.bottom, 8)
-            .floatingGlass()
+            .floatingGlass(tint: tint)
     }
 
     private var cue: some View {
@@ -121,9 +123,9 @@ struct MiniPlayer: View {
 extension View {
     /// Liquid Glass for controls that float over the page (the functional layer, never content): on iOS 26 and macOS 26
     /// the card's corners are concentric with the display's, earlier systems get the bar material.
-    @ViewBuilder func floatingGlass() -> some View {
+    @ViewBuilder func floatingGlass(tint: Color? = nil) -> some View {
         if #available(iOS 26, macOS 26, *) {
-            glassEffect(.regular, in: ConcentricRectangle(corners: .concentric(minimum: 24), isUniform: true)).padding(.horizontal, 12).padding(.bottom, 8)
+            glassEffect(.regular.tint(tint?.opacity(0.3)), in: ConcentricRectangle(corners: .concentric(minimum: 24), isUniform: true)).padding(.horizontal, 12).padding(.bottom, 8)
         } else {
             background(.regularMaterial, in: RoundedRectangle(cornerRadius: 28, style: .continuous)).padding(.horizontal, 12).padding(.bottom, 8)
         }

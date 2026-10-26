@@ -15,15 +15,16 @@ struct NowPlayingView: View {
                     Section {
                         Button { dismiss(); open(e) } label: { EpisodeLine(entry: e, art: 64, bold: true) }
                             .buttonStyle(.plain)
+                            .listRowBackground(Rectangle().fill(.thinMaterial))
                             .accessibilityHint("Opens the episode")
                     }
                 }
                 Section {
-                    ForEach(player.queue) { EpisodeLine(entry: $0, art: 44, bold: false) }
+                    ForEach(player.queue) { EpisodeLine(entry: $0, art: 44, bold: false).listRowBackground(Rectangle().fill(.thinMaterial)) }
                         .onMove { player.moveQueue(from: $0, to: $1) }
                         .onDelete { player.removeQueue(at: $0) }
                     if player.queue.isEmpty {
-                        Text("Nothing in Up Next. Press and hold an episode to add it.").foregroundStyle(.secondary)
+                        Text("Nothing in Up Next. Press and hold an episode to add it.").foregroundStyle(.secondary).listRowBackground(Rectangle().fill(.thinMaterial))
                     }
                 } header: {
                     HStack {
@@ -33,7 +34,12 @@ struct NowPlayingView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)   // the cover shows through; rows keep a standard material
             .safeAreaInset(edge: .bottom, spacing: 0) { if let e = player.entry { EpisodeBar(player: player, entry: e) } }
+            .environment(\.colorScheme, .dark)   // light type on the dimmed cover
+            #if os(iOS)
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            #endif
             .navigationTitle("Now Playing")
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
@@ -44,6 +50,7 @@ struct NowPlayingView: View {
             }
             .onChange(of: player.entry == nil) { if player.entry == nil { dismiss() } }   // the last episode ended
         }
+        .presentationBackground { CoverSheetBackground(url: player.entry?.imageURL) }
         #if os(macOS)
         .frame(minWidth: 420, minHeight: 560)
         #endif
