@@ -12,11 +12,16 @@ final class Listener: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     }
 
     func toggle(_ entry: JournalEntry) {
+        toggle(text: Headline.clean(entry.title, source: entry.sourceTitle) + ". " + entry.plainText)
+    }
+
+    /// Any text: a story, or the Briefing read top to bottom.
+    func toggle(text: String) {
         if speaking { stop(); return }
         #if os(iOS)
         try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .spokenAudio)
         #endif
-        synth.speak(AVSpeechUtterance(string: Headline.clean(entry.title, source: entry.sourceTitle) + ". " + entry.plainText))
+        synth.speak(AVSpeechUtterance(string: text))
         speaking = true
     }
 

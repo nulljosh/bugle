@@ -23,6 +23,7 @@
 		23634C0992526E92E0D52A43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D602399DFBE78D9E325E2FD /* Assets.xcassets */; };
 		3482B670423715B20E4FDDE9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = ED81D7AE5D751A74D22D7746 /* Localizable.xcstrings */; };
 		38F0F1C5FA78839917F6389D /* Intents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EFD18A9189F3E8143A9750 /* Intents.swift */; };
+		3D78A4B3E4E4FCDFF93D5203 /* BriefingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C189CC5A48F39F84F822BAC /* BriefingView.swift */; };
 		3DCF3324851E31C233E63F0A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37B11800C471845C1E93545 /* Theme.swift */; };
 		3EB18549165360E7D7589A0F /* BugleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431EFE06344FFBFD1BA57D4 /* BugleWidget.swift */; };
 		44B5993CFAE70D4F6DB01FEE /* PreviewImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77498857B3215CE9BF932E32 /* PreviewImage.swift */; };
@@ -38,6 +39,7 @@
 		51D4C3E4E539D34DB088DBD1 /* Spotlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB55D0EFF8FB6DD63865FD7C /* Spotlight.swift */; };
 		56895692B154DB5816DA86BD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = ED81D7AE5D751A74D22D7746 /* Localizable.xcstrings */; };
 		5D7EBE7D411C4B9B8E890D29 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38ACDB28857F0E41D3C492E /* JournalEntry.swift */; };
+		5EBE3D4611C0BEB7557E4C7F /* BriefingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C189CC5A48F39F84F822BAC /* BriefingView.swift */; };
 		5F453D67275FA1842F7EC347 /* AtomFeedParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D618F75CD0D4C5B4BBCC223 /* AtomFeedParserTests.swift */; };
 		5F7F74F32D108DAB4999D970 /* Downloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D77FA551974C2907E1A51 /* Downloads.swift */; };
 		65959DE874A252B4341CB060 /* ManageFeedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EA21421125A16812D6815E /* ManageFeedsView.swift */; };
@@ -139,6 +141,7 @@
 		57C34DF0FD4E76F2A5E5A7E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5A293F420B365A0A1736ADC3 /* BugleWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = BugleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		63BDCBDDAB5A293761C74FBC /* BugleShare.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = BugleShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C189CC5A48F39F84F822BAC /* BriefingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefingView.swift; sourceTree = "<group>"; };
 		77498857B3215CE9BF932E32 /* PreviewImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImage.swift; sourceTree = "<group>"; };
 		7752BAEFA1F38659693A2814 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7BE1E0BC7D447CF605C09BEC /* Coverage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coverage.swift; sourceTree = "<group>"; };
@@ -174,6 +177,7 @@
 		0BBCC13DA1639972FA036B2E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6C189CC5A48F39F84F822BAC /* BriefingView.swift */,
 				4104A2D941F019E4AF96736A /* CoverageView.swift */,
 				409A12C7017D00F584C499DF /* EntryDetailView.swift */,
 				8286BB5BF361BF084AB417E5 /* EntryListView.swift */,
@@ -410,11 +414,19 @@
 				en,
 				es,
 				fr,
+				he,
+				hi,
+				id,
 				it,
 				ja,
 				ko,
 				nl,
+				pl,
 				"pt-BR",
+				ru,
+				sv,
+				tr,
+				vi,
 				"zh-Hans",
 				"zh-Hant",
 			);
@@ -497,6 +509,7 @@
 				DF8BBB269C278238E6DC2874 /* Archive.swift in Sources */,
 				E84CA41D7192C38A6B4BBFFB /* AtomFeedParserTests.swift in Sources */,
 				F111AA90E55B52E307B5CF83 /* BackgroundRefresh.swift in Sources */,
+				5EBE3D4611C0BEB7557E4C7F /* BriefingView.swift in Sources */,
 				4F165CED438C3D62665BA2B1 /* Coverage.swift in Sources */,
 				1868DB2E4BD79DF8528AE669 /* CoverageView.swift in Sources */,
 				5F7F74F32D108DAB4999D970 /* Downloads.swift in Sources */,
@@ -543,6 +556,7 @@
 				F23E64C0B8D7BBDD37C153EE /* Alerts.swift in Sources */,
 				EB8F4161F77E2229C26566AD /* Archive.swift in Sources */,
 				5F453D67275FA1842F7EC347 /* AtomFeedParserTests.swift in Sources */,
+				3D78A4B3E4E4FCDFF93D5203 /* BriefingView.swift in Sources */,
 				0299308C80E5B7B81808EE64 /* BugleMacApp.swift in Sources */,
 				7013F9F2F3975890B4EB03A7 /* Coverage.swift in Sources */,
 				EBEA260D9FA6F4EAD27152C9 /* CoverageView.swift in Sources */,
@@ -637,7 +651,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 7.0.0;
+				MARKETING_VERSION = 7.5.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -702,7 +716,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 7.0.0;
+				MARKETING_VERSION = 7.5.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;

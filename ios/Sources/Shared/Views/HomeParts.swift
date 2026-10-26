@@ -12,12 +12,15 @@ struct TopicBar: View {
     @Binding var topics: String
     @Binding var muted: String
     let followable: Bool
+    var briefing: () -> Void = {}
 
     var body: some View {
         let q = query.trimmingCharacters(in: .whitespaces)
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                // Blindspots first: stories only one side of the spectrum covered, like Ground News.
+                // The Briefing first: today's five, numbered, to read or hear (Ground News's The Last 24).
+                Button { briefing() } label: { Label("Briefing", systemImage: "list.number") }.buttonStyle(Chip(on: false))
+                // Blindspots: stories only one side of the spectrum covered, like Ground News.
                 let blind = q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame
                 Button(LocalizedStringKey(Coverage.blindspots)) { query = blind ? "" : Coverage.blindspots }.buttonStyle(Chip(on: blind))
                     .accessibilityAddTraits(blind ? .isSelected : [])

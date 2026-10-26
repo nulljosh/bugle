@@ -12,6 +12,7 @@ struct EntryListView: View {
     @StateObject private var library = Library()
     @ObservedObject private var player = Player.shared
     @State private var nowPlaying = false
+    @State private var briefing = false
     @State private var path: [JournalEntry] = []
     @State private var query = UserDefaults.standard.string(forKey: "search") ?? ""   // `-search BBC` for screenshots
     @AppStorage("topics") private var topics = ""
@@ -65,6 +66,7 @@ struct EntryListView: View {
         // hidden on the playing episode's own story, where its full player already is
         .miniPlayer(player, hidden: path.last?.id == player.entry?.id) { _ in nowPlaying = true }
         .sheet(isPresented: $nowPlaying) { NowPlayingView(player: player) { tab = 0; path = [$0] } }
+        .sheet(isPresented: $briefing) { BriefingView(stories: Array(Coverage.today(feed.stories).prefix(5))) { tab = 0; path = [$0] } }
         // Keyboard (Mac, iPad): ⌘R refreshes, ⌘1 to ⌘3 pick a tab. Invisible buttons carry the shortcuts.
         .background {
             Group {
@@ -87,6 +89,7 @@ struct EntryListView: View {
             // ponytail: store screenshot hook so a frame can open on an article
             if CommandLine.arguments.contains("-selectFirst"), let first = feed.entries.first { path = [first] }
             if CommandLine.arguments.contains("-selectEpisode"), let first = feed.episodes.first { path = [first] }
+            if CommandLine.arguments.contains("-briefing") { briefing = true }
             if CommandLine.arguments.contains("-nowPlaying") {   // Now Playing with an episode and three in Up Next
                 if let first = feed.episodes.first { player.cue(first) }   // paused: no sound from QA
                 feed.episodes.dropFirst().prefix(3).filter { !player.isQueued($0) }.forEach(player.toggleQueue)
@@ -140,7 +143,7 @@ struct EntryListView: View {
             // Searching for a word that is not an outlet offers to follow it.
             let followable = !q.isEmpty && Outlet.of(q) == nil && !store.feeds.contains { $0.title.caseInsensitiveCompare(q) == .orderedSame }
                 && q.caseInsensitiveCompare(Coverage.blindspots) != .orderedSame && q.caseInsensitiveCompare(Coverage.podcasts) != .orderedSame
-            TopicBar(query: $query, topics: $topics, muted: $muted, followable: followable).listRowSeparator(.hidden)
+            TopicBar(query: $query, topics: $topics, muted: $muted, followable: followable) { briefing = true }.listRowSeparator(.hidden)
             if let hero { HeroRow(entry: hero.lead, library: library, story: hero).listRowSeparator(.hidden) }
             ForEach(shown.filter { $0.id != hero?.id }) { EntryRow(entry: $0.lead, library: library, story: $0) }
             if !q.isEmpty && shown.isEmpty {

@@ -60,3 +60,9 @@ body.has-mini .screen { padding-bottom: 192px; }
   :root:not([data-theme="light"]) .np .np-ep, :root:not([data-theme="light"]) .np .np-q, :root:not([data-theme="light"]) .np .episode.current { background: #2c2c2e; } }
 /* Time runs left to right in every language: Apple keeps media controls unmirrored in Arabic and Hebrew. */
 .episode.current, .mini > button:not(.now) { direction: ltr; }
+/* The Briefing reuses the Now Playing sheet: numbered rows, the number in the accent. */
+.np .acts { display: flex; gap: var(--sp-4); }
+.np-q .brief-row { display: flex; width: 100%; height: auto; place-items: normal; border-radius: 0; }
+.brief-row { display: flex; gap: var(--sp-3); align-items: baseline; width: 100%; border: 0; padding: var(--sp-1) 0; background: none; color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+.brief-row .num { flex: none; min-width: 24px; color: var(--accent); font-size: 22px; font-weight: 700; }
+.brief-row .t small { margin-top: var(--sp-1); }

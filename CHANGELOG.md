@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.5.0
+- Briefing: a chip on Home opens today's five biggest stories, numbered, each with its first line and the minutes they take to read (Ground News's The Last 24). Listen reads it top to bottom. Same on the web.
+
 ## 7.4.0
 - Translate: the story's More menu opens the system Translate sheet over its text, on device (iOS 17.4 and macOS 14.4 or later). Browsers translate the web reader themselves.
 - Up and down arrows beside the back button walk the stories in Home's order (Command up and down on the Mac); on the web, j and k do it from a story.

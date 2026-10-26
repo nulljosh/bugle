@@ -196,3 +196,9 @@ test("pictures load over https; BBC podcast art asks for 480 px", () => {
   assert.equal(sharpen("http://ichef.bbci.co.uk/images/ic/3000x3000/p0.jpg"), "https://ichef.bbci.co.uk/images/ic/480x480/p0.jpg");
   assert.equal(sharpen("https://x.com/a.jpg"), "https://x.com/a.jpg");
 });
+// The Briefing's first line: abbreviations do not end a sentence. Same rule as BriefingView.firstLine.
+(await import("node:vm")).runInThisContext(readFileSync(new URL("./web/briefing.js", import.meta.url), "utf8"));
+test("briefing first line skips abbreviations", () => {
+  assert.equal(firstLine("The vote passed late on Sunday. Both sides claimed a win."), "The vote passed late on Sunday.");
+  assert.equal(firstLine("The U.S. and B.C. agreed on Saturday. More soon."), "The U.S. and B.C. agreed on Saturday.");
+});
