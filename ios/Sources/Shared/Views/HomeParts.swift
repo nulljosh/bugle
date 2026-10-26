@@ -21,6 +21,9 @@ struct TopicBar: View {
             HStack(spacing: 8) {
                 // The Briefing first: today's five, numbered, to read or hear (Ground News's The Last 24).
                 if let briefing { Button { briefing() } label: { Label("Briefing", systemImage: "list.number") }.buttonStyle(Chip(on: false)) }
+                let unread = q.caseInsensitiveCompare(Coverage.unread) == .orderedSame
+                Button(LocalizedStringKey(Coverage.unread)) { query = unread ? "" : Coverage.unread }.buttonStyle(Chip(on: unread))
+                    .accessibilityAddTraits(unread ? .isSelected : [])
                 // Ground News's collections: blindspots, what one side covers most, what both sides covered.
                 ForEach(Coverage.collections, id: \.name) { c in
                     let on = c.name.caseInsensitiveCompare(q) == .orderedSame

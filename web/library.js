@@ -112,6 +112,10 @@ function renderTopics() {
   if (!box || !window.Topics) return;
   var raw = input.value.trim(), q = raw.toLowerCase();
   box.innerHTML = '';
+  var unread = q === 'unread', un = el('button', 'chip', 'Unread');   // today's stories you have not opened
+  un.setAttribute('aria-pressed', String(unread));
+  un.onclick = function () { input.value = unread ? '' : 'Unread'; renderEntries(); };
+  box.appendChild(un);
   // Ground News's collections: blindspots, what one side covers most, what both sides covered.
   Coverage.COLLECTIONS.forEach(function (c) {
     var on = c[0].toLowerCase() === q, chip = el('button', 'chip', c[0]);
@@ -119,7 +123,7 @@ function renderTopics() {
     chip.onclick = function () { input.value = on ? '' : c[0]; renderEntries(); };
     box.appendChild(chip);
   });
-  var blind = !!Coverage.collection(q);
+  var blind = !!Coverage.collection(q) || unread;
   var pods = q === 'podcasts', pod = el('button', 'chip', 'Podcasts');   // episodes, newest first, apart from the news
   pod.setAttribute('aria-pressed', String(pods));
   pod.onclick = function () { input.value = pods ? '' : 'Podcasts'; renderEntries(); };

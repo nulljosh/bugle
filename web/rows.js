@@ -57,8 +57,9 @@ function thumb(e) {
 }
 
 function storyRow(e, onOpen) {
-  var btn = el('button', 'row story' + (window.Library && Library.isRead(e) ? ' read' : ''));
+  var read = window.Library && Library.isRead(e), btn = el('button', 'row story' + (read ? ' read' : ''));
   var txt = el('span', 'txt');
+  if (!read) txt.appendChild(el('span', 'unread', 'Unread'));   // a dot in the margin, like Mail; screen readers hear the word
   txt.appendChild(kicker(e));
   var b = el('b', 'title', e.title);
   b.title = e.title;

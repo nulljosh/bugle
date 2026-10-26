@@ -23,11 +23,16 @@ struct EntryRow: View {
                     FittedTitle(variants: Headline.variants(entry.title, source: entry.sourceTitle))
                         .foregroundStyle(read ? .secondary : .primary)
                 }
+                // unread: a dot in the margin, like Mail, so every title still starts on the same edge
+                .overlay(alignment: .topLeading) {
+                    if !read { Circle().fill(Color.bugleAccent).frame(width: 8, height: 8).offset(x: -14, y: 5).accessibilityHidden(true) }
+                }
                 Spacer(minLength: 0)
                 EntryThumbnail(url: entry.imageURL, page: entry.url, source: entry.sourceTitle)
                     .opacity(read ? 0.6 : 1)
             }
             .padding(.vertical, 6)
+            .accessibilityValue(read ? "" : String(localized: "Unread"))
         }
         .swipeActions(edge: .trailing) {
             Button { library.toggleSave(entry) } label: {

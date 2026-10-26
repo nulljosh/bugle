@@ -162,6 +162,8 @@ enum Coverage {
 
     /// The Home chip (and search word) that shows only blindspot stories.
     static let blindspots = "Blindspots"
+    /// The Unread chip: today's stories you have not opened, like NetNewsWire's All Unread.
+    static let unread = "Unread"
     /// The Podcasts chip: episodes, newest first, apart from the news.
     static let podcasts = "Podcasts"
 
@@ -180,7 +182,9 @@ enum Coverage {
         return stories.filter(c.keep).sorted { ($0.publishers, $0.lead.date) > ($1.publishers, $1.lead.date) }
     }
 
-    static func isCollection(_ q: String) -> Bool { collections.contains { $0.name.caseInsensitiveCompare(q) == .orderedSame } }
+    static func isCollection(_ q: String) -> Bool {
+        q.caseInsensitiveCompare(unread) == .orderedSame || collections.contains { $0.name.caseInsensitiveCompare(q) == .orderedSame }
+    }
 
     static func today(_ stories: [Story], now: Date = .now) -> [Story] {
         let top = stories.filter { $0.publishers > 1 && now.timeIntervalSince($0.lead.date) < 86_400 }

@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.13.0
+Unread, like Mail and NetNewsWire: a blue dot in the margin beside every story you have not opened, and an Unread chip that shows only those. VoiceOver says Unread too.
+
 ## 7.12.0
 Your shows: the Podcasts list opens on a shelf of the shows you follow, their art and names, and a tap lists that show's episodes. Up Next says how long the whole queue runs, like Pocket Casts.
 

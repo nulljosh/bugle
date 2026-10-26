@@ -28,3 +28,7 @@ body.searching nav.tabbar, body.searching .mini { display: none; }
 @media (prefers-reduced-transparency: reduce) {
   .tabbar .tabs, body.searching .searchbar .search { background: var(--surface); backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
+
+/* Unread: a dot in the margin, like Mail, so every title still starts on the same edge (rows.js) */
+.row.story .txt { position: relative; }
+.row.story .unread { position: absolute; left: -14px; top: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); overflow: hidden; color: transparent; font-size: 1px; }

@@ -156,6 +156,7 @@ struct EntryListView: View {
     private var shown: [Story] {
         let q = query.trimmingCharacters(in: .whitespaces)
         if let picked = Coverage.pick(q, from: feed.stories) { return picked }
+        if q.caseInsensitiveCompare(Coverage.unread) == .orderedSame { return Coverage.today(feed.stories).filter { !library.isRead($0.lead) } }
         // Up Next first, in order, then every other episode newest first
         if q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame {
             return (player.queue + feed.episodes.filter { !player.isQueued($0) }).map { Story(lead: $0, entries: [$0]) }
@@ -204,6 +205,7 @@ struct EntryListView: View {
             if !q.isEmpty && shown.isEmpty {
                 Text(q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame ? "No blindspots right now."
                      : q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame ? "No episodes yet. Follow a podcast in Feeds."
+                     : q.caseInsensitiveCompare(Coverage.unread) == .orderedSame ? "All caught up."
                      : Coverage.isCollection(q) ? "Nothing here right now."
                      : "No stories match \u{201C}\(q)\u{201D}.").foregroundStyle(.secondary).listRowSeparator(.hidden)
             }
