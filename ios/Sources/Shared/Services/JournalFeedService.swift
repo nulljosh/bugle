@@ -31,7 +31,9 @@ final class JournalFeedService: ObservableObject {
     private func regroup() {
         let shown = entries.filter { !Coverage.isMuted($0, muted) }
         stories = Coverage.cluster(shown.filter { $0.audioURL == nil })
-        episodes = shown.filter { $0.audioURL != nil }
+        // WSJ posts one episode to two of its shows; list it once
+        var titles = Set<String>()
+        episodes = shown.filter { $0.audioURL != nil && titles.insert($0.title).inserted }
         storyOf = Dictionary(stories.flatMap { s in s.entries.map { ($0.id, s) } }, uniquingKeysWith: { a, _ in a })
     }
 

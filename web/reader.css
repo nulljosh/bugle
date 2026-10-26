@@ -3,7 +3,7 @@
    (groups 20, controls round, images 12), inset hairlines, liquid glass on what floats. */
 body { font-size: 16px; line-height: 22px; }   /* a step under the landing: Bugle Sans reads larger than SF at the same size */
 .screen { max-width: 680px; margin: 0 auto; padding: var(--sp-6) 20px 128px; padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
-.screen[hidden], button[hidden] { display: none; }
+.screen[hidden], button[hidden], .glass-btn.group > [hidden] { display: none; }
 .head { display: flex; align-items: center; gap: var(--sp-3); min-height: 48px; margin-bottom: var(--sp-4); }
 .head h1 { font-size: 34px; line-height: 41px; letter-spacing: -.022em; flex: 1; }
 .icon-btn { width: 44px; height: 44px; border-radius: var(--r-pill); border: 0; background: var(--surface); color: var(--text);

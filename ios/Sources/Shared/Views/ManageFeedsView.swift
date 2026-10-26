@@ -152,6 +152,7 @@ struct ManageFeedsView: View {
 
     /// "Leans left · Canadian public broadcaster" for outlets Bugle rates; the address for anything else.
     static func about(_ feed: Feed) -> String {
+        if FeedStore.podcasts.contains(feed) { return String(localized: "Podcast") }   // a default show, not an outlet to rate
         guard let o = Outlet.of(feed.title) else { return feed.url }
         return (o.lean.map(Outlet.leanLabel) ?? String(localized: "Not rated")) + " · " + o.owner
     }

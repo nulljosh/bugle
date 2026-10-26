@@ -2,6 +2,12 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 6.0.1
+- Feeds says "Podcast" under the default shows instead of their feed address.
+- An episode WSJ posts to two of its shows is listed once.
+- Web: the Listen button really hides on an episode (a style rule was beating `hidden`).
+- The landing mentions podcasts.
+
 ## 6.0.0
 - Podcasts. Fourteen shows come followed by default (WSJ's briefings, Wall Street Breakfast, World Report, The Markets, The AI Daily Brief, My First Million, Mel Robbins, Tim Dillon and more); add any podcast feed like any other. A Podcasts chip on Home, and a Podcasts row in the iPad and Mac sidebar, lists episodes newest first with their length. Episodes stay out of the news grouping.
 - An episode's story plays its own audio: scrubber, 1x to 2x, back 15, forward 30, lock screen and Control Center controls, background audio, and it picks up where you left off. The same player on the web, with Media Session for the lock screen.

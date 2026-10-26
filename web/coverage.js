@@ -129,6 +129,8 @@ var Coverage = (function () {
     });
     return box;
   }
-  function about(feed) { var o = outlet(feed.title); return o ? (o.lean == null ? 'Not rated' : leanLabel(o.lean)) + ' · ' + o.owner : feed.url; }
+  function about(feed) {
+    if (typeof PODCASTS !== 'undefined' && PODCASTS.some(function (p) { return p.url === feed.url; })) return 'Podcast';   // a default show, not an outlet to rate
+    var o = outlet(feed.title); return o ? (o.lean == null ? 'Not rated' : leanLabel(o.lean)) + ' · ' + o.owner : feed.url; }
   return { keywords: keywords, same: same, common: common, cluster: cluster, today: today, muted: muted, BRAND: BRAND, PALETTE: PALETTE, OUTLETS: OUTLETS, colors: colors, paint: paint, readingLean: readingLean, bar: bar, section: section, about: about };
 })();

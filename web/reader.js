@@ -92,7 +92,8 @@ function restory() {
   // Episodes stay out of the news: a daily show's "top stories in 10 minutes" is not coverage. The Podcasts chip lists them.
   var shown = entries.filter(function (e) { return !Coverage.muted(e, m); });
   stories = Coverage.cluster(shown.filter(function (e) { return !e.audio; })); storyOf = {};
-  episodes = shown.filter(function (e) { return e.audio; }).map(function (e) { return { lead: e, entries: [e], publishers: 1 }; });
+  var titles = {};   // WSJ posts one episode to two of its shows; list it once
+  episodes = shown.filter(function (e) { return e.audio && !titles[e.title] && (titles[e.title] = true); }).map(function (e) { return { lead: e, entries: [e], publishers: 1 }; });
   stories.forEach(function (st) { st.entries.forEach(function (e) { storyOf[e.url] = st; }); });
   renderEntries();
 }
