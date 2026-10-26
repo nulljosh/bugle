@@ -22,6 +22,8 @@ Restart prompt:
 
 ## Next, in order
 
+0. Retake the store screenshots before the 7.x submit: 7.10.0 changed Home (large title, search tab), so `ios/.asc/screenshots` is stale.
+
 1. Store: iOS 6.1.0 is waiting for review and Mac 2.0.0 is in review. When iOS 6.1.0 clears, create iOS 7.0.0, upload the new screenshots (replace the APP_IPHONE_65 and APP_IPAD_PRO_3GEN_129 sets on its en-US localization), archive, upload and submit. When Mac 2.0.0 clears, archive and submit Mac 7.0.0. Never cancel a review.
 2. Road to 8.0.0 (semver: minor per feature, major per band). Ungated band 50 to 99 first: more languages (Hindi, Russian, Turkish, Polish, Swedish, Indonesian, Vietnamese, Hebrew), then one Liquid Glass pass per screen (done: the player card, search and chips; next: the competitor-screens matrix, rows 48 to 53, from the `mobbin` skill). Writing and subscribers (10 to 29) and Android (30 to 49) stay gated on Joshua.
 

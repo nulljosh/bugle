@@ -1,0 +1,30 @@
+/* Home as Apple would build it (home.js): large title and date, round glass buttons, a search tab beside the bar. */
+.home-head { margin-bottom: var(--sp-2); }
+.home-head .titles { flex: 1; min-width: 0; }
+.home-head h1 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.home-head .sub { color: var(--sub); font-size: 15px; line-height: 20px; }
+.home-head .glass-btn svg, .searchbar .glass-btn svg, .search-tab svg { width: 22px; height: 22px; color: var(--accent); }
+
+/* The bar is two pieces of glass: the tabs, and the search tab apart at the trailing end. */
+nav.tabbar, :root:not([data-theme="light"]) nav.tabbar { background: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; padding: 0; gap: var(--sp-2); align-items: center; }
+.tabbar .tabs { display: flex; gap: var(--sp-1); padding: var(--sp-1); border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, .26); backdrop-filter: blur(30px) saturate(190%) brightness(1.3); -webkit-backdrop-filter: blur(30px) saturate(190%) brightness(1.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 0 0 .5px rgba(0, 0, 0, .08), 0 8px 24px rgba(0, 0, 0, .12); }
+.search-tab { width: 56px; height: 56px; }
+
+/* Searching: the field takes the bar's place at the bottom, with a round close button beside it. */
+.searchbar { display: none; }
+body.searching .searchbar { display: flex; gap: var(--sp-2); align-items: center; position: fixed; z-index: 7; left: 16px; right: 16px;
+  bottom: max(var(--sp-4), env(safe-area-inset-bottom)); max-width: 680px; margin: 0 auto; }
+body.searching .searchbar .search { flex: 1; margin: 0; height: 48px; background: rgba(255, 255, 255, .5);
+  backdrop-filter: blur(30px) saturate(190%); -webkit-backdrop-filter: blur(30px) saturate(190%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 0 0 .5px rgba(0, 0, 0, .08), 0 8px 24px rgba(0, 0, 0, .12); }
+body.searching nav.tabbar, body.searching .mini { display: none; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tabbar .tabs { background: rgba(28, 28, 30, .34); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 0 0 .5px rgba(255, 255, 255, .08), 0 8px 24px rgba(0, 0, 0, .4); }
+  :root:not([data-theme="light"]) body.searching .searchbar .search { background: rgba(28, 28, 30, .5); }
+}
+:root[data-theme="dark"] .tabbar .tabs { background: rgba(28, 28, 30, .34); }
+@media (prefers-reduced-transparency: reduce) {
+  .tabbar .tabs, body.searching .searchbar .search { background: var(--surface); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}

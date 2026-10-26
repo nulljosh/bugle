@@ -112,8 +112,6 @@ function renderTopics() {
   if (!box || !window.Topics) return;
   var raw = input.value.trim(), q = raw.toLowerCase();
   box.innerHTML = '';
-  // The Briefing first: today's five, numbered, to read or hear (Ground News's The Last 24).
-  var brief = el('button', 'chip', 'Briefing'); brief.onclick = function () { if (window.Briefing) Briefing.show(); }; box.appendChild(brief);
   // Blindspots: stories only one side of the spectrum covered, like Ground News.
   var blind = q === 'blindspots', spot = el('button', 'chip', 'Blindspots');
   spot.setAttribute('aria-pressed', String(blind));

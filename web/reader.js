@@ -61,6 +61,7 @@ function dateText(d, style) {
 // Search matches headlines and outlet names ("BBC" shows only BBC); while searching there is no hero. Same as the app.
 function renderEntries() {
   var q = document.getElementById('q').value.trim().toLowerCase();
+  if (window.HomeHead) HomeHead.update(document.getElementById('q').value.trim());
   var shown = (q === 'blindspots' ? stories.filter(function (st) { return st.blindspot; })   // the Blindspots chip
     : q === 'podcasts' ? (window.Player ? Player.upNext(episodes) : episodes)
     : q ? stories.concat(episodes).filter(function (st) { return st.entries.some(function (e) { return (e.title + ' ' + e.source).toLowerCase().indexOf(q) >= 0; }); }) : Coverage.today(stories))   // episodes too: a show tapped in Feeds lists them
