@@ -2,6 +2,11 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 6.2.0
+- Downloads: save an episode from its toolbar or by pressing and holding its row, and it plays offline. A downloaded episode shows an arrow by its outlet, and one played to the end is removed, like Apple Podcasts. The web streams only.
+- Search finds episodes too, so tapping a show in Feeds lists its episodes instead of "No stories match".
+- Web: the default feeds moved to `seeds.js`.
+
 ## 6.1.1
 - Home fills in as feeds arrive instead of waiting on the slowest one. A first launch on a phone network sat on a spinner; a clean install now shows stories in about 3 seconds. Same on the web.
 - A feed that stops answering gives up after 15 seconds of silence instead of 60.

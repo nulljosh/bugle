@@ -49,7 +49,7 @@ final class Player: ObservableObject {
     }
 
     private func load(_ entry: JournalEntry) {
-        guard let url = entry.audioURL else { return }
+        guard let url = Downloads.shared.file(entry) ?? entry.audioURL else { return }   // the saved file plays offline
         unload()
         self.entry = entry
         Self.save(entry, "nowPlaying")
@@ -123,7 +123,7 @@ final class Player: ObservableObject {
 
     /// The end of an episode: the next in Up Next plays, or the player clears and the mini player goes.
     private func finish() {
-        if let entry { Self.positions[entry.id] = nil }
+        if let entry { Self.positions[entry.id] = nil; Downloads.shared.remove(entry) }   // played downloads go
         if let next = queue.first { start(next); return }
         unload()
         entry = nil

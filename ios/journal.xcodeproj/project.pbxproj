@@ -37,6 +37,7 @@
 		56895692B154DB5816DA86BD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = ED81D7AE5D751A74D22D7746 /* Localizable.xcstrings */; };
 		5D7EBE7D411C4B9B8E890D29 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38ACDB28857F0E41D3C492E /* JournalEntry.swift */; };
 		5F453D67275FA1842F7EC347 /* AtomFeedParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D618F75CD0D4C5B4BBCC223 /* AtomFeedParserTests.swift */; };
+		5F7F74F32D108DAB4999D970 /* Downloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D77FA551974C2907E1A51 /* Downloads.swift */; };
 		65959DE874A252B4341CB060 /* ManageFeedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EA21421125A16812D6815E /* ManageFeedsView.swift */; };
 		664458B2090B4F4F075E125D /* JournalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B2FC2F32D71F065BB94DA3 /* JournalApp.swift */; };
 		68500BE3A139766A706BDA66 /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409A12C7017D00F584C499DF /* EntryDetailView.swift */; };
@@ -47,6 +48,7 @@
 		73BE4014EAC63815897A2F19 /* Coverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE1E0BC7D447CF605C09BEC /* Coverage.swift */; };
 		73EF7A7F4542B330B5EADDD1 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = ED81D7AE5D751A74D22D7746 /* Localizable.xcstrings */; };
 		7924EFBC4A675A0704F3AC88 /* Listen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBFB39021A73479B6BD739B /* Listen.swift */; };
+		7EE5EC5C6CD8831BAC9E3C95 /* Downloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D77FA551974C2907E1A51 /* Downloads.swift */; };
 		844DF1D2B31BE048837E9B2A /* EntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8286BB5BF361BF084AB417E5 /* EntryListView.swift */; };
 		84E72AA7516E11B4EB10D15B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7752BAEFA1F38659693A2814 /* SettingsView.swift */; };
 		86FED445D5B81C0C22E7E663 /* BugleShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 63BDCBDDAB5A293761C74FBC /* BugleShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -124,6 +126,7 @@
 		18E68D1CC0EFBCA94321BDA8 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		217553F774975A52BB12FB47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		31C7997BFD552FE881F61BEB /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		405D77FA551974C2907E1A51 /* Downloads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloads.swift; sourceTree = "<group>"; };
 		409A12C7017D00F584C499DF /* EntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
 		4104A2D941F019E4AF96736A /* CoverageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverageView.swift; sourceTree = "<group>"; };
 		4B1005C95DA55CC984C69AA6 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
@@ -245,6 +248,7 @@
 				4B1005C95DA55CC984C69AA6 /* Alerts.swift */,
 				C27FFF636A9D66E7958589B7 /* Archive.swift */,
 				4D618F75CD0D4C5B4BBCC223 /* AtomFeedParserTests.swift */,
+				405D77FA551974C2907E1A51 /* Downloads.swift */,
 				DEE1F890E370D3866420F8A7 /* FullText.swift */,
 				E99CBF9D670CA7BD66BA9C81 /* Inbox.swift */,
 				88EFD18A9189F3E8143A9750 /* Intents.swift */,
@@ -491,6 +495,7 @@
 				F111AA90E55B52E307B5CF83 /* BackgroundRefresh.swift in Sources */,
 				4F165CED438C3D62665BA2B1 /* Coverage.swift in Sources */,
 				1868DB2E4BD79DF8528AE669 /* CoverageView.swift in Sources */,
+				5F7F74F32D108DAB4999D970 /* Downloads.swift in Sources */,
 				726E2BDEC0363FC1A23D0AAD /* EntryDetailView.swift in Sources */,
 				844DF1D2B31BE048837E9B2A /* EntryListView.swift in Sources */,
 				22019299B142F9C6C8192940 /* Feed.swift in Sources */,
@@ -536,6 +541,7 @@
 				0299308C80E5B7B81808EE64 /* BugleMacApp.swift in Sources */,
 				7013F9F2F3975890B4EB03A7 /* Coverage.swift in Sources */,
 				EBEA260D9FA6F4EAD27152C9 /* CoverageView.swift in Sources */,
+				7EE5EC5C6CD8831BAC9E3C95 /* Downloads.swift in Sources */,
 				68500BE3A139766A706BDA66 /* EntryDetailView.swift in Sources */,
 				FFE534C3561E65CBBCE68F40 /* EntryListView.swift in Sources */,
 				D27391643EA9F0F0D6A9AD87 /* Feed.swift in Sources */,
@@ -625,7 +631,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 6.1.0;
+				MARKETING_VERSION = 6.1.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -690,7 +696,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 6.1.0;
+				MARKETING_VERSION = 6.1.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;

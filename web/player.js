@@ -1,24 +1,6 @@
-// Podcasts: the default shows, and one player for the whole reader, so an episode keeps playing while you read on. A
+// Podcasts: one player for the whole reader, so an episode keeps playing while you read on. A
 // mini player rides above the tab bar, Up Next plays in order when an episode ends, every episode picks up where you
 // left off, and the lock screen and media keys get the controls through Media Session. Same rules as Player.swift.
-
-// The default shows (Joshua's own list, 2026-10-25). Mirrors FeedStore.podcasts; reader.js adds them once.
-var PODCASTS = [
-  ['Wall Street Breakfast', 'https://www.spreaker.com/show/5725002/episodes/feed'],
-  ["WSJ What's News", 'https://video-api.shdsvc.dowjones.io/api/podcasts/feed/the%20wall%20street%20journal%20whats%20news'],
-  ['WSJ Tech News Briefing', 'https://video-api.shdsvc.dowjones.io/api/podcasts/feed/the%20wall%20street%20journal%20tech%20talk'],
-  ['WSJ Your Money Briefing', 'https://video-api.shdsvc.dowjones.io/api/podcasts/feed/the%20wall%20street%20journals%20your%20money%20matters'],
-  ['World Report', 'https://www.cbc.ca/podcasting/includes/wr.xml'],
-  ['The Markets', 'https://feeds.megaphone.fm/GLD9322922848'],
-  ['AI Daily: Claude News', 'https://media.rss.com/claude-ai-daily/feed.xml'],
-  ['The AI Daily Brief', 'https://anchor.fm/s/f7cac464/podcast/rss'],
-  ['The Philip DeFranco Show', 'https://feeds.megaphone.fm/AETTA1864906649'],
-  ['Good Bad Billionaire', 'https://podcasts.files.bbci.co.uk/p0g7xj36.rss'],
-  ['Deep Questions', 'https://rss.pdrl.fm/2d4b16/feeds.simplecast.com/_IjaDYAj'],
-  ['My First Million', 'https://feeds.megaphone.fm/HS2300184645'],
-  ['The Tim Dillon Show', 'https://audioboom.com/channels/5093219.rss'],
-  ['The Mel Robbins Podcast', 'https://feeds.simplecast.com/UCwaTX1J']
-].map(function (f) { return { title: f[0], url: f[1] }; });
 
 var Player = (function () {
   var RATES = [1, 1.25, 1.5, 2], rate = 1, held = false, audio = new Audio();

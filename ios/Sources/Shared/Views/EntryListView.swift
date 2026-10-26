@@ -98,7 +98,10 @@ struct EntryListView: View {
         if q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame {
             return (player.queue + feed.episodes.filter { !player.isQueued($0) }).map { Story(lead: $0, entries: [$0]) }
         }
-        return q.isEmpty ? Coverage.today(feed.stories) : feed.stories.filter { $0.entries.contains { $0.title.localizedStandardContains(q) || $0.sourceTitle.localizedStandardContains(q) } }
+        if q.isEmpty { return Coverage.today(feed.stories) }
+        func hit(_ e: JournalEntry) -> Bool { e.title.localizedStandardContains(q) || e.sourceTitle.localizedStandardContains(q) }
+        // episodes too, so a show tapped in Feeds lists its episodes
+        return feed.stories.filter { $0.entries.contains(where: hit) } + feed.episodes.filter(hit).map { Story(lead: $0, entries: [$0]) }
     }
 
     /// Every story on Home from one outlet (one feed followed, or a search for it): the app wears its color, HN
@@ -183,6 +186,9 @@ struct EntryRow: View {
                 Button { Player.shared.start(entry) } label: { Label("Play", systemImage: "play") }
                 Button { Player.shared.toggleQueue(entry) } label: {
                     Label(Player.shared.isQueued(entry) ? "Remove from Up Next" : "Add to Up Next", systemImage: "text.line.first.and.arrowtriangle.forward")
+                }
+                Button { Downloads.shared.toggle(entry) } label: {
+                    Label(Downloads.shared.file(entry) != nil ? "Remove Download" : "Download", systemImage: "arrow.down.circle")
                 }
             }
             if let url = URL(string: entry.url) {

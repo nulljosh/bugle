@@ -15,10 +15,12 @@ struct Kicker: View {
         let tail = rest.map { " · " + $0 }.joined()
         (Text(src).fontWeight(.semibold).foregroundStyle(Outlet.color(src))
             + Text(src.isEmpty ? String(tail.dropFirst(3)) : tail).foregroundStyle(.secondary)
-            + (saved ? Text("  ") + Text(Image(systemName: "bookmark.fill")).foregroundStyle(Color.bugleAccent) : Text("")))
+            + (saved ? Text("  ") + Text(Image(systemName: "bookmark.fill")).foregroundStyle(Color.bugleAccent) : Text(""))
+            + (Downloads.shared.file(entry) != nil ? Text("  ") + Text(Image(systemName: "arrow.down.circle.fill")).foregroundStyle(Color.bugleAccent) : Text("")))
             .font(.caption)
             .lineLimit(size.isAccessibilitySize ? 3 : 1)
-            .accessibilityLabel(([src] + rest + (saved ? ["Saved"] : [])).filter { !$0.isEmpty }.joined(separator: ", "))
+            .accessibilityLabel(([src] + rest + (saved ? ["Saved"] : []) + (Downloads.shared.file(entry) != nil ? [String(localized: "Downloaded")] : []))
+                .filter { !$0.isEmpty }.joined(separator: ", "))
     }
 }
 

@@ -17,6 +17,7 @@ struct EntryDetailView: View {
     @StateObject private var listener = Listener()
     /// A podcast episode's own audio (EpisodeBar); articles get Listen instead.
     @ObservedObject private var player = Player.shared
+    @ObservedObject private var downloads = Downloads.shared
     /// The page's own text when the feed only sent a summary (FullText).
     @State private var full: JournalEntry?
 
@@ -32,7 +33,10 @@ struct EntryDetailView: View {
             .onAppear { library.markRead(entry) }
             .task { full = await FullText.fill(entry) }
             .onDisappear { listener.stop() }   // an episode keeps playing; the mini player has it
-            .task(id: entry.id) { if CommandLine.arguments.contains("-playEpisode") { player.start(entry) } }   // screenshot and QA hook
+            .task(id: entry.id) {   // screenshot and QA hooks
+                if CommandLine.arguments.contains("-downloadEpisode") { await downloads.download(entry) }
+                if CommandLine.arguments.contains("-playEpisode") { player.start(entry) }
+            }
             .safeAreaInset(edge: .bottom, spacing: 0) { if entry.audioURL != nil { EpisodeBar(player: player, entry: entry) } }
             .handsOff(entry)
             .sheet(isPresented: $showCoverage) { if let story { CoverageView(story: story, library: library) } }
@@ -46,6 +50,16 @@ struct EntryDetailView: View {
                             Label(library.isSaved(entry) ? "Remove from Saved" : "Save", systemImage: library.isSaved(entry) ? "bookmark.fill" : "bookmark")
                         }
                         .keyboardShortcut("s")
+                        if entry.audioURL != nil {
+                            if downloads.busy.contains(entry.id) {
+                                ProgressView().accessibilityLabel("Downloading")
+                            } else {
+                                let saved = downloads.file(entry) != nil
+                                Button { downloads.toggle(entry) } label: {
+                                    Label(saved ? "Remove Download" : "Download", systemImage: saved ? "arrow.down.circle.fill" : "arrow.down.circle")
+                                }
+                            }
+                        }
                         if entry.audioURL == nil {
                             Button { listener.toggle(full ?? entry) } label: {
                                 Label(listener.speaking ? "Stop" : "Listen", systemImage: listener.speaking ? "stop.fill" : "speaker.wave.2")
