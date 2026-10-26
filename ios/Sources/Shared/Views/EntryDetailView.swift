@@ -1,5 +1,6 @@
 import SwiftUI
 import WebKit
+import Translation
 #if os(macOS)
 import AppKit
 #else
@@ -10,6 +11,9 @@ struct EntryDetailView: View {
     let entry: JournalEntry
     @ObservedObject var library: Library
     var story: Story? = nil
+    /// The stories above and below this one in the list it came from, for the up and down arrows (NetNewsWire's).
+    var stepper: StoryStepper? = nil
+    @State private var translating = false
     @State private var showCoverage = CommandLine.arguments.contains("-showCoverage")
     @AppStorage("readerTextSize") private var textSize = 17.0
     /// The system text size on top of the reader's own: 17 at the default, larger with Dynamic Type.
@@ -67,12 +71,35 @@ struct EntryDetailView: View {
                             .keyboardShortcut("l")
                         }
                         ShareLink(item: url)
+                    }
+                    if let stepper {
+                        // beside the back button on iOS, where the trailing actions leave room; in the toolbar on the Mac
+                        ToolbarItemGroup(placement: Self.stepPlacement) {
+                            Button { stepper.prev.map(stepper.open) } label: { Label("Previous Story", systemImage: "chevron.up") }
+                                .disabled(stepper.prev == nil)
+                                .keyboardShortcut(.upArrow, modifiers: .command)
+                            Button { stepper.next.map(stepper.open) } label: { Label("Next Story", systemImage: "chevron.down") }
+                                .disabled(stepper.next == nil)
+                                .keyboardShortcut(.downArrow, modifiers: .command)
+                        }
+                    }
+                    ToolbarItemGroup(placement: .secondaryAction) {
+                        if #available(iOS 17.4, macOS 14.4, *) {
+                            Button { translating = true } label: { Label("Translate", systemImage: "translate") }
+                        }
                         Link(destination: url) { Label("Open in Browser", systemImage: "safari") }
                             .keyboardShortcut("o", modifiers: [.command, .shift])
                     }
                 }
             }
+            .translates(Headline.clean(entry.title, source: entry.sourceTitle) + "\n\n" + (full ?? entry).plainText, isPresented: $translating)
     }
+
+    #if os(iOS)
+    private static let stepPlacement = ToolbarItemPlacement.topBarLeading
+    #else
+    private static let stepPlacement = ToolbarItemPlacement.primaryAction
+    #endif
 
     // ponytail: WKWebView instead of NSAttributedString's HTML importer. The importer
     // turns <img> into an NSTextAttachment, and SwiftUI's Text renders *nothing* for an
@@ -134,6 +161,20 @@ struct EntryDetailView: View {
         s.replacingOccurrences(of: "&", with: "&amp;")
             .replacingOccurrences(of: "<", with: "&lt;")
             .replacingOccurrences(of: ">", with: "&gt;")
+    }
+}
+
+/// The stories either side of this one in its list, and how to open one in its place.
+struct StoryStepper {
+    let prev: JournalEntry?
+    let next: JournalEntry?
+    let open: (JournalEntry) -> Void
+}
+
+extension View {
+    /// The system Translate sheet over the story's own text, on device (iOS 17.4 and macOS 14.4 or later).
+    @ViewBuilder func translates(_ text: String, isPresented: Binding<Bool>) -> some View {
+        if #available(iOS 17.4, macOS 14.4, *) { translationPresentation(isPresented: isPresented, text: text) } else { self }
     }
 }
 

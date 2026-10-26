@@ -44,7 +44,7 @@ struct EntryListView: View {
         TabView(selection: $tab) {
             Group {
                 Group {
-                    if split { HomeSplit(query: $query, path: $path, feeds: store.feeds, topics: Topics.list(topics)) { home } story: { EntryDetailView(entry: $0, library: library, story: feed.story(for: $0)) } }
+                    if split { HomeSplit(query: $query, path: $path, feeds: store.feeds, topics: Topics.list(topics)) { home } story: { EntryDetailView(entry: $0, library: library, story: feed.story(for: $0), stepper: stepper($0)) } }
                     else { NavigationStack(path: $path) { home } }
                 }
                     .tabItem { Label("Home", systemImage: "newspaper") }.tag(0)
@@ -112,6 +112,16 @@ struct EntryListView: View {
         return feed.stories.filter { $0.entries.contains(where: hit) } + feed.episodes.filter(hit).map { Story(lead: $0, entries: [$0]) }
     }
 
+    /// Up and down in the reader walk the list as Home shows it, replacing the open story.
+    private func stepper(_ e: JournalEntry) -> StoryStepper {
+        let leads = shown.map(\.lead)
+        let i = leads.firstIndex { $0.id == e.id }
+        func at(_ j: Int?) -> JournalEntry? { j.flatMap { leads.indices.contains($0) ? leads[$0] : nil } }
+        return StoryStepper(prev: at(i.map { $0 - 1 }), next: at(i.map { $0 + 1 })) { next in
+            if path.isEmpty { path = [next] } else { path[path.count - 1] = next }
+        }
+    }
+
     /// Every story on Home from one outlet (one feed followed, or a search for it): the app wears its color, HN
     /// orange, BBC red. Several outlets: Bugle blue.
     private var accent: Color {
@@ -152,7 +162,7 @@ struct EntryListView: View {
         #if os(iOS)
         .toolbar(.hidden, for: .navigationBar)   // the tab bar already says Home; stories start at the top
         #endif
-        .navigationDestination(for: JournalEntry.self) { EntryDetailView(entry: $0, library: library, story: feed.story(for: $0)) }
+        .navigationDestination(for: JournalEntry.self) { EntryDetailView(entry: $0, library: library, story: feed.story(for: $0), stepper: stepper($0)) }
     }
 }
 

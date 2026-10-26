@@ -12,7 +12,7 @@ Restart prompt:
 
 ## Where things stand
 
-- Git is at 7.3.0: Liquid Glass passes 1 and 2 (the player card `floatingGlass()`, search and chips `capsuleGlass()`), dark accent #0A84FF. 7.1.0: Nineteen languages in `ios/Sources/Shared/Localizable.xcstrings` (146 strings; new UI strings go in by hand, `xcodebuild -exportLocalizations` does not extract them; then `python3 scripts/gen_i18n.py` writes `web/i18n.js`, which also matches keys with `%lld`/`%@` as patterns). Arabic and Hebrew are right to left; the player stays left to right.
+- Git is at 7.4.0: Translate (system sheet) and up and down story arrows (`StoryStepper`), rows 44 and 45 of the competitor matrix. 7.3.0: Liquid Glass passes 1 and 2 (the player card `floatingGlass()`, search and chips `capsuleGlass()`), dark accent #0A84FF. 7.1.0: Nineteen languages in `ios/Sources/Shared/Localizable.xcstrings` (146 strings; new UI strings go in by hand, `xcodebuild -exportLocalizations` does not extract them; then `python3 scripts/gen_i18n.py` writes `web/i18n.js`, which also matches keys with `%lld`/`%@` as patterns). Arabic and Hebrew are right to left; the player stays left to right.
 - Podcasts (band 6 to 9) closed at 7.0.0: `FeedStore.podcasts` (web `seeds.js`), `Player.shared`, `Downloads`, `NowPlayingView`, sleep timer, mini player (iOS 26.1 tab bar accessory). QA hooks never play sound: `-cueEpisode`, `-nowPlaying` load paused.
 - Home fills in as feeds arrive (6.1.1), and a feed gives up after 15 s of silence. Store screenshots showing podcasts are in `ios/.asc/screenshots` (iPhone 1284x2778, iPad 2064x2752; the Mac set is old).
 - 3.0.0 closed every gap against Apple News and Ground News from the original matrix (widget 2.4.0, Siri 2.5.0, Listen 3.0.0 and everything before).
@@ -23,7 +23,7 @@ Restart prompt:
 ## Next, in order
 
 1. Store: iOS 6.1.0 is waiting for review and Mac 2.0.0 is in review. When iOS 6.1.0 clears, create iOS 7.0.0, upload the new screenshots (replace the APP_IPHONE_65 and APP_IPAD_PRO_3GEN_129 sets on its en-US localization), archive, upload and submit. When Mac 2.0.0 clears, archive and submit Mac 7.0.0. Never cancel a review.
-2. Road to 8.0.0 (semver: minor per feature, major per band). Ungated band 50 to 99 first: more languages (Hindi, Russian, Turkish, Polish, Swedish, Indonesian, Vietnamese, Hebrew), then one Liquid Glass pass per screen (done: the player card, search and chips; next: a Mobbin comparison against similar apps, then the gaps it finds). Writing and subscribers (10 to 29) and Android (30 to 49) stay gated on Joshua.
+2. Road to 8.0.0 (semver: minor per feature, major per band). Ungated band 50 to 99 first: more languages (Hindi, Russian, Turkish, Polish, Swedish, Indonesian, Vietnamese, Hebrew), then one Liquid Glass pass per screen (done: the player card, search and chips; next: the competitor-screens matrix, rows 46 to 53, from the `mobbin` skill). Writing and subscribers (10 to 29) and Android (30 to 49) stay gated on Joshua.
 
 ## Rules that bite
 

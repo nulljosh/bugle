@@ -65,6 +65,7 @@ function renderEntries() {
     : q === 'podcasts' ? (window.Player ? Player.upNext(episodes) : episodes)
     : q ? stories.concat(episodes).filter(function (st) { return st.entries.some(function (e) { return (e.title + ' ' + e.source).toLowerCase().indexOf(q) >= 0; }); }) : Coverage.today(stories))   // episodes too: a show tapped in Feeds lists them
     .map(function (st) { return st.lead; });
+  window.shownLeads = shown;   // keys.js steps through these from a story
   // One outlet on screen: the reader wears its color (HN orange, BBC red); several: Bugle blue.
   var root = document.documentElement, only = shown.length && shown.every(function (e) { return e.source === shown[0].source; }) ? shown[0].source : null;
   if (only) { Coverage.paint(root, only); root.dataset.outlet = only; }

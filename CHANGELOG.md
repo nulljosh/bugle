@@ -2,6 +2,11 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.4.0
+- Translate: the story's More menu opens the system Translate sheet over its text, on device (iOS 17.4 and macOS 14.4 or later). Browsers translate the web reader themselves.
+- Up and down arrows beside the back button walk the stories in Home's order (Command up and down on the Mac); on the web, j and k do it from a story.
+- Share and Open in Browser moved into the More menu on iPhone to make room.
+
 ## 7.3.0
 - Liquid Glass, second pass: the search field and the chips on Home are glass capsules on iOS 26 and macOS 26; a chip that is on keeps its tint under the glass.
 - Dark mode uses Apple's dark system blue for the accent: the brand blue on black was under 3:1 for text.

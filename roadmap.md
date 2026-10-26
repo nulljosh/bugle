@@ -70,8 +70,8 @@ App Store screenshots of Ground News, Particle, SmartNews, Yahoo News, Flipboard
 
 | # | Gap | Who has it | Size | Status | Version |
 |---|-----|-----------|------|--------|---------|
-| 44 | Translate a story into your language | SmartNews | S | todo | |
-| 45 | Next and previous story from the reader (up and down arrows) | NetNewsWire | S | todo | |
+| 44 | Translate a story into your language | SmartNews | S | done (apps; browsers translate the web) | 7.4.0 |
+| 45 | Next and previous story from the reader (up and down arrows) | NetNewsWire | S | done (web: j and k) | 7.4.0 |
 | 46 | A briefing: today's top five, numbered, with minutes to read, and Listen to it | Ground News (The Last 24), Yahoo (audio digest), Apple News Today | M | todo | |
 | 47 | Reader themes (light, sepia, dark, black) and a serif option | Unread, Feedly | M | todo | |
 | 48 | Collections from coverage: Popular on the left, Popular on the right, Divergent takes | Ground News | S | todo | |

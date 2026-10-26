@@ -1,5 +1,5 @@
 // Keyboard, like a desktop feed reader: j and k move through stories, Enter opens, Esc goes back, / searches,
-// r refreshes, s saves, l listens, o opens the original, 1 to 3 pick a tab. Typing in a field is left alone.
+// j and k in a story open the next and previous one; r refreshes, s saves, l listens, o opens the original, 1 to 3 pick a tab. Typing in a field is left alone.
 // Uses reader.js's refresh.
 addEventListener('keydown', function (ev) {
   var t = ev.target, story = !document.getElementById('story').hidden;
@@ -22,6 +22,12 @@ addEventListener('keydown', function (ev) {
   if (go) { ev.preventDefault(); go(); }
 });
 function step(by) {
+  // in a story, j and k open the next and previous story in Home's list, like the app's up and down arrows
+  if (!document.getElementById('story').hidden && window.shownLeads) {
+    var n = shownLeads[shownLeads.indexOf(shownLeads.find(function (e) { return e.url === current.url; })) + by];
+    if (n) { current = n; show(n); scrollTo(0, 0); }
+    return;
+  }
   if (!document.getElementById('home').hidden) {
     var rows = Array.prototype.slice.call(document.querySelectorAll('#home .hero, #home .row.story'));
     var next = rows[Math.max(0, Math.min(rows.length - 1, rows.indexOf(document.activeElement) + by))];
