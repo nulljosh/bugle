@@ -1,0 +1,5 @@
+/* A Hacker News thread under the story (hn.js) */
+.article .hn .c { margin-bottom: var(--sp-4); }
+.article .hn .c.r { margin-left: 16px; }
+.article .hn .c > .meta { margin-bottom: 4px; }
+.article .hn pre { overflow-x: auto; }

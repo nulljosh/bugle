@@ -20,29 +20,12 @@ enum ArtColor {
             return (Double(px[0]) / 255, Double(px[1]) / 255, Double(px[2]) / 255)
         }.value
         guard let (r, g, b) = rgb else { return nil }
+        // A washed-out average (a white cover with a yellow block reads beige) tints nothing: plain glass instead.
+        let hi = max(r, g, b), lo = min(r, g, b)
+        guard hi > 0, (hi - lo) / hi >= 0.3 else { return nil }
         let c = Color(red: r * 0.85, green: g * 0.85, blue: b * 0.85)
         cache[url] = c
         return c
-    }
-}
-
-/// The cover, blurred and soft, washing the top of the episode page and fading into it.
-struct CoverBackdrop: View {
-    let url: URL?
-    var height: CGFloat = 460
-
-    var body: some View {
-        CachedImage(url: url) { phase in
-            if case .success(let image) = phase {
-                image.resizable().aspectRatio(contentMode: .fill)
-                    .frame(maxWidth: .infinity).frame(height: height).clipped()
-                    .saturation(1.6).blur(radius: 60).opacity(0.8)
-                    .mask(LinearGradient(colors: [.black, .black.opacity(0.6), .clear], startPoint: .top, endPoint: .bottom))
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .ignoresSafeArea()
-        .accessibilityHidden(true)
     }
 }
 

@@ -67,6 +67,7 @@
 		96438221DF43E8FF93AC2D58 /* ManageFeedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EA21421125A16812D6815E /* ManageFeedsView.swift */; };
 		A337E69D87946311DB5D860B /* StoryParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEA548F0D3C5C7921156416 /* StoryParts.swift */; };
 		A38E084ADAA18B1D2FC59AFA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7752BAEFA1F38659693A2814 /* SettingsView.swift */; };
+		A5676D648DB12AC78AE6957F /* HNComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737BA8DEFB7826CCC68A0CDE /* HNComments.swift */; };
 		A99290777413A4AF24674771 /* PreviewImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77498857B3215CE9BF932E32 /* PreviewImage.swift */; };
 		AA1419CDDF21C7BE5B8A11FC /* Spotlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB55D0EFF8FB6DD63865FD7C /* Spotlight.swift */; };
 		BBC1E0769E5A15D8F0C33285 /* CoverViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFCC45C9B80CDC55E94AEA8 /* CoverViews.swift */; };
@@ -78,6 +79,7 @@
 		CE1E8C2899A0802992715A37 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5CBADBDFC8F276FBD980DD /* Library.swift */; };
 		D00111A11EE6FBEAB2BA089A /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5CBADBDFC8F276FBD980DD /* Library.swift */; };
 		D27391643EA9F0F0D6A9AD87 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E099194237BF0D71FD3C6424 /* Feed.swift */; };
+		D35B7A61CA5547476A90A967 /* HNComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737BA8DEFB7826CCC68A0CDE /* HNComments.swift */; };
 		D68D92DD45C2273DB6D7258F /* Headline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EE6D47556801B134F2EC3A /* Headline.swift */; };
 		DB8D13B635949509602FFCC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B29B9530A60D6C424502F145 /* Assets.xcassets */; };
 		DD53568E6EABB2BA898581F1 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38ACDB28857F0E41D3C492E /* JournalEntry.swift */; };
@@ -147,6 +149,7 @@
 		5A293F420B365A0A1736ADC3 /* BugleWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = BugleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		63BDCBDDAB5A293761C74FBC /* BugleShare.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = BugleShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C189CC5A48F39F84F822BAC /* BriefingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefingView.swift; sourceTree = "<group>"; };
+		737BA8DEFB7826CCC68A0CDE /* HNComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNComments.swift; sourceTree = "<group>"; };
 		77498857B3215CE9BF932E32 /* PreviewImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImage.swift; sourceTree = "<group>"; };
 		7752BAEFA1F38659693A2814 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7BE1E0BC7D447CF605C09BEC /* Coverage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coverage.swift; sourceTree = "<group>"; };
@@ -266,6 +269,7 @@
 				4D618F75CD0D4C5B4BBCC223 /* AtomFeedParserTests.swift */,
 				405D77FA551974C2907E1A51 /* Downloads.swift */,
 				DEE1F890E370D3866420F8A7 /* FullText.swift */,
+				737BA8DEFB7826CCC68A0CDE /* HNComments.swift */,
 				E99CBF9D670CA7BD66BA9C81 /* Inbox.swift */,
 				88EFD18A9189F3E8143A9750 /* Intents.swift */,
 				EEC44D06947275059DED3B30 /* JournalFeedService.swift */,
@@ -526,6 +530,7 @@
 				844DF1D2B31BE048837E9B2A /* EntryListView.swift in Sources */,
 				22019299B142F9C6C8192940 /* Feed.swift in Sources */,
 				F4D994B541C7B0C8E5974E3E /* FullText.swift in Sources */,
+				A5676D648DB12AC78AE6957F /* HNComments.swift in Sources */,
 				D68D92DD45C2273DB6D7258F /* Headline.swift in Sources */,
 				4AD9F7618B6EC05F357127C7 /* HomeParts.swift in Sources */,
 				4D6C7C1F980CAD12F3D05350 /* HomeSplit.swift in Sources */,
@@ -576,6 +581,7 @@
 				FFE534C3561E65CBBCE68F40 /* EntryListView.swift in Sources */,
 				D27391643EA9F0F0D6A9AD87 /* Feed.swift in Sources */,
 				4BB443B0C390790CA4936408 /* FullText.swift in Sources */,
+				D35B7A61CA5547476A90A967 /* HNComments.swift in Sources */,
 				C8EAE57F73061750EBF41BBF /* Headline.swift in Sources */,
 				6AB1253441731A145FAC2256 /* HomeParts.swift in Sources */,
 				8EFCC08AC91DD4CC1FB266F4 /* HomeSplit.swift in Sources */,

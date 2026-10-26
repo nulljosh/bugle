@@ -173,6 +173,7 @@ function show(e) {
   var st = storyOf[e.url];
   if (st && st.entries.length > 1) box.appendChild(Coverage.section(st, open));
   if (window.Timeline) Timeline.render(box, st || { entries: [e] });
+  if (window.HN) HN.mount(box, body, e);   // a Hacker News story: its thread last
 }
 
 // Tabs live in the hash so the browser's back button works; an open story is one extra

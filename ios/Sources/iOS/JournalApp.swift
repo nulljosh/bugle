@@ -12,6 +12,7 @@ struct JournalApp: App {
         clockDemo()
         briefingDemo()
         fullTextDemo()
+        hnDemo()
         archiveDemo()
         inboxDemo()
         seedFeedsDemo()

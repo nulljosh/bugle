@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.9.0
+Episodes open on their cover: the art fills the top third, blurred under the glass bar, and drifts with a parallax as you scroll. Hacker News stories read in the app, the article and then the whole comment thread. Pages with no article body show their own summary. Swipe left to save, in green. A washed-out cover no longer tints the player beige.
+
 ## 7.8.0
 - The cover blends into the episode: its art, blurred, washes the top of the page, and the player's glass takes a tint of the cover's color. Now Playing sits on the blurred cover, dimmed 35 percent so the rows read, as Apple asks for glass over rich media.
 

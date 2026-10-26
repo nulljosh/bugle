@@ -23,7 +23,12 @@ function fillFullText(e, body, meta) {
   fetch('/feed?url=' + encodeURIComponent(e.url)).then(function (r) { return r.ok ? r.text() : ''; }).then(function (html) {
     if (!html || current !== e) return;
     var found = articleParagraphs(html), time = readingTime(found.join(' '));
-    if (!time) return;
+    if (!time) {   // no article body (a paper's abstract page, a repo): the page's own summary, when it says enough
+      var d = new DOMParser().parseFromString(html, 'text/html').querySelector('meta[property="og:description"], meta[name="description"]');
+      var text = d && (d.getAttribute('content') || '').replace(/\s+/g, ' ').trim();
+      if (!text || text.split(' ').length < 25) return;
+      found = [text];
+    }
     body.innerHTML = '';
     found.forEach(function (t) { body.appendChild(el('p', '', t)); });
     meta.textContent = [e.source, dateText(e.date, 'long'), time].filter(Boolean).join(' · ');

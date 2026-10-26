@@ -202,3 +202,11 @@ test("briefing first line skips abbreviations", () => {
   assert.equal(firstLine("The vote passed late on Sunday. Both sides claimed a win."), "The vote passed late on Sunday.");
   assert.equal(firstLine("The U.S. and B.C. agreed on Saturday. More soon."), "The U.S. and B.C. agreed on Saturday.");
 });
+// A Hacker News thread keeps HN's own tags and nothing else. Same rule as HNComments.clean.
+(await import("node:vm")).runInThisContext(readFileSync(new URL("./web/hn.js", import.meta.url), "utf8"));
+test("hn comments keep only HN's tags", () => {
+  const ok = '<p>hi <i>x</i> <a href="https://a.b/c" rel="nofollow">l</a></p>';
+  assert.equal(HN.clean(ok), ok);
+  assert.equal(HN.clean('<script>alert(1)</script><p onclick="x">a</p><img src=x onerror=y><a href="javascript:x">b</a>'), "alert(1)a</p>b</a>");
+  assert.equal(HN.id({ html: '<a href="https://news.ycombinator.com/item?id=42">c</a>', url: "" }), "42");
+});

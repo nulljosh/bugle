@@ -18,14 +18,29 @@ enum FullText {
         return best.isEmpty ? once(paras(html)) : best
     }
 
+    /// The page's og:description or meta description, as plain text.
+    static func summary(inHTML page: String) -> String? {
+        for m in page.matches(of: /<meta\b[^>]*>/.ignoresCase()) {
+            let tag = String(m.output)
+            guard tag.contains(/(property|name)="(og:)?description"/),
+                  let c = tag.firstMatch(of: /content="([^"]*)"/) else { continue }
+            return String(c.output.1).plainText
+        }
+        return nil
+    }
+
     /// The entry with the page's text as its body, or nil when the page has no more than the feed did.
     static func fill(_ entry: JournalEntry) async -> JournalEntry? {
         // an episode's show notes are its page; there is nothing more to read
         guard entry.readingTime == nil, entry.audioURL == nil, let url = URL(string: entry.url),
               let (data, _) = try? await URLSession.shared.data(from: url),
               let html = String(data: data, encoding: .utf8) ?? String(data: data, encoding: .isoLatin1) else { return nil }
-        let found = paragraphs(inHTML: html)
-        guard found.joined(separator: " ").split(separator: " ").count >= 150 else { return nil }
+        var found = paragraphs(inHTML: html)
+        if found.joined(separator: " ").split(separator: " ").count < 150 {
+            // no article body (a paper's abstract page, a repo): the page's own summary, when it says enough
+            guard let d = summary(inHTML: html), d.split(separator: " ").count >= 25 else { return nil }
+            found = [d]
+        }
         func esc(_ s: String) -> String {
             s.replacingOccurrences(of: "&", with: "&amp;").replacingOccurrences(of: "<", with: "&lt;").replacingOccurrences(of: ">", with: "&gt;")
         }

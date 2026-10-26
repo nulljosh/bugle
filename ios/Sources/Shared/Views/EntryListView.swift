@@ -90,6 +90,7 @@ struct EntryListView: View {
             // ponytail: store screenshot hook so a frame can open on an article
             if CommandLine.arguments.contains("-selectFirst"), let first = feed.entries.first { path = [first] }
             if CommandLine.arguments.contains("-selectEpisode"), let first = feed.episodes.first { path = [first] }
+            if CommandLine.arguments.contains("-selectHN"), let hn = feed.entries.first(where: { HNComments.id($0) != nil && !$0.htmlContent.contains("# Comments: 0") }) { path = [hn] }
             if CommandLine.arguments.contains("-briefing") { briefing = true }
             if CommandLine.arguments.contains("-nowPlaying") {   // Now Playing with an episode and three in Up Next
                 if let first = feed.episodes.first { player.cue(first) }   // paused: no sound from QA
@@ -194,11 +195,11 @@ struct EntryRow: View {
             }
             .padding(.vertical, 6)
         }
-        .swipeActions(edge: .leading) {
+        .swipeActions(edge: .trailing) {
             Button { library.toggleSave(entry) } label: {
                 Label(library.isSaved(entry) ? "Unsave" : "Save", systemImage: library.isSaved(entry) ? "bookmark.slash" : "bookmark")
             }
-            .tint(.bugleAccent)
+            .tint(.green)
         }
         .contextMenu {
             Button { library.toggleSave(entry) } label: {

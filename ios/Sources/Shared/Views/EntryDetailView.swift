@@ -27,24 +27,38 @@ struct EntryDetailView: View {
     @ObservedObject private var downloads = Downloads.shared
     /// The page's own text when the feed only sent a summary (FullText).
     @State private var full: JournalEntry?
+    /// The feed sent next to nothing (Hacker News sends only links) and the page had no article to pull: show the page.
+    @State private var livePage = false
+    /// A Hacker News story's comment thread, under the article.
+    @State private var comments: String?
 
     var body: some View {
         let size = textSize * body17 / 17
         let theme = ReaderTheme(rawValue: readerTheme) ?? .auto
-        ArticleWebView(html: Self.page(for: full ?? entry, textSize: size, theme: theme), baseURL: URL(string: entry.url))
-            .id("\(size) \(full != nil) \(readerTheme)")
+        let hn = HNComments.id(entry) != nil
+        // an HN story is its article and its thread; the feed's own body is only links
+        let body = full ?? (hn ? JournalEntry(title: entry.title, url: entry.url, date: entry.date,
+            htmlContent: "<p><a href=\"\(Self.escape(entry.url))\">\(Self.escape(URL(string: entry.url)?.host() ?? entry.url))</a></p>", sourceTitle: entry.sourceTitle) : entry)
+        ArticleWebView(html: Self.page(for: body, textSize: size, theme: theme, extra: comments ?? ""), baseURL: URL(string: entry.url), underBars: entry.audioURL != nil,
+                       page: livePage ? URL(string: entry.url) : nil)
+            .id("\(size) \(full != nil) \(readerTheme) \(livePage) \(comments != nil)")
             .background(theme.page.ignoresSafeArea())
-            .background { if entry.audioURL != nil && theme == .auto { CoverBackdrop(url: entry.imageURL) } }
             #if os(iOS)
             .toolbarColorScheme(theme == .auto ? nil : theme == .light ? .light : .dark, for: .navigationBar)   // the bar matches the page
             #endif  // a new size or the full text rebuilds the page; it never reloads on its own
-            .ignoresSafeArea(edges: .bottom)
+            .ignoresSafeArea(edges: entry.audioURL != nil ? .vertical : .bottom)   // an episode's cover runs up under the glass bar
             .navigationTitle(entry.title)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .onAppear { library.markRead(entry) }
-            .task { full = await FullText.fill(entry) }
+            .task {
+                async let thread = HNComments.html(entry)
+                full = await FullText.fill(entry)
+                comments = await thread
+                livePage = full == nil && comments == nil && HNComments.id(entry) == nil && entry.audioURL == nil
+                    && entry.plainText.split(separator: " ").count < 40
+            }
             .onDisappear { listener.stop() }   // an episode keeps playing; the mini player has it
             .task(id: entry.id) {
                 if entry.audioURL != nil, let u = entry.imageURL { art = await ArtColor.of(u) }
@@ -120,13 +134,13 @@ struct EntryDetailView: View {
     // turns <img> into an NSTextAttachment, and SwiftUI's Text renders *nothing* for an
     // AttributedString containing one — every post starting with a banner image came up
     // blank. A web view also gets images, code blocks and links for free.
-    private static func page(for entry: JournalEntry, textSize: Double, theme: ReaderTheme = .auto) -> String {
+    private static func page(for entry: JournalEntry, textSize: Double, theme: ReaderTheme = .auto, extra: String = "") -> String {
         let pinned = theme.colors.map { c in
             "html, body { background: \(c.bg); color: \(c.text); color-scheme: \(theme == .light ? "light" : "dark"); } .date { color: \(c.sub); } a, a:visited { color: \(c.link) !important; }"
-        } ?? (entry.audioURL != nil ? "html, body { background: transparent; }" : "")   // an episode's cover shows through
+        } ?? ""
         return """
         <!doctype html><html><head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <meta name="supported-color-schemes" content="light dark">
         <style>
           :root { color-scheme: light dark; }
@@ -155,15 +169,51 @@ struct EntryDetailView: View {
           a { color: #0059B3; }
           @media (prefers-color-scheme: dark) { a { color: #5aa9ff; } }
           \(pinned)
+          .c { margin: 0 0 16px; } .c.r { margin-left: 16px; } .c > .date { margin: 0 0 4px; }   /* HN comments */
           .hero { width: 100%; max-height: 50vh; object-fit: cover; border-radius: 12px; margin: 0 0 16px; }
-          .art { width: 160px; height: 160px; object-fit: cover; border-radius: 16px; margin: 0 0 16px; }   /* podcast art */
+          /* An episode's cover as the hero, Apple Podcasts style: the art blurred across the top third, under the glass
+             bar, fading into the page, with the sharp square centered on it. */
+          .cover { position: relative; max-width: none; height: 38vh; margin: -16px -20px 16px; padding: calc(env(safe-area-inset-top) + 8px) 0 16px;
+                   display: flex; justify-content: center; align-items: center; }
+          .cover::before { content: ""; position: absolute; inset: 0; background: var(--art) center / cover; filter: blur(48px) saturate(1.6);
+                           transform: translateY(calc(var(--y, 0) * .5px)) scale(calc(1.3 + var(--pull, 0) / 300)); opacity: .9; -webkit-mask-image: linear-gradient(#000 55%, transparent); }
+          .cover img { position: relative; height: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 16px;
+                       box-shadow: 0 12px 32px rgba(0, 0, 0, .3);
+                       transform: translateY(calc(var(--y, 0) * .3px)) scale(calc(1 - var(--y, 0) / 1500)); opacity: calc(1 - var(--y, 0) / 400); }
         </style></head><body>
+        \(entry.audioURL != nil ? heroImage(for: entry) : "")
         <h1>\(escape(entry.title))</h1>
         <p class="date">\(byline(for: entry))</p>
-        \(heroImage(for: entry))
+        \(entry.audioURL == nil ? heroImage(for: entry) : "")
         \(entry.htmlContent)
+        \(extra)
+        \(scrollHook)
+        \(entry.audioURL != nil ? parallax : "")
         </body></html>
         """
+    }
+
+    /// The hero's parallax: the blur moves at half the scroll, the art a third and fades, a pull past the top swells
+    /// the blur. Off under Reduce Motion.
+    private static let parallax = """
+    <script>
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const root = document.documentElement.style; let queued = false
+      addEventListener('scroll', () => {
+        if (queued) return; queued = true
+        requestAnimationFrame(() => {
+          const y = scrollY; queued = false
+          root.setProperty('--y', Math.max(0, Math.min(y, 400))); root.setProperty('--pull', Math.max(0, -y))
+        })
+      }, { passive: true })
+    }
+    </script>
+    """
+
+    /// QA: `-scrollTo N` opens the page scrolled N points down (the thread, the hero mid-parallax).
+    private static var scrollHook: String {
+        guard let i = CommandLine.arguments.firstIndex(of: "-scrollTo"), let y = CommandLine.arguments.dropFirst(i + 1).first.flatMap({ Int($0) }) else { return "" }
+        return "<script>addEventListener('load', () => setTimeout(() => scrollTo(0, \(y)), 300))</script>"
     }
 
     private static func byline(for entry: JournalEntry) -> String {
@@ -173,7 +223,9 @@ struct EntryDetailView: View {
 
     private static func heroImage(for entry: JournalEntry) -> String {
         guard let url = entry.imageURL else { return "" }
-        return "<img class=\"\(entry.audioURL == nil ? "hero" : "art")\" src=\"\(escape(url.absoluteString))\">"
+        let src = escape(url.absoluteString)
+        guard entry.audioURL != nil else { return "<img class=\"hero\" src=\"\(src)\">" }
+        return "<div class=\"cover\" style=\"--art: url('\(src.replacingOccurrences(of: "'", with: "%27"))')\"><img src=\"\(src)\" alt=\"\"></div>"
     }
 
     private static func escape(_ s: String) -> String {
@@ -202,11 +254,15 @@ extension View {
 private struct ArticleWebView {
     let html: String
     let baseURL: URL?
+    /// The page runs under the bars and lays itself out with safe-area padding (an episode's cover hero).
+    var underBars = false
+    /// A live page to load instead of the html.
+    var page: URL? = nil
 
     func make() -> WKWebView {
         let view = WKWebView()
         view.navigationDelegate = Self.sharedDelegate
-        view.loadHTMLString(html, baseURL: baseURL)
+        if let page { view.load(URLRequest(url: page)) } else { view.loadHTMLString(html, baseURL: baseURL) }
         return view
     }
 
@@ -233,7 +289,9 @@ private struct ArticleWebView {
 #if os(iOS)
 extension ArticleWebView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
-        let v = make(); v.isOpaque = false; v.backgroundColor = .clear; return v
+        let v = make(); v.isOpaque = false; v.backgroundColor = .clear
+        if underBars { v.scrollView.contentInsetAdjustmentBehavior = .never }
+        return v
     }
     func updateUIView(_ view: WKWebView, context: Context) {}
 }

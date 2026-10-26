@@ -3,7 +3,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://jaybulb.com https://heyitsmejosh.com; font-src 'self' data:; img-src 'self' data: blob: https:; media-src https:; connect-src 'self' https://api.jaybulb.com; frame-ancestors 'self' https://jaybulb.com https://heyitsmejosh.com; object-src 'none'; base-uri 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://jaybulb.com https://heyitsmejosh.com; font-src 'self' data:; img-src 'self' data: blob: https:; media-src https:; connect-src 'self' https://api.jaybulb.com https://hn.algolia.com; frame-ancestors 'self' https://jaybulb.com https://heyitsmejosh.com; object-src 'none'; base-uri 'self'
 
 # The service worker fetches saved stories' pictures from their own sites; the page CSP's connect-src would stop it.
 /sw.js
