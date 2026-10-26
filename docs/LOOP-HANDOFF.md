@@ -20,7 +20,7 @@ Restart prompt:
 
 ## Next, in order
 
-1. Once 2.0.0 clears review, archive main as the next store version and submit iOS and Mac. Store notes should lead with Podcasts.
+1. iOS 2.0.0 is live (released 2026-10-25 evening) and iOS 6.1.0 (build 202610252056, podcasts and everything since 2.1) is waiting for review. Mac 2.0.0 is still in review; once it clears, archive and submit Mac 6.1.0 the same way with the same whatsNew. Never cancel a review.
 2. Podcasts band, in order: downloads, sleep timer, then a full Now Playing sheet from the mini player. Apple Podcasts is the reference; Joshua's screenshots show Queue, 2x, 15 and 30, sleep timer.
 3. Then ungated band 50 to 99: more languages (Hindi, Russian, Turkish, Polish, Swedish, Indonesian, Vietnamese, Hebrew) and one Liquid Glass pass per tick.
 
