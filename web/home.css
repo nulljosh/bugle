@@ -45,11 +45,13 @@ body[data-layout="compact"] .row.story { padding-top: var(--sp-2); padding-botto
 
 /* Boot splash (read.html #splash, Splash.swift): the mascot pops up, blinks, and sounds its horn */
 #splash { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--bg); animation: splash-out .4s ease-out 1.35s forwards; }
-#splash svg { width: 196px; height: 196px; overflow: visible; }
+#splash svg { width: 196px; height: 196px; overflow: visible; color: #0059B3; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) #splash svg { color: #3D8BE0; } }
+:root[data-theme="dark"] #splash svg { color: #3D8BE0; }
 #splash .pop { transform-box: view-box; transform-origin: 50% 55%; animation: pop .4s cubic-bezier(.34, 1.56, .64, 1) both; }
 #splash .eyes { transform-box: fill-box; transform-origin: 50% 50%; animation: blink .24s ease-in-out .45s; }
 #splash .bell { transform-box: fill-box; transform-origin: 0% 50%; animation: toot .36s ease-in-out .75s; }
-#splash .w { fill: none; stroke: #0059B3; stroke-width: 7; stroke-linecap: round; opacity: 0; animation: wave .12s ease-out forwards; }
+#splash .w { fill: none; stroke: currentColor; stroke-width: 7; stroke-linecap: round; opacity: 0; animation: wave .12s ease-out forwards; }
 #splash .w1 { animation-delay: .8s; } #splash .w2 { animation-delay: .9s; } #splash .w3 { animation-delay: 1s; }
 @keyframes pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
 @keyframes blink { 50% { transform: scaleY(.1); } }

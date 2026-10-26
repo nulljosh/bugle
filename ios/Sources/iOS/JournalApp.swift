@@ -38,6 +38,9 @@ struct JournalApp: App {
 /// the views, so the fade cut straight to Home.
 struct BootView: View {
     @State private var splash = true
+    /// Once per launch: the App rebuilds this view on every scene change, and only the first build has a splash.
+    @MainActor private static var booted = false
+    init() { if !Self.booted { Self.booted = true; Splash.finished = false } }
 
     var body: some View {
         ZStack {

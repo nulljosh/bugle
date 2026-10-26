@@ -126,7 +126,10 @@ struct EntryListView: View {
             guard forced || !UserDefaults.standard.bool(forKey: "topicsPicked") else { return }
             UserDefaults.standard.set(true, forKey: "topicsPicked")   // asked once, whatever the answer
             guard forced || (topics.isEmpty && library.history.isEmpty) else { return }
-            Task { try? await Task.sleep(for: .seconds(2)); pickTopics = true }   // after the boot splash, never over it
+            Task {   // after the boot splash has gone, never over it (8 s at most)
+                for _ in 0..<80 where !Splash.finished { try? await Task.sleep(for: .milliseconds(100)) }
+                pickTopics = true
+            }
         }
         .sheet(isPresented: $briefing) { BriefingView(stories: Array(Coverage.today(feed.stories).prefix(5))) { tab = 0; path = [$0] } }
         // Keyboard (Mac, iPad): ⌘R refreshes, ⌘1 to ⌘3 pick a tab. Invisible buttons carry the shortcuts.
@@ -148,7 +151,6 @@ struct EntryListView: View {
         .task(id: store.feeds) {
             if account.signedIn { try? await account.push(store.feeds) }   // keep the account's copy current
             await feed.refresh(feeds: store.feeds)
-            await feed.grouped()
             // ponytail: store screenshot hook so a frame can open on an article
             if CommandLine.arguments.contains("-selectFirst"), let first = feed.entries.first { path = [first] }
             if CommandLine.arguments.contains("-selectEpisode"), let first = feed.episodes.first { path = [first] }
@@ -215,7 +217,7 @@ struct EntryListView: View {
             if q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame && !feed.episodes.isEmpty { ShowsRow(episodes: feed.episodes) { query = $0 } }
             if let hero { HeroRow(entry: hero.lead, library: library, story: hero).listRowSeparator(.hidden) }
             ForEach(shown.filter { $0.id != hero?.id }) { EntryRow(entry: $0.lead, library: library, story: $0) }
-            if !q.isEmpty && shown.isEmpty && !feed.isLoading {
+            if !q.isEmpty && shown.isEmpty && !feed.isLoading && feed.loadedOnce {
                 // empty: the mascot, still, over the reason
                 VStack(spacing: 12) {
                     MascotLoop(tooting: false, size: 80)
@@ -231,7 +233,7 @@ struct EntryListView: View {
         .listStyle(.plain)   // flush with the view, like Mail and News
         .refreshable { await feed.refresh(feeds: store.feeds) }
         .overlay {
-            if shown.isEmpty && feed.isLoading {   // podcasts can land before the news: still loading, not empty
+            if shown.isEmpty && (feed.isLoading || !feed.loadedOnce) {   // podcasts can land before the news: still loading, not empty
                 MascotLoop()   // the mascot sounds its call while the feeds come in
                     .accessibilityElement().accessibilityLabel("Loading")
             } else if feed.entries.isEmpty {

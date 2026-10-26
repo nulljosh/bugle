@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.17.1
+The splash starts its animation only once the app is on screen, so the whole call plays in light and dark. Every refresh hands back finished stories (widget, Siri, background refresh and the Watch read them right after). A first launch shows the mascot loading instead of "No entries yet". The picker waits for the splash to finish. The web mascot follows dark mode, like the app.
+
 ## 7.17.0
 The boot splash plays whole: the mascot fades and pops in, blinks, sounds three waves out of its bell, then Home crossfades in complete instead of cutting in half built. Launch is lighter too: the saved stories load and group off the main thread. The mascot waits with you while feeds load and sits over every empty list (All caught up, nothing matching). Headlines a feed escaped twice (iFixit&amp;#8217;s) now read cleanly.
 

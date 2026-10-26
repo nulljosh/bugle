@@ -12,6 +12,8 @@ final class JournalFeedService: ObservableObject {
     @Published private(set) var episodes: [JournalEntry] = []
     private var storyOf: [String: Story] = [:]
     @Published var isLoading = false
+    /// A refresh has finished at least once: before that an empty list means "still coming", never "no entries".
+    @Published private(set) var loadedOnce = false
     /// Feeds that gave nothing on the last refresh; Feeds says "Not loading right now" under them.
     @Published private(set) var dead: Set<String> = []
     @Published var errorMessage: String?
@@ -42,8 +44,6 @@ final class JournalFeedService: ObservableObject {
     /// True once Home has something whole to show (the cache grouped, or nothing cached): the boot splash waits for
     /// it, so Home never appears half built and then reflows.
     static private(set) var ready = false
-    /// Waits for the latest grouping, for callers that read `stories` right after a refresh.
-    func grouped() async { await grouping?.value }
 
     /// Group into stories off the main thread (an O(n²) pass over every headline), then publish; a newer call
     /// cancels an older one, so the last list in always wins.
@@ -71,7 +71,7 @@ final class JournalFeedService: ObservableObject {
         await cacheLoad?.value
         isLoading = true
         errorMessage = nil
-        defer { isLoading = false }
+        defer { isLoading = false; loadedOnce = true }
 
         var merged: [JournalEntry] = []
         var failures = 0
@@ -104,6 +104,7 @@ final class JournalFeedService: ObservableObject {
             return
         }
         show(merged)
+        await grouping?.value   // every caller reads whole stories after a refresh (Siri, widgets, background, alerts)
         saveCache()
         Archive.keep(entries.filter { $0.audioURL == nil })
     }
