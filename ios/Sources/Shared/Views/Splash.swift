@@ -1,7 +1,7 @@
 import SwiftUI
 import os
 
-/// The boot splash: the mascot pops up, blinks, and sounds its call, then Home fades up. About a second, while the
+/// The boot splash: the mascot from the launch screen hops, blinks, and sounds its call, then Home fades up. About a second, while the
 /// first feeds load underneath; Reduce Motion gets the mascot still and a fade.
 struct Splash: View {
     /// False from launch until the splash has gone (iOS only; true where there is no splash), so the first-run
@@ -24,14 +24,14 @@ struct Splash: View {
             // from the launch screen, and a clock started earlier played half the animation behind it
             let first = clock.start ?? (phase == .active ? { clock.start = tl.date; Self.log.info("splash clock start"); return tl.date }() : nil)
             let t = Self.frozen ?? (still ? 2 : first.map { tl.date.timeIntervalSince($0) } ?? 0)
-            let pop = min(1, t / 0.4)
             Mascot(blink: Self.pulse(t, at: 0.42, for: 0.24),
                    toot: Self.pulse(t, at: 0.8, for: 0.36),
                    waves: max(0, (t - 0.85) / 0.12),
                    lean: Mascot.lean(t, call: 0.8))
                 .frame(width: 196, height: 196)
-                .scaleEffect(0.6 + 0.4 * Self.overshoot(pop))
-                .opacity(min(1, t / 0.15))
+                // the launch screen already shows the mascot in this pose, so it starts there with a hop, never a
+                // fade in (that blinked it out for a frame)
+                .scaleEffect(1 + 0.07 * Self.pulse(t, at: 0.02, for: 0.3), anchor: .bottom)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("LaunchBackground"))   // the launch screen's own color, so boot never jumps
@@ -51,6 +51,4 @@ struct Splash: View {
 
     /// 0 to 1 and back over `d` seconds from `a`.
     static func pulse(_ t: Double, at a: Double, for d: Double) -> Double { t < a || t > a + d ? 0 : sin((t - a) / d * .pi) }
-    /// An ease out that overshoots a little, for the pop.
-    static func overshoot(_ x: Double) -> Double { let c = 1.7; return 1 + (c + 1) * pow(x - 1, 3) + c * pow(x - 1, 2) }
 }

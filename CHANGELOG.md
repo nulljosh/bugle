@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.18.1
+The mascot is on the launch screen itself, light and dark, so even the first launch after an install shows it from the first frame instead of a blank white screen while iOS sets up. The splash picks up from that pose with a hop.
+
 ## 7.18.0
 The mascot's call has a body to it: it leans back for a breath, stretches forward into the toot, and three sound waves ripple out of the bell and fade. The web picker mascot toots for every pick too.
 

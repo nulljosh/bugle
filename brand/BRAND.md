@@ -6,7 +6,7 @@ Every feed, one timeline. A bugle calls everyone in at once; Bugle does that for
 The horn come alive: its coil is a round smiling face (dot eyes with a highlight, pink cheeks, a small smile), the tube runs from a mouthpiece behind the face into a wide bell. Bugle blue on a white face; on the icon tile everything but the face's features is white. It blinks, swells its bell and sends three sound waves out of it.
 
 - `web/mascot.svg` (and `brand/mascot.svg`) is the source, a 240 grid. `Mascot.swift` draws the same shapes and animates them (`blink`, `toot`, `waves`).
-- Where it lives: the app icon, the boot splash (pops up, blinks, toots, then Home fades up, about a second, a still fade under Reduce Motion), above the first-run topic picker (bobs, toots for every pick), the landing hero and the Get it section.
+- Where it lives: the app icon, the launch screen and boot splash (the launch screen shows it from the first frame, even on a first launch while iOS sets up; it hops, blinks, leans back and toots three waves, then Home crossfades in, about a second and a half, a still fade under Reduce Motion), above the first-run topic picker (bobs, toots for every pick), the landing hero and the Get it section.
 - `../Bugle.icon` is the icon's source of truth (Icon Composer: the white mascot on the clrs blue gradient, a deep navy one in dark mode). `icon-1024.png` is the App Store icon, no alpha; the iOS and Watch sets are cut from it, the Mac one is inset to 824 px with 185 px corners. `../icon.svg` is the README copy, also `web/icon.svg` and the favicons.
 - `mark.svg` is the plain horn alone in `currentColor`, for one-colour places.
 - Clear space equal to the bell's height. Smallest size 16 px; at 29 px it still reads as a face with a horn.
