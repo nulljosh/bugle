@@ -17,7 +17,7 @@ struct HomeSplit<Home: View, Story: View>: View {
             List(selection: Binding<String?>(get: { query }, set: { query = $0 ?? "" })) {
                 Section {
                     Label("Today", systemImage: "newspaper").tag("")
-                    Label(LocalizedStringKey(Coverage.blindspots), systemImage: "eye.slash").tag(Coverage.blindspots)
+                    ForEach(Coverage.collections, id: \.name) { Label(LocalizedStringKey($0.name), systemImage: $0.icon).tag($0.name) }
                     Label(LocalizedStringKey(Coverage.podcasts), systemImage: "headphones").tag(Coverage.podcasts)
                 }
                 if !topics.isEmpty {

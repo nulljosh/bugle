@@ -21,10 +21,13 @@ struct TopicBar: View {
             HStack(spacing: 8) {
                 // The Briefing first: today's five, numbered, to read or hear (Ground News's The Last 24).
                 if let briefing { Button { briefing() } label: { Label("Briefing", systemImage: "list.number") }.buttonStyle(Chip(on: false)) }
-                // Blindspots: stories only one side of the spectrum covered, like Ground News.
-                let blind = q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame
-                Button(LocalizedStringKey(Coverage.blindspots)) { query = blind ? "" : Coverage.blindspots }.buttonStyle(Chip(on: blind))
-                    .accessibilityAddTraits(blind ? .isSelected : [])
+                // Ground News's collections: blindspots, what one side covers most, what both sides covered.
+                ForEach(Coverage.collections, id: \.name) { c in
+                    let on = c.name.caseInsensitiveCompare(q) == .orderedSame
+                    Button(LocalizedStringKey(c.name)) { query = on ? "" : c.name }.buttonStyle(Chip(on: on))
+                        .accessibilityAddTraits(on ? .isSelected : [])
+                }
+                let blind = Coverage.isCollection(q)
                 let pods = q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame
                 Button(LocalizedStringKey(Coverage.podcasts)) { query = pods ? "" : Coverage.podcasts }.buttonStyle(Chip(on: pods))
                     .accessibilityAddTraits(pods ? .isSelected : [])

@@ -155,7 +155,7 @@ struct EntryListView: View {
     /// several outlets is grouped, Ground News style); Today's biggest lead.
     private var shown: [Story] {
         let q = query.trimmingCharacters(in: .whitespaces)
-        if q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame { return feed.stories.filter { $0.blindspot != nil } }
+        if let picked = Coverage.pick(q, from: feed.stories) { return picked }
         // Up Next first, in order, then every other episode newest first
         if q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame {
             return (player.queue + feed.episodes.filter { !player.isQueued($0) }).map { Story(lead: $0, entries: [$0]) }
@@ -196,13 +196,14 @@ struct EntryListView: View {
             if inline { SearchField(text: $query).listRowSeparator(.hidden) }
             // Searching for a word that is not an outlet offers to follow it.
             let followable = !q.isEmpty && Outlet.of(q) == nil && !store.feeds.contains { $0.title.caseInsensitiveCompare(q) == .orderedSame }
-                && q.caseInsensitiveCompare(Coverage.blindspots) != .orderedSame && q.caseInsensitiveCompare(Coverage.podcasts) != .orderedSame
+                && !Coverage.isCollection(q) && q.caseInsensitiveCompare(Coverage.podcasts) != .orderedSame
             TopicBar(query: $query, topics: $topics, muted: $muted, followable: followable, briefing: inline ? { briefing = true } : nil).listRowSeparator(.hidden)
             if let hero { HeroRow(entry: hero.lead, library: library, story: hero).listRowSeparator(.hidden) }
             ForEach(shown.filter { $0.id != hero?.id }) { EntryRow(entry: $0.lead, library: library, story: $0) }
             if !q.isEmpty && shown.isEmpty {
                 Text(q.caseInsensitiveCompare(Coverage.blindspots) == .orderedSame ? "No blindspots right now."
                      : q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame ? "No episodes yet. Follow a podcast in Feeds."
+                     : Coverage.isCollection(q) ? "Nothing here right now."
                      : "No stories match \u{201C}\(q)\u{201D}.").foregroundStyle(.secondary).listRowSeparator(.hidden)
             }
         }

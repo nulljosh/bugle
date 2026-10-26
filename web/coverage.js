@@ -94,6 +94,18 @@ var Coverage = (function () {
       .sort(function (a, b) { return b.publishers - a.publishers || b.lead.date - a.lead.date; }).slice(0, 5);
     return top.concat(stories.filter(function (s) { return top.indexOf(s) < 0; }));
   }
+  // Ground News's collections, each a Home chip and a search word: blindspots, what one side covers most, what both
+  // sides covered. Biggest first. Mirrors Coverage.collections.
+  var COLLECTIONS = [
+    ['Blindspots', function (s) { return !!s.blindspot; }],
+    ['Popular Left', function (s) { return s.counts.left >= 2 && s.counts.left > s.counts.right; }],
+    ['Popular Right', function (s) { return s.counts.right >= 2 && s.counts.right > s.counts.left; }],
+    ['Both Sides', function (s) { return s.counts.left > 0 && s.counts.right > 0; }]];
+  function collection(q) { q = (q || '').toLowerCase(); return COLLECTIONS.find(function (c) { return c[0].toLowerCase() === q; }); }
+  function pick(q, stories) {
+    var c = collection(q);
+    return c && stories.filter(c[1]).sort(function (a, b) { return b.publishers - a.publishers || b.lead.date - a.lead.date; });
+  }
   function readingLean(history) { var c = { left: 0, center: 0, right: 0 }; history.forEach(function (e) { var o = outlet(e.source); if (o && o.lean != null) c[side(o.lean)]++; }); return c; }
   function bar(c) {
     var total = c.left + c.center + c.right || 1, wrap = el('div', 'leanbar'), track = el('div', 'track'), legend = el('div', 'legend');
@@ -132,5 +144,5 @@ var Coverage = (function () {
   function about(feed) {
     if (typeof PODCASTS !== 'undefined' && PODCASTS.some(function (p) { return p.url === feed.url; })) return 'Podcast';   // a default show, not an outlet to rate
     var o = outlet(feed.title); return o ? (o.lean == null ? 'Not rated' : leanLabel(o.lean)) + ' · ' + o.owner : feed.url; }
-  return { keywords: keywords, same: same, common: common, cluster: cluster, today: today, muted: muted, BRAND: BRAND, PALETTE: PALETTE, OUTLETS: OUTLETS, colors: colors, paint: paint, readingLean: readingLean, bar: bar, section: section, about: about };
+  return { COLLECTIONS: COLLECTIONS, collection: collection, pick: pick, keywords: keywords, same: same, common: common, cluster: cluster, today: today, muted: muted, BRAND: BRAND, PALETTE: PALETTE, OUTLETS: OUTLETS, colors: colors, paint: paint, readingLean: readingLean, bar: bar, section: section, about: about };
 })();

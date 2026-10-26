@@ -102,6 +102,8 @@ struct Story: Identifiable {
         return seen.mapValues(\.count)
     }
 
+    func side(_ s: Side) -> Int { counts[s] ?? 0 }
+
     /// Covered by more than one newsroom, all on one side: the other side's readers likely never saw it.
     var blindspot: Side? {
         let c = counts.filter { $0.value > 0 }
@@ -163,6 +165,23 @@ enum Coverage {
     /// The Podcasts chip: episodes, newest first, apart from the news.
     static let podcasts = "Podcasts"
 
+    /// Ground News's collections, each a Home chip and a search word: blindspots, what one side covers most, and what
+    /// both sides covered (where to compare the takes). Biggest first. Mirrors COLLECTIONS in web/coverage.js.
+    static var collections: [(name: String, icon: String, keep: (Story) -> Bool)] {
+        [(blindspots, "eye.slash", { $0.blindspot != nil }),
+         ("Popular Left", "arrow.left", { $0.side(.left) >= 2 && $0.side(.left) > $0.side(.right) }),
+         ("Popular Right", "arrow.right", { $0.side(.right) >= 2 && $0.side(.right) > $0.side(.left) }),
+         ("Both Sides", "arrow.left.and.right", { $0.side(.left) > 0 && $0.side(.right) > 0 })]
+    }
+
+    /// The collection a search word names, biggest story first; nil when it names none.
+    static func pick(_ q: String, from stories: [Story]) -> [Story]? {
+        guard let c = collections.first(where: { $0.name.caseInsensitiveCompare(q) == .orderedSame }) else { return nil }
+        return stories.filter(c.keep).sorted { ($0.publishers, $0.lead.date) > ($1.publishers, $1.lead.date) }
+    }
+
+    static func isCollection(_ q: String) -> Bool { collections.contains { $0.name.caseInsensitiveCompare(q) == .orderedSame } }
+
     static func today(_ stories: [Story], now: Date = .now) -> [Story] {
         let top = stories.filter { $0.publishers > 1 && now.timeIntervalSince($0.lead.date) < 86_400 }
             .sorted { ($0.publishers, $0.lead.date) > ($1.publishers, $1.lead.date) }.prefix(5)
@@ -193,6 +212,8 @@ func coverageDemo() {
     let border = stories.first { $0.entries.count == 3 }!
     assert(border.publishers == 2)              // NY Post and its opinion feed are one newsroom
     assert(border.blindspot == .right)          // two newsrooms, all on the right
+    assert(Coverage.pick("popular right", from: stories)?.map(\.id) == [border.id], "two right newsrooms make Popular Right")
+    assert(Coverage.pick("Popular Left", from: stories)?.isEmpty == true && Coverage.pick("BBC", from: stories) == nil)
     // a busy topic does not swallow its neighbours: on a tech day "apple iphone duo" is in everything
     let day = (1...9).map { e("Apple iPhone Duo review roundup part \($0)", "Macworld", Double(100 + $0)) }
     let duo = Coverage.cluster(day + [e("Apple wants to fix Safari's cramped layout on iPhone Duo", "MacRumors", 50),

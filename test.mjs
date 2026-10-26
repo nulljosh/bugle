@@ -210,3 +210,11 @@ test("hn comments keep only HN's tags", () => {
   assert.equal(HN.clean('<script>alert(1)</script><p onclick="x">a</p><img src=x onerror=y><a href="javascript:x">b</a>'), "alert(1)a</p>b</a>");
   assert.equal(HN.id({ html: '<a href="https://news.ycombinator.com/item?id=42">c</a>', url: "" }), "42");
 });
+// Ground News's collections, same rules as Coverage.collections.
+test("collections pick by side, biggest first", () => {
+  const s = (left, right, pubs) => ({ counts: { left, center: 0, right }, publishers: pubs, lead: { date: 0 }, blindspot: null });
+  const a = s(2, 0, 2), b = s(1, 1, 2), c = s(3, 1, 4);
+  assert.deepEqual(Coverage.pick("popular left", [a, b, c]), [c, a]);
+  assert.deepEqual(Coverage.pick("Both Sides", [a, b, c]), [c, b]);
+  assert.equal(Coverage.pick("BBC", [a]), undefined);
+});

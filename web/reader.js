@@ -62,7 +62,7 @@ function dateText(d, style) {
 function renderEntries() {
   var q = document.getElementById('q').value.trim().toLowerCase();
   if (window.HomeHead) HomeHead.update(document.getElementById('q').value.trim());
-  var shown = (q === 'blindspots' ? stories.filter(function (st) { return st.blindspot; })   // the Blindspots chip
+  var shown = (Coverage.collection(q) ? Coverage.pick(q, stories)   // the collection chips: Blindspots, Popular Left, ...
     : q === 'podcasts' ? (window.Player ? Player.upNext(episodes) : episodes)
     : q ? stories.concat(episodes).filter(function (st) { return st.entries.some(function (e) { return (e.title + ' ' + e.source).toLowerCase().indexOf(q) >= 0; }); }) : Coverage.today(stories))   // episodes too: a show tapped in Feeds lists them
     .map(function (st) { return st.lead; });
@@ -72,7 +72,7 @@ function renderEntries() {
   if (only) { Coverage.paint(root, only); root.dataset.outlet = only; }
   else { delete root.dataset.outlet; root.style.removeProperty('--c'); root.style.removeProperty('--cd'); }   // or unknown outlets inherit it
   renderStories(document.getElementById('entries'), shown, open, !q,
-    q === 'blindspots' ? 'No blindspots right now.' : loading && !shown.length ? 'Loading…' : q === 'podcasts' ? 'No episodes yet. Follow a podcast in Feeds.' : q ? 'No stories match \u201C' + q + '\u201D.' : 'No entries yet. Add a feed or pull to refresh.');
+    q === 'blindspots' ? 'No blindspots right now.' : Coverage.collection(q) ? 'Nothing here right now.' : loading && !shown.length ? 'Loading…' : q === 'podcasts' ? 'No episodes yet. Follow a podcast in Feeds.' : q ? 'No stories match \u201C' + q + '\u201D.' : 'No entries yet. Add a feed or pull to refresh.');
   if (window.renderTopics) renderTopics();
 }
 

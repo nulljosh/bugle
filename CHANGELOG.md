@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.11.0
+Ground News's collections beside Blindspots: Popular Left and Popular Right (what one side covers most) and Both Sides (stories both sides covered, to compare the takes). Biggest first, on Home, the iPad and Mac sidebar, and the web, in all 19 languages.
+
 ## 7.10.0
 Home as Apple would build it, after Tykra's Apple DNA study of X. A large title with the date under it, the Briefing as a round glass button, and search as its own tab that opens a glass field at the bottom (iOS 18 and later; iOS 17 keeps the field at the top). Filtered by an outlet or a word, the title names it and a glass button clears it.
 
