@@ -3,7 +3,7 @@
 // left off, and the lock screen and media keys get the controls through Media Session. Same rules as Player.swift.
 
 var Player = (function () {
-  var RATES = [1, 1.25, 1.5, 2], rate = 1, held = false, audio = new Audio();
+  var RATES = [1, 1.25, 1.5, 2], SLEEPS = [0, 15, 30, 60, 'end'], rate = 1, sleep = 0, sleepTimer = null, held = false, audio = new Audio();
   audio.preload = 'none';
   var read = function (k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } };
   var write = function (k, v) { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
@@ -31,6 +31,7 @@ var Player = (function () {
   };
   var BACK = icon('<path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4 3.5v4h4"/>', '15');
   var FWD = icon('<path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M20 3.5v4h-4"/>', '30');
+  var MOON = icon('<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>');
   var PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z" fill="currentColor"/></svg>';
   var PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4.5h4v15h-4zM13.5 4.5h4v15h-4z" fill="currentColor"/></svg>';
   var btn = function (cls, html, label, fn) { var b = el('button', cls); b.innerHTML = html; b.setAttribute('aria-label', label); b.onclick = fn; return b; };
@@ -60,7 +61,7 @@ var Player = (function () {
   audio.addEventListener('pause', function () { paint(); remember(); });
   audio.addEventListener('ended', function () {   // the next in Up Next plays, or the player clears and the mini player goes
     var p = positions(); delete p[cur.url]; write('bugle.positions', p);
-    if (queue.length) { start(queue[0]); return; }
+    if (sleep === 'end') sleep = 0; else if (queue.length) { start(queue[0]); return; }   // the sleep timer stops here; Up Next waits
     cur = null; write('bugle.playing', null); audio.removeAttribute('src'); refresh();
   });
 
@@ -82,7 +83,7 @@ var Player = (function () {
       rate = RATES[(RATES.indexOf(rate) + 1) % RATES.length]; audio.playbackRate = rate; speed.textContent = rate + '×';
     });
     [speed, btn('', BACK, 'Back 15 seconds', function () { seek(audio.currentTime - 15); }), btn('play', PLAY, 'Play', toggle),
-      btn('', FWD, 'Forward 30 seconds', function () { seek(audio.currentTime + 30); }), el('span', 'rate')].forEach(function (b) { ctl.appendChild(b); });
+      btn('', FWD, 'Forward 30 seconds', function () { seek(audio.currentTime + 30); }), btn('sleep', '', 'Sleep Timer', nextSleep)].forEach(function (b) { ctl.appendChild(b); });
     [scrub, times, ctl].forEach(function (n) { box.appendChild(n); });
     return box;
   }
@@ -107,8 +108,21 @@ var Player = (function () {
       if (!held) b.querySelector('.at').textContent = clock(t);
       b.querySelector('.left').textContent = d ? '-' + clock(d - t) : '';
       setPlay(b.querySelector('.play'));
+      setSleep(b.querySelector('.sleep'));
     });
     mini();
+  }
+  // Sleep timer: off, 15, 30, 60 minutes, end of episode, then off.
+  function nextSleep() {
+    sleep = SLEEPS[(SLEEPS.indexOf(sleep) + 1) % SLEEPS.length];
+    clearTimeout(sleepTimer);
+    if (typeof sleep === 'number' && sleep) sleepTimer = setTimeout(function () { audio.pause(); sleep = 0; paint(); }, sleep * 60000);
+    paint();
+  }
+  function setSleep(b) {
+    b.innerHTML = sleep ? '<span>' + (sleep === 'end' ? 'End' : sleep + 'm') + '</span>' : MOON;
+    b.classList.toggle('on', !!sleep);
+    b.setAttribute('aria-label', sleep ? 'Sleep Timer, ' + (sleep === 'end' ? 'End of Episode' : sleep + ' min') : 'Sleep Timer');
   }
   function setPlay(b) { b.innerHTML = audio.paused ? PLAY : PAUSE; b.setAttribute('aria-label', audio.paused ? 'Play' : 'Pause'); }
 

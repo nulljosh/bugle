@@ -76,7 +76,7 @@ Rewritten 2026-10-25 at 1.19.5 (Joshua: "identify gaps, build roadmap, loop unti
   - [x] 6.0.0: enclosure audio, fourteen default shows, the Podcasts chip, a player with speed, skips, background audio, lock-screen controls and resume, on the apps and the web.
   - [x] 6.1.0: Up Next, and a mini player that keeps playing after you leave the story.
   - [x] 6.2.0: downloads, so an episode plays offline (apps; the web streams).
-  - [ ] Sleep timer.
+  - [x] 6.3.0: sleep timer.
   - [ ] Web: BBC episodes redirect to plain-http audio, which an https page cannot play. The apps allow it for bbc.co.uk and tritondigital.com only.
 - **10 to 19 Writing** (CMS phases 1 and 2 below). Gate: the backend (D1 on jaybulb-api, not Supabase) and Joshua's yes on accounts for writers.
 - **20 to 29 Subscribers** (CRM phase 3). Same gate.

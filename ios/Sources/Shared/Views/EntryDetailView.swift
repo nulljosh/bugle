@@ -199,7 +199,18 @@ struct EpisodeBar: View {
                 Button { player.skip(30) } label: { Image(systemName: "goforward.30").font(.title2) }
                     .accessibilityLabel("Forward 30 seconds")
                 Spacer()
-                Color.clear.frame(width: 48, height: 1)   // balances the speed button so play sits in the middle
+                Menu {
+                    Button("Off") { player.setSleep(nil) }
+                    ForEach([5, 15, 30, 45, 60], id: \.self) { m in Button("\(m) min") { player.setSleep(.minutes(m)) } }
+                    Button("End of Episode") { player.setSleep(.endOfEpisode) }
+                } label: {
+                    Image(systemName: player.sleep == nil ? "moon.zzz" : "moon.zzz.fill").font(.title3)
+                        .foregroundStyle(player.sleep == nil ? AnyShapeStyle(.primary) : AnyShapeStyle(Color.bugleAccent))
+                        .frame(width: 48, height: 48, alignment: .trailing).contentShape(Rectangle())
+                }
+                .menuIndicator(.hidden)
+                .accessibilityLabel("Sleep Timer")
+                .accessibilityValue(player.sleep == nil ? String(localized: "Off") : player.sleep == .endOfEpisode ? String(localized: "End of Episode") : String(localized: "On"))
             }
             .buttonStyle(.plain)
             .frame(minHeight: 48)

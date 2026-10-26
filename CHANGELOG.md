@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 6.3.0
+- Sleep timer: the moon on the player pauses after 5 to 60 minutes, or stops at the end of the episode and leaves Up Next waiting. The web cycles 15, 30, 60 minutes and end of episode.
+
 ## 6.2.0
 - Downloads: save an episode from its toolbar or by pressing and holding its row, and it plays offline. A downloaded episode shows an arrow by its outlet, and one played to the end is removed, like Apple Podcasts. The web streams only.
 - Search finds episodes too, so tapping a show in Feeds lists its episodes instead of "No stories match".

@@ -23,6 +23,10 @@ final class Player: ObservableObject {
     @Published private(set) var queue: [JournalEntry] = Player.saved("queue") ?? [] { didSet { Self.save(queue, "queue") } }
     /// While the slider is held the clock stops moving it.
     var scrubbing = false
+    /// Sleep timer: pause after some minutes, or stop at the end of this episode. nil is off.
+    @Published private(set) var sleep: Sleep?
+    enum Sleep: Equatable { case minutes(Int), endOfEpisode }
+    private var sleepTask: Task<Void, Never>?
 
     private var player: AVPlayer?
     private var tick: Any?
@@ -110,6 +114,18 @@ final class Player: ObservableObject {
         nowPlaying()
     }
 
+    func setSleep(_ s: Sleep?) {
+        sleepTask?.cancel()
+        sleep = s
+        guard case .minutes(let m) = s else { return }
+        sleepTask = Task {
+            try? await Task.sleep(for: .seconds(m * 60))
+            guard !Task.isCancelled else { return }
+            pause()
+            sleep = nil
+        }
+    }
+
     private func unload() {
         guard let player else { return }
         remember()
@@ -124,7 +140,8 @@ final class Player: ObservableObject {
     /// The end of an episode: the next in Up Next plays, or the player clears and the mini player goes.
     private func finish() {
         if let entry { Self.positions[entry.id] = nil; Downloads.shared.remove(entry) }   // played downloads go
-        if let next = queue.first { start(next); return }
+        // the sleep timer set to the end of the episode stops here; Up Next waits
+        if sleep == .endOfEpisode { sleep = nil } else if let next = queue.first { start(next); return }
         unload()
         entry = nil
         Self.save(JournalEntry?.none, "nowPlaying")
