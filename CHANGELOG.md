@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.12.0
+Your shows: the Podcasts list opens on a shelf of the shows you follow, their art and names, and a tap lists that show's episodes. Up Next says how long the whole queue runs, like Pocket Casts.
+
 ## 7.11.0
 Ground News's collections beside Blindspots: Popular Left and Popular Right (what one side covers most) and Both Sides (stories both sides covered, to compare the takes). Biggest first, on Home, the iPad and Mac sidebar, and the web, in all 19 languages.
 

@@ -183,6 +183,8 @@ var Player = (function () {
     head.querySelector('small').textContent = [cur.source, listenTime(cur)].filter(Boolean).join(' · ');
     np.appendChild(head);
     var label = el('div', 'np-label'); label.appendChild(el('span', '', 'Up Next'));
+    var total = queue.reduce(function (n, x) { return n + (x.seconds || 0); }, 0);   // the queue's length, like Pocket Casts
+    if (total) label.appendChild(el('span', 'np-total', length(total)));
     if (queue.length) label.appendChild(btn('clear', 'Clear', 'Clear', function () { queue = []; write('bugle.queue', []); refresh(); }));
     np.appendChild(label);
     var ul = el('ul', 'np-q');
@@ -200,6 +202,26 @@ var Player = (function () {
   }
   function openPanel() { panel(); if (cur && !np.open) np.showModal(); paint(); }
 
+  // "2 hr, 10 min" in the reader's language where the browser can say it. Same as the app's Up Next header.
+  function length(sec) {
+    var h = Math.floor(sec / 3600), m = Math.round(sec % 3600 / 60);
+    if (window.Intl && Intl.DurationFormat) return new Intl.DurationFormat(undefined, { style: 'short' }).format(h ? { hours: h, minutes: m } : { minutes: m });
+    return (h ? h + ' hr ' : '') + m + ' min';
+  }
+
+  // Your shows, Apple Podcasts' shelf: one tile per show you follow, newest first; a tap lists its episodes.
+  function shows(list, ul, pick) {
+    var seen = {}, row = el('li', 'shows');
+    list.forEach(function (x) {
+      var e = x.lead || x;   // Home's episodes are one-entry stories
+      if (seen[e.source]) return; seen[e.source] = 1;
+      var b = el('button', 'show'), img = el('img'); img.src = e.image || ''; img.alt = ''; img.referrerPolicy = 'no-referrer'; img.loading = 'lazy';
+      b.appendChild(img); b.appendChild(el('span', '', e.source)); b.onclick = function () { pick(e.source); };
+      row.appendChild(b);
+    });
+    if (row.children.length) ul.insertBefore(row, ul.firstChild);
+  }
+
   // Up Next first, in order, then every other episode. Same as the app's Podcasts list.
   function upNext(list) {
     return queue.map(function (e) { return { lead: e, entries: [e], publishers: 1 }; })
@@ -208,5 +230,5 @@ var Player = (function () {
   // The l key: this episode if it is the one loaded, otherwise start it.
   function press(e) { if (isCur(e)) toggle(); else if (e.audio) start(e); }
   addEventListener('hashchange', mini);
-  return { mount: mount, toggle: toggle, press: press, queued: queued, upNext: upNext, mini: mini, clock: clock };
+  return { mount: mount, toggle: toggle, press: press, queued: queued, upNext: upNext, mini: mini, clock: clock, shows: shows };
 })();

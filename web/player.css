@@ -66,3 +66,10 @@ body.has-mini .screen { padding-bottom: 192px; }
 .brief-row { display: flex; gap: var(--sp-3); align-items: baseline; width: 100%; border: 0; padding: var(--sp-1) 0; background: none; color: var(--text); font: inherit; text-align: left; cursor: pointer; }
 .brief-row .num { flex: none; min-width: 24px; color: var(--accent); font-size: 22px; font-weight: 700; }
 .brief-row .t small { margin-top: var(--sp-1); }
+/* Your shows (player.js shows): a shelf of show art above the episodes, Apple Podcasts style */
+.rows .shows { display: flex; gap: var(--sp-3); overflow-x: auto; padding: var(--sp-2) 20px var(--sp-4); scrollbar-width: none; border: 0; }
+.rows .shows::-webkit-scrollbar { display: none; }
+.show { flex: none; width: 112px; display: flex; flex-direction: column; gap: var(--sp-2); border: 0; padding: 0; background: none; color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+.show img { width: 112px; height: 112px; border-radius: 12px; object-fit: cover; background: var(--surface); }
+.show span { font-size: 13px; line-height: 18px; font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.np-total { color: var(--sub); font-weight: 400; margin-left: var(--sp-2); }

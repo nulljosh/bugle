@@ -94,3 +94,33 @@ struct CachedImage<Content: View>: View {
         #endif
     }
 }
+
+/// Your shows, Apple Podcasts' shelf: one tile per podcast you follow, its art and name; a tap lists its episodes.
+struct ShowsRow: View {
+    let episodes: [JournalEntry]
+    let open: (String) -> Void
+
+    var body: some View {
+        // one tile per show, in the order its newest episode came in, with that episode's (the show's) art
+        let shows = episodes.reduce(into: [JournalEntry]()) { all, e in if !all.contains(where: { $0.sourceTitle == e.sourceTitle }) { all.append(e) } }
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(alignment: .top, spacing: 12) {
+                ForEach(shows, id: \.sourceTitle) { e in
+                    Button { open(e.sourceTitle) } label: {
+                        VStack(alignment: .leading, spacing: 8) {
+                            CachedImage(url: e.imageURL) { phase in
+                                if case .success(let image) = phase { image.resizable().aspectRatio(contentMode: .fill) } else { Color.secondary.opacity(0.15) }
+                            }
+                            .frame(width: 112, height: 112).clipShape(RoundedRectangle(cornerRadius: 12))
+                            Text(e.sourceTitle).font(.footnote.weight(.semibold)).lineLimit(2).frame(width: 112, alignment: .leading)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel(e.sourceTitle)
+                }
+            }
+        }
+        .listRowInsets(EdgeInsets(top: 0, leading: 20, bottom: 16, trailing: 20))
+        .listRowSeparator(.hidden)
+    }
+}

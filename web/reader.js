@@ -73,6 +73,7 @@ function renderEntries() {
   else { delete root.dataset.outlet; root.style.removeProperty('--c'); root.style.removeProperty('--cd'); }   // or unknown outlets inherit it
   renderStories(document.getElementById('entries'), shown, open, !q,
     q === 'blindspots' ? 'No blindspots right now.' : Coverage.collection(q) ? 'Nothing here right now.' : loading && !shown.length ? 'Loading…' : q === 'podcasts' ? 'No episodes yet. Follow a podcast in Feeds.' : q ? 'No stories match \u201C' + q + '\u201D.' : 'No entries yet. Add a feed or pull to refresh.');
+  if (q === 'podcasts' && window.Player && episodes.length) Player.shows(episodes, document.getElementById('entries'), function (show) { document.getElementById('q').value = show; renderEntries(); });
   if (window.renderTopics) renderTopics();
 }
 

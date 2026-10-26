@@ -29,6 +29,9 @@ struct NowPlayingView: View {
                 } header: {
                     HStack {
                         Text("Up Next")
+                        // the whole queue's length, "2 hr, 10 min", like Pocket Casts
+                        let total = player.queue.compactMap(\.audioSeconds).reduce(0, +)
+                        if total > 0 { Text(Duration.seconds(total).formatted(.units(allowed: [.hours, .minutes], width: .abbreviated))).foregroundStyle(.secondary).textCase(nil) }
                         Spacer()
                         if !player.queue.isEmpty { Button("Clear") { player.clearQueue() }.textCase(nil) }
                     }

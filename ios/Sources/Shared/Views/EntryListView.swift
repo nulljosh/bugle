@@ -198,6 +198,7 @@ struct EntryListView: View {
             let followable = !q.isEmpty && Outlet.of(q) == nil && !store.feeds.contains { $0.title.caseInsensitiveCompare(q) == .orderedSame }
                 && !Coverage.isCollection(q) && q.caseInsensitiveCompare(Coverage.podcasts) != .orderedSame
             TopicBar(query: $query, topics: $topics, muted: $muted, followable: followable, briefing: inline ? { briefing = true } : nil).listRowSeparator(.hidden)
+            if q.caseInsensitiveCompare(Coverage.podcasts) == .orderedSame && !feed.episodes.isEmpty { ShowsRow(episodes: feed.episodes) { query = $0 } }
             if let hero { HeroRow(entry: hero.lead, library: library, story: hero).listRowSeparator(.hidden) }
             ForEach(shown.filter { $0.id != hero?.id }) { EntryRow(entry: $0.lead, library: library, story: $0) }
             if !q.isEmpty && shown.isEmpty {

@@ -20,6 +20,7 @@ var HomeHead = (function () {
     var searching = document.body.classList.contains('searching');
     title.textContent = text && !searching ? text : 'Home';
     clear.hidden = !text || searching;
+    document.getElementById('home-date').hidden = !!text;   // a filtered title names the filter, not the day
   }
   return { update: update };
 })();

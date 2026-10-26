@@ -75,7 +75,7 @@ App Store screenshots of Ground News, Particle, SmartNews, Yahoo News, Flipboard
 | 46 | A briefing: today's top five, numbered, with minutes to read, and Listen to it | Ground News (The Last 24), Yahoo (audio digest), Apple News Today | M | done | 7.5.0 |
 | 47 | Reader themes (light, sepia, dark, black) and a serif option | Unread, Feedly | M | done: Auto, Light, Dusk, Black (no sepia or serif, house rules) | 7.6.0 |
 | 48 | Collections from coverage: Popular on the left, Popular on the right, Divergent takes | Ground News | S | done | 7.11.0 |
-| 49 | Your shows: a grid of followed podcasts, each opening its episodes; Up Next total time | Pocket Casts | M | todo | |
+| 49 | Your shows: a grid of followed podcasts, each opening its episodes; Up Next total time | Pocket Casts | M | done | 7.12.0 |
 | 50 | Unread filter and unread dots (Today, All Unread, Starred) | NetNewsWire, Inoreader | S | todo | |
 | 51 | Compact list layout (no pictures, two lines) | Unread, Inoreader, Ground News | S | todo | |
 | 52 | First-run topic picker | Yahoo News, SmartNews | M | todo | |
