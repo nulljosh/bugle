@@ -35,7 +35,7 @@ struct EntryDetailView: View {
             .onDisappear { listener.stop() }   // an episode keeps playing; the mini player has it
             .task(id: entry.id) {   // screenshot and QA hooks
                 if CommandLine.arguments.contains("-downloadEpisode") { await downloads.download(entry) }
-                if CommandLine.arguments.contains("-playEpisode") { player.start(entry) }
+                if CommandLine.arguments.contains("-cueEpisode") { player.cue(entry) }   // the player bar, paused and silent
             }
             .safeAreaInset(edge: .bottom, spacing: 0) { if entry.audioURL != nil { EpisodeBar(player: player, entry: entry) } }
             .handsOff(entry)
@@ -219,7 +219,7 @@ struct EpisodeBar: View {
 }
 
 /// Now playing, above the tab bar like Apple Podcasts: the art, the episode and its show, play and forward 30. Tap it
-/// to open the episode. On iOS 26.1 it is the tab bar's own accessory; elsewhere it floats over the bottom edge.
+/// for Now Playing. On iOS 26.1 it is the tab bar's own accessory; elsewhere it floats over the bottom edge.
 struct MiniPlayer: View {
     @ObservedObject var player: Player
     let open: (JournalEntry) -> Void

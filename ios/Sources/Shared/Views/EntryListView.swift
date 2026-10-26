@@ -11,6 +11,7 @@ struct EntryListView: View {
     @StateObject private var account = Account()
     @StateObject private var library = Library()
     @ObservedObject private var player = Player.shared
+    @State private var nowPlaying = false
     @State private var path: [JournalEntry] = []
     @State private var query = UserDefaults.standard.string(forKey: "search") ?? ""   // `-search BBC` for screenshots
     @AppStorage("topics") private var topics = ""
@@ -61,7 +62,8 @@ struct EntryListView: View {
         .environment(\.horizontalSizeClass, .compact)
         #endif
         .tint(accent)
-        .miniPlayer(player) { tab = 0; path = [$0] }
+        .miniPlayer(player) { _ in nowPlaying = true }
+        .sheet(isPresented: $nowPlaying) { NowPlayingView(player: player) { tab = 0; path = [$0] } }
         // Keyboard (Mac, iPad): ⌘R refreshes, ⌘1 to ⌘3 pick a tab. Invisible buttons carry the shortcuts.
         .background {
             Group {
@@ -84,6 +86,11 @@ struct EntryListView: View {
             // ponytail: store screenshot hook so a frame can open on an article
             if CommandLine.arguments.contains("-selectFirst"), let first = feed.entries.first { path = [first] }
             if CommandLine.arguments.contains("-selectEpisode"), let first = feed.episodes.first { path = [first] }
+            if CommandLine.arguments.contains("-nowPlaying") {   // Now Playing with an episode and three in Up Next
+                if let first = feed.episodes.first { player.cue(first) }   // paused: no sound from QA
+                feed.episodes.dropFirst().prefix(3).filter { !player.isQueued($0) }.forEach(player.toggleQueue)
+                nowPlaying = true
+            }
             // `-showCoverage` opens the first story several outlets covered, with its Coverage sheet up
             if CommandLine.arguments.contains("-showCoverage"), let s = feed.stories.first(where: { $0.publishers > 1 }) { path = [s.lead] }
         }

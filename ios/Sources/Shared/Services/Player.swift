@@ -45,12 +45,19 @@ final class Player: ObservableObject {
         play()
     }
 
+    /// Load an episode paused, without a sound: the screenshot hooks use it (simulator audio plays out loud on the Mac).
+    func cue(_ e: JournalEntry) { if e.id != entry?.id { load(e) } }
+
     func isQueued(_ e: JournalEntry) -> Bool { queue.contains { $0.id == e.id } }
 
     /// Add to the end of Up Next, or take it out.
     func toggleQueue(_ e: JournalEntry) {
         if isQueued(e) { queue.removeAll { $0.id == e.id } } else if e.id != entry?.id { queue.append(e) }
     }
+
+    func moveQueue(from: IndexSet, to: Int) { queue.move(fromOffsets: from, toOffset: to) }
+    func removeQueue(at offsets: IndexSet) { queue.remove(atOffsets: offsets) }
+    func clearQueue() { queue = [] }
 
     private func load(_ entry: JournalEntry) {
         guard let url = Downloads.shared.file(entry) ?? entry.audioURL else { return }   // the saved file plays offline

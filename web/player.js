@@ -91,7 +91,9 @@ var Player = (function () {
 
   // Redraw what depends on what is loaded: the open story's bar, Home's Up Next order, the mini player.
   function refresh() {
+    if (np && np.open) panel();
     document.querySelectorAll('.episode').forEach(function (old) {
+      if (np && np.contains(old)) return;
       var e = window.current && current.url === old.dataset.url ? current : null;
       if (e) { var b = bar(e); b.dataset.url = e.url; old.replaceWith(b); }
     });
@@ -134,7 +136,7 @@ var Player = (function () {
       m = el('div', 'mini'); m.id = 'mini'; m.hidden = true;
       var now = el('button', 'now'); now.setAttribute('aria-label', 'Now Playing');
       now.innerHTML = '<img alt=""><span class="t"><b></b><small></small></span>';
-      now.onclick = function () { if (cur) open(cur); };   // reader.js's open, which shadows window.open
+      now.onclick = openPanel;
       m.appendChild(now);
       m.appendChild(btn('play', PLAY, 'Play', toggle));
       m.appendChild(btn('', FWD, 'Forward 30 seconds', function () { seek(audio.currentTime + 30); }));
@@ -162,6 +164,41 @@ var Player = (function () {
     ms.setActionHandler('seekforward', function () { seek(audio.currentTime + 30); });
     try { ms.setActionHandler('seekto', function (d) { seek(d.seekTime); }); } catch (x) {}
   }
+
+  // Now Playing, from the mini player, like the app's sheet: the episode (tap it to open its story), Up Next to move up or
+  // take out, then the controls. A native dialog, so Escape and focus come for free.
+  var np = null, UP = icon('<path d="M12 19V5M6 11l6-6 6 6"/>'), X = icon('<path d="M6 6l12 12M18 6L6 18"/>');
+  function panel() {
+    if (!np) {
+      np = document.createElement('dialog'); np.className = 'np'; document.body.appendChild(np);
+      np.addEventListener('click', function (ev) { if (ev.target === np) np.close(); });   // a tap on the backdrop
+    }
+    if (!cur) { if (np.open) np.close(); return; }
+    np.innerHTML = '';
+    var top = el('div', 'np-top'); top.appendChild(el('b', '', 'Now Playing'));
+    top.appendChild(btn('done', 'Done', 'Done', function () { np.close(); })); np.appendChild(top);
+    var head = btn('np-ep', '<img alt=""><span class="t"><b></b><small></small></span>', 'Opens the episode', function () { np.close(); open(cur); });   // reader.js's open
+    if (cur.image) head.querySelector('img').src = cur.image;
+    head.querySelector('b').textContent = Headline.clean(cur.title, cur.source);
+    head.querySelector('small').textContent = [cur.source, listenTime(cur)].filter(Boolean).join(' · ');
+    np.appendChild(head);
+    var label = el('div', 'np-label'); label.appendChild(el('span', '', 'Up Next'));
+    if (queue.length) label.appendChild(btn('clear', 'Clear', 'Clear', function () { queue = []; write('bugle.queue', []); refresh(); }));
+    np.appendChild(label);
+    var ul = el('ul', 'np-q');
+    if (!queue.length) ul.appendChild(el('li', 'muted', 'Nothing in Up Next. Add episodes from their pages.'));
+    queue.forEach(function (e, i) {
+      var li = el('li'), t = el('span', 't');
+      t.appendChild(el('b', '', Headline.clean(e.title, e.source))); t.appendChild(el('small', '', [e.source, listenTime(e)].filter(Boolean).join(' · ')));
+      li.appendChild(t);
+      if (i) li.appendChild(btn('', UP, 'Move up', function () { queue.splice(i - 1, 0, queue.splice(i, 1)[0]); write('bugle.queue', queue.map(keep)); refresh(); }));
+      li.appendChild(btn('', X, 'Remove from Up Next', function () { toggleQueue(e); }));
+      ul.appendChild(li);
+    });
+    np.appendChild(ul);
+    var b = bar(cur); b.dataset.url = cur.url; np.appendChild(b);
+  }
+  function openPanel() { panel(); if (cur && !np.open) np.showModal(); paint(); }
 
   // Up Next first, in order, then every other episode. Same as the app's Podcasts list.
   function upNext(list) {

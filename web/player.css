@@ -33,3 +33,28 @@ body.has-mini .screen { padding-bottom: 192px; }
 .episode .sleep { width: 48px; justify-items: end; font: inherit; font-size: 15px; font-weight: 600; }
 .episode .sleep svg { width: 24px; height: 24px; }
 .episode .sleep.on { color: var(--accent); }
+
+/* Now Playing: a bottom sheet over a dimmed page, the app's sheet in a native dialog. */
+.np { border: 0; padding: 0 var(--sp-4) var(--sp-4); width: min(680px, 100%); max-width: 100%; max-height: 92vh; margin: auto auto 0;
+  border-radius: var(--r-card) var(--r-card) 0 0; background: var(--bg); color: var(--text); box-shadow: 0 -8px 32px rgba(0, 0, 0, .2); }
+.np::backdrop { background: rgba(0, 0, 0, .35); }
+.np-top { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; height: 56px; background: var(--bg); }
+.np-top b { font-size: 17px; }
+.np .done, .np .clear { height: 44px; border: 0; padding: 0; background: none; color: var(--accent); font: inherit; font-weight: 600; cursor: pointer; }
+.np-ep { display: flex; align-items: center; gap: var(--sp-3); width: 100%; margin: 0 0 var(--sp-5); padding: var(--sp-3) var(--sp-4); border: 0; border-radius: var(--r-group);
+  background: var(--surface); color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+.np-ep img { flex: none; width: 64px; height: 64px; border-radius: var(--r-row); object-fit: cover; background: var(--line); }
+.np .t { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.np .t b { font-size: 16px; line-height: 22px; }
+.np .t small { color: var(--sub); font-size: 13px; line-height: 18px; }
+.np-label { display: flex; align-items: center; justify-content: space-between; margin: 0 var(--sp-4); color: var(--sub); font-size: 13px; }
+.np-q { list-style: none; margin: 0 0 var(--sp-5); padding: 0; border-radius: var(--r-group); background: var(--surface); }
+.np-q li { display: flex; align-items: center; gap: var(--sp-1); min-height: 48px; padding: var(--sp-2) var(--sp-2) var(--sp-2) var(--sp-4); box-shadow: inset 0 -.5px 0 var(--line); }
+.np-q li:last-child { box-shadow: none; }
+.np-q li.muted { color: var(--sub); }
+.np-q button { flex: none; width: 44px; height: 44px; border: 0; padding: 0; background: none; color: var(--text); display: grid; place-items: center; border-radius: var(--r-pill); cursor: pointer; }
+.np-q button svg { width: 20px; height: 20px; }
+.np .episode { margin: 0; }
+/* Dark: the sheet rises off the black page on the grouped surface, its cards a step lighter. */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .np, :root:not([data-theme="light"]) .np-top { background: #1c1c1e; }
+  :root:not([data-theme="light"]) .np .np-ep, :root:not([data-theme="light"]) .np .np-q, :root:not([data-theme="light"]) .np .episode.current { background: #2c2c2e; } }

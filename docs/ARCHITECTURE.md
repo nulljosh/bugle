@@ -24,6 +24,7 @@ A refresh fetches every followed feed at once, parses each into entries tagged w
 | `Sources/Shared/Services/FullText.swift` | The article page's paragraphs when a feed sends only a summary |
 | `Sources/Shared/Services/Spotlight.swift` | Spotlight index of saved and recent stories, Handoff |
 | `Sources/Shared/Services/Listen.swift` | Read a story aloud with the system voice |
+| `Sources/Shared/Views/NowPlayingView.swift` | Now Playing from the mini player: Up Next to reorder and remove, controls, AirPlay |
 | `Sources/Shared/Services/Downloads.swift` | Save an episode for offline; played downloads are removed |
 | `Sources/Shared/Services/Player.swift` | The one podcast player (`Player.shared`): Up Next, speed, skips, lock screen, resume. `EpisodeBar` and `MiniPlayer` live in `EntryDetailView` |
 | `Sources/Shared/Services/Intents.swift` | Siri and Shortcuts: Top Stories |

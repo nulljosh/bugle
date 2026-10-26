@@ -1,6 +1,6 @@
 // ponytail: network-first for pages, cache-first for the hashed assets they name.
 // Bump CACHE to evict everything a previous version stored.
-const CACHE = "bugle-v75";
+const CACHE = "bugle-v76";
 const FILES = ["/", "/index.html","/privacy.html","/read.html","/support.html", "/manifest.webmanifest"];
 
 // Pages redirects /read.html to /read; a cached redirect cannot answer a navigation (ERR_FAILED offline), so keep

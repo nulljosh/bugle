@@ -2,6 +2,10 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 6.4.0
+- Now Playing: tap the mini player for the episode (tap it to open its story), Up Next to drag into order or swipe away, Clear, the full controls, and AirPlay. The web opens the same sheet, with Move up and remove.
+- QA hooks load an episode paused (`-cueEpisode`, `-nowPlaying`), so a screenshot run never plays sound.
+
 ## 6.3.0
 - Sleep timer: the moon on the player pauses after 5 to 60 minutes, or stops at the end of the episode and leaves Up Next waiting. The web cycles 15, 30, 60 minutes and end of episode.
 
