@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.10.0
+Home as Apple would build it, after Tykra's Apple DNA study of X. A large title with the date under it, the Briefing as a round glass button, and search as its own tab that opens a glass field at the bottom (iOS 18 and later; iOS 17 keeps the field at the top). Filtered by an outlet or a word, the title names it and a glass button clears it.
+
 ## 7.9.0
 Episodes open on their cover: the art fills the top third, blurred under the glass bar, and drifts with a parallax as you scroll. Hacker News stories read in the app, the article and then the whole comment thread. Pages with no article body show their own summary. Swipe left to save, in green. A washed-out cover no longer tints the player beige.
 

@@ -14,6 +14,8 @@ struct EntryListView: View {
     @State private var nowPlaying = false
     @State private var briefing = false
     @State private var path: [JournalEntry] = []
+    /// The search tab's own stack, so a story opened there does not land on Home too.
+    @State private var searchPath: [JournalEntry] = []
     @State private var query = UserDefaults.standard.string(forKey: "search") ?? ""   // `-search BBC` for screenshots
     @AppStorage("topics") private var topics = ""
     @AppStorage("muted") private var muted = ""
@@ -41,30 +43,77 @@ struct EntryListView: View {
         #endif
     }
 
-    var body: some View {
-        TabView(selection: $tab) {
-            Group {
-                Group {
-                    if split { HomeSplit(query: $query, path: $path, feeds: store.feeds, topics: Topics.list(topics)) { home } story: { EntryDetailView(entry: $0, library: library, story: feed.story(for: $0), stepper: stepper($0)) } }
-                    else { NavigationStack(path: $path) { home } }
+    /// iOS 18 and later: a semantic search tab, which iOS 26 sets apart at the trailing end of the bar and opens as a
+    /// glass field at the bottom (Apple: "Use semantic search tabs"). It searches the same query Home filters by.
+    @ViewBuilder private var tabs: some View {
+        #if os(iOS)
+        if #available(iOS 18, *) {
+            TabView(selection: $tab) {
+                Tab("Home", systemImage: "newspaper", value: 0) { homeTab }
+                Tab("Feeds", systemImage: "list.bullet.rectangle", value: 1) { feedsTab }
+                Tab("Settings", systemImage: "gearshape", value: 2) { settingsTab }
+                Tab(value: 3, role: .search) {
+                    NavigationStack(path: $searchPath) { home(path: $searchPath, title: "Search", inlineSearch: false) }
                 }
-                    .tabItem { Label("Home", systemImage: "newspaper") }.tag(0)
-                ManageFeedsView(store: store, library: library, entries: feed.entries, dead: feed.dead) { query = $0.title; tab = 0 }
-                    .tabItem { Label("Feeds", systemImage: "list.bullet.rectangle") }.tag(1)
-                SettingsView(store: store, account: account, library: library)
-                    .tabItem { Label("Settings", systemImage: "gearshape") }.tag(2)
             }
-            #if os(iOS)
-            .environment(\.horizontalSizeClass, sizeClass)
-            #endif
+            .environment(\.horizontalSizeClass, .compact)   // iPad keeps the bar at the bottom, as on a phone
+            .searchable(text: $query, prompt: "Stories and outlets")   // on the TabView, so the search tab becomes the field
+            .opensSearchOnTab()
+        } else { classicTabs }
+        #else
+        classicTabs
+        #endif
+    }
+
+    private var classicTabs: some View {
+        TabView(selection: $tab) {
+            homeTab.tabItem { Label("Home", systemImage: "newspaper") }.tag(0)
+            feedsTab.tabItem { Label("Feeds", systemImage: "list.bullet.rectangle") }.tag(1)
+            settingsTab.tabItem { Label("Settings", systemImage: "gearshape") }.tag(2)
         }
         #if os(iOS)
         // iPad puts tabs at the top in regular width; compact keeps the bar at the bottom.
         .environment(\.horizontalSizeClass, .compact)
         #endif
+    }
+
+    private var homeTab: some View {
+        Group {
+            if split { HomeSplit(query: $query, path: $path, feeds: store.feeds, topics: Topics.list(topics)) { home(path: $path) } story: { EntryDetailView(entry: $0, library: library, story: feed.story(for: $0), stepper: stepper($0, path: $path)) } }
+            else { NavigationStack(path: $path) { home(path: $path) } }
+        }
+        #if os(iOS)
+        .environment(\.horizontalSizeClass, sizeClass)
+        #endif
+    }
+
+    private var feedsTab: some View {
+        ManageFeedsView(store: store, library: library, entries: feed.entries, dead: feed.dead) { query = $0.title; tab = 0 }
+            #if os(iOS)
+            .environment(\.horizontalSizeClass, sizeClass)
+            #endif
+    }
+
+    private var settingsTab: some View {
+        SettingsView(store: store, account: account, library: library)
+            #if os(iOS)
+            .environment(\.horizontalSizeClass, sizeClass)
+            #endif
+    }
+
+    /// Before iOS 18 there is no search tab, so Home keeps its own field at the top.
+    private var hasSearchTab: Bool {
+        #if os(iOS)
+        if #available(iOS 18, *) { return true }
+        #endif
+        return false
+    }
+
+    var body: some View {
+        tabs
         .tint(accent)
         // hidden on the playing episode's own story, where its full player already is
-        .miniPlayer(player, hidden: path.last?.id == player.entry?.id) { _ in nowPlaying = true }
+        .miniPlayer(player, hidden: (tab == 3 ? searchPath : path).last?.id == player.entry?.id) { _ in nowPlaying = true }
         .minimizesTabBar()
         .sheet(isPresented: $nowPlaying) { NowPlayingView(player: player) { tab = 0; path = [$0] } }
         .sheet(isPresented: $briefing) { BriefingView(stories: Array(Coverage.today(feed.stories).prefix(5))) { tab = 0; path = [$0] } }
@@ -118,12 +167,12 @@ struct EntryListView: View {
     }
 
     /// Up and down in the reader walk the list as Home shows it, replacing the open story.
-    private func stepper(_ e: JournalEntry) -> StoryStepper {
+    private func stepper(_ e: JournalEntry, path: Binding<[JournalEntry]>) -> StoryStepper {
         let leads = shown.map(\.lead)
         let i = leads.firstIndex { $0.id == e.id }
         func at(_ j: Int?) -> JournalEntry? { j.flatMap { leads.indices.contains($0) ? leads[$0] : nil } }
         return StoryStepper(prev: at(i.map { $0 - 1 }), next: at(i.map { $0 + 1 })) { next in
-            if path.isEmpty { path = [next] } else { path[path.count - 1] = next }
+            if path.wrappedValue.isEmpty { path.wrappedValue = [next] } else { path.wrappedValue[path.wrappedValue.count - 1] = next }
         }
     }
 
@@ -134,18 +183,21 @@ struct EntryListView: View {
         return sources.count == 1 ? Outlet.color(sources.first!) : .bugleAccent
     }
 
-    private var home: some View {
+    /// Home and the search tab: the same list. A large title, as Apple's own apps have; filtered, it names the filter
+    /// and a glass button clears it.
+    private func home(path: Binding<[JournalEntry]>, title: LocalizedStringKey = "Home", inlineSearch: Bool? = nil) -> some View {
+        let inline = inlineSearch ?? !hasSearchTab
         // While searching there is no hero.
         let q = query.trimmingCharacters(in: .whitespaces)
         let shown = self.shown
         // The hero is the newest story with a picture among the first few; everything else is a row.
         let hero = q.isEmpty ? shown.prefix(5).first { $0.lead.imageURL != nil } : nil
         return List {
-            SearchField(text: $query).listRowSeparator(.hidden)
+            if inline { SearchField(text: $query).listRowSeparator(.hidden) }
             // Searching for a word that is not an outlet offers to follow it.
             let followable = !q.isEmpty && Outlet.of(q) == nil && !store.feeds.contains { $0.title.caseInsensitiveCompare(q) == .orderedSame }
                 && q.caseInsensitiveCompare(Coverage.blindspots) != .orderedSame && q.caseInsensitiveCompare(Coverage.podcasts) != .orderedSame
-            TopicBar(query: $query, topics: $topics, muted: $muted, followable: followable) { briefing = true }.listRowSeparator(.hidden)
+            TopicBar(query: $query, topics: $topics, muted: $muted, followable: followable, briefing: inline ? { briefing = true } : nil).listRowSeparator(.hidden)
             if let hero { HeroRow(entry: hero.lead, library: library, story: hero).listRowSeparator(.hidden) }
             ForEach(shown.filter { $0.id != hero?.id }) { EntryRow(entry: $0.lead, library: library, story: $0) }
             if !q.isEmpty && shown.isEmpty {
@@ -163,202 +215,42 @@ struct EntryListView: View {
                 ContentUnavailableView("No entries yet", systemImage: "doc.text", description: Text("Add a feed or pull to refresh"))
             }
         }
-        .navigationTitle("Bugle")   // still names the back button and the Mac window
         #if os(iOS)
-        .toolbar(.hidden, for: .navigationBar)   // the tab bar already says Home; stories start at the top
-        #endif
-        .navigationDestination(for: JournalEntry.self) { EntryDetailView(entry: $0, library: library, story: feed.story(for: $0), stepper: stepper($0)) }
-    }
-}
-
-/// One story in a list: thumbnail, a title cut to fit, the outlet and how long ago. Swipe right or press and hold
-/// to save, share or copy the link. A story you have opened dims, like a read mail. Used by Home, Saved and History.
-struct EntryRow: View {
-    let entry: JournalEntry
-    @ObservedObject var library: Library
-    var story: Story? = nil
-
-    var body: some View {
-        let read = library.isRead(entry)
-        RowLink(entry: entry) {
-            // News-app convention (Mobbin: Yahoo, Artifact, USA Today, NYT, Guardian): the outlet above the
-            // headline, text on the left so every title starts on the same edge, the picture on the right.
-            HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Kicker(entry: entry, saved: library.isSaved(entry), sources: story?.publishers ?? 1)
-                    FittedTitle(variants: Headline.variants(entry.title, source: entry.sourceTitle))
-                        .foregroundStyle(read ? .secondary : .primary)
-                }
-                Spacer(minLength: 0)
-                EntryThumbnail(url: entry.imageURL, page: entry.url, source: entry.sourceTitle)
-                    .opacity(read ? 0.6 : 1)
-            }
-            .padding(.vertical, 6)
-        }
-        .swipeActions(edge: .trailing) {
-            Button { library.toggleSave(entry) } label: {
-                Label(library.isSaved(entry) ? "Unsave" : "Save", systemImage: library.isSaved(entry) ? "bookmark.slash" : "bookmark")
-            }
-            .tint(.green)
-        }
-        .contextMenu {
-            Button { library.toggleSave(entry) } label: {
-                Label(library.isSaved(entry) ? "Remove from Saved" : "Save", systemImage: library.isSaved(entry) ? "bookmark.slash" : "bookmark")
-            }
-            if entry.audioURL != nil {
-                Button { Player.shared.start(entry) } label: { Label("Play", systemImage: "play") }
-                Button { Player.shared.toggleQueue(entry) } label: {
-                    Label(Player.shared.isQueued(entry) ? "Remove from Up Next" : "Add to Up Next", systemImage: "text.line.first.and.arrowtriangle.forward")
-                }
-                Button { Downloads.shared.toggle(entry) } label: {
-                    Label(Downloads.shared.file(entry) != nil ? "Remove Download" : "Download", systemImage: "arrow.down.circle")
+        .navigationTitle(inline || q.isEmpty || title == "Search" ? title : LocalizedStringKey(q))
+        .navigationBarTitleDisplayMode(inline ? .inline : .large)
+        .toolbar(inline ? .hidden : .automatic, for: .navigationBar)   // iOS 17: the field sits where the title would
+        .toolbar {
+            if !inline {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    if !q.isEmpty && title != "Search" { Button { query = "" } label: { Label("Show All", systemImage: "xmark") } }
+                    if title != "Search" { Button { briefing = true } label: { Label("Briefing", systemImage: "list.number") } }
                 }
             }
-            if let url = URL(string: entry.url) {
-                ShareLink(item: url)
-                Button { Pasteboard.copy(entry.url) } label: { Label("Copy Link", systemImage: "link") }
-                Link(destination: url) { Label("Open in Browser", systemImage: "safari") }
-            }
         }
-    }
-}
-
-
-
-/// A navigation link without the disclosure arrow: news apps don't draw one, the whole row is the target.
-struct RowLink<Content: View>: View {
-    let entry: JournalEntry
-    @ViewBuilder let content: Content
-
-    var body: some View {
-        ZStack {
-            NavigationLink(value: entry) { EmptyView() }.opacity(0)
-            content
-        }
-        .accessibilityElement(children: .combine)   // VoiceOver reads one row as one story: outlet, time, headline
-    }
-}
-
-/// A capsule search field with a leading magnifier and a clear button, 44 points tall (house Apple rules).
-struct SearchField: View {
-    @Binding var text: String
-
-    var body: some View {
-        HStack(spacing: 8) {
-            Image(systemName: "magnifyingglass").foregroundStyle(.secondary).accessibilityHidden(true)
-            TextField("Search stories and outlets", text: $text)
-                .textFieldStyle(.plain)
-                .autocorrectionDisabled()
-                #if os(iOS)
-                .submitLabel(.search)
-                #endif
-            if !text.isEmpty {
-                Button { text = "" } label: { Image(systemName: "xmark.circle.fill").foregroundStyle(.secondary) }
-                    .accessibilityLabel("Clear search")
-                    .buttonStyle(.plain)
-                    .accessibilityLabel("Clear search")
-            }
-        }
-        .padding(.horizontal, 14)
-        .frame(height: 44)
-        .background(Color.secondary.opacity(0.12), in: Capsule())   // content layer: a fill, not glass
-    }
-}
-
-enum Pasteboard {
-    static func copy(_ s: String) {
-        #if os(iOS)
-        UIPasteboard.general.string = s
+        .todaySubtitle(!inline && q.isEmpty && title != "Search")
         #else
-        NSPasteboard.general.clearContents(); NSPasteboard.general.setString(s, forType: .string)
+        .navigationTitle("Bugle")   // the Mac window
+        #endif
+        .navigationDestination(for: JournalEntry.self) { EntryDetailView(entry: $0, library: library, story: feed.story(for: $0), stepper: stepper($0, path: path)) }
+    }
+}
+
+extension View {
+    /// Tapping the search tab puts the cursor in the field (iOS 26).
+    @ViewBuilder func opensSearchOnTab() -> some View {
+        #if os(iOS)
+        if #available(iOS 26, *) { tabViewSearchActivation(.searchTabSelection) } else { self }
+        #else
+        self
         #endif
     }
-}
 
-/// The longest headline variant that fits in two lines, so titles end on a word, not "…" (one line cut them to
-/// three words on a phone; Apple News allows two). The last child is the shortest variant, allowed to truncate.
-private struct FittedTitle: View {
-    let variants: [String]
-    #if os(macOS)
-    private let twoLines: CGFloat = 34
-    #else
-    @ScaledMetric(relativeTo: .headline) private var twoLines: CGFloat = 44
-    #endif
-
-    @Environment(\.dynamicTypeSize) private var size
-
-    var body: some View {
-        if size.isAccessibilitySize {   // the largest sizes: the whole headline, as many lines as it takes
-            Text(variants.first ?? "").font(.headline).fixedSize(horizontal: false, vertical: true)
-                .frame(maxWidth: .infinity, alignment: .leading)
-        } else {
-            ViewThatFits(in: .vertical) {
-                ForEach(variants, id: \.self) { Text($0).font(.headline).fixedSize(horizontal: false, vertical: true) }
-                Text(variants.last ?? "").font(.headline).lineLimit(2)
-            }
-            .frame(maxWidth: .infinity, minHeight: twoLines, maxHeight: twoLines, alignment: .topLeading)
-        }
-    }
-}
-
-/// Every row gets the same square, so the list lines up: the story's image when it has one, otherwise the outlet's
-/// initials on a blue tile (Joshua 2026-10-25: a mix of rows with and without thumbnails looked funny).
-private struct EntryThumbnail: View {
-    let url: URL?
-    let page: String
-    let source: String
-    @State private var preview: URL?
-    private let side: CGFloat = 56
-
-    var body: some View {
-        Group {
-            if let url = url ?? preview {
-                CachedImage(url: url) { phase in
-                    if case .success(let image) = phase { image.resizable().aspectRatio(contentMode: .fill) } else { outlet }
-                }
-            } else {
-                outlet
-            }
-        }
-        .frame(width: side, height: side)
-        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-        // no image in the feed: ask the article page for its preview image before settling on initials
-        .task(id: page) { if url == nil { preview = await PreviewImage.lookup(page) } }
-    }
-
-    /// The outlet's own icon from its site (apple-touch-icon, then favicon), else its initials.
-    private var outlet: some View {
-        let host = URL(string: page)?.host
-        return ZStack {
-            Outlet.color(source).opacity(0.12)
-            if let host, let touch = URL(string: "https://\(host)/apple-touch-icon.png"), let fav = URL(string: "https://\(host)/favicon.ico") {
-                AsyncImage(url: touch) { phase in
-                    switch phase {
-                    case .success(let image): image.resizable().aspectRatio(contentMode: .fill)
-                    case .failure:
-                        AsyncImage(url: fav) { p in
-                            if case .success(let icon) = p { icon.resizable().interpolation(.high).scaledToFit().frame(width: 28, height: 28) } else { monogram }
-                        }
-                    default: monogram
-                    }
-                }
-            } else {
-                monogram
-            }
-        }
-    }
-
-    private var monogram: some View {
-        Text(Self.initials(source)).font(.system(size: 17, weight: .bold)).foregroundStyle(Outlet.color(source))
-            .accessibilityHidden(true)   // a stand-in picture; the outlet is already read out
-    }
-
-    /// "BBC" stays BBC; "Hacker News" is HN; "The Province" is P. Mirrors `initials` in web/read.html.
-    static func initials(_ source: String) -> String {
-        let trimmed = source.trimmingCharacters(in: .whitespaces)
-        if trimmed.count <= 4, trimmed == trimmed.uppercased(), !trimmed.isEmpty { return trimmed }
-        let words = trimmed.split(separator: " ").filter { $0.lowercased() != "the" }
-        let letters = words.prefix(2).compactMap(\.first).map { String($0).uppercased() }.joined()
-        return letters.isEmpty ? "C" : letters
+    /// Today's date under Home's large title, like Apple News (iOS 26).
+    @ViewBuilder func todaySubtitle(_ on: Bool) -> some View {
+        #if os(iOS)
+        if #available(iOS 26, *), on { navigationSubtitle(Date.now.formatted(.dateTime.weekday(.wide).month(.wide).day())) } else { self }
+        #else
+        self
+        #endif
     }
 }
