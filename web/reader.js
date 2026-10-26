@@ -72,7 +72,7 @@ function renderEntries() {
   var root = document.documentElement, only = shown.length && shown.every(function (e) { return e.source === shown[0].source; }) ? shown[0].source : null;
   if (only) { Coverage.paint(root, only); root.dataset.outlet = only; }
   else { delete root.dataset.outlet; root.style.removeProperty('--c'); root.style.removeProperty('--cd'); }   // or unknown outlets inherit it
-  renderStories(document.getElementById('entries'), shown, open, !q,
+  renderStories(document.getElementById('entries'), shown, open, !q && document.body.dataset.layout !== 'compact',
     q === 'blindspots' ? 'No blindspots right now.' : q === 'unread' ? 'All caught up.' : Coverage.collection(q) ? 'Nothing here right now.' : loading && !shown.length ? 'Loading…' : q === 'podcasts' ? 'No episodes yet. Follow a podcast in Feeds.' : q ? 'No stories match \u201C' + q + '\u201D.' : 'No entries yet. Add a feed or pull to refresh.');
   if (q === 'podcasts' && window.Player && episodes.length) Player.shows(episodes, document.getElementById('entries'), function (show) { document.getElementById('q').value = show; renderEntries(); });
   if (window.renderTopics) renderTopics();
@@ -285,6 +285,12 @@ var themePick = document.getElementById('reader-theme');
 try { themePick.value = localStorage.getItem('bugle.readerTheme') || ''; } catch (e) {}
 function applyTheme() { if (themePick.value) document.body.dataset.reader = themePick.value; else delete document.body.dataset.reader; }
 themePick.onchange = function () { try { localStorage.setItem('bugle.readerTheme', themePick.value); } catch (e) {} applyTheme(); };
+// Compact: no pictures and no lead story, two lines a row, more stories on screen. Same as the app's Layout picker.
+var layoutPick = document.getElementById('layout-pick');
+try { layoutPick.value = localStorage.getItem('bugle.layout') || ''; } catch (e) {}
+function applyLayout() { if (layoutPick.value) document.body.dataset.layout = layoutPick.value; else delete document.body.dataset.layout; }
+applyLayout();
+layoutPick.onchange = function () { try { localStorage.setItem('bugle.layout', layoutPick.value); } catch (e) {} applyLayout(); renderEntries(); };
 applyTheme();
 
 route();

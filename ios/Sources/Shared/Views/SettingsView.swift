@@ -6,6 +6,7 @@ struct SettingsView: View {
     @ObservedObject var library: Library
     @AppStorage("readerTextSize") private var textSize = 17.0
     @AppStorage("readerTheme") private var readerTheme = ReaderTheme.auto.rawValue
+    @AppStorage("compactList") private var compact = false
     @AppStorage("muted") private var muted = ""
     @State private var showSignIn = false
     @State private var confirmDelete = false
@@ -53,6 +54,11 @@ struct SettingsView: View {
                         .foregroundStyle(.secondary)
                     Picker("Theme", selection: $readerTheme) {
                         ForEach(ReaderTheme.allCases) { Text($0.title).tag($0.rawValue) }
+                    }
+                    // Compact: no pictures and no lead story, two lines a row, more stories on screen (Unread, Inoreader)
+                    Picker("Layout", selection: $compact) {
+                        Text("Standard").tag(false)
+                        Text("Compact").tag(true)
                     }
                 }
                 Section {

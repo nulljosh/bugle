@@ -19,6 +19,7 @@ struct EntryListView: View {
     @State private var query = UserDefaults.standard.string(forKey: "search") ?? ""   // `-search BBC` for screenshots
     @AppStorage("topics") private var topics = ""
     @AppStorage("muted") private var muted = ""
+    @AppStorage("compactList") private var compact = false
 
     /// Both default to the real thing; the parameters exist so the macOS screenshot capture can
     /// hand in a pre-loaded service and a trimmed feed list without writing to the user's saved
@@ -192,7 +193,7 @@ struct EntryListView: View {
         let q = query.trimmingCharacters(in: .whitespaces)
         let shown = self.shown
         // The hero is the newest story with a picture among the first few; everything else is a row.
-        let hero = q.isEmpty ? shown.prefix(5).first { $0.lead.imageURL != nil } : nil
+        let hero = q.isEmpty && !compact ? shown.prefix(5).first { $0.lead.imageURL != nil } : nil
         return List {
             if inline { SearchField(text: $query).listRowSeparator(.hidden) }
             // Searching for a word that is not an outlet offers to follow it.

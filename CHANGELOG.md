@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.14.0
+A compact layout, in Settings under Reading: no pictures and no lead story, two lines a row, so far more of the news fits on one screen. On the apps and the web.
+
 ## 7.13.0
 Unread, like Mail and NetNewsWire: a blue dot in the margin beside every story you have not opened, and an Unread chip that shows only those. VoiceOver says Unread too.
 

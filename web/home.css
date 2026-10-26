@@ -32,3 +32,7 @@ body.searching nav.tabbar, body.searching .mini { display: none; }
 /* Unread: a dot in the margin, like Mail, so every title still starts on the same edge (rows.js) */
 .row.story .txt { position: relative; }
 .row.story .unread { position: absolute; left: -14px; top: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); overflow: hidden; color: transparent; font-size: 1px; }
+
+/* Compact layout (Settings, Layout): no pictures, tighter rows */
+body[data-layout="compact"] .row.story .thumb { display: none; }
+body[data-layout="compact"] .row.story { padding-top: var(--sp-2); padding-bottom: var(--sp-2); }
