@@ -26,3 +26,33 @@ extension Color {
         #endif
     }
 }
+
+/// The reader's page (Unread's and Feedly's themes): Auto follows the system, Light and Black pin it, Dusk is a soft gray
+/// for reading in the dark. No sepia (the house palette has no beige) and no serif (sans serif only). Same as the web's
+/// reader themes in reader.css.
+enum ReaderTheme: String, CaseIterable, Identifiable {
+    case auto, light, dusk, black
+    var id: String { rawValue }
+    var title: LocalizedStringKey {
+        switch self { case .auto: "Auto"; case .light: "Light"; case .dusk: "Dusk"; case .black: "Black" }
+    }
+    /// The page color behind the story, so the edges match it; clear follows the system.
+    var page: Color {
+        switch self {
+        case .auto: .clear
+        case .light: Color(light: 0xFFFFFF, dark: 0xFFFFFF)
+        case .dusk: Color(light: 0x2C2C2E, dark: 0x2C2C2E)
+        case .black: Color(light: 0x000000, dark: 0x000000)
+        }
+    }
+
+    /// Page background, text, secondary text and links as CSS colors; nil follows the system.
+    var colors: (bg: String, text: String, sub: String, link: String)? {
+        switch self {
+        case .auto: nil
+        case .light: ("#ffffff", "#1d1d1f", "#6e6e73", "#0059b3")
+        case .dusk: ("#2c2c2e", "#e5e5ea", "#aeaeb2", "#5aa9ff")
+        case .black: ("#000000", "#f5f5f7", "#98989d", "#5aa9ff")
+        }
+    }
+}

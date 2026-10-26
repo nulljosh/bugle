@@ -1,0 +1,15 @@
+/* Reader themes on the story screen: the app's ReaderTheme. No sepia (no beige in the palette), sans serif only. */
+body[data-reader]:has(#story:not([hidden])) { background: var(--rbg); }
+body[data-reader] #story { --text: var(--rtext); --sub: var(--rsub); --accent: var(--rlink); color: var(--rtext); }
+body[data-reader="light"] { --rbg: #ffffff; --rtext: #1d1d1f; --rsub: #6e6e73; --rlink: #0059b3; }
+body[data-reader="dusk"] { --rbg: #2c2c2e; --rtext: #e5e5ea; --rsub: #aeaeb2; --rlink: #5aa9ff; }
+body[data-reader="black"] { --rbg: #000000; --rtext: #f5f5f7; --rsub: #98989d; --rlink: #5aa9ff; }
+/* The Theme picker in Settings, like the City picker. */
+#reader-theme { appearance: none; -webkit-appearance: none; border: 0; background: none; font: inherit; color: var(--accent); cursor: pointer; text-align: right; }
+#reader-theme:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); border-radius: 8px; }
+/* Dusk and Black: the story's glass and the tab bar go dark with the page, and the bar's scrim uses the page color. */
+body[data-reader] #story { --bg: var(--rbg); }
+body[data-reader="dusk"] #story .glass-btn, body[data-reader="black"] #story .glass-btn,
+body[data-reader="dusk"]:has(#story:not([hidden])) .tabbar, body[data-reader="black"]:has(#story:not([hidden])) .tabbar {
+  background: rgba(28, 28, 30, .34); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 0 0 .5px rgba(255, 255, 255, .08), 0 8px 24px rgba(0, 0, 0, .4); color: var(--rtext); }
+body[data-reader="dusk"]:has(#story:not([hidden])) .tabbar a, body[data-reader="black"]:has(#story:not([hidden])) .tabbar a { color: var(--rtext); }

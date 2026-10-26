@@ -16,6 +16,7 @@ struct EntryDetailView: View {
     @State private var translating = false
     @State private var showCoverage = CommandLine.arguments.contains("-showCoverage")
     @AppStorage("readerTextSize") private var textSize = 17.0
+    @AppStorage("readerTheme") private var readerTheme = ReaderTheme.auto.rawValue
     /// The system text size on top of the reader's own: 17 at the default, larger with Dynamic Type.
     @ScaledMetric(relativeTo: .body) private var body17 = 17.0
     @StateObject private var listener = Listener()
@@ -27,8 +28,13 @@ struct EntryDetailView: View {
 
     var body: some View {
         let size = textSize * body17 / 17
-        ArticleWebView(html: Self.page(for: full ?? entry, textSize: size), baseURL: URL(string: entry.url))
-            .id("\(size) \(full != nil)")  // a new size or the full text rebuilds the page; it never reloads on its own
+        let theme = ReaderTheme(rawValue: readerTheme) ?? .auto
+        ArticleWebView(html: Self.page(for: full ?? entry, textSize: size, theme: theme), baseURL: URL(string: entry.url))
+            .id("\(size) \(full != nil) \(readerTheme)")
+            .background(theme.page.ignoresSafeArea())
+            #if os(iOS)
+            .toolbarColorScheme(theme == .auto ? nil : theme == .light ? .light : .dark, for: .navigationBar)   // the bar matches the page
+            #endif  // a new size or the full text rebuilds the page; it never reloads on its own
             .ignoresSafeArea(edges: .bottom)
             .navigationTitle(entry.title)
             #if os(iOS)
@@ -84,6 +90,9 @@ struct EntryDetailView: View {
                         }
                     }
                     ToolbarItemGroup(placement: .secondaryAction) {
+                        Picker(selection: $readerTheme) {
+                            ForEach(ReaderTheme.allCases) { Text($0.title).tag($0.rawValue) }
+                        } label: { Label("Theme", systemImage: "circle.lefthalf.filled") }
                         if #available(iOS 17.4, macOS 14.4, *) {
                             Button { translating = true } label: { Label("Translate", systemImage: "translate") }
                         }
@@ -105,8 +114,11 @@ struct EntryDetailView: View {
     // turns <img> into an NSTextAttachment, and SwiftUI's Text renders *nothing* for an
     // AttributedString containing one — every post starting with a banner image came up
     // blank. A web view also gets images, code blocks and links for free.
-    private static func page(for entry: JournalEntry, textSize: Double) -> String {
-        """
+    private static func page(for entry: JournalEntry, textSize: Double, theme: ReaderTheme = .auto) -> String {
+        let pinned = theme.colors.map { c in
+            "html, body { background: \(c.bg); color: \(c.text); color-scheme: \(theme == .light ? "light" : "dark"); } .date { color: \(c.sub); } a, a:visited { color: \(c.link) !important; }"
+        } ?? ""
+        return """
         <!doctype html><html><head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="supported-color-schemes" content="light dark">
@@ -136,6 +148,7 @@ struct EntryDetailView: View {
           /* links in the brand blue, not WebKit's default purple; Theme.swift bugleAccent */
           a { color: #0059B3; }
           @media (prefers-color-scheme: dark) { a { color: #5aa9ff; } }
+          \(pinned)
           .hero { width: 100%; max-height: 50vh; object-fit: cover; border-radius: 12px; margin: 0 0 16px; }
           .art { width: 160px; height: 160px; object-fit: cover; border-radius: 16px; margin: 0 0 16px; }   /* podcast art */
         </style></head><body>
@@ -175,156 +188,6 @@ extension View {
     /// The system Translate sheet over the story's own text, on device (iOS 17.4 and macOS 14.4 or later).
     @ViewBuilder func translates(_ text: String, isPresented: Binding<Bool>) -> some View {
         if #available(iOS 17.4, macOS 14.4, *) { translationPresentation(isPresented: isPresented, text: text) } else { self }
-    }
-}
-
-/// The episode's controls under its show notes. Playing it: Apple Podcasts' player, the scrubber with elapsed and left,
-/// then speed, back 15, play, forward 30. Not playing: Play (or Resume) and Up Next. Glass over the page, 48 point targets.
-struct EpisodeBar: View {
-    @ObservedObject var player: Player
-    let entry: JournalEntry
-
-    var body: some View {
-        Group { if player.entry?.id == entry.id { controls } else { cue } }
-            .padding(.horizontal, 20).padding(.top, 12).padding(.bottom, 8)
-            .floatingGlass()
-    }
-
-    private var cue: some View {
-        HStack(spacing: 12) {
-            Button { player.start(entry) } label: {
-                Label(Player.positions[entry.id] == nil ? "Play" : "Resume", systemImage: "play.fill")
-                    .font(.headline).frame(maxWidth: .infinity, minHeight: 48)
-                    .foregroundStyle(.white).background(Color.bugleAccent, in: Capsule())
-            }
-            .keyboardShortcut("l")
-            Button { player.toggleQueue(entry) } label: {
-                Label(player.isQueued(entry) ? "In Up Next" : "Up Next", systemImage: player.isQueued(entry) ? "checkmark" : "text.line.first.and.arrowtriangle.forward")
-                    .font(.headline).frame(maxWidth: .infinity, minHeight: 48)
-                    .background(Color.secondary.opacity(0.14), in: Capsule())
-            }
-            .accessibilityLabel(player.isQueued(entry) ? "Remove from Up Next" : "Add to Up Next")
-        }
-        .buttonStyle(.plain)
-    }
-
-    // Time runs left to right in every language (Apple keeps media controls unmirrored in Arabic and Hebrew).
-    private var controls: some View {
-        VStack(spacing: 4) {
-            Slider(value: $player.elapsed, in: 0...max(player.duration, player.elapsed, 1)) { editing in
-                player.scrubbing = editing
-                if !editing { player.seek(to: player.elapsed) }
-            }
-            .accessibilityLabel("Position")
-            .accessibilityValue(clock(player.elapsed))
-            HStack {
-                Text(clock(player.elapsed))
-                Spacer()
-                Text(player.duration > 0 ? "-" + clock(player.duration - player.elapsed) : "")
-            }
-            .font(.caption.monospacedDigit()).foregroundStyle(.secondary)
-            HStack {
-                Button { player.nextRate() } label: {
-                    Text(String(format: "%g\u{00D7}", player.rate)).font(.subheadline.weight(.semibold))
-                        .frame(width: 48, height: 48, alignment: .leading).contentShape(Rectangle())
-                }
-                .accessibilityLabel("Speed")
-                .accessibilityValue(String(format: "%g", player.rate))
-                Spacer()
-                Button { player.skip(-15) } label: { Image(systemName: "gobackward.15").font(.title2) }
-                    .accessibilityLabel("Back 15 seconds")
-                Spacer()
-                Button { player.toggle() } label: { Image(systemName: player.playing ? "pause.fill" : "play.fill").font(.largeTitle) }
-                    .accessibilityLabel(player.playing ? "Pause" : "Play")
-                    .keyboardShortcut("l")
-                Spacer()
-                Button { player.skip(30) } label: { Image(systemName: "goforward.30").font(.title2) }
-                    .accessibilityLabel("Forward 30 seconds")
-                Spacer()
-                Menu {
-                    Button("Off") { player.setSleep(nil) }
-                    ForEach([5, 15, 30, 45, 60], id: \.self) { m in Button("\(m) min") { player.setSleep(.minutes(m)) } }
-                    Button("End of Episode") { player.setSleep(.endOfEpisode) }
-                } label: {
-                    Image(systemName: player.sleep == nil ? "moon.zzz" : "moon.zzz.fill").font(.title3)
-                        .foregroundStyle(player.sleep == nil ? AnyShapeStyle(.primary) : AnyShapeStyle(Color.bugleAccent))
-                        .frame(width: 48, height: 48, alignment: .trailing).contentShape(Rectangle())
-                }
-                .menuIndicator(.hidden)
-                .accessibilityLabel("Sleep Timer")
-                .accessibilityValue(player.sleep == nil ? String(localized: "Off") : player.sleep == .endOfEpisode ? String(localized: "End of Episode") : String(localized: "On"))
-            }
-            .buttonStyle(.plain)
-            .frame(minHeight: 48)
-        }
-        .environment(\.layoutDirection, .leftToRight)
-    }
-}
-
-/// Now playing, above the tab bar like Apple Podcasts: the art, the episode and its show, play and forward 30. Tap it
-/// for Now Playing. On iOS 26.1 it is the tab bar's own accessory; elsewhere it floats over the bottom edge.
-struct MiniPlayer: View {
-    @ObservedObject var player: Player
-    let open: (JournalEntry) -> Void
-
-    var body: some View {
-        if let e = player.entry {
-            HStack(spacing: 4) {
-                Button { open(e) } label: {
-                    HStack(spacing: 12) {
-                        CachedImage(url: e.imageURL) { phase in
-                            if case .success(let image) = phase { image.resizable().aspectRatio(contentMode: .fill) } else { Color.secondary.opacity(0.2) }
-                        }
-                        .frame(width: 32, height: 32).clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
-                        VStack(alignment: .leading, spacing: 0) {
-                            Text(Headline.clean(e.title, source: e.sourceTitle)).font(.subheadline.weight(.semibold)).lineLimit(1)
-                            Text(e.sourceTitle).font(.caption).foregroundStyle(.secondary).lineLimit(1)
-                        }
-                        Spacer(minLength: 0)
-                    }
-                    .contentShape(Rectangle())
-                }
-                .accessibilityLabel("Now Playing, \(Headline.clean(e.title, source: e.sourceTitle))")
-                Button { player.toggle() } label: { Image(systemName: player.playing ? "pause.fill" : "play.fill").font(.title3).frame(width: 44, height: 44) }
-                    .accessibilityLabel(player.playing ? "Pause" : "Play")
-                Button { player.skip(30) } label: { Image(systemName: "goforward.30").font(.title3).frame(width: 44, height: 44) }
-                    .accessibilityLabel("Forward 30 seconds")
-            }
-            .buttonStyle(.plain)
-            .padding(.leading, 12).padding(.trailing, 4)
-        }
-    }
-}
-
-extension View {
-    /// Liquid Glass over the page on iOS 26 and macOS 26: a card that floats off the edges with the content showing
-    /// through. Earlier systems get the bar material, edge to edge.
-    @ViewBuilder func floatingGlass(in shape: some Shape = RoundedRectangle(cornerRadius: 28, style: .continuous)) -> some View {
-        if #available(iOS 26, macOS 26, *) {
-            glassEffect(.regular, in: shape).padding(.horizontal, 12).padding(.bottom, 8)
-        } else {
-            background(.regularMaterial, in: shape).padding(.horizontal, 12).padding(.bottom, 8)
-        }
-    }
-
-    /// The mini player on the tab view: the tab bar accessory on iOS 26.1 and later, a floating capsule elsewhere.
-    @ViewBuilder func miniPlayer(_ player: Player, hidden: Bool, open: @escaping (JournalEntry) -> Void) -> some View {
-        #if os(iOS)
-        if #available(iOS 26.1, *) {
-            tabViewBottomAccessory(isEnabled: player.entry != nil && !hidden) { MiniPlayer(player: player, open: open) }
-        } else { floatingMiniPlayer(player, hidden: hidden, open: open) }
-        #else
-        floatingMiniPlayer(player, hidden: hidden, open: open)
-        #endif
-    }
-
-    private func floatingMiniPlayer(_ player: Player, hidden: Bool, open: @escaping (JournalEntry) -> Void) -> some View {
-        safeAreaInset(edge: .bottom) {
-            if player.entry != nil && !hidden {
-                MiniPlayer(player: player, open: open).frame(height: 56)
-                    .floatingGlass(in: Capsule())
-            }
-        }
     }
 }
 

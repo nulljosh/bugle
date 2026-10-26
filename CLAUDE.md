@@ -1,5 +1,5 @@
 # Bugle
-iOS 2.0.0 live, iOS 6.1.0 waiting for review, Mac 2.0.0 in review. Repo at 7.5.0: 0 gaps vs Apple News, Ground News and RSS readers; bands 1 to 5 done. Podcasts (band 6 to 9) started with 6.0.0: default shows in `FeedStore.podcasts` (web `PODCASTS` in `player.js`), `Player.swift`, the Podcasts chip. Web reader live at bugle.jaybulb.com/read.
+iOS 2.0.0 live, iOS 6.1.0 waiting for review, Mac 2.0.0 in review. Repo at 7.6.0: 0 gaps vs Apple News, Ground News and RSS readers; bands 1 to 5 done. Podcasts (band 6 to 9) started with 6.0.0: default shows in `FeedStore.podcasts` (web `PODCASTS` in `player.js`), `Player.swift`, the Podcasts chip. Web reader live at bugle.jaybulb.com/read.
 
 ## Open
 - Looping to 0 gaps vs Apple News and Ground News, then v100: gap matrix in `roadmap.md`, loop prompt `~/.claude/loops/bugle.md`. Tags are `bugle-vX.Y.Z` (the monorepo shares tags).

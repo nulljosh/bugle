@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.6.0
+- Reader themes: Auto, Light, Dusk (a soft gray for reading in the dark) and Black, from the story's More menu or Settings; the bar above the story matches. Same on the web, in Settings. No sepia or serif: the house palette has no beige, and type is sans serif.
+
 ## 7.5.0
 - Briefing: a chip on Home opens today's five biggest stories, numbered, each with its first line and the minutes they take to read (Ground News's The Last 24). Listen reads it top to bottom. Same on the web.
 

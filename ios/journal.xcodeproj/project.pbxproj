@@ -26,6 +26,7 @@
 		3D78A4B3E4E4FCDFF93D5203 /* BriefingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C189CC5A48F39F84F822BAC /* BriefingView.swift */; };
 		3DCF3324851E31C233E63F0A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37B11800C471845C1E93545 /* Theme.swift */; };
 		3EB18549165360E7D7589A0F /* BugleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431EFE06344FFBFD1BA57D4 /* BugleWidget.swift */; };
+		43E920CC61F7BA339603C633 /* PlayerViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191739CD1CD6FD04977BE2D /* PlayerViews.swift */; };
 		44B5993CFAE70D4F6DB01FEE /* PreviewImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77498857B3215CE9BF932E32 /* PreviewImage.swift */; };
 		4664DE1CE20F80D04EADB064 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1005C95DA55CC984C69AA6 /* Alerts.swift */; };
 		46B12B5E12CA0E641A0659AC /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C7997BFD552FE881F61BEB /* Account.swift */; };
@@ -46,6 +47,7 @@
 		664458B2090B4F4F075E125D /* JournalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B2FC2F32D71F065BB94DA3 /* JournalApp.swift */; };
 		68500BE3A139766A706BDA66 /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409A12C7017D00F584C499DF /* EntryDetailView.swift */; };
 		6AB1253441731A145FAC2256 /* HomeParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AE8705428F23AB464516DF /* HomeParts.swift */; };
+		6B9BBBCC2DB03919ED84D9B4 /* PlayerViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191739CD1CD6FD04977BE2D /* PlayerViews.swift */; };
 		6F088A5AEE55494C7947395F /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37B11800C471845C1E93545 /* Theme.swift */; };
 		7013F9F2F3975890B4EB03A7 /* Coverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE1E0BC7D447CF605C09BEC /* Coverage.swift */; };
 		726E2BDEC0363FC1A23D0AAD /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409A12C7017D00F584C499DF /* EntryDetailView.swift */; };
@@ -130,6 +132,7 @@
 		0D602399DFBE78D9E325E2FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18E68D1CC0EFBCA94321BDA8 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		217553F774975A52BB12FB47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3191739CD1CD6FD04977BE2D /* PlayerViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViews.swift; sourceTree = "<group>"; };
 		31C7997BFD552FE881F61BEB /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		405D77FA551974C2907E1A51 /* Downloads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloads.swift; sourceTree = "<group>"; };
 		409A12C7017D00F584C499DF /* EntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
@@ -185,6 +188,7 @@
 				CA1201F98DD3067432FE4EA2 /* HomeSplit.swift */,
 				F6EA21421125A16812D6815E /* ManageFeedsView.swift */,
 				01CB423A461FD4DD9E21F032 /* NowPlayingView.swift */,
+				3191739CD1CD6FD04977BE2D /* PlayerViews.swift */,
 				7752BAEFA1F38659693A2814 /* SettingsView.swift */,
 				ACEA548F0D3C5C7921156416 /* StoryParts.swift */,
 			);
@@ -530,6 +534,7 @@
 				65959DE874A252B4341CB060 /* ManageFeedsView.swift in Sources */,
 				4B380FF58032C7750D794190 /* NowPlayingView.swift in Sources */,
 				1FCEFE276B2EA2E2C9AED45D /* Player.swift in Sources */,
+				6B9BBBCC2DB03919ED84D9B4 /* PlayerViews.swift in Sources */,
 				A99290777413A4AF24674771 /* PreviewImage.swift in Sources */,
 				A38E084ADAA18B1D2FC59AFA /* SettingsView.swift in Sources */,
 				AA1419CDDF21C7BE5B8A11FC /* Spotlight.swift in Sources */,
@@ -577,6 +582,7 @@
 				96438221DF43E8FF93AC2D58 /* ManageFeedsView.swift in Sources */,
 				0D671ABE706086CF524938D1 /* NowPlayingView.swift in Sources */,
 				E7E28A0727D2685711B1C01B /* Player.swift in Sources */,
+				43E920CC61F7BA339603C633 /* PlayerViews.swift in Sources */,
 				44B5993CFAE70D4F6DB01FEE /* PreviewImage.swift in Sources */,
 				BE1CA69DF5DC8D9673A9374F /* ScreenshotCapture.swift in Sources */,
 				84E72AA7516E11B4EB10D15B /* SettingsView.swift in Sources */,
@@ -651,7 +657,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 7.5.0;
+				MARKETING_VERSION = 7.6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -716,7 +722,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 7.5.0;
+				MARKETING_VERSION = 7.6.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;

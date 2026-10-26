@@ -5,6 +5,7 @@ struct SettingsView: View {
     @ObservedObject var account: Account
     @ObservedObject var library: Library
     @AppStorage("readerTextSize") private var textSize = 17.0
+    @AppStorage("readerTheme") private var readerTheme = ReaderTheme.auto.rawValue
     @AppStorage("muted") private var muted = ""
     @State private var showSignIn = false
     @State private var confirmDelete = false
@@ -50,6 +51,9 @@ struct SettingsView: View {
                     Text("The quick brown fox reads the news.")
                         .font(.system(size: textSize))
                         .foregroundStyle(.secondary)
+                    Picker("Theme", selection: $readerTheme) {
+                        ForEach(ReaderTheme.allCases) { Text($0.title).tag($0.rawValue) }
+                    }
                 }
                 Section {
                     LabeledContent("Version", value: version)

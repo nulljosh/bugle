@@ -276,6 +276,12 @@ function applySize(n) {
 document.getElementById('size-down').onclick = function () { applySize(textSize - 1); };
 document.getElementById('size-up').onclick = function () { applySize(textSize + 1); };
 applySize(textSize);
+// Reader theme (Auto, Light, Dusk, Black), the app's ReaderTheme: paints the story screen only.
+var themePick = document.getElementById('reader-theme');
+try { themePick.value = localStorage.getItem('bugle.readerTheme') || ''; } catch (e) {}
+function applyTheme() { if (themePick.value) document.body.dataset.reader = themePick.value; else delete document.body.dataset.reader; }
+themePick.onchange = function () { try { localStorage.setItem('bugle.readerTheme', themePick.value); } catch (e) {} applyTheme(); };
+applyTheme();
 
 route();
 renderFeeds();
