@@ -246,7 +246,7 @@ struct SearchField: View {
         }
         .padding(.horizontal, 14)
         .frame(height: 44)
-        .background(Color.secondary.opacity(0.12), in: Capsule())
+        .capsuleGlass(fill: AnyShapeStyle(Color.secondary.opacity(0.12)))
     }
 }
 

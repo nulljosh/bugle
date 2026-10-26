@@ -2,7 +2,8 @@ import SwiftUI
 
 extension Color {
     // Matches --accent in brand/tokens.css (#0059B3) so the brand color is the same everywhere.
-    static let bugleAccent = Color(red: 0.0, green: 0.349, blue: 0.702)
+    /// #0059B3 on light; on dark, Apple's dark system blue, since #0059B3 on black is under 3:1 for text.
+    static let bugleAccent = Color(light: 0x0059B3, dark: 0x0A84FF)
 }
 
 extension Color {

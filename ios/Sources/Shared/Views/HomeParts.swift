@@ -46,7 +46,7 @@ struct TopicBar: View {
     }
 }
 
-/// A capsule like the web's `.chip`: gray, or tinted text on a pale tint when on.
+/// A capsule like the web's `.chip`: gray, or tinted text on a pale tint when on. Liquid Glass on iOS 26 and macOS 26.
 struct Chip: ButtonStyle {
     var on = false
     func makeBody(configuration: Configuration) -> some View {
@@ -56,8 +56,20 @@ struct Chip: ButtonStyle {
             .padding(.horizontal, 14)
             .frame(minHeight: 36)   // grows with Dynamic Type instead of clipping
             .foregroundStyle(on ? AnyShapeStyle(.tint) : AnyShapeStyle(.primary))
-            .background(on ? AnyShapeStyle(.tint.opacity(0.14)) : AnyShapeStyle(Color.secondary.opacity(0.12)), in: Capsule())
+            .capsuleGlass(fill: on ? AnyShapeStyle(.tint.opacity(0.14)) : AnyShapeStyle(Color.secondary.opacity(0.12)), on: on)
             .opacity(configuration.isPressed ? 0.6 : 1)
+    }
+}
+
+extension View {
+    /// A control's capsule: Liquid Glass on iOS 26 and macOS 26 (the fill only when on, so it reads as selected),
+    /// the plain fill before.
+    @ViewBuilder func capsuleGlass(fill: AnyShapeStyle, on: Bool = false) -> some View {
+        if #available(iOS 26, macOS 26, *) {
+            background(on ? fill : AnyShapeStyle(.clear), in: Capsule()).glassEffect(.regular.interactive(), in: Capsule())
+        } else {
+            background(fill, in: Capsule())
+        }
     }
 }
 

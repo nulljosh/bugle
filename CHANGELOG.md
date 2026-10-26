@@ -2,6 +2,10 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.3.0
+- Liquid Glass, second pass: the search field and the chips on Home are glass capsules on iOS 26 and macOS 26; a chip that is on keeps its tint under the glass.
+- Dark mode uses Apple's dark system blue for the accent: the brand blue on black was under 3:1 for text.
+
 ## 7.2.0
 - Liquid Glass, first pass: the episode player is a glass card floating over the page on iOS 26 and macOS 26, and so is the mini player on the Mac and older iPhones. Earlier systems keep the bar material.
 
