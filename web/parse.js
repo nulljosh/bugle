@@ -101,11 +101,15 @@ function imageSrcs(html) {
 function isAudio(type, url) {
   return type ? /^audio\//i.test(type) : /\.(mp3|m4a|aac|ogg|oga|opus|wav)(\?|#|$)/i.test(url || '');
 }
+// BBC episodes redirect through open.live.bbc.co.uk, which also answers on https: an https page can't play plain http audio.
+function httpsBbc(u) {
+  return /^http:\/\/open\.live\.bbc\.co\.uk\//.test(u) ? u.replace(/^http:/, 'https:').replace('/proto/http/', '/proto/https/') : u;
+}
 function audioFor(node, link) {
   var encs = node.getElementsByTagName('enclosure');
   for (var i = 0; i < encs.length; i++) {
     var u = encs[i].getAttribute('url');
-    if (u && isAudio(encs[i].getAttribute('type'), u)) return resolveImage(u, link);
+    if (u && isAudio(encs[i].getAttribute('type'), u)) return httpsBbc(resolveImage(u, link));
   }
   return '';
 }

@@ -183,6 +183,10 @@ test("an audio enclosure is an episode; an image is not", () => {
   assert.ok(!isAudio("image/jpeg", "https://x.com/a.mp3"));
   assert.ok(!isAudio("", "https://x.com/a.jpg"));
 });
+test("BBC episode audio is played over https", () => {
+  assert.equal(httpsBbc("http://open.live.bbc.co.uk/mediaselector/6/redir/proto/http/vpid/p1.mp3"), "https://open.live.bbc.co.uk/mediaselector/6/redir/proto/https/vpid/p1.mp3");
+  assert.equal(httpsBbc("http://other.com/a.mp3"), "http://other.com/a.mp3");
+});
 test("itunes:duration reads clock or seconds", () => {
   assert.equal(seconds("1:02:03"), 3723);
   assert.equal(seconds("16:40"), 1000);

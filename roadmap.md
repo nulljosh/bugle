@@ -97,7 +97,7 @@ Rewritten 2026-10-25 at 1.19.5 (Joshua: "identify gaps, build roadmap, loop unti
   - [x] 6.2.0: downloads, so an episode plays offline (apps; the web streams).
   - [x] 6.3.0: sleep timer.
   - [x] 6.4.0: Now Playing, with Up Next to reorder and remove, and AirPlay.
-  - [ ] Web: BBC episodes redirect to plain-http audio, which an https page cannot play. The apps allow it for bbc.co.uk and tritondigital.com only.
+  - [x] Web: BBC episodes now play over https (the redirect host answers on https; `httpsBbc` in web/parse.js, 2026-10-26).
 - **10 to 19 Writing** (CMS phases 1 and 2 below). Gate: the backend (D1 on jaybulb-api, not Supabase) and Joshua's yes on accounts for writers.
 - **20 to 29 Subscribers** (CRM phase 3). Same gate.
 - **30 to 49 Android** from `kmp/`. Gate: a Play developer account.
