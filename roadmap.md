@@ -146,4 +146,4 @@ Bugle stays a reader and also becomes a Ghost-style writing client.
 - 2026-08-10 1.0.3, new icon, loading indicator.
 
 ## Ingested 2026-10-27
-- [ ] Read the App Review issue on the Sidewise (Bugle, ASC 6806028670) iOS submission from Friday (screenshot: ~/Documents/Code/notes/attachments/2026-10-27/asc-1.png). Do not appeal the Sidewise record.
+- [ ] Sidewise (ASC 6806028670) iOS 1.0: read 2026-10-28. Apple cleared the 4.3 answers; the open rejection is 2.1(a), "an error message under each section" on iPad, because sidewise.heyitsmejosh.com and sidewise.jaybulb.com are both dead. Sidewise folded into Bugle 1.14.0, so the plan is to retire the record (and pull the live Mac 1.0, which hits the same dead host). Waits on Joshua's yes.
