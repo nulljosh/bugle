@@ -144,3 +144,6 @@ Bugle stays a reader and also becomes a Ghost-style writing client.
 - 2026-08-30 macOS 1.0.7, first Mac release.
 - 2026-08-25 1.0.5, 16 curated news feeds seeded, named-zone date fix.
 - 2026-08-10 1.0.3, new icon, loading indicator.
+
+## Ingested 2026-10-27
+- [ ] Read the App Review issue on the Sidewise (Bugle, ASC 6806028670) iOS submission from Friday (screenshot: ~/Documents/Code/notes/attachments/2026-10-27/asc-1.png). Do not appeal the Sidewise record.
