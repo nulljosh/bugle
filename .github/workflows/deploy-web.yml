@@ -1,0 +1,26 @@
+name: bugle Check landing page
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+concurrency:
+  group: deploy-web
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check internal links resolve
+        run: python3 scripts/check-links.py
+
+# ponytail: the Cloudflare Pages deploy step lived here and failed every run --
+# no CLOUDFLARE_API_TOKEN secret is set on this repo (none of the repos have one;
+# the only local token is DNS-scoped and cannot deploy Pages). Deploys are done by
+# hand with `npx wrangler pages deploy --project-name=inkpress`. Restore the step if
+# a Pages-scoped token is ever added as a repo secret.
