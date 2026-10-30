@@ -101,6 +101,11 @@ test("coverage groups one story across outlets, counts newsrooms once, flags bli
   const newest = [{ publishers: 1, lead: { date: new Date(9) } }, border];
   assert.equal(Coverage.today(newest, 10)[0], border);           // two newsrooms outrank a newer single-source story
   assert.equal(Coverage.today(newest, 864e5 + 10)[0], newest[0]); // a day later it is no longer Today
+  const post = Coverage.search("ny post", stories);                // an outlet's search leads with its own copy
+  assert.equal(post.length, 1);
+  assert.equal(post[0].lead.source, "NY Post");
+  assert.equal(post[0].entries.length, 3);
+  assert.equal(border.lead.source, "Fox News");                    // the grouped story itself is untouched
 });
 
 test("outlet colors are readable in light and dark, and name real outlets", () => {
@@ -211,6 +216,8 @@ test("briefing first line skips abbreviations", () => {
 test("hn comments keep only HN's tags", () => {
   const ok = '<p>hi <i>x</i> <a href="https://a.b/c" rel="nofollow">l</a></p>';
   assert.equal(HN.clean(ok), ok);
+  const gh = '<a href="https:&#x2F;&#x2F;github.com&#x2F;a" rel="nofollow">github.com&#x2F;a</a>';   // HN escapes the slashes
+  assert.equal(HN.clean(gh), gh);
   assert.equal(HN.clean('<script>alert(1)</script><p onclick="x">a</p><img src=x onerror=y><a href="javascript:x">b</a>'), "alert(1)a</p>b</a>");
   assert.equal(HN.id({ html: '<a href="https://news.ycombinator.com/item?id=42">c</a>', url: "" }), "42");
 });

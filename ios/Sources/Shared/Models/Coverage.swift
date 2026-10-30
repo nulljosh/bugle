@@ -186,6 +186,15 @@ enum Coverage {
         q.caseInsensitiveCompare(unread) == .orderedSame || collections.contains { $0.name.caseInsensitiveCompare(q) == .orderedSame }
     }
 
+    /// A search: every story with an entry whose headline or outlet matches, led by that entry, so "Hacker News"
+    /// shows HN's copy of a story NBC also ran, never NBC's. Mirrors search in web/coverage.js.
+    static func search(_ q: String, in stories: [Story]) -> [Story] {
+        stories.compactMap { s in
+            s.entries.first { $0.title.localizedStandardContains(q) || $0.sourceTitle.localizedStandardContains(q) }
+                .map { e in Story(lead: e, entries: [e] + s.entries.filter { $0.id != e.id }) }
+        }
+    }
+
     static func today(_ stories: [Story], now: Date = .now) -> [Story] {
         let top = stories.filter { $0.publishers > 1 && now.timeIntervalSince($0.lead.date) < 86_400 }
             .sorted { ($0.publishers, $0.lead.date) > ($1.publishers, $1.lead.date) }.prefix(5)
@@ -218,6 +227,8 @@ func coverageDemo() {
     assert(border.blindspot == .right)          // two newsrooms, all on the right
     assert(Coverage.pick("popular right", from: stories)?.map(\.id) == [border.id], "two right newsrooms make Popular Right")
     assert(Coverage.pick("Popular Left", from: stories)?.isEmpty == true && Coverage.pick("BBC", from: stories) == nil)
+    let post = Coverage.search("NY Post", in: stories)
+    assert(post.count == 1 && post[0].lead.sourceTitle == "NY Post" && post[0].entries.count == 3, "an outlet's search leads with its own copy")
     // a busy topic does not swallow its neighbours: on a tech day "apple iphone duo" is in everything
     let day = (1...9).map { e("Apple iPhone Duo review roundup part \($0)", "Macworld", Double(100 + $0)) }
     let duo = Coverage.cluster(day + [e("Apple wants to fix Safari's cramped layout on iPhone Duo", "MacRumors", 50),

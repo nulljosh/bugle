@@ -2,6 +2,9 @@
 
 Git tags are `bugle-vX.Y.Z`. Earlier history (as Journal, Inkpress and Coranto) is in git log.
 
+## 7.18.2
+Following one outlet shows only that outlet. A story Hacker News shared with NBC used to show up under Hacker News with NBC's headline; now every search leads with the copy that matched, in the app and on the web. Links in Hacker News comments work again (HN writes the slashes in a link as `&#x2F;`, and the reader was dropping those links as unsafe), and links in a story are underlined.
+
 ## 7.18.1
 The mascot is on the launch screen itself, light and dark, so even the first launch after an install shows it from the first frame instead of a blank white screen while iOS sets up. The splash picks up from that pose with a hop.
 

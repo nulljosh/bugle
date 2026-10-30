@@ -177,9 +177,8 @@ struct EntryListView: View {
             return (player.queue + feed.episodes.filter { !player.isQueued($0) }).map { Story(lead: $0, entries: [$0]) }
         }
         if q.isEmpty { return Coverage.today(feed.stories) }
-        func hit(_ e: JournalEntry) -> Bool { e.title.localizedStandardContains(q) || e.sourceTitle.localizedStandardContains(q) }
         // episodes too, so a show tapped in Feeds lists its episodes
-        return feed.stories.filter { $0.entries.contains(where: hit) } + feed.episodes.filter(hit).map { Story(lead: $0, entries: [$0]) }
+        return Coverage.search(q, in: feed.stories + feed.episodes.map { Story(lead: $0, entries: [$0]) })
     }
 
     /// Up and down in the reader walk the list as Home shows it, replacing the open story.

@@ -88,6 +88,15 @@ var Coverage = (function () {
     var s = e.source.toLowerCase(), t = e.title.toLowerCase();
     return list.some(function (m) { m = m.toLowerCase(); return s === m || t.indexOf(m) >= 0; });
   }
+  // A search: every story with an entry whose headline or outlet matches, led by that entry, so "Hacker News" shows
+  // HN's copy of a story NBC also ran, never NBC's. Mirrors Coverage.search.
+  function search(q, stories) {
+    q = q.toLowerCase();
+    return stories.map(function (st) {
+      var e = st.entries.filter(function (x) { return (x.title + ' ' + x.source).toLowerCase().indexOf(q) >= 0; })[0];
+      return e && Object.assign({}, st, { lead: e, entries: [e].concat(st.entries.filter(function (x) { return x !== e; })) });
+    }).filter(Boolean);
+  }
   function today(stories, now) {
     now = now || Date.now();
     var top = stories.filter(function (s) { return s.publishers > 1 && now - s.lead.date < 864e5; })
@@ -144,5 +153,5 @@ var Coverage = (function () {
   function about(feed) {
     if (typeof PODCASTS !== 'undefined' && PODCASTS.some(function (p) { return p.url === feed.url; })) return 'Podcast';   // a default show, not an outlet to rate
     var o = outlet(feed.title); return o ? (o.lean == null ? 'Not rated' : leanLabel(o.lean)) + ' · ' + o.owner : feed.url; }
-  return { COLLECTIONS: COLLECTIONS, collection: collection, pick: pick, keywords: keywords, same: same, common: common, cluster: cluster, today: today, muted: muted, BRAND: BRAND, PALETTE: PALETTE, OUTLETS: OUTLETS, colors: colors, paint: paint, readingLean: readingLean, bar: bar, section: section, about: about };
+  return { COLLECTIONS: COLLECTIONS, collection: collection, pick: pick, keywords: keywords, same: same, common: common, cluster: cluster, search: search, today: today, muted: muted, BRAND: BRAND, PALETTE: PALETTE, OUTLETS: OUTLETS, colors: colors, paint: paint, readingLean: readingLean, bar: bar, section: section, about: about };
 })();

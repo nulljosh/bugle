@@ -34,11 +34,12 @@ enum HNComments {
         return "<div class=\"c\(depth > 0 && depth < 4 ? " r" : "")\"><p class=\"date\">\(clean(author)) · \(when)</p>\(clean(text))\(replies)</div>"
     }
 
-    /// HN's own tags only (p, i, pre, code, and links out); every other tag, and any attribute, is dropped.
+    /// HN's own tags only (p, i, pre, code, and links out); every other tag, and any attribute, is dropped. HN's API
+    /// writes the slashes in a link as &#x2F; ("https:&#x2F;&#x2F;github.com"); without that a link loses its tag.
     static func clean(_ html: String) -> String {
         html.replacing(/<[^>]*>|<[^>]*$/) { m in
             let tag = String(m.output)
-            return tag.wholeMatch(of: /<\/?(p|i|pre|code)>|<\/a>|<a href="https?:\/\/[^"<>\s]*"( rel="nofollow")?>/) != nil ? tag : ""
+            return tag.wholeMatch(of: /<\/?(p|i|pre|code)>|<\/a>|<a href="https?:(\/\/|&#x2F;&#x2F;)[^"<>\s]*"( rel="nofollow")?>/) != nil ? tag : ""
         }
     }
 }
@@ -47,6 +48,8 @@ enum HNComments {
 func hnDemo() {
     assert(HNComments.clean("<p>hi <i>x</i> <a href=\"https://a.b/c\" rel=\"nofollow\">l</a></p>") == "<p>hi <i>x</i> <a href=\"https://a.b/c\" rel=\"nofollow\">l</a></p>")
     assert(HNComments.clean("<script>alert(1)</script><p onclick=\"x\">a</p><img src=x onerror=y><a href=\"javascript:x\">b</a>") == "alert(1)a</p>b</a>")
+    let gh = "<a href=\"https:&#x2F;&#x2F;github.com&#x2F;a\" rel=\"nofollow\">github.com&#x2F;a</a>"
+    assert(HNComments.clean(gh) == gh, "HN's escaped slashes keep the link")
     let e = JournalEntry(title: "t", url: "https://x.com", date: .now, htmlContent: "<a href=\"https://news.ycombinator.com/item?id=42\">c</a>")
     assert(HNComments.id(e) == "42", "hn id from the hnrss body")
 }

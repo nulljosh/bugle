@@ -165,8 +165,8 @@ struct EntryDetailView: View {
           pre, table, blockquote { display: block; overflow-x: auto; }
           code { font-size: 0.9em; }
           .date { color: gray; font-size: 13px; margin: 0 0 20px; }
-          /* links in the brand blue, not WebKit's default purple; Theme.swift bugleAccent */
-          a { color: #0059B3; }
+          /* links in the brand blue and underlined, not WebKit's default purple; Theme.swift bugleAccent */
+          a { color: #0059B3; text-decoration: underline; }
           @media (prefers-color-scheme: dark) { a { color: #5aa9ff; } }
           \(pinned)
           .c { margin: 0 0 16px; } .c.r { margin-left: 16px; } .c > .date { margin: 0 0 4px; }   /* HN comments */

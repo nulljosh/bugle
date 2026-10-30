@@ -65,7 +65,7 @@ function renderEntries() {
   var shown = (Coverage.collection(q) ? Coverage.pick(q, stories)   // the collection chips: Blindspots, Popular Left, ...
     : q === 'unread' ? Coverage.today(stories).filter(function (st) { return !(window.Library && Library.isRead(st.lead)); })   // the Unread chip
     : q === 'podcasts' ? (window.Player ? Player.upNext(episodes) : episodes)
-    : q ? stories.concat(episodes).filter(function (st) { return st.entries.some(function (e) { return (e.title + ' ' + e.source).toLowerCase().indexOf(q) >= 0; }); }) : Coverage.today(stories))   // episodes too: a show tapped in Feeds lists them
+    : q ? Coverage.search(q, stories.concat(episodes)) : Coverage.today(stories))   // episodes too: a show tapped in Feeds lists them
     .map(function (st) { return st.lead; });
   window.shownLeads = shown;   // keys.js steps through these from a story
   // One outlet on screen: the reader wears its color (HN orange, BBC red); several: Bugle blue.

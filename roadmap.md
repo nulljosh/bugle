@@ -149,6 +149,6 @@ Bugle stays a reader and also becomes a Ghost-style writing client.
 
 ## Ingested 2026-10-30
 - [ ] Rename the store name from two words. Right now it is "BugleNews" on the App Store (Apple refused plain Bugle and Bugler). Q: probe a one-word name?
-- [ ] Content leaking through even when browsing a specific news feed (the Hacker News view shows an NBC News story). Screenshot: ~/Documents/Code/notes/attachments/2026-10-30/bugle-2.png
-- [ ] Links need to be blue, underlined and clickable (the URL in the comment text is plain white). Screenshot: ~/Documents/Code/notes/attachments/2026-10-30/bugle-1.png
+- [x] (7.18.2) Content leaking through even when browsing a specific news feed (the Hacker News view shows an NBC News story). Screenshot: ~/Documents/Code/notes/attachments/2026-10-30/bugle-2.png
+- [x] (7.18.2) Links need to be blue, underlined and clickable (the URL in the comment text is plain white). Screenshot: ~/Documents/Code/notes/attachments/2026-10-30/bugle-1.png
 - [ ] Needs photo support etc. in the reader.

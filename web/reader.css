@@ -51,6 +51,7 @@ a.row:hover { text-decoration: none; background: color-mix(in srgb, var(--text) 
 .article h2 { font-family: var(--display); text-transform: none; letter-spacing: -.02em; font-size: 26px; line-height: 32px; margin-bottom: var(--sp-2); }
 .article .meta { color: var(--sub); font-size: 13px; line-height: 18px; margin-bottom: var(--sp-5); }
 .article p { margin-bottom: var(--sp-4); }
+.article a { text-decoration: underline; }   /* links in a story read as links, as in the app */
 .article img { max-width: 100%; height: auto; max-height: 50vh; object-fit: cover; border-radius: 12px; }
 .article pre, .article table { display: block; overflow-x: auto; }
 .stepper { display: flex; gap: var(--sp-2); }

@@ -4,9 +4,10 @@ var HN = (function () {
   function id(e) { var m = /news\.ycombinator\.com\/item\?id=(\d+)/.exec((e.html || '') + ' ' + e.url); return m && m[1]; }
 
   // HN's own tags only (p, i, pre, code, and links out); every other tag, and any attribute, is dropped
+  // HN's API writes the slashes in a link as &#x2F; ("https:&#x2F;&#x2F;github.com"); without that a link loses its tag.
   function clean(html) {
     return (html || '').replace(/<[^>]*>|<[^>]*$/g, function (t) {
-      return /^(<\/?(p|i|pre|code)>|<\/a>|<a href="https?:\/\/[^"<>\s]*"( rel="nofollow")?>)$/.test(t) ? t : '';
+      return /^(<\/?(p|i|pre|code)>|<\/a>|<a href="https?:(\/\/|&#x2F;&#x2F;)[^"<>\s]*"( rel="nofollow")?>)$/.test(t) ? t : '';
     });
   }
 
