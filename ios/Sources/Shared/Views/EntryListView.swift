@@ -117,7 +117,6 @@ struct EntryListView: View {
         .tint(accent)
         // hidden on the playing episode's own story, where its full player already is
         .miniPlayer(player, hidden: (tab == 3 ? searchPath : path).last?.id == player.entry?.id) { _ in nowPlaying = true }
-        .minimizesTabBar()
         .sheet(isPresented: $nowPlaying) { NowPlayingView(player: player) { tab = 0; path = [$0] } }
         .sheet(isPresented: $pickTopics) { TopicPicker(topics: $topics) { pickTopics = false } }
         .onChange(of: account.askTopics) { _, ask in if ask { account.askTopics = false; pickTopics = true } }

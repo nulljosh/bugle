@@ -139,15 +139,6 @@ extension View {
         }
     }
 
-    /// The tab bar recedes while you scroll down through stories and comes back on the way up (iOS 26).
-    @ViewBuilder func minimizesTabBar() -> some View {
-        #if os(iOS)
-        if #available(iOS 26, *) { tabBarMinimizeBehavior(.onScrollDown) } else { self }
-        #else
-        self
-        #endif
-    }
-
     /// The mini player on the tab view: the tab bar accessory on iOS 26.1 and later, a floating capsule elsewhere.
     @ViewBuilder func miniPlayer(_ player: Player, hidden: Bool, open: @escaping (JournalEntry) -> Void) -> some View {
         #if os(iOS)
