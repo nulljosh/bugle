@@ -142,5 +142,9 @@ Bugle stays a reader and also becomes a Ghost-style writing client.
 ## Ingested 2026-10-27
 
 ## Ingested 2026-10-30
+- [ ] Landing page footer is enormous. All landing pages need to be the same design, same footer sizes etcetera
+- [ ] GitHub link in the landing page footer is stale
+- [ ] iOS: local news should be automatic, based on location, instead of the Choose city picker under Feeds, Local news (screenshot: notes/attachments/2026-10-30/bugle-3.png)
+- [ ] iOS: the bottom tab bar minimizes on scroll down and only comes back at the top; it should maximize as soon as the user starts scrolling up
 - [ ] Rename the store name from two words. Right now it is "BugleNews" on the App Store (Apple refused plain Bugle and Bugler). Q: probe a one-word name?
 - [ ] Needs photo support etc. in the reader.
