@@ -97,14 +97,21 @@ h3 { font-size: 30px; line-height: 32px; }
 .foot-cols { display: flex; flex-wrap: wrap; gap: var(--sp-8); }
 .foot-cols div { display: grid; gap: var(--sp-2); align-content: start; }
 .foot-cols .label { margin-bottom: var(--sp-2); }
-.foot-cols a { color: var(--text); text-decoration: none; font-size: 15px; }
+/* Each link is a 44px tap target; the negative margin keeps the 24px line pitch. */
+.foot-cols a { display: flex; align-items: center; min-height: 44px; margin: -10px 0; color: var(--text); text-decoration: none; font-size: 15px; }
 .foot-cols a:hover { color: var(--accent); }
-.word-band { color: var(--accent); position: relative; width: 100vw; margin: var(--sp-6) 0 0 calc(50% - 50vw); height: clamp(160px, 24vw, 340px); }
+.word-band { color: var(--accent); position: relative; width: 100vw; margin: var(--sp-6) 0 0 calc(50% - 50vw); height: clamp(150px, 24vw, 340px); }
 .word-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
 .word-band.live .word-canvas { display: block; }
-@media (max-width: 600px) { .word-band { height: 260px; } }
 .legal { margin-top: var(--sp-5); font-size: var(--size-footnote); line-height: 16px; color: var(--sub); text-align: center; }
 .legal a { color: inherit; }
+@media (max-width: 600px) {
+  .foot { padding-top: var(--sp-7); }
+  .foot-top { row-gap: var(--sp-5); }
+  .foot-brand { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-3); }
+  .foot-brand p { flex-basis: 100%; }
+  .foot-cols div { gap: 0; }
+}
 
 .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
 .js .reveal.in { opacity: 1; transform: none; }
