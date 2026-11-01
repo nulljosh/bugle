@@ -2,6 +2,9 @@
 
 Joshua 2026-10-25: "build out roadmap to v100 then loop to it", then "compare gaps to other news apps like native Apple News and Ground News, loop until 0 remaining gaps, QA and test everything, until A+". The loop prompt lives at `~/.claude/loops/bugle.md`.
 
+## Name
+- [ ] Store name locked as Chronicler on the draft app info (2026-11-01, Joshua said handle it; read back three times). Next: the full rename to Chronicler everywhere, repo, folder, landing at chronicler.jaybulb.com, docs, app display name, per the one-name rule, then ship it with the next version.
+
 ## Gap matrix (vs Apple News and Ground News)
 
 Status: `todo`, `partial`, `done`, or `n/a` (with the reason). The loop works top to bottom. "0 remaining gaps" means no `todo` or `partial` rows. Each `n/a` has a reason Joshua can overrule.
