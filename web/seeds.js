@@ -2,9 +2,10 @@
 // which follows SEEDS on a first visit and adds PODCASTS once.
 // ponytail: seed list mirrors FeedStore.seedFeeds and journalFeed in the app. Two copies beats
 // standing up an API to serve 17 URLs; if it drifts, nothing breaks but the defaults.
+// One deliberate difference: no CBC on the web. CBC refuses requests from Bugle's feed proxy (Cloudflare), so its
+// feeds would sit dead here; the iPhone and Mac apps fetch CBC directly and keep it.
 var JOURNAL = { title: 'Journal', url: 'https://journal.jaybulb.com/feed.xml' };
 var SEEDS = [
-  ['CBC', 'https://www.cbc.ca/webfeed/rss/rss-topstories'],
   ['The Guardian', 'https://www.theguardian.com/world/rss'],
   ['NPR', 'https://feeds.npr.org/1001/rss.xml'],
   ['BBC', 'https://feeds.bbci.co.uk/news/world/rss.xml'],
@@ -33,12 +34,12 @@ var SEEDS = [
 
 // Local newsrooms by city (Apple News and Ground News both have a Local feed). Mirrors FeedStore.local.
 var LOCAL = [
-  ['Vancouver', [['Vancouver Sun', 'https://vancouversun.com/feed'], ['The Province', 'https://theprovince.com/feed'], ['CBC British Columbia', 'https://www.cbc.ca/webfeed/rss/rss-canada-britishcolumbia'], ['Global BC', 'https://globalnews.ca/bc/feed/'], ['Vancouver Is Awesome', 'https://www.vancouverisawesome.com/rss']]],
-  ['Calgary', [['Calgary Herald', 'https://calgaryherald.com/feed'], ['CBC Calgary', 'https://www.cbc.ca/webfeed/rss/rss-canada-calgary'], ['Global Calgary', 'https://globalnews.ca/calgary/feed/']]],
+  ['Vancouver', [['Vancouver Sun', 'https://vancouversun.com/feed'], ['The Province', 'https://theprovince.com/feed'], ['Global BC', 'https://globalnews.ca/bc/feed/'], ['Vancouver Is Awesome', 'https://www.vancouverisawesome.com/rss']]],
+  ['Calgary', [['Calgary Herald', 'https://calgaryherald.com/feed'], ['Global Calgary', 'https://globalnews.ca/calgary/feed/']]],
   ['Edmonton', [['Edmonton Journal', 'https://edmontonjournal.com/feed'], ['Global Edmonton', 'https://globalnews.ca/edmonton/feed/']]],
-  ['Toronto', [['Toronto Sun', 'https://torontosun.com/feed'], ['CBC Toronto', 'https://www.cbc.ca/webfeed/rss/rss-canada-toronto'], ['Global Toronto', 'https://globalnews.ca/toronto/feed/']]],
-  ['Ottawa', [['Ottawa Citizen', 'https://ottawacitizen.com/feed'], ['CBC Ottawa', 'https://www.cbc.ca/webfeed/rss/rss-canada-ottawa']]],
-  ['Montreal', [['CBC Montreal', 'https://www.cbc.ca/webfeed/rss/rss-canada-montreal'], ['Global Montreal', 'https://globalnews.ca/montreal/feed/']]],
+  ['Toronto', [['Toronto Sun', 'https://torontosun.com/feed'], ['Global Toronto', 'https://globalnews.ca/toronto/feed/']]],
+  ['Ottawa', [['Ottawa Citizen', 'https://ottawacitizen.com/feed'], ['Global Ottawa', 'https://globalnews.ca/ottawa/feed/']]],
+  ['Montreal', [['Global Montreal', 'https://globalnews.ca/montreal/feed/']]],
   ['Seattle', [['Seattle Times', 'https://www.seattletimes.com/seattle-news/feed/']]],
   ['New York', [['Gothamist', 'https://gothamist.com/feed'], ['NY Post Metro', 'https://nypost.com/metro/feed/']]],
   ['Los Angeles', [['LA Times California', 'https://www.latimes.com/california/rss2.0.xml'], ['LAist', 'https://laist.com/index.atom']]],
@@ -51,7 +52,6 @@ var PODCASTS = [
   ["WSJ What's News", 'https://video-api.shdsvc.dowjones.io/api/podcasts/feed/the%20wall%20street%20journal%20whats%20news'],
   ['WSJ Tech News Briefing', 'https://video-api.shdsvc.dowjones.io/api/podcasts/feed/the%20wall%20street%20journal%20tech%20talk'],
   ['WSJ Your Money Briefing', 'https://video-api.shdsvc.dowjones.io/api/podcasts/feed/the%20wall%20street%20journals%20your%20money%20matters'],
-  ['World Report', 'https://www.cbc.ca/podcasting/includes/wr.xml'],
   ['The Markets', 'https://feeds.megaphone.fm/GLD9322922848'],
   ['AI Daily: Claude News', 'https://media.rss.com/claude-ai-daily/feed.xml'],
   ['The AI Daily Brief', 'https://anchor.fm/s/f7cac464/podcast/rss'],

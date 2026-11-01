@@ -86,7 +86,7 @@ function renderFeeds() {
   feeds.forEach(function (f, i) {
     var row = el('div', 'row');
     var txt = el('span', 'txt');
-    txt.appendChild(Coverage.paint(el('b', 'oc', f.title), f.title)); txt.appendChild(el('small', '', dead[f.url] ? 'Not loading right now' : Coverage.about(f)));
+    txt.appendChild(Coverage.paint(el('b', 'oc', f.title), f.title)); txt.appendChild(el('small', '', dead[f.url] ? (/(^|\.)cbc\.ca$/.test(new URL(f.url).hostname) ? 'CBC blocks web readers. It loads in the iPhone and Mac app.' : 'Not loading right now') : Coverage.about(f)));
     // Tap an outlet to read just it: Home searches for it and takes its color.
     txt.style.cursor = 'pointer';
     txt.onclick = function () { document.getElementById('q').value = f.title; location.hash = '#home'; renderEntries(); };
