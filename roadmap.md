@@ -142,7 +142,7 @@ Bugle stays a reader and also becomes a Ghost-style writing client.
 ## Ingested 2026-10-27
 
 ## Ingested 2026-10-30
-- [ ] Landing page footer is enormous. All landing pages need to be the same design, same footer sizes etcetera
+- [x] (11-01: footer band one size on all 11 landings that use it, clamp(120px, 16vw, 220px), 140px on phones; deployed) Landing page footer is enormous. All landing pages need to be the same design, same footer sizes etcetera
 - [x] (11-01: one coarse location fix picks the nearest city, picker stays to change it; not in a store build yet) iOS: local news should be automatic, based on location, instead of the Choose city picker under Feeds, Local news (screenshot: notes/attachments/2026-10-30/bugle-3.png)
 - [ ] Rename the store name from two words. Right now it is "BugleNews" on the App Store (Apple refused plain Bugle and Bugler). Q: probe a one-word name?
 - [ ] (11-01: iOS and web readers already show lead photos and inline images; Q: which story or screen is missing them?) Needs photo support etc. in the reader.
