@@ -47,12 +47,6 @@ h3 { font-size: 30px; line-height: 32px; }
 .center .cta { justify-content: center; }
 .fine { margin-top: var(--sp-3); font-size: var(--size-footnote); line-height: 16px; color: var(--sub); }
 
-/* the live reader on a blue stage: the real read.html, no frame around it */
-.demo-wrap { margin: var(--sp-8) clamp(0px, 3vw, 44px) 0; }
-.stage { position: relative; overflow: hidden; background: var(--grain), var(--band); padding: clamp(24px, 6vw, 96px) clamp(12px, 7vw, 128px); }
-.stage-art { position: absolute; inset: 0; background: none; opacity: .5; }
-.reader { position: relative; display: block; width: 100%; max-width: 1040px; height: 620px; margin: 0 auto; border: 0; border-radius: var(--r-card); overflow: hidden; background: var(--bg); }
-.demo-hint { margin-top: var(--sp-3); font-size: var(--size-footnote); color: var(--sub); text-align: center; }
 
 /* The band: a print shop in halftone beside the section head, then the features as rows and ruled cells */
 .band { margin: 0 clamp(0px, 3vw, 44px); background: var(--grain), var(--band); color: #fff; overflow: hidden; }
@@ -126,7 +120,6 @@ h3 { font-size: 30px; line-height: 32px; }
   .cell:nth-child(2n) { border-right: 0; }
   .cell:nth-last-child(-n+2) { border-bottom: 0; }
   .prods { grid-template-columns: 1fr; gap: var(--sp-6); }
-  .reader { height: 680px; }
 }
 @media (max-width: 600px) {
   .nav-links, .nav-get { display: none; }

@@ -23,7 +23,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://bugle.jaybulb.com/og.png?v=4">
 <link rel="stylesheet" href="tokens.css">
-<link rel="stylesheet" href="landing.css?v=8">
+<link rel="stylesheet" href="landing.css?v=9">
+<link rel="stylesheet" href="hero.css?v=1">
 </head>
 <body>
 
@@ -44,7 +45,8 @@
      L'Operation de la casse (CC0, Getty), all via Wikimedia Commons. Crops of one print are reused, never the same crop. -->
 <main id="top">
 <section class="hero">
-  <div class="wrap center">
+  <div class="hero-bg" aria-hidden="true" inert><div class="wall" id="swall"></div></div>
+  <div class="wrap center hero-copy">
     <img class="hero-mascot" src="mascot.svg?v=2" alt="" width="112" height="112">
     <h1>Every feed, one timeline.</h1>
     <p class="lead">Blogs, papers, Hacker News, podcasts. Everything you follow runs into one list, the day's biggest stories first.</p>
@@ -53,14 +55,6 @@
       <a class="btn btn-ghost" href="read.html">Read in the browser</a>
     </div>
     <p class="fine">iPhone, iPad and Mac. Free. No account needed.</p>
-  </div>
-
-  <div class="demo-wrap reveal">
-    <div class="stage">
-      <div class="art stage-art" style="--img: url(art/sculptura.png)" aria-hidden="true"></div>
-      <iframe class="reader" src="read.html?embed" title="Bugle, live. Add a feed or pick an entry." loading="lazy"></iframe>
-    </div>
-    <p class="demo-hint">The real reader, live. Pick an entry, or paste a feed.</p>
   </div>
 </section>
 
@@ -124,6 +118,7 @@
   <p class="legal">&copy; 2026 Joshua Trommel &middot; MIT License &middot; formerly Inkpress &middot; <a href="privacy.html">Privacy</a></p>
 </footer>
 <script src="footer-band.js?v=7" defer></script>
+<script src="hero.js?v=1" defer></script>
 
 <script>
 // fade sections in as they scroll into view
