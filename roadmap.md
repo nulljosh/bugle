@@ -142,7 +142,5 @@ Bugle stays a reader and also becomes a Ghost-style writing client.
 ## Ingested 2026-10-27
 
 ## Ingested 2026-10-30
-- [x] (11-01: footer band one size on all 11 landings that use it, clamp(120px, 16vw, 220px), 140px on phones; deployed) Landing page footer is enormous. All landing pages need to be the same design, same footer sizes etcetera
-- [x] (11-01: one coarse location fix picks the nearest city, picker stays to change it; not in a store build yet) iOS: local news should be automatic, based on location, instead of the Choose city picker under Feeds, Local news (screenshot: notes/attachments/2026-10-30/bugle-3.png)
 - [ ] Rename the store name from two words. Right now it is "BugleNews" on the App Store (Apple refused plain Bugle and Bugler). Q: probe a one-word name? (blocked: Joshua picks, 2026-11-01) Probed on the iOS 7.18.3 / Mac 2.0.1 drafts: free are Chronicler, Hornblower, Cornet. Taken: Bugle Herald Crier Gazette Broadsheet Tidings Dispatch Clarion Newsreel Courant Tabloid Bulletin Communique Headline Newswire Ticker Despatch Gazetteer Almanac Townhall Bellman Reveille Tattoo Fanfare Trumpet Klaxon Siren. Listing restored to BugleNews.
 - [ ] (11-01: iOS and web readers already show lead photos and inline images; Q: which story or screen is missing them?) Needs photo support etc. in the reader.
