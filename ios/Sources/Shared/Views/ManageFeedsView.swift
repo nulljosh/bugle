@@ -67,8 +67,14 @@ struct ManageFeedsView: View {
                 } header: {
                     Text("Local news")
                 } footer: {
-                    Text("Pick your city to follow its newsrooms.")
+                    region.isEmpty ? Text("Pick your city to follow its newsrooms.") : Text("Your city, from your rough location. Change it any time.")
                 }
+                #if os(iOS)
+                .task {
+                    // Automatic local news: one coarse fix picks the nearest city; the picker stays to change it.
+                    if region.isEmpty, let city = await NearestCity().find() { region = city }
+                }
+                #endif
 
                 Section {
                     ForEach(store.feeds) { feed in

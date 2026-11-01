@@ -20060,6 +20060,124 @@
           }
         }
       }
+    },
+    "Your city, from your rough location. Change it any time.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مدينتك، من موقعك التقريبي. يمكنك تغييرها في أي وقت."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Stadt, nach deinem ungefähren Standort. Du kannst sie jederzeit ändern."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu ciudad, según tu ubicación aproximada. Puedes cambiarla cuando quieras."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre ville, d’après votre position approximative. Modifiable à tout moment."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "העיר שלכם, לפי המיקום המשוער. אפשר לשנות בכל עת."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "आपका शहर, आपकी अनुमानित लोकेशन से। इसे कभी भी बदलें।"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kota Anda, dari perkiraan lokasi Anda. Ubah kapan saja."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua città, dalla tua posizione approssimativa. Puoi cambiarla quando vuoi."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "おおよその現在地から選んだ都市です。いつでも変更できます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "대략적인 위치로 고른 도시입니다. 언제든지 바꿀 수 있어요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je stad, op basis van je globale locatie. Je kunt hem altijd wijzigen."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Twoje miasto, na podstawie przybliżonej lokalizacji. Możesz je zmienić w każdej chwili."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sua cidade, pela sua localização aproximada. Mude quando quiser."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ваш город по примерному местоположению. Его можно изменить в любой момент."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Din stad, utifrån din ungefärliga plats. Ändra den när du vill."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yaklaşık konumunuza göre şehriniz. İstediğiniz zaman değiştirebilirsiniz."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thành phố của bạn, theo vị trí gần đúng. Có thể đổi bất cứ lúc nào."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "根据你的大致位置选出的城市，可随时更改。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "根據你的大致位置選出的城市，可隨時更改。"
+          }
+        }
+      }
     }
   },
   "version": "1.0"
