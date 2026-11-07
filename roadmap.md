@@ -139,11 +139,8 @@ Bugle stays a reader and also becomes a Ghost-style writing client.
 - 2026-08-25 1.0.5, 16 curated news feeds seeded, named-zone date fix.
 - 2026-08-10 1.0.3, new icon, loading indicator.
 
-## Ingested 2026-10-27
-
 ## Ingested 2026-10-30
 - [ ] (11-01: iOS and web readers already show lead photos and inline images; Q: which story or screen is missing them?) Needs photo support etc. in the reader.
 
 ## Ingested 2026-11-06
 - [ ] Hero background. Needs more comprehension, not just text and colours, but photos too, and less articles, more one or two or three big articles. (notes/attachments/2026-11-06/bugle-1.png)
-- [x] Article reader decodes every HTML entity in body text.
