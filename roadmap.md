@@ -143,3 +143,7 @@ Bugle stays a reader and also becomes a Ghost-style writing client.
 
 ## Ingested 2026-10-30
 - [ ] (11-01: iOS and web readers already show lead photos and inline images; Q: which story or screen is missing them?) Needs photo support etc. in the reader.
+
+## Ingested 2026-11-06
+- [ ] Hero background. Needs more comprehension, not just text and colours, but photos too, and less articles, more one or two or three big articles. (notes/attachments/2026-11-06/bugle-1.png)
+- [ ] Text needs escaping and formatting: the article reader shows raw `&#x27;` instead of apostrophes, seen on a BBC story on iPhone. (notes/attachments/2026-11-06/bugle-2.png)
