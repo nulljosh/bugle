@@ -1,53 +1,53 @@
-// Hero wall: Bugle's timeline, live. Story cards pull today's headlines through Bugle's own feed proxy,
-// swap in a new story every few seconds and show how left, center and right covered it.
+// Hero wall: Bugle's front page, live. Three big stories with their own photos, pulled through Bugle's feed proxy.
+// ponytail: no sample stories. If the feeds fail the wall stays empty and the page reads fine without it.
 (function () {
   var wall = document.getElementById('swall'); if (!wall) return;
   var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var n = innerWidth <= 560 ? 3 : innerWidth <= 900 ? 6 : 9;
-  // Shown until the live feeds land, or for good if they don't (local preview, offline).
-  var stories = [
-    ['Top story', 'Central bank holds rates steady as inflation cools'], ['Tech', 'Show HN: a tiny database that fits in one file'],
-    ['World', 'Leaders meet for climate talks as deadline nears'], ['Local', 'City council approves new rapid transit line'],
-    ['Science', 'Telescope spots water vapour on a distant planet'], ['Business', 'Housing starts climb for a third straight month'],
-    ['Sport', 'Underdogs clinch the title in extra time'], ['Health', 'New guidance on screen time for young children'],
-    ['Tech', 'Open source model tops the coding leaderboard'], ['World', 'Ceasefire talks resume after a week of strikes'],
-    ['Local', 'Rent growth slows across the region'], ['Science', 'Researchers map the brain of a fruit fly, neuron by neuron']
-  ];
-  var FEEDS = [['BBC News', 'https://feeds.bbci.co.uk/news/rss.xml'], ['NPR', 'https://feeds.npr.org/1001/rss.xml'], ['The Guardian', 'https://www.theguardian.com/world/rss']];
-  var k = 0, cards = [];
-  var el = function (t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
-  var r = function (a, b) { return a + Math.floor(Math.random() * (b - a + 1)); };
-  function fill(c, fresh) {
-    var s = stories[k++ % stories.length], L = r(1, 7), C = r(1, 6), R = r(0, 6), t = L + C + R;
-    c.src.textContent = s[0]; c.title.textContent = s[1]; c.time.textContent = fresh ? 'now' : r(2, 50) + 'm';
-    c.l.style.flexGrow = L; c.c.style.flexGrow = C; c.r.style.flexGrow = R;
-    c.meta.textContent = t + ' sources · ' + L + ' left · ' + C + ' center · ' + R + ' right';
+  var n = innerWidth <= 560 ? 1 : innerWidth <= 900 ? 2 : 3;
+  var FEEDS = [['BBC News', 'https://feeds.bbci.co.uk/news/rss.xml'], ['The Guardian', 'https://www.theguardian.com/world/rss']];
+  var el = function (t, c) { var e = document.createElement(t); if (c) e.className = c; return e; };
+  // The widest picture a story offers. BBC serves any width from the same path.
+  function photo(item) {
+    var best = '', most = 0;
+    ['thumbnail', 'content'].forEach(function (tag) {
+      Array.prototype.forEach.call(item.getElementsByTagNameNS('*', tag), function (m) {
+        var u = m.getAttribute('url'), w = +m.getAttribute('width') || 0;
+        if (u && w >= most) { best = u; most = w; }
+      });
+    });
+    return best.replace('/standard/240/', '/standard/976/');
   }
-  for (var i = 0; i < n; i++) {
-    var a = el('article', 'sc'), h = el('div', 'sc-head'), bar = el('div', 'sc-bar'), c = { a: a };
-    h.appendChild(el('i')); h.appendChild(c.src = el('span')); h.appendChild(c.time = el('time'));
-    bar.appendChild(c.l = el('span', 'l')); bar.appendChild(c.c = el('span', 'c')); bar.appendChild(c.r = el('span', 'r'));
-    a.appendChild(h); a.appendChild(c.title = el('h3', 'sc-title')); a.appendChild(bar); a.appendChild(c.meta = el('p', 'sc-meta'));
-    fill(c); wall.appendChild(a); cards.push(c);
-  }
-  // Real headlines: Bugle's /feed proxy only answers its own origin, so local previews keep the list above.
-  Promise.all(FEEDS.map(function (f) {
+  function read(f) {
     return fetch('/feed?url=' + encodeURIComponent(f[1])).then(function (res) { return res.ok ? res.text() : ''; }).then(function (x) {
-      var d = new DOMParser().parseFromString(x, 'text/xml');
-      return Array.prototype.slice.call(d.querySelectorAll('item > title'), 0, 8).map(function (t) { return [f[0], t.textContent.trim()]; });
+      var items = new DOMParser().parseFromString(x, 'text/xml').querySelectorAll('item'), out = [];
+      Array.prototype.forEach.call(items, function (i) {
+        var t = i.querySelector('title'), img = photo(i);
+        if (t && img) out.push({ source: f[0], title: t.textContent.trim(), img: img });
+      });
+      return out.slice(0, 8);
     }).catch(function () { return []; });
-  })).then(function (lists) {
-    var live = []; for (var j = 0; j < 8; j++) lists.forEach(function (l) { if (l[j] && l[j][1]) live.push(l[j]); });
-    if (live.length >= n) { stories = live; k = 0; cards.forEach(function (c) { fill(c); }); }
-  });
-  if (still) return;
-  cards.forEach(function (c, j) {
-    (function loop() {
-      setTimeout(function () {
+  }
+  function card(s) {
+    var a = el('article', 'sc'), c = { a: a, img: el('img'), src: el('span', 'sc-src'), title: el('h3', 'sc-title') };
+    c.img.alt = ''; a.appendChild(c.img); a.appendChild(c.src); a.appendChild(c.title);
+    show(c, s); wall.appendChild(a); return c;
+  }
+  function show(c, s) { c.img.src = s.img; c.src.textContent = s.source; c.title.textContent = s.title; }
+  Promise.all(FEEDS.map(read)).then(function (lists) {
+    var stories = [];
+    for (var j = 0; j < 8; j++) lists.forEach(function (l) { if (l[j]) stories.push(l[j]); });
+    if (stories.length < n) return;
+    var k = n, cards = stories.slice(0, n).map(card);
+    if (still || stories.length <= n) return;
+    var turn = 0;
+    setInterval(function () {
+      var c = cards[turn++ % n], s = stories[k++ % stories.length], pre = new Image();
+      pre.onload = function () {
         c.a.classList.add('out');
-        setTimeout(function () { fill(c, true); c.a.classList.remove('out'); c.a.classList.add('new'); setTimeout(function () { c.a.classList.remove('new'); }, 2100); loop(); }, 320);
-      }, 4200 + j * 700 + Math.random() * 2600);
-    })();
+        setTimeout(function () { show(c, s); c.a.classList.remove('out'); }, 500);
+      };
+      pre.src = s.img;
+    }, 5000);
   });
 })();
 
