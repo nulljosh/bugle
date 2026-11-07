@@ -60,5 +60,6 @@ func fullTextDemo() {
         + "<aside><article><p>\(long)related</p></article></aside></body></html>"
     let found = FullText.paragraphs(inHTML: page)
     assert(found.count == 2 && found[0].hasSuffix("one") && found[1].hasSuffix("two"), "full text picks the main article")
+    assert("Kong&#x27;s <b>law</b> &rsquo;x&rsquo; &amp;lt;".plainText == "Kong's law \u{2019}x\u{2019} &lt;", "body text decodes every entity once")
 }
 #endif

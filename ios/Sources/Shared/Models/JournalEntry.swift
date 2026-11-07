@@ -17,11 +17,13 @@ struct JournalEntry: Codable, Identifiable, Hashable {
 
 extension String {
     /// HTML entities a feed escaped twice ("iFixit&#8217;s" after XML has had its turn): numeric ones and the five
-    /// named ones that turn up in headlines. Mirrors decodeEntities in web/parse.js.
+    /// named ones that turn up in headlines and article pages. Mirrors decodeEntities in web/parse.js.
     var decodingEntities: String {
         guard contains("&") else { return self }
-        let named = ["&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": "\"", "&apos;": "'", "&nbsp;": " "]
-        return replacing(/&#(x[0-9a-fA-F]+|[0-9]+);|&(amp|lt|gt|quot|apos|nbsp);/) { m in
+        let named = ["&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": "\"", "&apos;": "'", "&nbsp;": " ",
+                     "&lsquo;": "\u{2018}", "&rsquo;": "\u{2019}", "&ldquo;": "\u{201C}", "&rdquo;": "\u{201D}",
+                     "&ndash;": "\u{2013}", "&mdash;": "\u{2014}", "&hellip;": "\u{2026}"]
+        return replacing(/&#(x[0-9a-fA-F]+|[0-9]+);|&(amp|lt|gt|quot|apos|nbsp|lsquo|rsquo|ldquo|rdquo|ndash|mdash|hellip);/) { m in
             if let n = m.output.1 {
                 let v = n.hasPrefix("x") ? UInt32(n.dropFirst(), radix: 16) : UInt32(n)
                 return v.flatMap(Unicode.Scalar.init).map { String(Character($0)) } ?? String(m.output.0)
@@ -33,11 +35,7 @@ extension String {
     /// Tags out, the common entities decoded, whitespace collapsed.
     var plainText: String {
         replacingOccurrences(of: "<[^>]+>", with: " ", options: .regularExpression)
-            .replacingOccurrences(of: "&amp;", with: "&").replacingOccurrences(of: "&lt;", with: "<")
-            .replacingOccurrences(of: "&gt;", with: ">").replacingOccurrences(of: "&#39;", with: "'")
-            .replacingOccurrences(of: "&quot;", with: "\"").replacingOccurrences(of: "&nbsp;", with: " ")
-            .replacingOccurrences(of: "&#8217;", with: "\u{2019}").replacingOccurrences(of: "&#8220;", with: "\u{201C}")
-            .replacingOccurrences(of: "&#8221;", with: "\u{201D}")
+            .decodingEntities
             .split(whereSeparator: \.isWhitespace).joined(separator: " ")
     }
 }
