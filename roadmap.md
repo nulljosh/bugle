@@ -141,3 +141,6 @@ Bugle stays a reader and also becomes a Ghost-style writing client.
 
 ## Ingested 2026-10-30
 - [ ] (11-01: iOS and web readers already show lead photos and inline images; Q: which story or screen is missing them?) Needs photo support etc. in the reader.
+
+## Ingested 2026-11-07
+- [ ] App Store has stale name. Live listing says "Bugles" (set 2026-11-01). Joshua 2026-11-07: "Bugle News and Bugles is too long. Something generic like News would be cool." Probe a short generic name with asc-name-creator, then rename everywhere once it sticks.
