@@ -144,3 +144,6 @@ Bugle stays a reader and also becomes a Ghost-style writing client.
 
 ## Ingested 2026-11-07
   Done 2026-11-07: ~200 names probed (all plain news words taken); Joshua kept Bugles. iOS 7.18.4 draft exists, name Bugles.
+
+## Ingested 2026-11-16
+- [ ] (Note "Bugle") Landing page needs screenshots of the app, not a bunch of Roman/Greek gods. Bottom footer needs a scrolling animation.
