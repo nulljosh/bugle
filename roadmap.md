@@ -147,3 +147,13 @@ Bugle stays a reader and also becomes a Ghost-style writing client.
 
 ## Ingested 2026-11-16
 - [ ] (Note "Bugle") Landing page needs screenshots of the app, not a bunch of Roman/Greek gods. Bottom footer needs a scrolling animation.
+
+## Ingested 2026-11-23
+
+- [ ] **Bugle or bugles**: macOS app is in dutch lmfao wtf?
+- [ ] **Bugle**: Why is the app in dutch
+  - And what’s with the side panel?
+  - It should not show/display unless we have a story selected
+  - Sidebar needs semi translucency / Liquid Glass.
+  - Screenshots (not yet read): `notes/attachments/2026-11-23/22672-1.png`, `notes/attachments/2026-11-23/22672-2.png`, `notes/attachments/2026-11-23/22672-3.png`
+- [ ] **Bugle**: Add feature for filtering news/feeds with LLMs.
