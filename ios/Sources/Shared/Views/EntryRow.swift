@@ -192,7 +192,7 @@ private struct EntryThumbnail: View {
     }
 
     private var monogram: some View {
-        Text(Self.initials(source)).font(.system(size: 17, weight: .bold)).foregroundStyle(Outlet.color(source))
+        Text(Self.initials(source)).font(.system(.body, weight: .bold)).foregroundStyle(Outlet.color(source))
             .accessibilityHidden(true)   // a stand-in picture; the outlet is already read out
     }
 
