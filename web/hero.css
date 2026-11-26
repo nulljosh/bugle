@@ -1,17 +1,64 @@
-/* Hero: Bugle's front page behind the copy, three big stories with photos, blended into the page; parallax in hero.js. */
-.hero { position: relative; isolation: isolate; overflow: hidden; min-height: calc(100svh - 56px); display: grid; align-items: center; padding: var(--sp-8) 0; }
-.hero-copy { position: relative; z-index: 2; }
-.hero::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse 58% 48% at 50% 50%, var(--bg) 50%, transparent 100%); }
-.hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 28%; z-index: 1; pointer-events: none; background: linear-gradient(transparent, var(--bg)); }
-.hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; transform: translate3d(0, var(--py, 0), 0); will-change: transform; }
-.wall { height: 100%; max-width: 1440px; margin: 0 auto; padding: var(--sp-6); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); opacity: .9; }
-.sc { position: relative; overflow: hidden; border-radius: var(--r-group); background: var(--line); padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-2); }
-.sc img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .5s ease; }
-.sc::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(0, 0, 0, .72), transparent 46%); }
-.sc-src, .sc-title { position: relative; z-index: 1; color: #fff; transition: opacity .5s ease; }
-.sc-src { font-size: 13px; font-weight: 600; }
-.sc-title { font-size: 24px; line-height: 30px; font-weight: 700; letter-spacing: -.01em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.sc.out img, .sc.out .sc-src, .sc.out .sc-title { opacity: 0; }
-@media (max-width: 900px) { .wall { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px) { .wall { grid-template-columns: 1fr; padding: var(--sp-4); opacity: .6; } .hero::before { background: radial-gradient(ellipse 120% 46% at 50% 50%, var(--bg) 62%, transparent 100%); } }
-@media (max-width: 600px) { .nav { grid-template-columns: auto 1fr; } .nav-brand { grid-column: 1; } .nav-end { grid-column: 2; justify-self: end; } }
+/* Hero, after Keyrate and Plank: one scene in Bugle's own objects. A feed window lies tilted on the desk under the title and
+   fills with live stories, newest on top (hero.js). Loose source chips drift around it at three depths. hero.js moves every
+   layer at its own scroll speed and leans the scene away from the pointer. */
+.hero { position: relative; isolation: isolate; overflow: hidden; min-height: calc(100svh - 56px); display: flex; flex-direction: column; align-items: center;
+        padding: clamp(72px, 13vh, 144px) 0 calc(var(--u) * 11); --u: clamp(18px, 2.4vw, 30px); }
+.hero-copy { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+.hero h1 { font-size: clamp(44px, 7vw, 92px); letter-spacing: -.035em; line-height: 1.02; max-width: 12.5em; }
+.hero .lead { font-size: clamp(17px, 1.6vw, 20px); line-height: 1.5; margin-top: 20px; }
+.hero .cta { margin-top: 32px; }
+.hero .btn { height: 46px; padding: 0 22px; font-size: 16px; }
+
+.backdrop { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+            -webkit-mask-image: linear-gradient(#000 80%, transparent); mask-image: linear-gradient(#000 80%, transparent); }
+.backdrop::after { content: ""; position: absolute; inset: 0;
+            background: radial-gradient(ellipse 46% 40% at 50% 30%, color-mix(in srgb, var(--bg) 94%, transparent),
+                        color-mix(in srgb, var(--bg) 55%, transparent) 70%, color-mix(in srgb, var(--bg) 10%, transparent)); }
+.ground { position: absolute; left: 0; right: 0; bottom: calc(var(--u) * -1.5); display: flex; justify-content: center; will-change: transform;
+          -webkit-mask-image: radial-gradient(ellipse 62% 80% at 50% 40%, #000 55%, transparent 100%);
+          mask-image: radial-gradient(ellipse 62% 80% at 50% 40%, #000 55%, transparent 100%); }
+.win { width: min(1180px, 120vw); transform: perspective(1500px) rotateX(38deg); transform-origin: 50% 100%;
+       background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--u) * .6);
+       box-shadow: 0 calc(var(--u) * .4) 0 var(--line), 0 40px 80px -30px rgba(0, 0, 0, .25); overflow: hidden; }
+.win-bar { display: flex; align-items: center; gap: calc(var(--u) * .5); padding: calc(var(--u) * .5) calc(var(--u) * .9); border-bottom: 1px solid var(--line);
+           font: 600 calc(var(--u) * .5)/1 var(--font); color: var(--sub); }
+.win-bar i { width: calc(var(--u) * .42); height: calc(var(--u) * .42); border-radius: 50%; background: var(--line); }
+.win-bar b { margin-left: calc(var(--u) * .3); font-weight: 700; color: var(--text); }
+.chips { margin-left: auto; display: flex; gap: calc(var(--u) * .25); }
+.chips span { padding: calc(var(--u) * .16) calc(var(--u) * .45); border-radius: 999px; border: 1px solid var(--line); }
+.chips span.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.rows { display: grid; align-content: start; min-height: calc(var(--u) * 13.4); }
+.row { display: flex; align-items: baseline; gap: calc(var(--u) * .6); padding: calc(var(--u) * .42) calc(var(--u) * .9); border-bottom: 1px solid var(--line);
+       font: 600 calc(var(--u) * .62)/1.25 var(--font); color: var(--text); animation: drop .5s ease both; }
+.row small { flex: none; width: calc(var(--u) * 5); font: 700 calc(var(--u) * .46)/1 var(--font); color: var(--accent); text-transform: none; }
+.row span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row:first-child::before { content: ""; flex: none; width: calc(var(--u) * .32); height: calc(var(--u) * .32); border-radius: 50%; background: var(--accent); align-self: center; margin-right: calc(var(--u) * -.2); }
+@keyframes drop { from { opacity: 0; transform: translateY(calc(var(--u) * -.5)); } }
+
+.sky { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;
+       -webkit-mask-image: linear-gradient(#000 58%, transparent); mask-image: linear-gradient(#000 58%, transparent); }
+.sky .layer { position: absolute; inset: 0; will-change: transform; }
+.tok { position: absolute; display: grid; place-items: center; height: var(--s); min-width: var(--s); padding: 0 calc(var(--s) * .3);
+       border-radius: calc(var(--s) * .22); background: var(--surface); border: 1px solid var(--line); box-shadow: 0 calc(var(--s) * .06) 0 var(--line);
+       font: 600 calc(var(--s) * .4)/1 var(--font); color: var(--sub); white-space: nowrap; user-select: none;
+       animation: drift ease-in-out infinite alternate; }
+.tok.hot { color: var(--accent); outline: 2px solid color-mix(in srgb, var(--accent) 55%, transparent); outline-offset: 2px; }
+.sky .far .tok { filter: blur(.8px); }
+.sky .near .tok { filter: drop-shadow(0 10px 14px rgba(0, 0, 0, .14)); }
+@keyframes drift { from { transform: translateY(-10px) rotate(var(--r)); } to { transform: translateY(10px) rotate(calc(var(--r) + 6deg)); } }
+
+/* facts, after Plank: four plain numbers straight from the app */
+.facts { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--band-line); }
+.fact { padding: var(--sp-6); border-right: 1px solid var(--band-line); }
+.fact:last-child { border-right: 0; }
+.fact b { display: block; font-size: clamp(32px, 3.2vw, 48px); line-height: 1.05; font-weight: 700; letter-spacing: -.03em; }
+.fact span { display: block; margin-top: var(--sp-2); color: var(--band-sub); font-size: 15px; line-height: 22px; }
+@media (max-width: 900px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } .fact:nth-child(2) { border-right: 0; } .fact:nth-child(-n+2) { border-bottom: 1px solid var(--band-line); } }
+
+@media (max-width: 560px) {
+  .hero { --u: 4.6vw; padding-bottom: calc(var(--u) * 12); }
+  .win { width: 150vw; transform: perspective(900px) rotateX(32deg); }
+  .chips span:nth-child(n+3) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .tok, .row { animation: none; } }
+@media (max-width: 600px) { .nav { grid-template-columns: auto 1fr; } .nav-brand { grid-column: 1; } .nav-end { grid-column: 2; justify-self: end; } .nav-links { display: none; } }

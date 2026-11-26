@@ -4,8 +4,8 @@
 <script>document.documentElement.classList.add('js')</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Bugle. Every feed, one timeline.</title>
-<meta name="description" content="An RSS and Atom reader for iPhone, iPad, Mac and the web. Add any blog, paper or Hacker News, and read everything in one timeline, newest first. No account needed.">
+<title>Bugle News. All your news in one timeline.</title>
+<meta name="description" content="A free news app for iPhone, iPad, Mac and the web. Newspapers, blogs, Hacker News and podcasts in one timeline, with how left, center and right covered each story. An RSS and Atom reader too. No account needed.">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0e0d0d" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://bugle.jaybulb.com/">
@@ -16,15 +16,17 @@
 <meta name="apple-itunes-app" content="app-id=6787759999">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Bugle">
-<meta property="og:title" content="Bugle. Every feed, one timeline.">
-<meta property="og:description" content="Add any blog, paper or Hacker News, and read everything in one timeline, newest first.">
+<meta property="og:title" content="Bugle News. All your news in one timeline.">
+<meta property="og:description" content="Newspapers, blogs, Hacker News and podcasts in one timeline, with how each side covered the story. Free, no account.">
 <meta property="og:url" content="https://bugle.jaybulb.com/">
 <meta property="og:image" content="https://bugle.jaybulb.com/og.png?v=4">
+<meta name="keywords" content="news app, RSS reader, Atom reader, news aggregator, podcast player, Hacker News reader, iPhone, iPad, Mac">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://bugle.jaybulb.com/og.png?v=4">
 <link rel="stylesheet" href="tokens.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Bugle News","applicationCategory":"NewsApplication","operatingSystem":"iOS, macOS, Web","description":"A news app and RSS reader: newspapers, blogs, Hacker News and podcasts in one timeline.","url":"https://bugle.jaybulb.com/","downloadUrl":"https://apps.apple.com/app/id6787759999","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Joshua Trommel"}}</script>
 <link rel="stylesheet" href="landing.css?v=9">
-<link rel="stylesheet" href="hero.css?v=7.19.0">
+<link rel="stylesheet" href="hero.css?v=8.0">
 </head>
 <body>
 
@@ -45,11 +47,12 @@
      L'Operation de la casse (CC0, Getty), all via Wikimedia Commons. Crops of one print are reused, never the same crop. -->
 <main id="top">
 <section class="hero">
-  <div class="hero-bg" aria-hidden="true" inert><div class="wall" id="swall"></div></div>
+  <div class="backdrop" aria-hidden="true" inert><div class="ground" id="board"></div></div>
+  <div class="sky" id="sky" aria-hidden="true" inert></div>
   <div class="wrap center hero-copy">
-    <img class="hero-mascot" src="mascot.svg?v=2" alt="" width="112" height="112">
-    <h1>Every feed, one timeline.</h1>
-    <p class="lead">Blogs, papers, Hacker News, podcasts. Everything you follow runs into one list, the day's biggest stories first.</p>
+    <img class="hero-mascot" src="mascot.svg?v=2" alt="" width="72" height="72">
+    <h1>All your news, one timeline.</h1>
+    <p class="lead">Newspapers, blogs, Hacker News and podcasts run into one list, the day's biggest stories first, with how each side covered them. An RSS and Atom reader too.</p>
     <div class="cta">
       <a class="btn btn-solid" href="https://apps.apple.com/app/id6787759999">Get it on the App Store</a>
       <a class="btn btn-ghost" href="read.html">Read in the browser</a>
@@ -66,6 +69,12 @@
       <h2>One press, every feed</h2>
       <p>A bugle calls everyone in at once. Bugle does that for the feeds you follow: every story, from every outlet, in one list.</p>
     </div>
+  </div>
+  <div class="facts reveal" aria-label="Bugle in numbers">
+    <div class="fact"><b>1</b><span>timeline for news, blogs and podcasts</span></div>
+    <div class="fact"><b>19</b><span>languages, and translate any story on your device</span></div>
+    <div class="fact"><b>10</b><span>cities' local desks a tap away</span></div>
+    <div class="fact"><b>0</b><span>accounts needed, and nothing to pay</span></div>
   </div>
   <div class="frows">
     <article class="frow reveal"><div class="art" style="--img: url(art/amman.png)" aria-hidden="true"></div><div><p class="label">Subscribe</p><h3>Any site, any feed</h3><p>Paste a site address and Bugle finds its feed. Newsrooms, tech and Mac sites and ten cities' local desks are a tap away, and OPML brings the rest.</p></div></article>
@@ -107,7 +116,7 @@
 
 <footer class="foot">
   <div class="foot-top">
-    <div class="foot-brand"><img src="icon.svg?v=4" alt="" width="40" height="40"><b>Bugle</b><p>Every feed, one timeline.</p></div>
+    <div class="foot-brand"><img src="icon.svg?v=4" alt="" width="40" height="40"><b>Bugle</b><p>All your news, one timeline.</p></div>
     <nav class="foot-cols" aria-label="Footer">
       <div><p class="label">Bugle</p><a href="https://apps.apple.com/app/id6787759999">App Store</a><a href="read.html">Web reader</a><a href="#features">Features</a><a href="support.html">Support</a></div>
       <div><p class="label">Source</p><a href="https://github.com/nulljosh/bugle">GitHub</a><a href="https://github.com/nulljosh/bugle/blob/main/WHITEPAPER.md">Whitepaper</a><a href="https://github.com/nulljosh/bugle/blob/main/brand/BRAND.md">Brand kit</a><a href="privacy.html">Privacy</a></div>
@@ -118,7 +127,7 @@
   <p class="legal">&copy; 2026 Joshua Trommel &middot; MIT License &middot; formerly Inkpress &middot; <a href="privacy.html">Privacy</a></p>
 </footer>
 <script src="footer-band.js?v=7" defer></script>
-<script src="hero.js?v=7.19.0" defer></script>
+<script src="hero.js?v=8.0" defer></script>
 
 <script>
 // fade sections in as they scroll into view

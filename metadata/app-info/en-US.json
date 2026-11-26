@@ -1,1 +1,5 @@
-{"name":"Bugle News","subtitle":"RSS & Atom feed reader","privacyPolicyUrl":"https://bugle.jaybulb.com/privacy"}
+{
+  "name": "Bugle News",
+  "subtitle": "News, blogs and podcasts",
+  "privacyPolicyUrl": "https://bugle.jaybulb.com/privacy"
+}
